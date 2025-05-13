@@ -46,7 +46,7 @@ const Realizacje = () => {
   }, []);
 
   // Gallery images data
-  const carpetImages = [
+  const carpetImages: Image[] = [
     { id: "c1", src: "/images/dywany/21.avif", alt: "Brudny dywan przed czyszczeniem", type: "before" },
     { id: "c2", src: "/images/dywany/22.avif", alt: "Czysty dywan po praniu", type: "after" },
     { id: "c3", src: "/images/dywany/48.avif", alt: "Dywan z plamami przed czyszczeniem", type: "before" },

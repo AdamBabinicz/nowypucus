@@ -34,7 +34,7 @@ const Sprzet = () => {
     {
       id: "karcher",
       name: "Kärcher Puzzi 10/1",
-      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/tools/1.avif",
       description: t("equipment.karcher.description"),
       features: [
         t("equipment.karcher.feature1"),
@@ -45,7 +45,7 @@ const Sprzet = () => {
     {
       id: "nilfisk",
       name: "Nilfisk MX7",
-      image: "https://images.unsplash.com/photo-1599619585752-c3d98ce5e862?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/tools/2.avif",
       description: t("equipment.nilfisk.description"),
       features: [
         t("equipment.nilfisk.feature1"),
@@ -56,7 +56,7 @@ const Sprzet = () => {
     {
       id: "pressure",
       name: "Karcher Professional HD 9/20-4",
-      image: "https://images.unsplash.com/photo-1600566752355-35d678940e7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/tools/3.avif",
       description: t("equipment.pressure.description"),
       features: [
         t("equipment.pressure.feature1"),
@@ -67,7 +67,7 @@ const Sprzet = () => {
     {
       id: "rotary",
       name: "MotorScrubber Drier 400",
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/tools/4.avif",
       description: t("equipment.rotary.description"),
       features: [
         t("equipment.rotary.feature1"),
@@ -297,7 +297,7 @@ const Sprzet = () => {
               className="relative h-80 md:h-full min-h-[320px] bg-gray-200 dark:bg-slate-800 rounded-xl overflow-hidden"
             >
               <img 
-                src="https://images.unsplash.com/photo-1627905646281-bddb7e6d2293?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                src="/images/team/2.avif" 
                 alt="Profesjonalny sprzęt do czyszczenia" 
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
