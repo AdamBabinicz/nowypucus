@@ -3,12 +3,10 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
 import CallToAction from "@/components/CallToAction";
+import Link from "@/components/Link";
 
 const Oferta = () => {
   const { t } = useTranslation();
-
-  return (
-    <div className="container py-16">
 
   // Animation variants
   const containerVariants = {
@@ -51,7 +49,7 @@ const Oferta = () => {
         content: (
           <div className="space-y-4">
             <p className="text-gray-700 dark:text-gray-300">{t("modalContent.carpetDesc")}</p>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
             <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
               <li>{t("modalContent.carpetProcess1")}</li>
@@ -61,7 +59,7 @@ const Oferta = () => {
               <li>{t("modalContent.carpetProcess5")}</li>
               <li>{t("modalContent.carpetProcess6")}</li>
             </ol>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
             <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
               <table className="w-full text-gray-700 dark:text-gray-300">
@@ -95,7 +93,7 @@ const Oferta = () => {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
           </div>
         )
@@ -116,7 +114,7 @@ const Oferta = () => {
         content: (
           <div className="space-y-4">
             <p className="text-gray-700 dark:text-gray-300">{t("modalContent.floorDesc")}</p>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
             <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
               <li>{t("modalContent.floorProcess1")}</li>
@@ -125,7 +123,7 @@ const Oferta = () => {
               <li>{t("modalContent.floorProcess4")}</li>
               <li>{t("modalContent.floorProcess5")}</li>
             </ol>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
             <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
               <table className="w-full text-gray-700 dark:text-gray-300">
@@ -151,7 +149,7 @@ const Oferta = () => {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
           </div>
         )
@@ -172,7 +170,7 @@ const Oferta = () => {
         content: (
           <div className="space-y-4">
             <p className="text-gray-700 dark:text-gray-300">{t("modalContent.furnitureDesc")}</p>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
             <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
               <li>{t("modalContent.furnitureProcess1")}</li>
@@ -182,7 +180,7 @@ const Oferta = () => {
               <li>{t("modalContent.furnitureProcess5")}</li>
               <li>{t("modalContent.furnitureProcess6")}</li>
             </ol>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
             <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
               <table className="w-full text-gray-700 dark:text-gray-300">
@@ -224,7 +222,7 @@ const Oferta = () => {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
           </div>
         )
@@ -245,7 +243,7 @@ const Oferta = () => {
         content: (
           <div className="space-y-4">
             <p className="text-gray-700 dark:text-gray-300">{t("modalContent.paverDesc")}</p>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
             <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
               <li>{t("modalContent.paverProcess1")}</li>
@@ -254,7 +252,7 @@ const Oferta = () => {
               <li>{t("modalContent.paverProcess4")}</li>
               <li>{t("modalContent.paverProcess5")}</li>
             </ol>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
             <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
               <table className="w-full text-gray-700 dark:text-gray-300">
@@ -288,7 +286,7 @@ const Oferta = () => {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
           </div>
         )
@@ -309,7 +307,7 @@ const Oferta = () => {
         content: (
           <div className="space-y-4">
             <p className="text-gray-700 dark:text-gray-300">{t("modalContent.tileDesc")}</p>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
             <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
               <li>{t("modalContent.tileProcess1")}</li>
@@ -318,7 +316,7 @@ const Oferta = () => {
               <li>{t("modalContent.tileProcess4")}</li>
               <li>{t("modalContent.tileProcess5")}</li>
             </ol>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
             <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
               <table className="w-full text-gray-700 dark:text-gray-300">
@@ -348,7 +346,7 @@ const Oferta = () => {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
           </div>
         )
@@ -369,7 +367,7 @@ const Oferta = () => {
         content: (
           <div className="space-y-4">
             <p className="text-gray-700 dark:text-gray-300">{t("modalContent.carDesc")}</p>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
             <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
               <li>{t("modalContent.carProcess1")}</li>
@@ -378,7 +376,7 @@ const Oferta = () => {
               <li>{t("modalContent.carProcess4")}</li>
               <li>{t("modalContent.carProcess5")}</li>
             </ol>
-            
+
             <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
             <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
               <table className="w-full text-gray-700 dark:text-gray-300">
@@ -408,7 +406,7 @@ const Oferta = () => {
                 </tbody>
               </table>
             </div>
-            
+
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
           </div>
         )
@@ -429,7 +427,7 @@ const Oferta = () => {
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20">
         <div className="container mx-auto px-4 text-center">
           <motion.h1 
-            className="font-heading text-3xl md:text-4xl font-bold text-white mb-4"
+            className="font-heading text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -470,129 +468,11 @@ const Oferta = () => {
                 id={service.id}
               >
                 <ServiceCard 
-                  id={service.id}
-                  title={service.title}
-                  description={service.description}
-                  features={service.features}
-                  image={service.image}
-                  modalContent={service.modalContent}
+                  {...service}
                 />
               </motion.div>
             ))}
           </motion.div>
-        </div>
-      </section>
-
-      {/* Additional Services */}
-      <section className="py-16 bg-white dark:bg-slate-900">
-        <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">
-            {t("servicesPage.additionalTitle")}
-          </h2>
-
-          <div className="bg-gray-50 dark:bg-slate-800 rounded-xl p-6 md:p-8 shadow-md max-w-3xl mx-auto">
-            <h3 className="font-heading text-xl font-semibold mb-4 text-gray-800 dark:text-white">{t("servicesPage.additionalServicesTitle")}</h3>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300 mb-8">
-              <li className="flex items-start">
-                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span>{t("servicesPage.additionalService1")}</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span>{t("servicesPage.additionalService2")}</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span>{t("servicesPage.additionalService3")}</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span>{t("servicesPage.additionalService4")}</span>
-              </li>
-            </ul>
-
-            <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-800 dark:text-blue-200">
-              <p className="text-sm font-medium">{t("servicesPage.additionalNote")}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Service Area */}
-      <section className="py-16 bg-gray-100 dark:bg-slate-800">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-heading text-3xl font-bold mb-8 text-gray-800 dark:text-white">
-              {t("servicesPage.serviceAreaTitle")}
-            </h2>
-            
-            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-md p-6 mb-8">
-              <p className="text-gray-700 dark:text-gray-300 mb-4">{t("servicesPage.serviceAreaDesc")}</p>
-              
-              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-gray-700 dark:text-gray-300">
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Radom
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Kozienice
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Pionki
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Zwoleń
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Białobrzegi
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Iłża
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Skaryszew
-                </li>
-                <li className="flex items-center">
-                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                  </svg>
-                  Jedlnia
-                </li>
-              </ul>
-            </div>
-
-            <p className="text-gray-700 dark:text-gray-300">
-              {t("servicesPage.serviceAreaNote")}
-            </p>
-          </div>
         </div>
       </section>
 
