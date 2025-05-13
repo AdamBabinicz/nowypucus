@@ -46,7 +46,7 @@ const Home = () => {
         { id: "c2", text: t("services.carpetFeature2") },
         { id: "c3", text: t("services.carpetFeature3") }
       ],
-      image: "https://images.unsplash.com/photo-1558317374-067fb5f30001?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/dywany/55.avif",
       modalContent: {
         title: t("services.carpetCleaning"),
         content: (
@@ -111,7 +111,7 @@ const Home = () => {
         { id: "f2", text: t("services.furnitureFeature2") },
         { id: "f3", text: t("services.furnitureFeature3") }
       ],
-      image: "https://pixabay.com/get/g4881186e7325c4333727e09c5be1db0be4cdd01b8667566c1ce13ce2451a46d8f114cd72408b33461da3d32957f817448c0b2f8eb357325cf5272c5e34c8de20_1280.jpg",
+      image: "/images/meble/p15.avif",
       modalContent: {
         title: t("services.furnitureCleaning"),
         content: (
@@ -176,7 +176,7 @@ const Home = () => {
         { id: "p2", text: t("services.paverFeature2") },
         { id: "p3", text: t("services.paverFeature3") }
       ],
-      image: "https://images.unsplash.com/photo-1600566752355-35d678940e7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/kostka/5.avif",
       modalContent: {
         title: t("services.paverCleaning"),
         content: (
@@ -239,13 +239,17 @@ const Home = () => {
 
   // Gallery slider images
   const carpetImages: Image[] = [
-    { id: "c1", src: "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Przed czyszczeniem", type: "before" },
-    { id: "c2", src: "https://pixabay.com/get/g3fc231a668fd0b8aa8df4f8b8b6a878f6c302a07f0df5bfba8abd0c29e21483de578d633605faaa0dd56bba987c09cafc9c4d634c26317e6feb6c16fc232bfde_1280.jpg", alt: "Po czyszczeniu", type: "after" }
+    { id: "c1", src: "/images/dywany/48.avif", alt: "Przed czyszczeniem", type: "before" },
+    { id: "c2", src: "/images/dywany/49.avif", alt: "Po czyszczeniu", type: "after" },
+    { id: "c3", src: "/images/dywany/52.avif", alt: "Przed czyszczeniem", type: "before" },
+    { id: "c4", src: "/images/dywany/53.avif", alt: "Po czyszczeniu", type: "after" }
   ];
 
   const furnitureImages: Image[] = [
-    { id: "f1", src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Przed czyszczeniem", type: "before" },
-    { id: "f2", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Po czyszczeniu", type: "after" }
+    { id: "f1", src: "/images/meble/p1.avif", alt: "Przed czyszczeniem", type: "before" },
+    { id: "f2", src: "/images/meble/p2.avif", alt: "Po czyszczeniu", type: "after" },
+    { id: "f3", src: "/images/meble/p4.avif", alt: "Przed czyszczeniem", type: "before" },
+    { id: "f4", src: "/images/meble/p5.avif", alt: "Po czyszczeniu", type: "after" }
   ];
 
   return (
