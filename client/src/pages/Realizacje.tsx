@@ -141,24 +141,28 @@ const Realizacje = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm sticky top-20 z-10 pb-4">
               <button onClick={() => {
+                window.location.hash = 'dywany';
                 dywanyRef.current?.scrollIntoView({ behavior: 'smooth' });
                 setIsDropdownOpen(false);
               }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.carpets")}
               </button>
               <button onClick={() => {
+                window.location.hash = 'wykladziny';
                 wykladzinyRef.current?.scrollIntoView({ behavior: 'smooth' });
                 setIsDropdownOpen(false);
               }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.flooring")}
               </button>
               <button onClick={() => {
+                window.location.hash = 'meble';
                 mebleRef.current?.scrollIntoView({ behavior: 'smooth' });
                 setIsDropdownOpen(false);
               }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.furniture")}
               </button>
               <button onClick={() => {
+                window.location.hash = 'kostka-plytki';
                 kostkaRef.current?.scrollIntoView({ behavior: 'smooth' });
                 setIsDropdownOpen(false);
               }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
