@@ -68,6 +68,11 @@
     }
   }
 
+  /* Override container width in sections that need full width */
+  .full-width .container {
+    max-width: none;
+  }
+
   /* Import fonts */
   @import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Stalinist+One&display=swap');
 
