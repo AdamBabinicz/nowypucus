@@ -5,6 +5,11 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        'heading': ['"Major Mono Display"', 'monospace'],
+        'subheading': ['"Stalinist One"', 'cursive'],
+        'sans': ['Inter', 'Open Sans', 'sans-serif'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

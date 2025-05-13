@@ -60,9 +60,9 @@ const toggleDropdown = (section?: string) => {
       <nav className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <img src={logoPath} alt="Super Pucuś Logo" className="h-12 w-auto" />
-            <span className="ml-2 text-lg font-heading font-semibold text-primary dark:text-primary-400">
+            <span className="ml-2 text-lg font-heading font-semibold text-primary dark:text-sky-400">
               Super Pucuś
             </span>
           </Link>
