@@ -140,16 +140,28 @@ const Realizacje = () => {
               {t("portfolioPage.introText")}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm sticky top-20 z-10 pb-4">
-              <button onClick={() => dywanyRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              <button onClick={() => {
+                dywanyRef.current?.scrollIntoView({ behavior: 'smooth' });
+                setIsDropdownOpen(false);
+              }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.carpets")}
               </button>
-              <button onClick={() => wykladzinyRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              <button onClick={() => {
+                wykladzinyRef.current?.scrollIntoView({ behavior: 'smooth' });
+                setIsDropdownOpen(false);
+              }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.flooring")}
               </button>
-              <button onClick={() => mebleRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              <button onClick={() => {
+                mebleRef.current?.scrollIntoView({ behavior: 'smooth' });
+                setIsDropdownOpen(false);
+              }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.furniture")}
               </button>
-              <button onClick={() => kostkaRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              <button onClick={() => {
+                kostkaRef.current?.scrollIntoView({ behavior: 'smooth' });
+                setIsDropdownOpen(false);
+              }} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.pavers")}
               </button>
             </div>
