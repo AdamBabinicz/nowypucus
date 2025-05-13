@@ -7,6 +7,9 @@ import CallToAction from "@/components/CallToAction";
 const Oferta = () => {
   const { t } = useTranslation();
 
+  return (
+    <div className="container py-16">
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },

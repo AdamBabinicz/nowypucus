@@ -10,6 +10,9 @@ const Contact = () => {
   const { t } = useTranslation();
 
   return (
+    <div className="container py-16">
+
+  return (
     <>
       <Helmet>
         <title>{t("meta.contactTitle")}</title>

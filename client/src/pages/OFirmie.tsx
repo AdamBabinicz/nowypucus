@@ -7,6 +7,9 @@ import CallToAction from "@/components/CallToAction";
 const OFirmie = () => {
   const { t } = useTranslation();
 
+  return (
+    <div className="container py-16">
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

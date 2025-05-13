@@ -6,6 +6,9 @@ import CallToAction from "@/components/CallToAction";
 const Sprzet = () => {
   const { t } = useTranslation();
 
+  return (
+    <div className="container py-16">
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
