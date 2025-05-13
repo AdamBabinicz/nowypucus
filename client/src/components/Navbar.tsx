@@ -271,8 +271,8 @@ const Navbar = () => {
                   </a>
                 </li>
                 <li className="py-2 flex items-center space-x-3">
-                  <LanguageSelector />
-                  <ThemeToggle />
+                  <LanguageSelector onLanguageChange={() => setIsOpen(false)} />
+                  <ThemeToggle onThemeToggle={() => setIsOpen(false)} />
                   <a 
                     href="https://m.me/super.pucus" 
                     target="_blank" 

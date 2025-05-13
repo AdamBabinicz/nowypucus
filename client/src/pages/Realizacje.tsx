@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { useParams } from "wouter";
 import GallerySlider from "@/components/GallerySlider";
 import CallToAction from "@/components/CallToAction";
 
