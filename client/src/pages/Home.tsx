@@ -272,7 +272,7 @@ const Home = () => {
           />
         </div>
         
-        <div className="container mx-auto px-4 py-16 lg:py-24 relative z-10">
+        <div className="container py-16 lg:py-24 relative z-10">
           <motion.div 
             className="max-w-3xl"
             initial={{ opacity: 0, y: 20 }}
