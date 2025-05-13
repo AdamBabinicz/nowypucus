@@ -126,19 +126,19 @@ const Realizacje = () => {
             <p className="text-gray-700 dark:text-gray-300 mb-8">
               {t("portfolioPage.introText")}
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <a href="#dywany" className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+            <div className="flex flex-wrap justify-center gap-4 text-sm sticky top-20 z-10 pb-4">
+              <button onClick={() => dywanyRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.carpets")}
-              </a>
-              <a href="#wykladziny" className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              </button>
+              <button onClick={() => wykladzinyRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.flooring")}
-              </a>
-              <a href="#meble" className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              </button>
+              <button onClick={() => mebleRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.furniture")}
-              </a>
-              <a href="#kostka-plytki" className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
+              </button>
+              <button onClick={() => kostkaRef.current?.scrollIntoView({ behavior: 'smooth' })} className="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-colors">
                 {t("portfolio.pavers")}
-              </a>
+              </button>
             </div>
           </div>
         </div>

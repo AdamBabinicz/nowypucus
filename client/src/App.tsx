@@ -12,6 +12,7 @@ import Realizacje from "@/pages/Realizacje";
 import Sprzet from "@/pages/Sprzet";
 import Contact from "@/pages/Contact";
 import Regulamin from "@/pages/Regulamin";
+import PolitykaPrywatnosci from "@/pages/PolitykaPrywatnosci";
 import { ThemeProvider } from "./context/ThemeContext";
 import { LanguageProvider } from "./context/LanguageContext";
 import { HelmetProvider } from "react-helmet-async";
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/sprzet" component={Sprzet} />
       <Route path="/kontakt" component={Contact} />
       <Route path="/regulamin" component={Regulamin} />
+      <Route path="/polityka-prywatnosci" component={PolitykaPrywatnosci} />
       <Route component={NotFound} />
     </Switch>
   );

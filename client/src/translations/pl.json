@@ -427,5 +427,37 @@
     "lastUpdate": "Ostatnia aktualizacja regulaminu",
     "contactTitle": "Dane kontaktowe",
     "contactText": "W przypadku pytań lub wątpliwości dotyczących regulaminu, prosimy o kontakt:"
+  },
+  "privacy": {
+    "pageTitle": "Polityka Prywatności",
+    "metaDescription": "Zapoznaj się z polityką prywatności firmy Super Pucuś. Informacje o przetwarzaniu danych osobowych oraz wykorzystaniu plików cookies.",
+    "title": "Polityka Prywatności",
+    "section1": {
+      "title": "Informacje ogólne",
+      "content": "Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez Użytkowników w związku z korzystaniem ze strony internetowej Super Pucuś. Administratorem danych osobowych jest firma Super Pucuś z siedzibą w Radomiu."
+    },
+    "section2": {
+      "title": "Dane osobowe",
+      "content": "Administrator zbiera informacje podane dobrowolnie przez użytkownika w formularzu kontaktowym. Dane osobowe przetwarzane są w celu realizacji usług świadczonych przez Administratora oraz w celach marketingowych. Każda osoba ma prawo dostępu do treści swoich danych oraz ich poprawiania."
+    },
+    "section3": {
+      "title": "Pliki cookies",
+      "content": "Strona internetowa Super Pucuś wykorzystuje pliki cookies w celu zapewnienia jej prawidłowego funkcjonowania oraz w celach statystycznych. Pliki cookies to małe pliki tekstowe wysyłane przez serwer i przechowywane na urządzeniu końcowym użytkownika."
+    },
+    "section4": {
+      "title": "Prawa użytkownika",
+      "item1": "Prawo dostępu do danych oraz otrzymania ich kopii",
+      "item2": "Prawo do sprostowania (poprawiania) swoich danych",
+      "item3": "Prawo do usunięcia danych"
+    },
+    "section5": {
+      "title": "Bezpieczeństwo danych",
+      "content": "Administrator dokłada wszelkich starań, aby chronić dane osobowe Użytkowników przed nieuprawnionym dostępem, zmianą, ujawnieniem lub zniszczeniem. Dane są chronione poprzez zastosowanie odpowiednich środków technicznych i organizacyjnych."
+    },
+    "section6": {
+      "title": "Zmiany w polityce prywatności",
+      "content": "Administrator zastrzega sobie prawo do zmiany w polityce prywatności serwisu, co może zostać spowodowane rozwojem technologii internetowej, ewentualnymi zmianami prawa w zakresie ochrony danych osobowych oraz rozwojem strony internetowej."
+    },
+    "lastUpdated": "Ostatnia aktualizacja"
   }
 }
