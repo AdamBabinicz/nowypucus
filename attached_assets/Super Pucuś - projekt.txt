@@ -1,0 +1,162 @@
+✂️ Projekt: Super Pucuś: Pranie dywanów, tapicerki meblowej-Radom.
+(Pranie dywanów, wykładzin, tapicerki meblowej w Radomiu. Mycie kostki, posadzek, tarasów. Profesjonalnie dla domu i biura. Zadzwoń do nas! ☎ +48531890827)
+✅ Stack technologiczny
+Frontend Framework: React (z Vite)
+Stylowanie: TailwindCSS (dostosowane do estetyki czystości i profesjonalizmu)
+Routing: React Router DOM
+Multilingual: react-i18next (PL / EN)
+Formularz: HTML5 + React Hook Form + EmailJS/Formspree (lub inna usługa do wysyłki e-maili po stronie klienta)
+Popup / Modal: React Portals (z animacjami przez Framer Motion, wewnętrznym skrolowaniem)
+Ikony: react-icons
+Responsywność: TailwindCSS (mobile-first)
+SEO & OpenGraph: react-helmet-async
+Tryb Dark/Light: useContext + localStorage
+Dostępność (a11y): aria-labels, focus management, semantyczny HTML
+Obrazy: Format .avif + fallback .webp (optymalizacja dla szybkości)
+Favicons: RealFaviconGenerator (na podstawie dostarczonego logo)
+Animacje: Framer Motion (dla subtelnych przejść, efektów i animacji modali)
+Hosting: cba.pl (deployment statycznych plików zbudowanych przez Vite)
+🧭 Struktura projektu
+/public
+  ├── favicons/
+  ├── images/
+  │   └── qr-code-messenger.png       # Dostarczony kod QR
+  └── index.html
+/src
+  ├── assets/
+  │   ├── images/
+  │   │   ├── logo-super-pucus.png    # Dostarczone logo
+  │   │   ├── realizacje/             # Zdjęcia dla galerii realizacji
+  │   │   │   ├── dywany/             # (np. dywan1.avif, dywan1_po.webp)
+  │   │   │   ├── wykladziny/
+  │   │   │   ├── meble/
+  │   │   │   └── kostka_plytki/
+  │   │   └── sprzet/                 # Zdjęcia sprzętu
+  │   └── fonts/                      # Opcjonalnie, jeśli niestandardowe fonty lokalnie
+  ├── components/
+  │   ├── Navbar.jsx
+  │   ├── Footer.jsx
+  │   ├── LanguageSelector.jsx
+  │   ├── ThemeToggle.jsx
+  │   ├── GallerySlider.jsx           # Do wyświetlania sliderów zdjęć
+  │   ├── ServiceCard.jsx             # Karta usługi, wywołująca Modal
+  │   ├── Modal.jsx                   # Zaawansowany Modal z animacją i skrolowaniem
+  │   ├── CallToAction.jsx
+  │   ├── ScrollToTopButton.jsx       # Przycisk do przewijania na górę
+  │   └── CookieConsent.jsx           # Baner zgody na cookies
+  ├── pages/
+  │   ├── Home.jsx
+  │   ├── Oferta.jsx
+  │   ├── OFirmie.jsx
+  │   ├── Realizacje.jsx              # Strona z sekcjami i sliderami dla realizacji
+  │   ├── Sprzet.jsx
+  │   ├── Contact.jsx
+  │   └── Regulamin.jsx
+  ├── translations/
+  │   ├── pl.json
+  │   └── en.json
+  ├── App.jsx                         # Główny plik aplikacji z routingiem
+  ├── main.jsx                        # Punkt wejścia aplikacji React
+  └── i18n.js                         # Konfiguracja react-i18next
+Use code with caution.
+📌 Funkcjonalności
+Navbar (Navbar.jsx)
+Logo: Dostarczone logo "Super Pucuś".
+Linki nawigacyjne:
+Start (/)
+Oferta (/oferta)
+O Firmie (/o-firmie)
+Realizacje (dropdown):
+Dywany (link do /realizacje#dywany)
+Wykładziny (link do /realizacje#wykladziny)
+Meble (link do /realizacje#meble)
+Kostka, Płytki (link do /realizacje#kostka-plytki)
+Sprzęt (/sprzet)
+Kontakt (/kontakt)
+Blog (link zewnętrzny: https://dywany-pranie.blogspot.com/, otwierany w nowej karcie: target="_blank" rel="noopener noreferrer")
+Numer telefonu: Wyświetlany i klikalny: <a href="tel:+48531890827" className="font-semibold"><strong>Zadzwoń teraz!</strong> +48 531 890 827</a> (lub podobnie, z użyciem <strong>).
+Przełącznik języka (PL / EN).
+Dark/Light toggle (ikonki słońce/księżyc).
+Ikona Messengera: Linkująca do https://m.me/super.pucus (np. BsMessenger z react-icons).
+Menu mobilne: Typu "hamburger", otwierane płynnie. Po kliknięciu dowolnego elementu menu (włącznie z linkami, przełącznikiem języka/motywu) menu powinno się płynnie zamykać (animacja "slide up" z opóźnieniem).
+Strona główna (Home.jsx)
+Hero Section: Duże, efektowne zdjęcie/slider.
+Główny nagłówek (jeden <h1> na całej stronie, tutaj): np. <h1>Super Pucuś – Profesjonalne Czyszczenie w Radomiu i okolicach</h1>
+Krótkie motto, np. <p>Przywracamy <strong>blask i świeżość</strong> Twoim dywanom, meblom i otoczeniu!</p>.
+Przyciski CTA: "Zobacz ofertę", "Szybka wycena".
+Sekcja "Dlaczego my?" (z nagłówkami <h2> lub <h3>).
+Oferta (Oferta.jsx)
+Nagłówek <h2>Nasza Oferta</h2>.
+Opis każdej usługi (nagłówki <h3> dla nazw usług) przy użyciu ServiceCard.jsx.
+Popupy (Modale) w ServiceCard.jsx:
+Przycisk np. "<strong>Szczegóły i Cennik</strong>".
+Otwiera Modal.jsx z animacją (Framer Motion) i opóźnieniem.
+Treść Modala: szczegółowy opis, cennik, mała galeria zdjęć usługi.
+Responsywność Modala: wewnętrzne skrolowanie (overflow-y: auto) dla dużej ilości treści na smartfonach, max-h-[80vh].
+O Firmie (OFirmie.jsx)
+Nagłówek <h2>O Naszej Firmie</h2>.
+Historia, misja, wartości. Podkreślenie np. "<strong>Doświadczenie i profesjonalizm</strong> to nasze atuty."
+(Opcjonalnie) Zdjęcia zespołu, certyfikaty.
+Realizacje (Realizacje.jsx)
+Nagłówek <h2>Nasze Realizacje – Zobacz Efekty!</h2>.
+Sekcje z kotwicami (<section id="dywany"> itd.) i nagłówkami <h3> dla każdej kategorii:
+Dywany: GallerySlider.jsx ze zdjęciami dywanów (przed/po).
+Wykładziny: GallerySlider.jsx ze zdjęciami wykładzin.
+Meble: GallerySlider.jsx ze zdjęciami mebli.
+Kostka, Płytki: GallerySlider.jsx ze zdjęciami kostki/płytek.
+Kliknięcie zdjęcia w sliderze otwiera je w powiększonym modalu.
+Sprzęt (Sprzet.jsx)
+Nagłówek <h2>Nasz Profesjonalny Sprzęt</h2>.
+Opis i zdjęcia używanych maszyn i technologii. Podkreślenie np. "Stosujemy <strong>sprawdzone i skuteczne</strong> technologie czyszczenia."
+Kontakt (Contact.jsx)
+Nagłówek <h2>Skontaktuj się z Nami</h2>.
+Formularz kontaktowy (React Hook Form + EmailJS/Formspree).
+Mapa Google (obszar działania).
+Dane kontaktowe (telefon, email, godziny).
+Kod QR do Messengera (qr-code-messenger.png).
+Regulamin (Regulamin.jsx)
+Nagłówek <h2>Regulamin Świadczenia Usług</h2>.
+Treść zgodna z dostarczoną, z odpowiednim formatowaniem (nagłówki <h3>, <h4>, listy, <strong>).
+Stopka (Footer.jsx)
+Linki Social Media, kluczowe linki nawigacyjne.
+Copyright: © Super Pucuś {new Date().getFullYear()}. <strong>Wszelkie prawa zastrzeżone.</strong>
+(Opcjonalnie) Link do Polityki Prywatności.
+Przycisk Scroll to Top (ScrollToTopButton.jsx)
+Ikonka (np. FaArrowUp) pojawiająca się po przewinięciu, płynne przewijanie na górę.
+🌐 SEO + Open Graph + UX
+Meta tagi + Open Graph: react-helmet-async. Jeden <h1> na renderowanej stronie (komponencie). Poprawna hierarchia <h2>-<h6>.
+JSON-LD: Schema.org markup dla LocalBusiness i Service.
+Canonical URLs.
+Responsywność: Pełna.
+Favicony: Z RealFaviconGenerator.
+Lazy loading zdjęć.
+Smooth scroll (dla kotwic).
+404 Page Not Found: Przyjazna strona błędu (nagłówek <h2>Strona nie znaleziona</h2>).
+Accessibility skip link.
+Sitemap.xml i robots.txt: Do przygotowania i umieszczenia na serwerze.
+✨ Styl wizualny
+Kolory główne (Tryb Jasny):
+Tło: Bardzo jasny, prawie biały (np. Tailwind gray-50 - #F9FAFB).
+Tekst: Ciemnoszary (np. Tailwind gray-800 - #1F2937).
+Akcenty: Blade, pastelowe odcienie niebieskiego (np. Tailwind blue-200), zieleni (np. Tailwind green-200).
+CTA/Wyróżnienia: Bardziej nasycony, ale jasny niebieski (np. Tailwind blue-500 / sky-500).
+Kolory główne (Tryb Ciemny):
+Tło: Niezbyt ciemny niebieski (np. Tailwind slate-800 - #1E293B).
+Tekst: Jasnoszary/złamana biel (np. Tailwind slate-200 - #E2E8F0).
+Akcenty: Jaśniejsze odcienie niebieskiego (np. Tailwind sky-500).
+CTA/Wyróżnienia: Jasny, żywy niebieski (np. Tailwind blue-400).
+Czcionki:
+Nagłówki (H1-H6): Nowoczesny, czytelny sans-serif (np. Montserrat, Poppins).
+Tekst główny: Bardzo czytelny sans-serif (np. Open Sans, Lato).
+Efekty:
+Delikatne animacje wejścia (Framer Motion).
+Subtelne podświetlenia przy hover.
+Płynne przejścia.
+🖼️ Zasoby Graficzne
+Logo: Użyj dostarczonego pliku logo-super-pucus.png.
+Kod QR: Użyj dostarczonego obrazu qr-code-messenger.png.
+Zdjęcia realizacji: Musisz je pobrać ze strony https://pranie-dywanow.j.pl (upewniając się, że masz do tego prawo) i umieścić w strukturze projektu /src/assets/images/realizacje/ w odpowiednich podkatalogach. Następnie zoptymalizuj je do formatów .avif (tylko i wyłącznie).
+Pamiętaj:
+Ten plan stanowi mapę drogową. Implementacja w Replit będzie wymagała pisania kodu dla każdego komponentu i strony.
+Kluczowe będzie prawidłowe skonfigurowanie GallerySlider.jsx i Modal.jsx z animacjami i responsywnością.
+Regularnie testuj responsywność i działanie na różnych urządzeniach.

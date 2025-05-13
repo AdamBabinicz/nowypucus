@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:  
+Sitemap: https://pranie-dywanow.j.pl/sitemap.xml
