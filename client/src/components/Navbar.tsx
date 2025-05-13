@@ -110,7 +110,7 @@ const toggleDropdown = (section?: string) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-                <div className={`lg:absolute left-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-md shadow-lg py-1 z-10 ${isDropdownOpen['portfolio'] ? 'block' : 'hidden'} lg:hidden lg:group-hover:block transition-all duration-300 ease-in-out`}>
+                <div className={`lg:absolute left-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-md shadow-lg py-1 z-10 ${isDropdownOpen['portfolio'] ? 'block' : 'hidden'} transition-all duration-300 ease-in-out`}>
                   <Link href="/realizacje#dywany" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-800">
                     {t('portfolio.carpets')}
                   </Link>

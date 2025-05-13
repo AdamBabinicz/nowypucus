@@ -58,7 +58,8 @@
   }
 
   .container {
-    @apply px-24; /* 6rem padding */
+    @apply px-24 mx-auto; /* 6rem padding */
+    max-width: calc(100% - 12rem); /* Ensure container respects padding */
   }
 
   /* Import fonts */
