@@ -67,7 +67,7 @@ const Contact = () => {
             "priceRange": "$$"
           }
         `}</script>
-      </Helmet>
+      </Helmet>>
 
       {/* Page Header */}
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20">
