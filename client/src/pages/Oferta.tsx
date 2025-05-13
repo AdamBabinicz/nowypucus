@@ -1,0 +1,602 @@
+import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import ServiceCard from "@/components/ServiceCard";
+import CallToAction from "@/components/CallToAction";
+
+const Oferta = () => {
+  const { t } = useTranslation();
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
+  // Services data
+  const services = [
+    {
+      id: "dywany",
+      title: t("services.carpetCleaning"),
+      description: t("services.carpetCleaningDesc"),
+      features: [
+        { id: "c1", text: t("services.carpetFeature1") },
+        { id: "c2", text: t("services.carpetFeature2") },
+        { id: "c3", text: t("services.carpetFeature3") },
+        { id: "c4", text: t("services.carpetFeature4") }
+      ],
+      image: "https://images.unsplash.com/photo-1558317374-067fb5f30001?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      modalContent: {
+        title: t("services.carpetCleaning"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-gray-700 dark:text-gray-300">{t("modalContent.carpetDesc")}</p>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
+            <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>{t("modalContent.carpetProcess1")}</li>
+              <li>{t("modalContent.carpetProcess2")}</li>
+              <li>{t("modalContent.carpetProcess3")}</li>
+              <li>{t("modalContent.carpetProcess4")}</li>
+              <li>{t("modalContent.carpetProcess5")}</li>
+              <li>{t("modalContent.carpetProcess6")}</li>
+            </ol>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
+            <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
+              <table className="w-full text-gray-700 dark:text-gray-300">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">{t("modalContent.service")}</th>
+                    <th className="text-right pb-2">{t("modalContent.price")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.carpetCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 15 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.floorCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 12 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.orientalCarpet")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 25 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.stainRemoval")}</td>
+                    <td className="text-right py-2">+20% {t("modalContent.toBasePrice")}</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.impregnation")}</td>
+                    <td className="text-right py-2">+5 zł/m²</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
+          </div>
+        )
+      }
+    },
+    {
+      id: "wykladziny",
+      title: t("services.floorCleaning"),
+      description: t("services.floorCleaningDesc"),
+      features: [
+        { id: "w1", text: t("services.floorFeature1") },
+        { id: "w2", text: t("services.floorFeature2") },
+        { id: "w3", text: t("services.floorFeature3") }
+      ],
+      image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      modalContent: {
+        title: t("services.floorCleaning"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-gray-700 dark:text-gray-300">{t("modalContent.floorDesc")}</p>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
+            <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>{t("modalContent.floorProcess1")}</li>
+              <li>{t("modalContent.floorProcess2")}</li>
+              <li>{t("modalContent.floorProcess3")}</li>
+              <li>{t("modalContent.floorProcess4")}</li>
+              <li>{t("modalContent.floorProcess5")}</li>
+            </ol>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
+            <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
+              <table className="w-full text-gray-700 dark:text-gray-300">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">{t("modalContent.service")}</th>
+                    <th className="text-right pb-2">{t("modalContent.price")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.floorCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 12 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.stainRemoval")}</td>
+                    <td className="text-right py-2">+20% {t("modalContent.toBasePrice")}</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.commercialFloor")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 10 zł/m²</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
+          </div>
+        )
+      }
+    },
+    {
+      id: "meble",
+      title: t("services.furnitureCleaning"),
+      description: t("services.furnitureCleaningDesc"),
+      features: [
+        { id: "f1", text: t("services.furnitureFeature1") },
+        { id: "f2", text: t("services.furnitureFeature2") },
+        { id: "f3", text: t("services.furnitureFeature3") }
+      ],
+      image: "https://pixabay.com/get/g4881186e7325c4333727e09c5be1db0be4cdd01b8667566c1ce13ce2451a46d8f114cd72408b33461da3d32957f817448c0b2f8eb357325cf5272c5e34c8de20_1280.jpg",
+      modalContent: {
+        title: t("services.furnitureCleaning"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-gray-700 dark:text-gray-300">{t("modalContent.furnitureDesc")}</p>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
+            <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>{t("modalContent.furnitureProcess1")}</li>
+              <li>{t("modalContent.furnitureProcess2")}</li>
+              <li>{t("modalContent.furnitureProcess3")}</li>
+              <li>{t("modalContent.furnitureProcess4")}</li>
+              <li>{t("modalContent.furnitureProcess5")}</li>
+              <li>{t("modalContent.furnitureProcess6")}</li>
+            </ol>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
+            <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
+              <table className="w-full text-gray-700 dark:text-gray-300">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">{t("modalContent.service")}</th>
+                    <th className="text-right pb-2">{t("modalContent.price")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.sofa2")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 120 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.sofa3")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 150 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.corner")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 200 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.armchair")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 70 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.chair")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 30 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.mattress1")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 80 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.mattress2")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 140 zł</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
+          </div>
+        )
+      }
+    },
+    {
+      id: "kostka",
+      title: t("services.paverCleaning"),
+      description: t("services.paverCleaningDesc"),
+      features: [
+        { id: "p1", text: t("services.paverFeature1") },
+        { id: "p2", text: t("services.paverFeature2") },
+        { id: "p3", text: t("services.paverFeature3") }
+      ],
+      image: "https://images.unsplash.com/photo-1600566752355-35d678940e7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      modalContent: {
+        title: t("services.paverCleaning"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-gray-700 dark:text-gray-300">{t("modalContent.paverDesc")}</p>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
+            <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>{t("modalContent.paverProcess1")}</li>
+              <li>{t("modalContent.paverProcess2")}</li>
+              <li>{t("modalContent.paverProcess3")}</li>
+              <li>{t("modalContent.paverProcess4")}</li>
+              <li>{t("modalContent.paverProcess5")}</li>
+            </ol>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
+            <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
+              <table className="w-full text-gray-700 dark:text-gray-300">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">{t("modalContent.service")}</th>
+                    <th className="text-right pb-2">{t("modalContent.price")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.paverCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 10 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.tileCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 12 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.mossRemoval")}</td>
+                    <td className="text-right py-2">+3 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.impregnation")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 8 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.jointFilling")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 5 zł/m²</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
+          </div>
+        )
+      }
+    },
+    {
+      id: "plytki",
+      title: t("services.tileCleaning"),
+      description: t("services.tileCleaningDesc"),
+      features: [
+        { id: "t1", text: t("services.tileFeature1") },
+        { id: "t2", text: t("services.tileFeature2") },
+        { id: "t3", text: t("services.tileFeature3") }
+      ],
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      modalContent: {
+        title: t("services.tileCleaning"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-gray-700 dark:text-gray-300">{t("modalContent.tileDesc")}</p>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
+            <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>{t("modalContent.tileProcess1")}</li>
+              <li>{t("modalContent.tileProcess2")}</li>
+              <li>{t("modalContent.tileProcess3")}</li>
+              <li>{t("modalContent.tileProcess4")}</li>
+              <li>{t("modalContent.tileProcess5")}</li>
+            </ol>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
+            <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
+              <table className="w-full text-gray-700 dark:text-gray-300">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">{t("modalContent.service")}</th>
+                    <th className="text-right pb-2">{t("modalContent.price")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.tileCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 12 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.bathrooms")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 150 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.groutCleaning")}</td>
+                    <td className="text-right py-2">+2 zł/m²</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.groutSealing")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 5 zł/m²</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
+          </div>
+        )
+      }
+    },
+    {
+      id: "samochody",
+      title: t("services.carCleaning"),
+      description: t("services.carCleaningDesc"),
+      features: [
+        { id: "a1", text: t("services.carFeature1") },
+        { id: "a2", text: t("services.carFeature2") },
+        { id: "a3", text: t("services.carFeature3") }
+      ],
+      image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      modalContent: {
+        title: t("services.carCleaning"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-gray-700 dark:text-gray-300">{t("modalContent.carDesc")}</p>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.process")}</h4>
+            <ol className="list-decimal pl-5 space-y-2 text-gray-700 dark:text-gray-300">
+              <li>{t("modalContent.carProcess1")}</li>
+              <li>{t("modalContent.carProcess2")}</li>
+              <li>{t("modalContent.carProcess3")}</li>
+              <li>{t("modalContent.carProcess4")}</li>
+              <li>{t("modalContent.carProcess5")}</li>
+            </ol>
+            
+            <h4 className="font-heading text-xl font-semibold text-gray-800 dark:text-white mt-6 mb-2">{t("modalContent.pricing")}</h4>
+            <div className="bg-gray-100 dark:bg-slate-700 rounded-lg p-4">
+              <table className="w-full text-gray-700 dark:text-gray-300">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">{t("modalContent.service")}</th>
+                    <th className="text-right pb-2">{t("modalContent.price")}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.smallCar")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 150 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.mediumCar")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 200 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.largeCar")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 250 zł</td>
+                  </tr>
+                  <tr className="border-t border-gray-200 dark:border-gray-600">
+                    <td className="py-2">{t("modalContent.seatCleaning")}</td>
+                    <td className="text-right py-2">{t("modalContent.from")} 50 zł/seat</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{t("modalContent.pricingNote")}</p>
+          </div>
+        )
+      }
+    }
+  ];
+
+  return (
+    <>
+      <Helmet>
+        <title>{t("meta.servicesTitle")}</title>
+        <meta name="description" content={t("meta.servicesDescription")} />
+        <meta property="og:title" content={t("meta.servicesTitle")} />
+        <meta property="og:description" content={t("meta.servicesDescription")} />
+      </Helmet>
+
+      {/* Page Header */}
+      <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20">
+        <div className="container mx-auto px-4 text-center">
+          <motion.h1 
+            className="font-heading text-3xl md:text-4xl font-bold text-white mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {t("servicesPage.title")}
+          </motion.h1>
+          <motion.div
+            className="w-20 h-1 bg-white mx-auto mb-6"
+            initial={{ width: 0 }}
+            animate={{ width: "5rem" }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          ></motion.div>
+          <motion.p 
+            className="text-white text-lg max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {t("servicesPage.subtitle")}
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-16 bg-gray-50 dark:bg-slate-800" id="uslugi">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {services.map((service) => (
+              <motion.div 
+                key={service.id}
+                variants={itemVariants}
+                id={service.id}
+              >
+                <ServiceCard 
+                  id={service.id}
+                  title={service.title}
+                  description={service.description}
+                  features={service.features}
+                  image={service.image}
+                  modalContent={service.modalContent}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Additional Services */}
+      <section className="py-16 bg-white dark:bg-slate-900">
+        <div className="container mx-auto px-4">
+          <h2 className="font-heading text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">
+            {t("servicesPage.additionalTitle")}
+          </h2>
+
+          <div className="bg-gray-50 dark:bg-slate-800 rounded-xl p-6 md:p-8 shadow-md max-w-3xl mx-auto">
+            <h3 className="font-heading text-xl font-semibold mb-4 text-gray-800 dark:text-white">{t("servicesPage.additionalServicesTitle")}</h3>
+            <ul className="space-y-2 text-gray-700 dark:text-gray-300 mb-8">
+              <li className="flex items-start">
+                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span>{t("servicesPage.additionalService1")}</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span>{t("servicesPage.additionalService2")}</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span>{t("servicesPage.additionalService3")}</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-5 h-5 mr-2 text-primary mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span>{t("servicesPage.additionalService4")}</span>
+              </li>
+            </ul>
+
+            <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-800 dark:text-blue-200">
+              <p className="text-sm font-medium">{t("servicesPage.additionalNote")}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Area */}
+      <section className="py-16 bg-gray-100 dark:bg-slate-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="font-heading text-3xl font-bold mb-8 text-gray-800 dark:text-white">
+              {t("servicesPage.serviceAreaTitle")}
+            </h2>
+            
+            <div className="bg-white dark:bg-slate-700 rounded-xl shadow-md p-6 mb-8">
+              <p className="text-gray-700 dark:text-gray-300 mb-4">{t("servicesPage.serviceAreaDesc")}</p>
+              
+              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-gray-700 dark:text-gray-300">
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Radom
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Kozienice
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Pionki
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Zwoleń
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Białobrzegi
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Iłża
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Skaryszew
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-4 h-4 mr-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                  </svg>
+                  Jedlnia
+                </li>
+              </ul>
+            </div>
+
+            <p className="text-gray-700 dark:text-gray-300">
+              {t("servicesPage.serviceAreaNote")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call To Action */}
+      <CallToAction variant="secondary" />
+    </>
+  );
+};
+
+export default Oferta;
