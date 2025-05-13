@@ -59,12 +59,14 @@
 
   .container {
     @apply px-4 md:px-8 lg:px-40 mx-auto;
-    max-width: calc(100% - 2rem);
+    max-width: 100%;
     @screen md {
       max-width: calc(100% - 4rem);
     }
     @screen lg {
       max-width: calc(100% - 20rem);
+      padding-left: 10rem;
+      padding-right: 10rem;
     }
   }
 
