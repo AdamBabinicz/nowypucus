@@ -1,5 +1,6 @@
 import { useLanguage } from "../context/LanguageContext";
 import { motion } from "framer-motion";
+import { FiMail } from "react-icons/fi"
 
 interface LanguageSelectorProps {
   onLanguageChange?: () => void;
@@ -7,7 +8,7 @@ interface LanguageSelectorProps {
 
 const LanguageSelector = ({ onLanguageChange }: LanguageSelectorProps) => {
   const { language, changeLanguage } = useLanguage();
-  
+
   const handleLanguageChange = (lang: 'pl' | 'en') => {
     changeLanguage(lang);
     if (onLanguageChange) {

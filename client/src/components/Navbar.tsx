@@ -42,7 +42,6 @@ const toggleDropdown = (section: string) => {
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const mobileNavVariants = {
     hidden: { opacity: 0, height: 0, transition: { duration: 0.3 } },
