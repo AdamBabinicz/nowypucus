@@ -42,7 +42,7 @@ const Oferta = () => {
         { id: "c3", text: t("services.carpetFeature3") },
         { id: "c4", text: t("services.carpetFeature4") }
       ],
-      image: "https://images.unsplash.com/photo-1558317374-067fb5f30001?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/dywany/1.avif",
       modalContent: {
         title: t("services.carpetCleaning"),
         content: (
@@ -107,7 +107,7 @@ const Oferta = () => {
         { id: "w2", text: t("services.floorFeature2") },
         { id: "w3", text: t("services.floorFeature3") }
       ],
-      image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/dywany/42.avif",
       modalContent: {
         title: t("services.floorCleaning"),
         content: (
@@ -163,7 +163,7 @@ const Oferta = () => {
         { id: "f2", text: t("services.furnitureFeature2") },
         { id: "f3", text: t("services.furnitureFeature3") }
       ],
-      image: "https://pixabay.com/get/g4881186e7325c4333727e09c5be1db0be4cdd01b8667566c1ce13ce2451a46d8f114cd72408b33461da3d32957f817448c0b2f8eb357325cf5272c5e34c8de20_1280.jpg",
+      image: "/images/meble/5.avif",
       modalContent: {
         title: t("services.furnitureCleaning"),
         content: (
@@ -236,7 +236,7 @@ const Oferta = () => {
         { id: "p2", text: t("services.paverFeature2") },
         { id: "p3", text: t("services.paverFeature3") }
       ],
-      image: "https://images.unsplash.com/photo-1600566752355-35d678940e7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/kostka/4.avif",
       modalContent: {
         title: t("services.paverCleaning"),
         content: (
@@ -300,7 +300,7 @@ const Oferta = () => {
         { id: "t2", text: t("services.tileFeature2") },
         { id: "t3", text: t("services.tileFeature3") }
       ],
-      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/glazura/3.avif",
       modalContent: {
         title: t("services.tileCleaning"),
         content: (
@@ -360,7 +360,7 @@ const Oferta = () => {
         { id: "a2", text: t("services.carFeature2") },
         { id: "a3", text: t("services.carFeature3") }
       ],
-      image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      image: "/images/tools/5.avif",
       modalContent: {
         title: t("services.carCleaning"),
         content: (
