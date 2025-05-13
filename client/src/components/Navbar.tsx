@@ -10,7 +10,14 @@ import logoPath from "@assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<{[key: string]: boolean}>({});
+
+const toggleDropdown = (section: string) => {
+  setIsDropdownOpen(prev => ({
+    ...prev,
+    [section]: !prev[section]
+  }));
+};
   const [location] = useLocation();
   const { t } = useTranslation();
 
@@ -81,16 +88,23 @@ const Navbar = () => {
                   {t('nav.about')}
                 </Link>
               </li>
-              <li className="relative group">
+              <li className="relative">
                 <button 
-                  className={`font-medium ${location === '/realizacje' ? 'text-primary dark:text-primary-400' : 'text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-400'} transition-colors flex items-center`}
+                  onClick={() => toggleDropdown('portfolio')}
+                  className={`font-medium ${location.startsWith('/realizacje') ? 'text-primary dark:text-primary-400' : 'text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-400'} transition-colors flex items-center w-full justify-between`}
                 >
                   {t('nav.portfolio')}
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg 
+                    className={`w-4 h-4 ml-1 transform transition-transform ${isDropdownOpen['portfolio'] ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
-                <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-md shadow-lg py-1 z-10 hidden group-hover:block transition-all duration-300 ease-in-out">
+                <div className={`lg:absolute left-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-md shadow-lg py-1 z-10 ${isDropdownOpen['portfolio'] ? 'block' : 'hidden'} lg:hidden lg:group-hover:block transition-all duration-300 ease-in-out`}>
                   <Link href="/realizacje#dywany" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-800">
                     {t('portfolio.carpets')}
                   </Link>
