@@ -12,11 +12,18 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<{[key: string]: boolean}>({});
 
-const toggleDropdown = (section: string) => {
-  setIsDropdownOpen(prev => ({
-    ...prev,
-    [section]: !prev[section]
-  }));
+const toggleDropdown = (section?: string) => {
+  if (section) {
+    setIsDropdownOpen(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  } else {
+    setIsDropdownOpen(prev => ({
+      ...prev,
+      portfolio: !prev.portfolio
+    }));
+  }
 };
   const [location] = useLocation();
   const { t } = useTranslation();
