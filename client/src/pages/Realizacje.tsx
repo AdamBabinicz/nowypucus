@@ -47,31 +47,31 @@ const Realizacje = () => {
 
   // Gallery images data
   const carpetImages = [
-    { id: "c1", src: "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Brudny dywan przed czyszczeniem", type: "before" },
-    { id: "c2", src: "https://pixabay.com/get/g3fc231a668fd0b8aa8df4f8b8b6a878f6c302a07f0df5bfba8abd0c29e21483de578d633605faaa0dd56bba987c09cafc9c4d634c26317e6feb6c16fc232bfde_1280.jpg", alt: "Czysty dywan po praniu", type: "after" },
-    { id: "c3", src: "https://images.unsplash.com/photo-1558317374-067fb5f30001?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Dywan z plamami przed czyszczeniem", type: "before" },
-    { id: "c4", src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Dywan bez plam po czyszczeniu", type: "after" }
+    { id: "c1", src: "/images/dywany/21.avif", alt: "Brudny dywan przed czyszczeniem", type: "before" },
+    { id: "c2", src: "/images/dywany/22.avif", alt: "Czysty dywan po praniu", type: "after" },
+    { id: "c3", src: "/images/dywany/48.avif", alt: "Dywan z plamami przed czyszczeniem", type: "before" },
+    { id: "c4", src: "/images/dywany/49.avif", alt: "Dywan bez plam po czyszczeniu", type: "after" }
   ];
 
   const floorImages = [
-    { id: "f1", src: "https://images.unsplash.com/photo-1562041542-1020b226b20b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Brudna wykładzina przed czyszczeniem", type: "before" },
-    { id: "f2", src: "https://images.unsplash.com/photo-1557238687-f704accc5e47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Czysta wykładzina po praniu", type: "after" },
-    { id: "f3", src: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Wykładzina z plamami przed czyszczeniem", type: "before" },
-    { id: "f4", src: "https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Wykładzina bez plam po czyszczeniu", type: "after" }
+    { id: "f1", src: "/images/dywany/43.avif", alt: "Brudna wykładzina przed czyszczeniem", type: "before" },
+    { id: "f2", src: "/images/dywany/45.avif", alt: "Czysta wykładzina po praniu", type: "after" },
+    { id: "f3", src: "/images/dywany/52.avif", alt: "Wykładzina z plamami przed czyszczeniem", type: "before" },
+    { id: "f4", src: "/images/dywany/53.avif", alt: "Wykładzina bez plam po czyszczeniu", type: "after" }
   ];
 
   const furnitureImages = [
-    { id: "m1", src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Zabrudzona sofa przed czyszczeniem", type: "before" },
-    { id: "m2", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Czysta sofa po praniu", type: "after" },
-    { id: "m3", src: "https://pixabay.com/get/ge649fbeb4cfec683224fda07f72f64a9b7de7047e5709307245cfb4bba35ad994dcd81a02f671ec82f16d60bcd13188818b2e56280d43b900295dff2a8ae4248_1280.jpg", alt: "Fotel z plamami przed czyszczeniem", type: "before" },
-    { id: "m4", src: "https://pixabay.com/get/g4881186e7325c4333727e09c5be1db0be4cdd01b8667566c1ce13ce2451a46d8f114cd72408b33461da3d32957f817448c0b2f8eb357325cf5272c5e34c8de20_1280.jpg", alt: "Czysty fotel po praniu", type: "after" }
+    { id: "m1", src: "/images/meble/1.avif", alt: "Zabrudzona sofa przed czyszczeniem", type: "before" },
+    { id: "m2", src: "/images/meble/2.avif", alt: "Czysta sofa po praniu", type: "after" },
+    { id: "m3", src: "/images/meble/3.avif", alt: "Fotel z plamami przed czyszczeniem", type: "before" },
+    { id: "m4", src: "/images/meble/4.avif", alt: "Czysty fotel po praniu", type: "after" }
   ];
 
   const paverImages = [
-    { id: "p1", src: "https://pixabay.com/get/g81101b0201783abcf9f7fd27c2998bfdb9c96baec7447c809fb54d063173b1838789b75440c657d1bbabe8f39f26ed2a062ffd0b24ccac193598b65afd6f8b6d_1280.jpg", alt: "Brudna kostka przed czyszczeniem", type: "before" },
-    { id: "p2", src: "https://pixabay.com/get/ge4d9c2179d48acd30fde59972e95505db15bac6edb25622b7e0db405c56a65eaea2d3b729e3646c3b69a33e4d8bfb20b6c3dc487203bc2cfa795509d0cba0070_1280.jpg", alt: "Czysta kostka po myciu", type: "after" },
-    { id: "p3", src: "https://images.unsplash.com/photo-1595411425732-e69c1aba47d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Zabrudzone płytki przed myciem", type: "before" },
-    { id: "p4", src: "https://images.unsplash.com/photo-1600566752355-35d678940e7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Czyste płytki po myciu", type: "after" }
+    { id: "p1", src: "/images/kostka/1.avif", alt: "Brudna kostka przed czyszczeniem", type: "before" },
+    { id: "p2", src: "/images/kostka/2.avif", alt: "Czysta kostka po myciu", type: "after" },
+    { id: "p3", src: "/images/glazura/1.avif", alt: "Zabrudzone płytki przed myciem", type: "before" },
+    { id: "p4", src: "/images/glazura/2.avif", alt: "Czyste płytki po myciu", type: "after" }
   ];
 
   return (

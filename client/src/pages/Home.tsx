@@ -266,7 +266,7 @@ const Home = () => {
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <img 
-            src="https://images.unsplash.com/photo-1559060177-9a0de628bac4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=600&q=80" 
+            src="/images/dywany/45.avif" 
             alt="Profesjonalne czyszczenie dywanów" 
             className="w-full h-full object-cover"
           />

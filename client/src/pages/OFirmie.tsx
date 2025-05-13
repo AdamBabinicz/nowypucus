@@ -102,8 +102,8 @@ const OFirmie = () => {
               className="relative h-80 md:h-full min-h-[320px] bg-gray-200 dark:bg-slate-800 rounded-xl overflow-hidden"
             >
               <img 
-                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Profesjonalne czyszczenie" 
+                src="/images/team/1.avif" 
+                alt="Zespół profesjonalnego czyszczenia" 
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />
