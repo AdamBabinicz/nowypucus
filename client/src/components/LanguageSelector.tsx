@@ -1,13 +1,24 @@
 import { useLanguage } from "../context/LanguageContext";
 import { motion } from "framer-motion";
 
-const LanguageSelector = () => {
+interface LanguageSelectorProps {
+  onLanguageChange?: () => void;
+}
+
+const LanguageSelector = ({ onLanguageChange }: LanguageSelectorProps) => {
   const { language, changeLanguage } = useLanguage();
+  
+  const handleLanguageChange = (lang: 'pl' | 'en') => {
+    changeLanguage(lang);
+    if (onLanguageChange) {
+      onLanguageChange();
+    }
+  };
 
   return (
     <div className="flex items-center space-x-1">
       <button
-        onClick={() => changeLanguage("pl")}
+        onClick={() => handleLanguageChange("pl")}
         className={`text-sm font-medium px-2 py-1 rounded-md transition-colors ${
           language === "pl"
             ? "bg-gray-100 text-gray-700 border border-gray-300 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
@@ -25,7 +36,7 @@ const LanguageSelector = () => {
         )}
       </button>
       <button
-        onClick={() => changeLanguage("en")}
+        onClick={() => handleLanguageChange("en")}
         className={`text-sm font-medium px-2 py-1 rounded-md transition-colors ${
           language === "en"
             ? "bg-gray-100 text-gray-700 border border-gray-300 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
