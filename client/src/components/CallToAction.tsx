@@ -26,7 +26,7 @@ const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a 
             href="tel:+48531890827" 
-            className="inline-flex items-center justify-center bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300"
+            className="inline-flex items-center justify-center bg-white text-gray-800 dark:text-primary-600 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300"
           >
             <FiPhone className="w-5 h-5 mr-2" />
             {t('cta.call')}: +48 531 890 827
