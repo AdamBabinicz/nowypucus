@@ -16,18 +16,18 @@ interface Image {
 
 const Realizacje = () => {
   const { t } = useTranslation();
+  const params = useParams();
   const dywanyRef = useRef<HTMLElement>(null);
   const wykladzinyRef = useRef<HTMLElement>(null);
   const mebleRef = useRef<HTMLElement>(null);
   const kostkaRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // If URL has a hash, scroll to the section
-    if (window.location.hash) {
-      const id = window.location.hash.substring(1);
+    // Scroll to section based on URL hash or category parameter
+    const scrollToSection = (sectionId: string) => {
       let element;
       
-      switch (id) {
+      switch (sectionId) {
         case 'dywany':
           element = dywanyRef.current;
           break;
@@ -38,6 +38,8 @@ const Realizacje = () => {
           element = mebleRef.current;
           break;
         case 'kostka-plytki':
+        case 'kostka':
+        case 'plytki':
           element = kostkaRef.current;
           break;
         default:
@@ -51,8 +53,18 @@ const Realizacje = () => {
           window.scrollTo({ top: y, behavior: 'smooth' });
         }, 300);
       }
+    };
+
+    // Check for URL hash first
+    if (window.location.hash) {
+      const id = window.location.hash.substring(1);
+      scrollToSection(id);
+    } 
+    // Then check for category parameter
+    else if (params.category) {
+      scrollToSection(params.category);
     }
-  }, []);
+  }, [params.category]);
 
   // Gallery images data
   const carpetImages: Image[] = [
