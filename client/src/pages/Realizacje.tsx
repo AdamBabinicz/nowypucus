@@ -5,6 +5,14 @@ import { useEffect, useRef } from "react";
 import GallerySlider from "@/components/GallerySlider";
 import CallToAction from "@/components/CallToAction";
 
+// Import Image interface for type safety
+interface Image {
+  id: string;
+  src: string;
+  alt: string;
+  type: "before" | "after";
+}
+
 const Realizacje = () => {
   const { t } = useTranslation();
   const dywanyRef = useRef<HTMLElement>(null);
@@ -53,21 +61,21 @@ const Realizacje = () => {
     { id: "c4", src: "/images/dywany/49.avif", alt: "Dywan bez plam po czyszczeniu", type: "after" }
   ];
 
-  const floorImages = [
+  const floorImages: Image[] = [
     { id: "f1", src: "/images/dywany/43.avif", alt: "Brudna wykładzina przed czyszczeniem", type: "before" },
     { id: "f2", src: "/images/dywany/45.avif", alt: "Czysta wykładzina po praniu", type: "after" },
     { id: "f3", src: "/images/dywany/52.avif", alt: "Wykładzina z plamami przed czyszczeniem", type: "before" },
     { id: "f4", src: "/images/dywany/53.avif", alt: "Wykładzina bez plam po czyszczeniu", type: "after" }
   ];
 
-  const furnitureImages = [
+  const furnitureImages: Image[] = [
     { id: "m1", src: "/images/meble/1.avif", alt: "Zabrudzona sofa przed czyszczeniem", type: "before" },
     { id: "m2", src: "/images/meble/2.avif", alt: "Czysta sofa po praniu", type: "after" },
     { id: "m3", src: "/images/meble/3.avif", alt: "Fotel z plamami przed czyszczeniem", type: "before" },
     { id: "m4", src: "/images/meble/4.avif", alt: "Czysty fotel po praniu", type: "after" }
   ];
 
-  const paverImages = [
+  const paverImages: Image[] = [
     { id: "p1", src: "/images/kostka/1.avif", alt: "Brudna kostka przed czyszczeniem", type: "before" },
     { id: "p2", src: "/images/kostka/2.avif", alt: "Czysta kostka po myciu", type: "after" },
     { id: "p3", src: "/images/glazura/1.avif", alt: "Zabrudzone płytki przed myciem", type: "before" },
