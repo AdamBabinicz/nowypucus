@@ -286,7 +286,7 @@ const Home = () => {
               {t("hero.subtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/oferta" className="inline-block bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300">
+              <Link href="/oferta" className="inline-block bg-white dark:bg-slate-800 text-primary-600 dark:text-primary-400 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-300">
                 {t("hero.seeServices")}
               </Link>
               <Link href="/kontakt" className="inline-block bg-accent-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-accent-700 transition-colors duration-300">
