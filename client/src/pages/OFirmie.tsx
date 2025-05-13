@@ -1,3 +1,4 @@
+
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -6,9 +7,6 @@ import CallToAction from "@/components/CallToAction";
 
 const OFirmie = () => {
   const { t } = useTranslation();
-
-  return (
-    <div className="container py-16">
 
   const containerVariants = {
     hidden: { opacity: 0 },
