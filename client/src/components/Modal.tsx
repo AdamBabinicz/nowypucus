@@ -15,7 +15,6 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
   const { t } = useTranslation();
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Close on escape key press
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -25,7 +24,7 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
 
     if (isOpen) {
       document.addEventListener("keydown", handleEsc);
-      // Prevent body scrolling when modal is open
+
       document.body.style.overflow = "hidden";
     }
 
@@ -35,10 +34,12 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
     };
   }, [isOpen, onClose]);
 
-  // Close when clicking outside the modal
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     };
@@ -54,12 +55,16 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
 
   const overlayVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 }
+    visible: { opacity: 1 },
   };
 
   const modalVariants = {
     hidden: { scale: 0.95, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 30 } }
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 30 },
+    },
   };
 
   if (!isOpen) return null;
@@ -85,7 +90,9 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
             exit="hidden"
           >
             <div className="p-6 flex justify-between items-start border-b border-gray-200 dark:border-gray-700">
-              <h3 className="font-heading text-2xl font-semibold text-gray-800 dark:text-white">{title}</h3>
+              <h3 className="font-heading text-2xl font-semibold text-foreground dark:text-white">
+                {title}
+              </h3>
               <button
                 onClick={onClose}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
@@ -98,9 +105,9 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
             <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end">
               <button
                 onClick={onClose}
-                className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 py-2 px-6 rounded-lg font-medium transition-colors"
+                className="bg-gray-200 dark:bg-gray-700 text-foreground dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 py-2 px-6 rounded-lg font-medium transition-colors"
               >
-                {t('common.close')}
+                {t("common.close")}
               </button>
             </div>
           </motion.div>

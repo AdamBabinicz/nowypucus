@@ -1,9 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Limelight&family=Major+Mono+Display&family=Stalinist+One&family=Inter:wght@400;700&family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700;900&display=swap");
+
+@font-face {
+  font-family: "Major Mono Display Self";
+  src: url("/fonts/MajorMonoDisplay-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --background: 0 0% 100%;
+  --background-image: none;
   --foreground: 20 14.3% 4.1%;
   --muted: 60 4.8% 95.9%;
   --muted-foreground: 25 5.3% 44.7%;
@@ -17,44 +28,112 @@
   --primary-foreground: 211 100% 99%;
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
-  --accent: 0 84.2% 60.2%;
-  --accent-foreground: 60 9.1% 97.8%;
+  --accent: 0 80% 50%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
+  --marine-h: 175;
+  --marine-s: 60%;
+  --marine-l: 40%;
+  --marine: var(--marine-h) var(--marine-s) var(--marine-l);
+  --marine-foreground: 0 0% 98%;
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
+
+  --chart-1: 220 80% 60%;
+  --chart-2: 160 80% 60%;
+  --chart-3: 40 80% 60%;
+  --chart-4: 280 80% 60%;
+  --chart-5: 0 80% 60%;
+
+  --sidebar-background: 220 15% 95%;
+  --sidebar-foreground: 220 15% 20%;
+  --sidebar-primary: 207 90% 54%;
+  --sidebar-primary-foreground: 211 100% 99%;
+  --sidebar-accent: 0 84.2% 60.2%;
+  --sidebar-accent-foreground: 60 9.1% 97.8%;
+  --sidebar-border: 220 15% 85%;
+  --sidebar-ring: 207 90% 60%;
+
+  --cta-primary-background-light: 220 60% 95%;
+  --cta-primary-foreground-light: 220 25% 25%;
+  --cta-secondary-background-light: 40 80% 95%;
+  --cta-secondary-foreground-light: 40 50% 25%;
 }
 
 .dark {
-  --background: 217 33% 17%;
-  --foreground: 210 40% 98%;
-  --muted: 215 20% 65%;
-  --muted-foreground: 215 20% 65%;
-  --popover: 217 33% 17%;
-  --popover-foreground: 210 40% 98%;
-  --card: 217 33% 17%;
-  --card-foreground: 210 40% 98%;
-  --border: 215 28% 17%;
-  --input: 215 28% 17%;
-  --primary: 199 89% 48%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 210 40% 98%;
-  --accent: 199 89% 48%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --ring: 199 89% 48%;
-  --radius: 0.5rem;
+  --background: 220 25% 12%;
+  --background-image: linear-gradient(
+    to bottom,
+    hsl(220, 25%, 12%),
+    hsl(220, 25%, 8%)
+  );
+  --foreground: 210 20% 96%;
+  --muted: 220 20% 22%;
+  --muted-foreground: 215 15% 80%;
+  --popover: 220 25% 15%;
+  --popover-foreground: 210 20% 96%;
+  --card: 220 25% 16%;
+  --card-foreground: 210 20% 94%;
+  --border: 220 20% 25%;
+  --input: 220 25% 15%;
+  --primary: 205 85% 55%;
+  --gradient-primary-h: 205;
+  --gradient-primary-s: 85%;
+  --gradient-primary-l: 55%;
+  --gradient-primary-l-darkened: calc(var(--gradient-primary-l) * 0.4);
+  --primary-foreground: 210 30% 97%;
+  --secondary: 220 15% 28%;
+  --secondary-foreground: 210 20% 90%;
+  --accent: 190 80% 60%;
+  --accent-foreground: 210 25% 15%;
+  --destructive: 0 80% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --marine-h: 175;
+  --marine-s: 60%;
+  --marine-l-dark: 65%;
+  --marine: var(--marine-h) var(--marine-s) var(--marine-l-dark);
+  --marine-l-lightmode: 40%;
+  --marine-l-lightmode-darkened: 12%;
+  --marine-foreground: var(--marine-h) 30% 15%;
+  --ring: 205 85% 65%;
+
+  --chart-1: 220 70% 70%;
+  --chart-2: 160 70% 70%;
+  --chart-3: 40 70% 70%;
+  --chart-4: 280 70% 70%;
+  --chart-5: 0 70% 70%;
+
+  --sidebar-background: 220 20% 18%;
+  --sidebar-foreground: 210 20% 90%;
+  --sidebar-primary: 205 85% 55%;
+  --sidebar-primary-foreground: 210 30% 97%;
+  --sidebar-accent: 190 80% 60%;
+  --sidebar-accent-foreground: 210 25% 15%;
+  --sidebar-border: 220 20% 28%;
+  --sidebar-ring: 205 85% 70%;
+
+  --cta-primary-background-dark: 220 30% 15%;
+  --cta-primary-foreground-dark: 210 40% 90%;
+  --cta-secondary-background-dark: 0 60% 20%;
+  --cta-secondary-foreground-dark: 0 40% 90%;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased text-foreground min-h-screen;
+    background-color: hsl(var(--background));
+    background-image: var(--background-image);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
   }
 
   .container {
@@ -70,24 +149,27 @@
     }
   }
 
-  /* Override container width in sections that need full width */
   .full-width .container {
     max-width: none;
   }
 
-  /* Import fonts */
-  @import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Stalinist+One&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Stalinist+One&display=swap");
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading;
   }
 
   .font-body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
   }
 
   .font-heading {
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
   }
 }
 
@@ -134,7 +216,6 @@
   @apply bg-white dark:bg-slate-800 w-full max-w-2xl rounded-xl shadow-2xl relative overflow-hidden max-h-[90vh] flex flex-col;
 }
 
-/* Animation classes */
 .fade-in {
   opacity: 0;
   animation: fadeIn 0.3s ease forwards;
@@ -164,4 +245,7 @@
     transform: translateY(0);
     opacity: 1;
   }
+}
+.main-content-with-offset {
+  padding-top: var(--header-offset);
 }

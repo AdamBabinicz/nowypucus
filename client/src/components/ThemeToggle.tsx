@@ -1,4 +1,4 @@
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -8,7 +8,7 @@ interface ThemeToggleProps {
 
 const ThemeToggle = ({ onThemeToggle }: ThemeToggleProps) => {
   const { theme, toggleTheme } = useTheme();
-  
+
   const handleToggleTheme = () => {
     toggleTheme();
     if (onThemeToggle) {
@@ -20,7 +20,9 @@ const ThemeToggle = ({ onThemeToggle }: ThemeToggleProps) => {
     <button
       onClick={handleToggleTheme}
       className="p-1 rounded-full text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={
+        theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+      }
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.div

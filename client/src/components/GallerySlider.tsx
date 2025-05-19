@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiMaximize } from "react-icons/fi";
-import Modal from "./Modal";
+import Modal from "@/components/Modal";
 
 interface Image {
   id: string;
@@ -15,13 +15,38 @@ interface GallerySliderProps {
   title: string;
 }
 
+const variants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    };
+  },
+};
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
+
 const GallerySlider = ({ images, title }: GallerySliderProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<Image | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const autoplayIntervalRef = useRef<number | null>(null);
 
-  // Group images by before/after pairs
   const groupedImages: Image[][] = [];
   for (let i = 0; i < images.length; i += 2) {
     if (i + 1 < images.length) {
@@ -32,60 +57,107 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
   }
 
   const totalPairs = groupedImages.length;
+  const imageIndex = ((page % totalPairs) + totalPairs) % totalPairs;
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalPairs);
-  };
-
-  const goToPrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalPairs) % totalPairs);
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
+    resetAutoplay();
   };
 
   const openModal = (image: Image) => {
     setModalImage(image);
     setIsModalOpen(true);
+    stopAutoplay();
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    resetAutoplay();
   };
 
-  // Autoplay functionality
+  const stopAutoplay = () => {
+    if (autoplayIntervalRef.current) {
+      clearInterval(autoplayIntervalRef.current);
+      autoplayIntervalRef.current = null;
+    }
+  };
+
+  const resetAutoplay = () => {
+    stopAutoplay();
+    if (totalPairs > 1) {
+      autoplayIntervalRef.current = window.setInterval(() => {
+        paginate(1);
+      }, 5000);
+    }
+  };
+
   useEffect(() => {
-    if (totalPairs <= 1) return; // Don't autoplay if only one pair or less
-
-    const intervalId = setInterval(() => {
-      goToNext();
-    }, 5000);
-
-    return () => clearInterval(intervalId);
+    resetAutoplay();
+    return () => stopAutoplay();
   }, [totalPairs]);
+
+  const handleDragEnd = (
+    e: MouseEvent | TouchEvent | PointerEvent,
+    { offset, velocity }: PanInfo
+  ) => {
+    const swipe = swipePower(offset.x, velocity.x);
+
+    if (swipe < -swipeConfidenceThreshold) {
+      paginate(1);
+    } else if (swipe > swipeConfidenceThreshold) {
+      paginate(-1);
+    }
+  };
+
+  if (totalPairs === 0) {
+    return (
+      <div className="bg-white dark:bg-slate-700 rounded-xl shadow-lg p-4">
+        <h3 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+          {title}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-300">
+          Brak obrazów do wyświetlenia.
+        </p>
+      </div>
+    );
+  }
+
+  const singleImageHeightClass = "h-[400px]";
+  const sliderContainerHeightClass = "h-[808px]";
 
   return (
     <div className="bg-white dark:bg-slate-700 rounded-xl shadow-lg p-4">
-      <h3 className="font-heading text-xl font-semibold mb-4 text-gray-800 dark:text-white">{title}</h3>
-      
-      <div className="relative">
-        <div
-          ref={containerRef}
-          className="slider-container rounded-lg overflow-hidden"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-2"
-            >
-              {groupedImages[currentIndex].map((image, idx) => (
+      <h3 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+        {title}
+      </h3>
+
+      <div className={`relative ${sliderContainerHeightClass} overflow-hidden`}>
+        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+          <motion.div
+            key={page}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={handleDragEnd}
+            className="absolute w-full h-full space-y-2 cursor-grab active:cursor-grabbing"
+          >
+            {groupedImages[imageIndex] &&
+              groupedImages[imageIndex].map((image) => (
                 <div key={image.id} className="relative">
-                  <div className="relative group">
+                  <div className={`relative group ${singleImageHeightClass}`}>
                     <img
                       src={image.src}
                       alt={image.alt}
-                      className="w-full h-64 rounded-lg object-cover"
+                      className="w-full h-full rounded-lg object-cover"
                       loading="lazy"
                     />
                     <div
@@ -105,35 +177,39 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                   </div>
                 </div>
               ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
+          </motion.div>
+        </AnimatePresence>
         {totalPairs > 1 && (
           <>
             <button
-              onClick={goToPrev}
-              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-10"
+              onClick={() => paginate(-1)}
+              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-20"
               aria-label="Poprzednie zdjęcie"
             >
               <FiChevronLeft className="w-6 h-6" />
             </button>
             <button
-              onClick={goToNext}
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-10"
+              onClick={() => paginate(1)}
+              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-20"
               aria-label="Następne zdjęcie"
             >
               <FiChevronRight className="w-6 h-6" />
             </button>
-            
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-              {groupedImages.map((_, idx) => (
+
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+              {Array.from({ length: totalPairs }).map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setCurrentIndex(idx)}
-                  className={`w-2 h-2 rounded-full ${
-                    idx === currentIndex ? "bg-white" : "bg-white bg-opacity-50"
-                  }`}
+                  onClick={() => {
+                    const newDirection = idx > imageIndex ? 1 : -1;
+                    setPage([idx, newDirection]);
+                    resetAutoplay();
+                  }}
+                  className={`w-3 h-3 rounded-full ${
+                    idx === imageIndex
+                      ? "bg-white scale-125"
+                      : "bg-white bg-opacity-50"
+                  } transition-all`}
                   aria-label={`Przejdź do slajdu ${idx + 1}`}
                 />
               ))}
@@ -145,7 +221,11 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
       {modalImage && (
         <Modal
           isOpen={isModalOpen}
-          title={`${title} - ${modalImage.type === "before" ? "Przed" : "Po"} czyszczeniem`}
+          title={`${title} - ${
+            modalImage.type === "before"
+              ? "Przed czyszczeniem"
+              : "Po czyszczeniu"
+          }`}
           onClose={closeModal}
         >
           <div className="flex justify-center">

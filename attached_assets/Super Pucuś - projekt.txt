@@ -1,4 +1,4 @@
-✂️ Projekt: Super Pucuś: Pranie dywanów, tapicerki meblowej-Radom.
+✂️ Projekt: SUPER PUCUŚ: Pranie dywanów, tapicerki meblowej-Radom.
 (Pranie dywanów, wykładzin, tapicerki meblowej w Radomiu. Mycie kostki, posadzek, tarasów. Profesjonalnie dla domu i biura. Zadzwoń do nas! ☎ +48531890827)
 ✅ Stack technologiczny
 Frontend Framework: React (z Vite)
@@ -61,7 +61,7 @@ Hosting: cba.pl (deployment statycznych plików zbudowanych przez Vite)
 Use code with caution.
 📌 Funkcjonalności
 Navbar (Navbar.jsx)
-Logo: Dostarczone logo "Super Pucuś".
+Logo: Dostarczone logo "SUPER PUCUŚ".
 Linki nawigacyjne:
 Start (/)
 Oferta (/oferta)
@@ -81,7 +81,7 @@ Ikona Messengera: Linkująca do https://m.me/super.pucus (np. BsMessenger z reac
 Menu mobilne: Typu "hamburger", otwierane płynnie. Po kliknięciu dowolnego elementu menu (włącznie z linkami, przełącznikiem języka/motywu) menu powinno się płynnie zamykać (animacja "slide up" z opóźnieniem).
 Strona główna (Home.jsx)
 Hero Section: Duże, efektowne zdjęcie/slider.
-Główny nagłówek (jeden <h1> na całej stronie, tutaj): np. <h1>Super Pucuś – Profesjonalne Czyszczenie w Radomiu i okolicach</h1>
+Główny nagłówek (jeden <h1> na całej stronie, tutaj): np. <h1>SUPER PUCUŚ – Profesjonalne Czyszczenie w Radomiu i okolicach</h1>
 Krótkie motto, np. <p>Przywracamy <strong>blask i świeżość</strong> Twoim dywanom, meblom i otoczeniu!</p>.
 Przyciski CTA: "Zobacz ofertę", "Szybka wycena".
 Sekcja "Dlaczego my?" (z nagłówkami <h2> lub <h3>).
@@ -119,7 +119,7 @@ Nagłówek <h2>Regulamin Świadczenia Usług</h2>.
 Treść zgodna z dostarczoną, z odpowiednim formatowaniem (nagłówki <h3>, <h4>, listy, <strong>).
 Stopka (Footer.jsx)
 Linki Social Media, kluczowe linki nawigacyjne.
-Copyright: © Super Pucuś {new Date().getFullYear()}. <strong>Wszelkie prawa zastrzeżone.</strong>
+Copyright: © SUPER PUCUŚ {new Date().getFullYear()}. <strong>Wszelkie prawa zastrzeżone.</strong>
 (Opcjonalnie) Link do Polityki Prywatności.
 Przycisk Scroll to Top (ScrollToTopButton.jsx)
 Ikonka (np. FaArrowUp) pojawiająca się po przewinięciu, płynne przewijanie na górę.

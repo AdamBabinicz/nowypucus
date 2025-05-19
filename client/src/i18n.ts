@@ -1,17 +1,17 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
-import plTranslation from './translations/pl.json';
-import enTranslation from './translations/en.json';
+import plTranslation from "@/translations/pl.json";
+import enTranslation from "@/translations/en.json";
 
 const resources = {
   pl: {
-    translation: plTranslation
+    translation: plTranslation,
   },
   en: {
-    translation: enTranslation
-  }
+    translation: enTranslation,
+  },
 };
 
 i18n
@@ -19,15 +19,15 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'pl',
-    debug: false,
+    fallbackLng: "pl",
+    debug: true,
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage']
-    }
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
+    },
   });
 
 export default i18n;

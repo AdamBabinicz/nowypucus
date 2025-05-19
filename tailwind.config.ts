@@ -5,15 +5,18 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontFamily: {
-        'heading': ['"Major Mono Display"', 'monospace'],
-        'subheading': ['"Stalinist One"', 'cursive'],
-        'sans': ['Inter', 'Open Sans', 'sans-serif'],
+      height: {
+        "17.5": "4.375rem",
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      spacing: {
+        "17.5": "4.375rem",
+      },
+      fontFamily: {
+        heading: ["Montserrat", "sans-serif"],
+        subheading: ['"Stalinist One"', "cursive"],
+        sans: ["Inter", "Open Sans", "sans-serif"],
+        "major-mono": ['"Major Mono Display Self"', "monospace"],
+        limelight: ["Limelight", "cursive"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -45,6 +48,10 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        marine: {
+          DEFAULT: "hsl(var(--marine))",
+          foreground: "hsl(var(--marine-foreground))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

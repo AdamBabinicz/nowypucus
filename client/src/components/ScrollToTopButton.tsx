@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiArrowUp } from "react-icons/fi";
+import { BsStars } from "react-icons/bs";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show button when page is scrolled down
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
@@ -23,7 +22,7 @@ const ScrollToTopButton = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -40,7 +39,7 @@ const ScrollToTopButton = () => {
           className="fixed bottom-8 right-8 bg-primary dark:bg-primary-700 text-white rounded-full p-3 shadow-lg hover:bg-primary-700 dark:hover:bg-primary-800 transition-colors z-50"
           aria-label="Scroll to top"
         >
-          <FiArrowUp className="w-6 h-6" />
+          <BsStars className="w-6 h-6" />
         </motion.button>
       )}
     </AnimatePresence>
