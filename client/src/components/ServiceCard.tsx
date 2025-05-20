@@ -63,10 +63,10 @@ const ServiceCard = ({
           <button
             onClick={openModal}
             className="w-full inline-flex items-center justify-center font-semibold px-4 py-2 rounded-md transition-colors duration-300
-                       border-2 border-marine bg-transparent text-marine
-                       hover:bg-marine hover:text-marine-foreground
-                       dark:border-[hsl(var(--marine-h)_var(--marine-s)_65%)] dark:text-[hsl(var(--marine-h)_var(--marine-s)_65%)]
-                       dark:hover:bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] dark:hover:text-[hsl(var(--marine-h)_30%_15%)]"
+           border-2 border-[hsl(175,60%,30%)] bg-transparent text-[hsl(175,60%,30%)]
+           hover:bg-[hsl(175,60%,30%)] hover:text-[hsl(0,0%,98%)]
+           dark:border-[hsl(175,60%,75%)] dark:text-[hsl(175,60%,75%)]
+           dark:hover:bg-[hsl(175,60%,75%)] dark:hover:text-[hsl(175,30%,15%)]"
             data-service={id}
           >
             <strong>{t("services.detailsAndPricing")}</strong>

@@ -41,7 +41,7 @@
   --destructive-foreground: 60 9.1% 97.8%;
   --marine-h: 175;
   --marine-s: 60%;
-  --marine-l: 40%;
+  --marine-l: 30%;
   --marine: var(--marine-h) var(--marine-s) var(--marine-l);
   --marine-foreground: 0 0% 98%;
   --ring: 207 90% 40%; /* Musi być jaśniejszy niż --primary (30%) dla widoczności focusu */
