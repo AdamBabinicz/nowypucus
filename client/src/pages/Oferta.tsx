@@ -457,7 +457,7 @@ const Oferta = () => {
       </Helmet>
 
       <section
-        className="py-12 md:py-20
+        className="pt-32 pb-12 md:pt-40 md:pb-20
           bg-gradient-to-r from-primary-700 to-primary-800"
       >
         <ContentContainer className="text-center">

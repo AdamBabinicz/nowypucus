@@ -22,16 +22,13 @@
   --muted-foreground: 25 5.3% 44.7%;
   --popover: 0 0% 100%;
   --popover-foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%; /* Tło dla "Szczegóły i Cennik" */
+  --card: 0 0% 100%;
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
 
-  /* --- PIERWSZA POPRAWKA START --- */
-  /* Cel: Zwiększyć kontrast dla elementów używających --primary na jasnym tle */
-  --primary: 207 90% 30%; /* Było 35%. Nowy kontrast z --card (białym): ~11.3:1 */
-  --primary-foreground: 211 100% 99%; /* Kontrast tekstu z nowym --primary (jako tłem przycisku): ~11.4:1 */
-  /* --- PIERWSZA POPRAWKA KONIEC --- */
+  --primary: 207 90% 30%;
+  --primary-foreground: 211 100% 99%;
 
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
@@ -44,7 +41,7 @@
   --marine-l: 30%;
   --marine: var(--marine-h) var(--marine-s) var(--marine-l);
   --marine-foreground: 0 0% 98%;
-  --ring: 207 90% 40%; /* Musi być jaśniejszy niż --primary (30%) dla widoczności focusu */
+  --ring: 207 90% 40%;
   --radius: 0.5rem;
 
   --chart-1: 220 80% 60%;
@@ -55,8 +52,8 @@
 
   --sidebar-background: 220 15% 95%;
   --sidebar-foreground: 220 15% 20%;
-  --sidebar-primary: 207 90% 30%; /* Synchronizacja z głównym --primary */
-  --sidebar-primary-foreground: 211 100% 99%; /* Synchronizacja */
+  --sidebar-primary: 207 90% 30%;
+  --sidebar-primary-foreground: 211 100% 99%;
   --sidebar-accent: 0 84.2% 60.2%;
   --sidebar-accent-foreground: 60 9.1% 97.8%;
   --sidebar-border: 220 15% 85%;
@@ -69,7 +66,7 @@
 }
 
 .dark {
-  --background: 220 25% 12%;
+  --background: 220 25% 18%;
   --background-image: linear-gradient(
     to bottom,
     hsl(220, 25%, 12%),
@@ -84,14 +81,14 @@
   --card-foreground: 210 20% 94%;
   --border: 220 20% 25%;
   --input: 220 25% 15%;
-  /* ZMIANA: Lekkie przyciemnienie --primary dla trybu ciemnego (dla tła przycisków) */
-  --primary: 205 85% 38%; /* Było 40%. */
+
+  --primary: 205 85% 38%;
   --gradient-primary-h: 205;
   --gradient-primary-s: 85%;
-  --gradient-primary-l: 38%; /* Synchronizacja */
+  --gradient-primary-l: 38%;
   --gradient-primary-l-darkened: calc(var(--gradient-primary-l) * 0.4);
-  /* ZMIANA: Lekkie przyciemnienie --primary-foreground dla trybu ciemnego, aby zwiększyć kontrast z --primary (tłem przycisku) */
-  --primary-foreground: 210 30% 97%; /* Kontrast z nowym dark --primary: ~5.1:1 */
+
+  --primary-foreground: 210 30% 97%;
   --secondary: 220 15% 28%;
   --secondary-foreground: 210 20% 90%;
   --accent: 190 80% 60%;
@@ -105,7 +102,7 @@
   --marine-l-lightmode: 40%;
   --marine-l-lightmode-darkened: 12%;
   --marine-foreground: var(--marine-h) 30% 15%;
-  --ring: 205 85% 50%; /* Utrzymujemy dla widoczności focusu */
+  --ring: 205 85% 50%;
 
   --chart-1: 220 70% 70%;
   --chart-2: 160 70% 70%;
@@ -115,8 +112,8 @@
 
   --sidebar-background: 220 20% 18%;
   --sidebar-foreground: 210 20% 90%;
-  --sidebar-primary: 205 85% 38%; /* Synchronizacja z głównym dark --primary */
-  --sidebar-primary-foreground: 210 30% 97%; /* Synchronizacja */
+  --sidebar-primary: 205 85% 38%;
+  --sidebar-primary-foreground: 210 30% 97%;
   --sidebar-accent: 190 80% 60%;
   --sidebar-accent-foreground: 210 25% 15%;
   --sidebar-border: 220 20% 28%;

@@ -576,7 +576,7 @@ const Home = () => {
 
       <CallToAction />
 
-      <section className="py-16 bg-background dark:bg-background">
+      <section className="py-16 bg-background bg-background dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
         <ContentContainer>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>

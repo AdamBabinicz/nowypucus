@@ -181,7 +181,7 @@ const Sprzet = () => {
         />
       </Helmet>
 
-      <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20">
+      <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
         <ContentContainer className="text-center">
           <motion.h2
             className="font-limelight text-3xl md:text-4xl font-bold dark:text-primary-foreground mb-4"
@@ -326,7 +326,7 @@ const Sprzet = () => {
               </table>
             </div>
             <div className="mt-8 p-4 bg-primary/10 dark:bg-primary/20 rounded-lg">
-              <p className="text-primary dark:text-primary text-sm">
+              <p className="text-primary dark:text-sky-400 text-sm">
                 {t("equipmentPage.productsNote")}
               </p>
             </div>

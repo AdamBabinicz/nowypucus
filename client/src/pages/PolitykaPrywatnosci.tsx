@@ -14,7 +14,7 @@ const PolitykaPrywatnosci = () => {
         <meta name="description" content={t("privacy.metaDescription")} />
       </Helmet>
 
-      <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20">
+      <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
         <ContentContainer className="text-center">
           <motion.h2
             className="font-limelight text-3xl md:text-4xl font-bold dark:text-white mb-4"
@@ -41,7 +41,7 @@ const PolitykaPrywatnosci = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-12 md:py-16 bg-gray-100 dark:bg-gray-800">
+      <section className="pt-32 pb-12 md:pt-40 md:pb-20 bg-gray-100 dark:bg-gray-800">
         <ContentContainer>
           <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 md:p-10">
             <motion.div

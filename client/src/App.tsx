@@ -22,6 +22,7 @@ import {
   getLocalizedSlug,
   supportedLngs,
   defaultLang,
+  SupportedLanguage,
 } from "@/config/slugs";
 
 export const HEADER_OFFSET = 70;
@@ -29,50 +30,40 @@ export const HEADER_OFFSET = 70;
 export default function App() {
   const { i18n } = useTranslation();
   const [locationPath, setLocation] = useLocation();
-  const currentUiLang = i18n.language.split("-")[0];
+  const currentUiLang = i18n.language.split("-")[0] as SupportedLanguage;
 
   const prevLocationPathRef = useRef(locationPath);
   const prevUiLangRef = useRef(currentUiLang);
 
   useEffect(() => {
+    const pathSegments = locationPath.substring(1).split("/");
+    let detectedLangInUrl: SupportedLanguage | undefined = undefined;
+    let slugWithoutLang = "";
+
     if (
-      locationPath !== prevLocationPathRef.current ||
-      currentUiLang !== prevUiLangRef.current
+      pathSegments.length > 0 &&
+      supportedLngs.includes(pathSegments[0] as SupportedLanguage)
     ) {
-      const normalizedLocationPath =
-        locationPath === "/"
-          ? getLocalizedPath(PAGE_KEYS.HOME, defaultLang)
-          : locationPath;
-      const pathSlug = normalizedLocationPath.substring(1).split("#")[0];
-      let detectedLangInUrl: string | undefined = undefined;
-
-      if (
-        normalizedLocationPath === getLocalizedPath(PAGE_KEYS.HOME, defaultLang)
-      ) {
+      detectedLangInUrl = pathSegments[0] as SupportedLanguage;
+      slugWithoutLang = pathSegments.slice(1).join("/");
+    } else if (locationPath === "/") {
+      detectedLangInUrl = defaultLang;
+    } else {
+      const potentialKey = getCanonicalKeyFromSlug(
+        pathSegments.join("/"),
+        defaultLang
+      );
+      if (potentialKey) {
         detectedLangInUrl = defaultLang;
-      } else {
-        for (const lng of supportedLngs) {
-          if (lng === defaultLang) continue;
-          if (
-            Object.values(PAGE_KEYS).some(
-              (key) =>
-                getLocalizedPath(key, lng).split("#")[0] ===
-                normalizedLocationPath.split("#")[0]
-            )
-          ) {
-            detectedLangInUrl = lng;
-            break;
-          }
-        }
       }
+    }
 
-      if (detectedLangInUrl && detectedLangInUrl !== currentUiLang) {
-        if (
-          locationPath !== prevLocationPathRef.current ||
-          detectedLangInUrl !== prevUiLangRef.current
-        ) {
-          i18n.changeLanguage(detectedLangInUrl);
-        }
+    if (detectedLangInUrl && detectedLangInUrl !== currentUiLang) {
+      if (
+        locationPath !== prevLocationPathRef.current ||
+        detectedLangInUrl !== prevUiLangRef.current
+      ) {
+        i18n.changeLanguage(detectedLangInUrl);
       }
     }
     prevLocationPathRef.current = locationPath;
@@ -81,24 +72,55 @@ export default function App() {
   useEffect(() => {
     if (currentUiLang !== prevUiLangRef.current) {
       const langBeforeThisEffect = prevUiLangRef.current;
+      const currentPathWithoutHash = locationPath.split("#")[0];
+      const currentHash = locationPath.includes("#")
+        ? `#${locationPath.split("#")[1]}`
+        : "";
 
-      const pathSegments = locationPath.split("#");
-      let baseSlugFromOldLangUrl = pathSegments[0].substring(1);
+      const pathSegmentsOldLang = currentPathWithoutHash
+        .substring(1)
+        .split("/");
+      let slugFromOldLangUrl = "";
+      let oldLangForCanonicalLookup = langBeforeThisEffect;
 
       if (
-        locationPath === "/" ||
-        (langBeforeThisEffect === defaultLang && baseSlugFromOldLangUrl === "")
+        langBeforeThisEffect !== defaultLang &&
+        pathSegmentsOldLang.length > 0 &&
+        pathSegmentsOldLang[0] === langBeforeThisEffect
       ) {
-        baseSlugFromOldLangUrl = getLocalizedSlug(
+        slugFromOldLangUrl = pathSegmentsOldLang.slice(1).join("/");
+      } else if (langBeforeThisEffect === defaultLang) {
+        slugFromOldLangUrl = pathSegmentsOldLang.join("/");
+      } else {
+        slugFromOldLangUrl = pathSegmentsOldLang.join("/");
+        oldLangForCanonicalLookup = defaultLang;
+      }
+
+      if (
+        currentPathWithoutHash === "/" ||
+        (currentPathWithoutHash === `/${langBeforeThisEffect}` &&
+          langBeforeThisEffect !== defaultLang)
+      ) {
+        slugFromOldLangUrl = getLocalizedSlug(
           PAGE_KEYS.HOME,
           langBeforeThisEffect
         );
       }
 
-      const currentHash = pathSegments[1] ? `#${pathSegments[1]}` : "";
-      const canonicalPageKey =
-        getCanonicalKeyFromSlug(baseSlugFromOldLangUrl, langBeforeThisEffect) ||
-        PAGE_KEYS.HOME;
+      let canonicalPageKey =
+        getCanonicalKeyFromSlug(
+          slugFromOldLangUrl,
+          oldLangForCanonicalLookup
+        ) || PAGE_KEYS.HOME;
+
+      if (
+        (currentPathWithoutHash === "/" &&
+          langBeforeThisEffect === defaultLang) ||
+        (currentPathWithoutHash === `/${langBeforeThisEffect}` &&
+          langBeforeThisEffect !== defaultLang)
+      ) {
+        canonicalPageKey = PAGE_KEYS.HOME;
+      }
 
       const newLocalizedFullPath = getLocalizedPath(
         canonicalPageKey,
@@ -132,13 +154,16 @@ export default function App() {
   }, [currentUiLang, locationPath, setLocation, i18n]);
 
   useEffect(() => {
-    const realizacjePathSlug = getLocalizedSlug(
+    const portfolioPathForCurrentLang = getLocalizedPath(
       PAGE_KEYS.PORTFOLIO,
       currentUiLang
     );
-    const currentPathSlugOnly = locationPath.substring(1).split("#")[0];
+    const currentPathSlugOnly = locationPath.split("#")[0];
 
-    if (currentPathSlugOnly === realizacjePathSlug && window.location.hash) {
+    if (
+      currentPathSlugOnly === portfolioPathForCurrentLang &&
+      window.location.hash
+    ) {
       return;
     }
 
@@ -180,53 +205,48 @@ export default function App() {
 }
 
 function AppRouter() {
-  const { i18n } = useTranslation();
-  const currentLang = i18n.language.split("-")[0];
-
-  const paths = {
-    home: getLocalizedPath(PAGE_KEYS.HOME, currentLang),
-    offer: getLocalizedPath(PAGE_KEYS.OFFER, currentLang),
-    about: getLocalizedPath(PAGE_KEYS.ABOUT, currentLang),
-    portfolio: getLocalizedPath(PAGE_KEYS.PORTFOLIO, currentLang),
-    equipment: getLocalizedPath(PAGE_KEYS.EQUIPMENT, currentLang),
-    contact: getLocalizedPath(PAGE_KEYS.CONTACT, currentLang),
-    terms: getLocalizedPath(PAGE_KEYS.TERMS, currentLang),
-    privacy: getLocalizedPath(PAGE_KEYS.PRIVACY, currentLang),
-  };
-
   return (
     <Switch>
-      <Route path={paths.home} component={Home} />
-      <Route path={paths.offer} component={Oferta} />
-      <Route path={paths.about} component={OFirmie} />
-      <Route path={paths.portfolio} component={Realizacje} />
-      <Route path={paths.equipment} component={Sprzet} />
-      <Route path={paths.contact} component={Contact} />
-      <Route path={paths.terms} component={Regulamin} />
-      <Route path={paths.privacy} component={PolitykaPrywatnosci} />
-
-      {supportedLngs
-        .filter((lng) => lng !== defaultLang)
-        .map((lng) => {
-          const langHomePathForNonDefault = getLocalizedPath(
-            PAGE_KEYS.HOME,
-            lng
-          );
-          const baseCatchAllPath = langHomePathForNonDefault.endsWith("/")
-            ? langHomePathForNonDefault
-            : `${langHomePathForNonDefault}/`;
-          return (
-            <Route
-              key={`notfound-${lng}`}
-              path={`${baseCatchAllPath}:rest*`}
-              component={NotFound}
-            />
-          );
-        })}
-
-      {paths.home !== "/" && (
-        <Route path={`${paths.home}/:rest*`} component={NotFound} />
-      )}
+      {supportedLngs.map((lang) => (
+        <React.Fragment key={`lang-routes-${lang}`}>
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.HOME, lang)}
+            component={Home}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.OFFER, lang)}
+            component={Oferta}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.ABOUT, lang)}
+            component={OFirmie}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.PORTFOLIO, lang)}
+            component={Realizacje}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.EQUIPMENT, lang)}
+            component={Sprzet}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.CONTACT, lang)}
+            component={Contact}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.TERMS, lang)}
+            component={Regulamin}
+          />
+          <Route
+            path={getLocalizedPath(PAGE_KEYS.PRIVACY, lang)}
+            component={PolitykaPrywatnosci}
+          />
+          {lang !== defaultLang && (
+            <Route path={`/${lang}/:rest*`} component={NotFound} />
+          )}
+        </React.Fragment>
+      ))}
+      <Route path="/:rest*" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   );

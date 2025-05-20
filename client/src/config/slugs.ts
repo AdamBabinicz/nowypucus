@@ -11,15 +11,15 @@ export const PAGE_KEYS = {
   HASH_FLOORING: "hash_flooring",
   HASH_UPHOLSTERY: "hash_upholstery",
   HASH_PAVERS_TILES: "hash_pavers_tiles",
-  HASH_PAVER_CLEANING: "hash_paver_cleaning", // Dla usługi "Mycie kostki" w Oferta, jeśli linkujesz do sekcji
-  HASH_TILE_CLEANING: "hash_tile_cleaning", // Dla usługi "Mycie płytek" w Oferta
+  HASH_PAVER_CLEANING: "hash_paver_cleaning",
+  HASH_TILE_CLEANING: "hash_tile_cleaning",
 } as const;
 
 export type PageKey = (typeof PAGE_KEYS)[keyof typeof PAGE_KEYS];
 
 const slugsConfig = {
   pl: {
-    [PAGE_KEYS.HOME]: "",
+    [PAGE_KEYS.HOME]: "", // Pusty slug dla strony głównej PL
     [PAGE_KEYS.OFFER]: "oferta",
     [PAGE_KEYS.ABOUT]: "o-firmie",
     [PAGE_KEYS.PORTFOLIO]: "realizacje",
@@ -35,7 +35,7 @@ const slugsConfig = {
     [PAGE_KEYS.HASH_TILE_CLEANING]: "plytki",
   },
   en: {
-    [PAGE_KEYS.HOME]: "home",
+    [PAGE_KEYS.HOME]: "", // Pusty slug dla strony głównej EN (będzie /en/)
     [PAGE_KEYS.OFFER]: "services",
     [PAGE_KEYS.ABOUT]: "about-us",
     [PAGE_KEYS.PORTFOLIO]: "portfolio",
@@ -52,58 +52,90 @@ const slugsConfig = {
   },
 };
 
-type SupportedLanguage = keyof typeof slugsConfig;
-
+export type SupportedLanguage = keyof typeof slugsConfig;
 export const defaultLang: SupportedLanguage = "pl";
-export const supportedLngs: SupportedLanguage[] = ["pl", "en"];
+export const supportedLngs: readonly SupportedLanguage[] = ["pl", "en"]; // Użyj readonly dla pewności
 
-export const getLocalizedSlug = (pageKey: PageKey, lang: string): string => {
-  const languageKey = lang as SupportedLanguage;
-  if (
-    slugsConfig[languageKey] &&
-    slugsConfig[languageKey][pageKey] !== undefined
-  ) {
-    return slugsConfig[languageKey][pageKey];
+export const getLocalizedSlug = (
+  pageKey: PageKey,
+  langInput: string
+): string => {
+  const lang = langInput as SupportedLanguage;
+  const slug = slugsConfig[lang]?.[pageKey];
+
+  if (typeof slug === "string") {
+    return slug;
   }
-  if (
-    slugsConfig[defaultLang] &&
-    slugsConfig[defaultLang][pageKey] !== undefined
-  ) {
-    return slugsConfig[defaultLang][pageKey];
+  // Fallback na slug języka domyślnego, jeśli dla danego języka nie ma definicji
+  const defaultLangSlug = slugsConfig[defaultLang]?.[pageKey];
+  if (typeof defaultLangSlug === "string") {
+    return defaultLangSlug;
   }
-  return pageKey === PAGE_KEYS.HOME ? "" : pageKey;
+  // Ostateczny fallback na klucz, jeśli nigdzie nie ma definicji
+  return pageKey.toLowerCase();
 };
 
-export function getLocalizedPath(key: PageKey, lang: string): string {
+export function getLocalizedPath(key: PageKey, langInput: string): string {
+  const lang = langInput as SupportedLanguage;
   const slug = getLocalizedSlug(key, lang);
-  const currentLang = lang as SupportedLanguage;
-  if (key === PAGE_KEYS.HOME && currentLang === defaultLang) return "/";
-  if (key === PAGE_KEYS.HOME && currentLang !== defaultLang)
-    return slug ? `/${slug}` : `/${currentLang}`;
-  return slug ? `/${slug}` : key === PAGE_KEYS.HOME ? "/" : `/${key}`;
+  const langPrefix = lang === defaultLang ? "" : `/${lang}`;
+
+  if (key === PAGE_KEYS.HOME) {
+    return langPrefix || "/"; // Zwraca / dla defaultLang, /lang dla innych
+  }
+
+  // Jeśli slug jest pusty (co nie powinno się zdarzyć dla podstron po zmianach w getLocalizedSlug)
+  // ale dla bezpieczeństwa
+  if (slug === "") {
+    return langPrefix || "/";
+  }
+
+  return `${langPrefix}/${slug}`;
 }
 
 export function getCanonicalKeyFromSlug(
   slugToFind: string,
-  lang: string
+  langInput: string
 ): PageKey | undefined {
-  const currentLang = lang as SupportedLanguage;
-  if (slugToFind === "" && currentLang === defaultLang) {
+  const lang = langInput as SupportedLanguage;
+
+  // Obsługa strony głównej (pusty slug)
+  if (slugToFind === "") {
     return PAGE_KEYS.HOME;
   }
-  for (const key in slugsConfig[currentLang]) {
-    if (slugsConfig[currentLang][key as PageKey] === slugToFind) {
-      return key as PageKey;
-    }
-  }
-  if (currentLang !== defaultLang) {
-    for (const key in slugsConfig[defaultLang]) {
-      if (slugsConfig[defaultLang][key as PageKey] === slugToFind) {
-        return key as PageKey;
+
+  for (const pageKey in slugsConfig[lang]) {
+    if (Object.prototype.hasOwnProperty.call(slugsConfig[lang], pageKey)) {
+      if (slugsConfig[lang][pageKey as PageKey] === slugToFind) {
+        return pageKey as PageKey;
       }
     }
   }
-  if (Object.values(PAGE_KEYS).includes(slugToFind as PageKey))
-    return slugToFind as PageKey;
+
+  // Jeśli nie znaleziono w bieżącym języku, a nie jest to język domyślny,
+  // sprawdź, czy slug pasuje do języka domyślnego (przydatne przy przełączaniu języka)
+  if (lang !== defaultLang) {
+    for (const pageKey in slugsConfig[defaultLang]) {
+      if (
+        Object.prototype.hasOwnProperty.call(slugsConfig[defaultLang], pageKey)
+      ) {
+        if (slugsConfig[defaultLang][pageKey as PageKey] === slugToFind) {
+          return pageKey as PageKey;
+        }
+      }
+    }
+  }
+
+  // Ostateczny fallback, jeśli slug jest taki sam jak klucz PAGE_KEY (małymi literami)
+  const potentialPageKey = slugToFind.toUpperCase() as PageKey;
+  if (Object.values(PAGE_KEYS).includes(potentialPageKey)) {
+    // Dodatkowe sprawdzenie, czy ten PAGE_KEY ma zdefiniowany taki slug w jakimkolwiek języku
+    for (const l of supportedLngs) {
+      if (slugsConfig[l][potentialPageKey] === slugToFind) {
+        return potentialPageKey;
+      }
+    }
+  }
+
   return undefined;
 }

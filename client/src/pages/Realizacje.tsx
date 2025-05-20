@@ -284,7 +284,7 @@ const Realizacje = () => {
         <title>{t("meta.portfolioTitle")}</title>
         <meta name="description" content={t("meta.portfolioDescription")} />
       </Helmet>
-      <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20 text-primary-foreground">
+      <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20 text-primary-foreground">
         <ContentContainer className="text-center">
           <motion.h2
             className="font-limelight text-3xl md:text-4xl font-bold mb-4 text-foreground"
@@ -347,7 +347,7 @@ const Realizacje = () => {
                   2 ===
                 0
                   ? "bg-muted/50 dark:bg-slate-800/50"
-                  : "bg-background dark:bg-slate-900"
+                  : "bg-background dark:bg-slate-800"
               }`}
             >
               <ContentContainer>

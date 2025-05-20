@@ -119,7 +119,7 @@ const Contact = () => {
         `}</script>
       </Helmet>
 
-      <section className="bg-gradient-to-r from-primary-700 to-primary-800 py-12 md:py-20">
+      <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
         <ContentContainer className="text-center">
           <motion.h2
             className="font-limelight text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4"
@@ -146,7 +146,7 @@ const Contact = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-16 bg-white dark:bg-slate-900">
+      <section className="py-16 bg-white dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
         <ContentContainer>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
