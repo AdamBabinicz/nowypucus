@@ -24,7 +24,8 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  --primary: 207 90% 45%;
+  /* ZMIANA: Jeszcze bardziej przyciemnione --primary */
+  --primary: 207 90% 40%;
   --primary-foreground: 211 100% 99%;
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
@@ -37,7 +38,7 @@
   --marine-l: 40%;
   --marine: var(--marine-h) var(--marine-s) var(--marine-l);
   --marine-foreground: 0 0% 98%;
-  --ring: 207 90% 50%;
+  --ring: 207 90% 50%; /* Utrzymujemy ring trochę jaśniejszy niż primary dla widoczności */
   --radius: 0.5rem;
 
   --chart-1: 220 80% 60%;
@@ -46,9 +47,10 @@
   --chart-4: 280 80% 60%;
   --chart-5: 0 80% 60%;
 
+  /* Synchronizacja --sidebar-primary z głównym --primary */
   --sidebar-background: 220 15% 95%;
   --sidebar-foreground: 220 15% 20%;
-  --sidebar-primary: 207 90% 45%;
+  --sidebar-primary: 207 90% 40%;
   --sidebar-primary-foreground: 211 100% 99%;
   --sidebar-accent: 0 84.2% 60.2%;
   --sidebar-accent-foreground: 60 9.1% 97.8%;
