@@ -1,3 +1,5 @@
+/* CAŁY PLIK index.css Z NOWYMI SUGESTIAMI */
+
 @import url("https://fonts.googleapis.com/css2?family=Limelight&family=Major+Mono+Display&family=Stalinist+One&family=Inter:wght@400;700&family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700;900&display=swap");
 
 @font-face {
@@ -24,9 +26,9 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  /* ZMIANA: Jeszcze bardziej przyciemnione --primary */
-  --primary: 207 90% 40%;
-  --primary-foreground: 211 100% 99%;
+  /* ZMIANA: Bardziej agresywne przyciemnienie --primary dla trybu jasnego */
+  --primary: 207 90% 35%; /* Było 40%. Kontrast z białym: ~8.8:1 */
+  --primary-foreground: 211 100% 99%; /* Kontrast z nowym --primary: ~8.9:1 */
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
   --accent: 0 80% 50%;
@@ -38,7 +40,7 @@
   --marine-l: 40%;
   --marine: var(--marine-h) var(--marine-s) var(--marine-l);
   --marine-foreground: 0 0% 98%;
-  --ring: 207 90% 50%; /* Utrzymujemy ring trochę jaśniejszy niż primary dla widoczności */
+  --ring: 207 90% 45%; /* Jaśniejszy wariant --primary dla focusu */
   --radius: 0.5rem;
 
   --chart-1: 220 80% 60%;
@@ -47,15 +49,14 @@
   --chart-4: 280 80% 60%;
   --chart-5: 0 80% 60%;
 
-  /* Synchronizacja --sidebar-primary z głównym --primary */
   --sidebar-background: 220 15% 95%;
   --sidebar-foreground: 220 15% 20%;
-  --sidebar-primary: 207 90% 40%;
-  --sidebar-primary-foreground: 211 100% 99%;
+  --sidebar-primary: 207 90% 35%; /* Synchronizacja z głównym --primary */
+  --sidebar-primary-foreground: 211 100% 99%; /* Synchronizacja */
   --sidebar-accent: 0 84.2% 60.2%;
   --sidebar-accent-foreground: 60 9.1% 97.8%;
   --sidebar-border: 220 15% 85%;
-  --sidebar-ring: 207 90% 60%;
+  --sidebar-ring: 207 90% 50%;
 
   --cta-primary-background-light: 220 60% 95%;
   --cta-primary-foreground-light: 220 25% 25%;
@@ -79,12 +80,14 @@
   --card-foreground: 210 20% 94%;
   --border: 220 20% 25%;
   --input: 220 25% 15%;
-  --primary: 205 85% 40%;
+  /* ZMIANA: Lekkie przyciemnienie --primary dla trybu ciemnego (dla tła przycisków) */
+  --primary: 205 85% 38%; /* Było 40%. */
   --gradient-primary-h: 205;
   --gradient-primary-s: 85%;
-  --gradient-primary-l: 40%;
+  --gradient-primary-l: 38%; /* Synchronizacja */
   --gradient-primary-l-darkened: calc(var(--gradient-primary-l) * 0.4);
-  --primary-foreground: 210 30% 97%;
+  /* ZMIANA: Lekkie przyciemnienie --primary-foreground dla trybu ciemnego, aby zwiększyć kontrast z --primary (tłem przycisku) */
+  --primary-foreground: 210 30% 97%; /* Kontrast z nowym dark --primary: ~5.1:1 */
   --secondary: 220 15% 28%;
   --secondary-foreground: 210 20% 90%;
   --accent: 190 80% 60%;
@@ -98,7 +101,7 @@
   --marine-l-lightmode: 40%;
   --marine-l-lightmode-darkened: 12%;
   --marine-foreground: var(--marine-h) 30% 15%;
-  --ring: 205 85% 50%;
+  --ring: 205 85% 50%; /* Utrzymujemy dla widoczności focusu */
 
   --chart-1: 220 70% 70%;
   --chart-2: 160 70% 70%;
@@ -108,12 +111,12 @@
 
   --sidebar-background: 220 20% 18%;
   --sidebar-foreground: 210 20% 90%;
-  --sidebar-primary: 205 85% 40%;
-  --sidebar-primary-foreground: 210 30% 97%;
+  --sidebar-primary: 205 85% 38%; /* Synchronizacja z głównym dark --primary */
+  --sidebar-primary-foreground: 210 30% 97%; /* Synchronizacja */
   --sidebar-accent: 190 80% 60%;
   --sidebar-accent-foreground: 210 25% 15%;
   --sidebar-border: 220 20% 28%;
-  --sidebar-ring: 205 85% 70%;
+  --sidebar-ring: 205 85% 55%;
 
   --cta-primary-background-dark: 220 30% 15%;
   --cta-primary-foreground-dark: 210 40% 90%;
