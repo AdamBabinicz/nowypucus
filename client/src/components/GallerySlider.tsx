@@ -163,7 +163,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                     />
                     <div
                       className={`absolute bottom-0 left-0 ${
-                        image.type === "before" ? "bg-red-600" : "bg-green-600"
+                        image.type === "before" ? "bg-red-700" : "bg-green-700"
                       } text-white py-1 px-4 rounded-tr-lg font-medium`}
                     >
                       {image.type === "before" ? "PRZED" : "PO"}
