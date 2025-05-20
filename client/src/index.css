@@ -24,9 +24,8 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  /* ZMIANA: Przyciemniamy --primary dla lepszego kontrastu na jasnych tłach */
-  --primary: 207 90% 45%; /* Było 54%. Nowy kontrast z białym: ~5.5:1 */
-  --primary-foreground: 211 100% 99%; /* Kontrast z nowym --primary: ~5.6:1 (OK!) */
+  --primary: 207 90% 45%;
+  --primary-foreground: 211 100% 99%;
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
   --accent: 0 80% 50%;
@@ -38,7 +37,7 @@
   --marine-l: 40%;
   --marine: var(--marine-h) var(--marine-s) var(--marine-l);
   --marine-foreground: 0 0% 98%;
-  --ring: 20 14.3% 4.1%; /* Powinno być --primary lub jaśniejszy wariant --primary */
+  --ring: 207 90% 50%;
   --radius: 0.5rem;
 
   --chart-1: 220 80% 60%;
@@ -49,7 +48,7 @@
 
   --sidebar-background: 220 15% 95%;
   --sidebar-foreground: 220 15% 20%;
-  --sidebar-primary: 207 90% 54%; /* Rozważ synchronizację z głównym --primary lub osobne dostosowanie */
+  --sidebar-primary: 207 90% 45%;
   --sidebar-primary-foreground: 211 100% 99%;
   --sidebar-accent: 0 84.2% 60.2%;
   --sidebar-accent-foreground: 60 9.1% 97.8%;
@@ -78,14 +77,11 @@
   --card-foreground: 210 20% 94%;
   --border: 220 20% 25%;
   --input: 220 25% 15%;
-  /* ZMIANA: Przyciemniamy --primary dla lepszego kontrastu z --primary-foreground */
-  --primary: 205 85% 40%; /* Było 55%. Nowy kontrast z --primary-foreground: ~4.7:1 */
+  --primary: 205 85% 40%;
   --gradient-primary-h: 205;
   --gradient-primary-s: 85%;
-  --gradient-primary-l: 40%; /* Synchronizacja z nowym --primary */
-  --gradient-primary-l-darkened: calc(
-    var(--gradient-primary-l) * 0.4
-  ); /* Może wymagać korekty */
+  --gradient-primary-l: 40%;
+  --gradient-primary-l-darkened: calc(var(--gradient-primary-l) * 0.4);
   --primary-foreground: 210 30% 97%;
   --secondary: 220 15% 28%;
   --secondary-foreground: 210 20% 90%;
@@ -100,7 +96,7 @@
   --marine-l-lightmode: 40%;
   --marine-l-lightmode-darkened: 12%;
   --marine-foreground: var(--marine-h) 30% 15%;
-  --ring: 205 85% 50%; /* Rozjaśniamy trochę ring dla lepszej widoczności na ciemnym tle, jeśli jest to kolor obramowania focusa dla --primary */
+  --ring: 205 85% 50%;
 
   --chart-1: 220 70% 70%;
   --chart-2: 160 70% 70%;
@@ -110,7 +106,7 @@
 
   --sidebar-background: 220 20% 18%;
   --sidebar-foreground: 210 20% 90%;
-  --sidebar-primary: 205 85% 55%; /* Rozważ synchronizację z głównym --primary lub osobne dostosowanie */
+  --sidebar-primary: 205 85% 40%;
   --sidebar-primary-foreground: 210 30% 97%;
   --sidebar-accent: 190 80% 60%;
   --sidebar-accent-foreground: 210 25% 15%;
@@ -123,7 +119,6 @@
   --cta-secondary-foreground-dark: 0 40% 90%;
 }
 
-/* Reszta pliku CSS bez zmian od tego miejsca */
 @layer base {
   * {
     @apply border-border;
@@ -200,19 +195,12 @@
   overflow: hidden;
 }
 
-.before-label,
-.after-label {
-  @apply absolute bottom-0 left-0 text-white py-1 px-4 rounded-tr-lg font-medium;
-}
-
 .before-label {
-  /* ZMIANA: Użyjemy ciemniejszego odcienia dla lepszego kontrastu z białym tekstem */
-  @apply bg-red-700; /* Było bg-red-600. Kontrast z białym: ~5.1:1 */
+  @apply absolute bottom-0 left-0 text-white py-1 px-4 rounded-tr-lg font-medium bg-red-700;
 }
 
 .after-label {
-  /* ZMIANA: Użyjemy ciemniejszego odcienia dla lepszego kontrastu z białym tekstem */
-  @apply bg-green-700; /* Było bg-green-600. Kontrast z białym: ~4.59:1 */
+  @apply absolute bottom-0 left-0 text-white py-1 px-4 rounded-tr-lg font-medium bg-green-800;
 }
 
 .modal-overlay {
