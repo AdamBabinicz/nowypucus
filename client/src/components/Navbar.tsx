@@ -199,7 +199,7 @@ const Navbar = () => {
                 onClick={() => handleLocalizedLinkClick(PAGE_KEYS.OFFER)}
                 className={navLinkClasses(PAGE_KEYS.OFFER)}
               >
-                {t("nav.services")}
+                {t("nav.offer")}
               </WouterLink>
             </li>
             <li>
@@ -365,7 +365,7 @@ const Navbar = () => {
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.OFFER)}
                   className={mobileNavLinkClasses(PAGE_KEYS.OFFER)}
                 >
-                  {t("nav.services")}
+                  {t("nav.offer")}
                 </WouterLink>
               </li>
               <li>

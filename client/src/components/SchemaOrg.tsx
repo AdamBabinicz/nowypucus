@@ -123,10 +123,15 @@ export const SchemaOrg = () => {
     const pathWithoutHash = locationPath.split("#")[0];
 
     const homeSlug = getLocalizedSlug(PAGE_KEYS.HOME, currentLang);
+    let firstBreadcrumbName;
     const firstBreadcrumbKey = `breadcrumbs.${homeSlug}`;
     const navHomeKey = "nav.home";
-    // console.log(`[SchemaOrg] First breadcrumb: Trying key "${firstBreadcrumbKey}", fallback key "${navHomeKey}"`);
-    const firstBreadcrumbName = t(firstBreadcrumbKey, t(navHomeKey));
+
+    if (homeSlug && i18n.exists(firstBreadcrumbKey)) {
+      firstBreadcrumbName = t(firstBreadcrumbKey);
+    } else {
+      firstBreadcrumbName = t(navHomeKey);
+    }
 
     if (
       pathWithoutHash === homePath ||
@@ -190,10 +195,7 @@ export const SchemaOrg = () => {
 
       const canonicalKey = getCanonicalKeyFromSlug(segment, currentLang);
       const breadcrumbNameKeyForSegment = `breadcrumbs.${segment}`;
-      // Logowanie segmentu i klucza PRZED próbą tłumaczenia
-      console.log(
-        `[SchemaOrg DEBUG] Segment: "${segment}", Breadcrumb Key: "${breadcrumbNameKeyForSegment}"`
-      );
+      // console.log(`[SchemaOrg DEBUG] Segment: "${segment}", Breadcrumb Key: "${breadcrumbNameKeyForSegment}"`); // Możesz to zostawić do dalszego debugowania, jeśli chcesz
 
       const navNameKeyForSegment = canonicalKey
         ? `nav.${String(canonicalKey).toLowerCase()}`
@@ -202,10 +204,14 @@ export const SchemaOrg = () => {
         .replace(/-/g, " ")
         .replace(/\b\w/g, (l) => l.toUpperCase());
 
-      const segmentBreadcrumbName = t(
-        breadcrumbNameKeyForSegment,
-        t(navNameKeyForSegment, fallbackSegmentName)
-      );
+      let segmentBreadcrumbName;
+      if (i18n.exists(breadcrumbNameKeyForSegment)) {
+        segmentBreadcrumbName = t(breadcrumbNameKeyForSegment);
+      } else if (navNameKeyForSegment && i18n.exists(navNameKeyForSegment)) {
+        segmentBreadcrumbName = t(navNameKeyForSegment);
+      } else {
+        segmentBreadcrumbName = fallbackSegmentName;
+      }
 
       correctedItemList.push({
         "@type": "ListItem",

@@ -197,7 +197,7 @@ const Footer = () => {
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.OFFER)}
                   className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
                 >
-                  {t("nav.services")}
+                  {t("nav.offer")}
                 </WouterLink>
               </li>
               <li>
