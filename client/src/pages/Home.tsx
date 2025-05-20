@@ -672,6 +672,7 @@ const Home = () => {
                       "QR code to leave a Google review"
                     )}
                     className="w-40 h-40 cursor-pointer transition-opacity hover:opacity-80"
+                    loading="lazy"
                   />
                 </a>
               </div>
