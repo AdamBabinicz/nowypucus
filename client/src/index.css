@@ -22,13 +22,17 @@
   --muted-foreground: 25 5.3% 44.7%;
   --popover: 0 0% 100%;
   --popover-foreground: 20 14.3% 4.1%;
-  --card: 0 0% 100%;
+  --card: 0 0% 100%; /* Tło dla "Szczegóły i Cennik" */
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  /* ZMIANA: Bardziej agresywne przyciemnienie --primary dla trybu jasnego */
-  --primary: 207 90% 35%; /* Było 40%. Kontrast z białym: ~8.8:1 */
-  --primary-foreground: 211 100% 99%; /* Kontrast z nowym --primary: ~8.9:1 */
+
+  /* --- PIERWSZA POPRAWKA START --- */
+  /* Cel: Zwiększyć kontrast dla elementów używających --primary na jasnym tle */
+  --primary: 207 90% 30%; /* Było 35%. Nowy kontrast z --card (białym): ~11.3:1 */
+  --primary-foreground: 211 100% 99%; /* Kontrast tekstu z nowym --primary (jako tłem przycisku): ~11.4:1 */
+  /* --- PIERWSZA POPRAWKA KONIEC --- */
+
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
   --accent: 0 80% 50%;
@@ -40,7 +44,7 @@
   --marine-l: 40%;
   --marine: var(--marine-h) var(--marine-s) var(--marine-l);
   --marine-foreground: 0 0% 98%;
-  --ring: 207 90% 45%; /* Jaśniejszy wariant --primary dla focusu */
+  --ring: 207 90% 40%; /* Musi być jaśniejszy niż --primary (30%) dla widoczności focusu */
   --radius: 0.5rem;
 
   --chart-1: 220 80% 60%;
@@ -51,12 +55,12 @@
 
   --sidebar-background: 220 15% 95%;
   --sidebar-foreground: 220 15% 20%;
-  --sidebar-primary: 207 90% 35%; /* Synchronizacja z głównym --primary */
+  --sidebar-primary: 207 90% 30%; /* Synchronizacja z głównym --primary */
   --sidebar-primary-foreground: 211 100% 99%; /* Synchronizacja */
   --sidebar-accent: 0 84.2% 60.2%;
   --sidebar-accent-foreground: 60 9.1% 97.8%;
   --sidebar-border: 220 15% 85%;
-  --sidebar-ring: 207 90% 50%;
+  --sidebar-ring: 207 90% 45%;
 
   --cta-primary-background-light: 220 60% 95%;
   --cta-primary-foreground-light: 220 25% 25%;
