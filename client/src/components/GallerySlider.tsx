@@ -94,11 +94,10 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
   useEffect(() => {
     resetAutoplay();
     return () => stopAutoplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPairs]); // Dodajemy imageIndex i groupedImages jeśli resetAutoplay ma zależeć od ich zmiany, ale w tym przypadku totalPairs wydaje się wystarczające dla logiki auto-odtwarzania
+  }, [totalPairs]);
 
   const handleDragEnd = (
-    _e: MouseEvent | TouchEvent | PointerEvent, // Zmieniono e na _e, bo nie jest używane
+    _e: MouseEvent | TouchEvent | PointerEvent,
     { offset, velocity }: PanInfo
   ) => {
     const swipe = swipePower(offset.x, velocity.x);
@@ -122,7 +121,6 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
       </div>
     );
   }
-
   const singleImageHeightClass = "h-[400px]";
   const sliderContainerHeightClass = "h-[808px]";
 
@@ -170,7 +168,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                     </div>
                     <button
                       onClick={() => openModal(image)}
-                      className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" // Zwiększono padding z p-2 na p-3 i dodano style focus-visible
+                      className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
                       aria-label="Powiększ zdjęcie"
                     >
                       <FiMaximize className="w-5 h-5" />
@@ -184,14 +182,14 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
           <>
             <button
               onClick={() => paginate(-1)}
-              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" // Zwiększono padding z p-2 na p-3 i dodano style focus-visible
+              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               aria-label="Poprzednie zdjęcie"
             >
               <FiChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={() => paginate(1)}
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white" // Zwiększono padding z p-2 na p-3 i dodano style focus-visible
+              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               aria-label="Następne zdjęcie"
             >
               <FiChevronRight className="w-6 h-6" />
@@ -206,7 +204,6 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                     setPage([idx, newDirection]);
                     resetAutoplay();
                   }}
-                  // Zmienione klasy dla lepszego obszaru dotykowego
                   className={`
                     min-w-[44px] min-h-[44px]
                     flex items-center justify-center
@@ -216,7 +213,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                   `}
                   aria-label={`Przejdź do slajdu ${idx + 1}`}
                 >
-                  <span // Wewnętrzny element dla wizualnej kropki
+                  <span
                     className={`
                       block w-3 h-3 rounded-full
                       ${

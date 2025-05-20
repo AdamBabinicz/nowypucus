@@ -23,9 +23,7 @@ const Layout = ({ children }: LayoutProps) => {
     <>
       <SchemaOrg />
       <Navbar />
-      <main className="flex-grow" style={{ paddingTop: `${HEADER_OFFSET}px` }}>
-        {children}
-      </main>
+      <main className={`flex-grow pt-[${HEADER_OFFSET}px]`}>{children}</main>
       <Footer />
       <ScrollToTopButton />
     </>

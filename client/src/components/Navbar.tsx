@@ -347,8 +347,7 @@ const Navbar = () => {
             animate="visible"
             exit="hidden"
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white dark:bg-slate-900 absolute w-full shadow-lg pb-4"
-            style={{ top: "calc(4.375rem - 1px)" }}
+            className="lg:hidden bg-white dark:bg-slate-900 absolute w-full shadow-lg pb-4 top-[calc(4.375rem-1px)]"
           >
             <ul className="space-y-1 px-4">
               <li>

@@ -55,7 +55,7 @@ export const SchemaOrg = () => {
   ) {
     canonicalUrlPath = getLocalizedPath(PAGE_KEYS.HOME, defaultLang);
   }
-  const canonicalUrl = `${baseUrl}${canonicalUrlPath.split("#")[0]}`; // Usuwamy hash z canonical
+  const canonicalUrl = `${baseUrl}${canonicalUrlPath.split("#")[0]}`;
 
   const socialLinksHrefs = [
     "https://www.facebook.com/super.pucus",
@@ -122,6 +122,12 @@ export const SchemaOrg = () => {
     const homePath = getLocalizedPath(PAGE_KEYS.HOME, currentLang);
     const pathWithoutHash = locationPath.split("#")[0];
 
+    const homeSlug = getLocalizedSlug(PAGE_KEYS.HOME, currentLang);
+    const firstBreadcrumbKey = `breadcrumbs.${homeSlug}`;
+    const navHomeKey = "nav.home";
+    // console.log(`[SchemaOrg] First breadcrumb: Trying key "${firstBreadcrumbKey}", fallback key "${navHomeKey}"`);
+    const firstBreadcrumbName = t(firstBreadcrumbKey, t(navHomeKey));
+
     if (
       pathWithoutHash === homePath ||
       (pathWithoutHash === "/" &&
@@ -135,10 +141,7 @@ export const SchemaOrg = () => {
             {
               "@type": "ListItem",
               position: 1,
-              name: t(
-                `breadcrumbs.${getLocalizedSlug(PAGE_KEYS.HOME, currentLang)}`,
-                t("nav.home")
-              ),
+              name: firstBreadcrumbName,
               item: `${baseUrl}${pathWithoutHash}`,
             },
           ],
@@ -151,10 +154,7 @@ export const SchemaOrg = () => {
       {
         "@type": "ListItem",
         position: 1,
-        name: t(
-          `breadcrumbs.${getLocalizedSlug(PAGE_KEYS.HOME, currentLang)}`,
-          t("nav.home")
-        ),
+        name: firstBreadcrumbName,
         item: `${baseUrl}${homePath}`,
       },
     ];
@@ -189,21 +189,28 @@ export const SchemaOrg = () => {
           : `${currentBuiltPathForBreadcrumbs}/${segment}`;
 
       const canonicalKey = getCanonicalKeyFromSlug(segment, currentLang);
-      const breadcrumbNameKey = `breadcrumbs.${segment}`;
-      const navNameKey = canonicalKey
+      const breadcrumbNameKeyForSegment = `breadcrumbs.${segment}`;
+      // Logowanie segmentu i klucza PRZED próbą tłumaczenia
+      console.log(
+        `[SchemaOrg DEBUG] Segment: "${segment}", Breadcrumb Key: "${breadcrumbNameKeyForSegment}"`
+      );
+
+      const navNameKeyForSegment = canonicalKey
         ? `nav.${String(canonicalKey).toLowerCase()}`
         : segment;
+      const fallbackSegmentName = segment
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, (l) => l.toUpperCase());
+
+      const segmentBreadcrumbName = t(
+        breadcrumbNameKeyForSegment,
+        t(navNameKeyForSegment, fallbackSegmentName)
+      );
 
       correctedItemList.push({
         "@type": "ListItem",
         position: correctedItemList.length + 1,
-        name: t(
-          breadcrumbNameKey,
-          t(
-            navNameKey,
-            segment.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
-          )
-        ),
+        name: segmentBreadcrumbName,
         item: `${baseUrl}${currentBuiltPathForBreadcrumbs}`,
       });
     });
@@ -229,13 +236,10 @@ export const SchemaOrg = () => {
   );
 
   if (locationPath === "/") {
-    // Jesteśmy na "/", więc klucz kanoniczny to HOME
   } else if (
     slugForCanonicalKeyDetermination === homeSlugForCurrentLangForAlternates &&
     currentLang !== defaultLang
   ) {
-    // Jesteśmy na stronie głównej języka innego niż domyślny (np. /home dla en), slug to "home"
-    // klucz kanoniczny to HOME
   } else if (
     currentLang !== defaultLang &&
     homeSlugForCurrentLangForAlternates &&
@@ -243,18 +247,16 @@ export const SchemaOrg = () => {
       homeSlugForCurrentLangForAlternates + "/"
     )
   ) {
-    // Jesteśmy na podstronie języka innego niż domyślny (np. /home/services), usuwamy /home
     slugForCanonicalKeyDetermination =
       slugForCanonicalKeyDetermination.substring(
         homeSlugForCurrentLangForAlternates.length + 1
       );
   }
-  // Jeśli po tych operacjach slugForCanonicalKeyDetermination jest pusty, to znaczy, że to strona główna
   if (slugForCanonicalKeyDetermination === "") {
     slugForCanonicalKeyDetermination = getLocalizedSlug(
       PAGE_KEYS.HOME,
       currentLang
-    ); // Użyj slugu home dla bieżącego języka
+    );
   }
 
   const canonicalKeyCurrentPage =
@@ -262,7 +264,7 @@ export const SchemaOrg = () => {
     PAGE_KEYS.HOME;
 
   supportedLngs.forEach((lng) => {
-    const targetLang = lng as SupportedLanguage; // Asercja typu
+    const targetLang = lng as SupportedLanguage;
     const alternatePath = getLocalizedPath(canonicalKeyCurrentPage, targetLang);
     alternateLinks.push(
       <link

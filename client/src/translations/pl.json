@@ -19,7 +19,7 @@
   },
   "nav": {
     "home": "Start",
-    "services": "Oferta",
+    "offer": "Oferta",
     "about": "O Firmie",
     "portfolio": "Realizacje",
     "equipment": "Sprzęt",
@@ -574,6 +574,8 @@
     "terms-of-service": "Terms of Service",
     "polityka-prywatnosci": "Polityka Prywatności",
     "privacy-policy": "Privacy Policy",
-    "home": "Strona Główna"
+    "home": "Strona Główna",
+    "start": "Początek",
+    "Start": "Początek (Test z dużej litery)"
   }
 }

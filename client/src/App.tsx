@@ -1,11 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-  Switch,
-  Route,
-  useLocation,
-  Link as WouterLink,
-  Redirect,
-} from "wouter";
+import { Switch, Route, useLocation, Redirect } from "wouter";
 import { useTranslation } from "react-i18next";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
@@ -21,94 +15,16 @@ import Sprzet from "@/pages/Sprzet";
 import Contact from "@/pages/Contact";
 import Regulamin from "@/pages/Regulamin";
 import PolitykaPrywatnosci from "@/pages/PolitykaPrywatnosci";
-import i18nInstance from "@/i18n";
 import {
   PAGE_KEYS,
   getLocalizedPath,
   getCanonicalKeyFromSlug,
   getLocalizedSlug,
-  PageKey,
   supportedLngs,
   defaultLang,
 } from "@/config/slugs";
 
 export const HEADER_OFFSET = 70;
-
-const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
-  const [locationPath, setLocation] = useLocation();
-  const currentUiLang = i18n.language.split("-")[0];
-
-  const changeLanguage = (newLang: string) => {
-    if (newLang === currentUiLang) return;
-
-    const pathSegments = locationPath.split("#");
-    let currentBaseSlug = pathSegments[0].substring(1);
-    if (
-      locationPath === "/" ||
-      (currentUiLang === defaultLang && currentBaseSlug === "")
-    ) {
-      currentBaseSlug = getLocalizedSlug(PAGE_KEYS.HOME, currentUiLang);
-    }
-
-    const currentHash = pathSegments[1] ? `#${pathSegments[1]}` : "";
-    const canonicalPageKey =
-      getCanonicalKeyFromSlug(currentBaseSlug, currentUiLang) || PAGE_KEYS.HOME;
-
-    let newLocalizedFullPath = getLocalizedPath(canonicalPageKey, newLang);
-
-    if (currentHash) {
-      const hashWithoutSymbol = currentHash.substring(1);
-      const canonicalHashKey = getCanonicalKeyFromSlug(
-        hashWithoutSymbol,
-        currentUiLang
-      );
-      if (canonicalHashKey) {
-        const newLocalizedHashSlug = getLocalizedSlug(
-          canonicalHashKey,
-          newLang
-        );
-        newLocalizedFullPath += `#${newLocalizedHashSlug}`;
-      } else {
-        newLocalizedFullPath += currentHash;
-      }
-    }
-
-    i18n.changeLanguage(newLang).then(() => {
-      if (newLocalizedFullPath !== locationPath) {
-        setLocation(newLocalizedFullPath, { replace: true });
-      }
-    });
-  };
-
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: "10px",
-        right: "10px",
-        zIndex: 1000,
-        background: "white",
-        padding: "5px",
-        border: "1px solid black",
-      }}
-    >
-      {supportedLngs.map((lng) => (
-        <button
-          key={lng}
-          onClick={() => changeLanguage(lng)}
-          disabled={currentUiLang === lng}
-          style={{
-            marginRight: "5px",
-            fontWeight: currentUiLang === lng ? "bold" : "normal",
-          }}
-        >
-          {lng.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-};
 
 export default function App() {
   const { i18n } = useTranslation();
@@ -255,7 +171,6 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Layout>
-          {/* <LanguageSwitcher /> */}
           <AppRouter />
           <Toaster />
         </Layout>
