@@ -278,7 +278,7 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li className="flex items-center">
-                <FiPhone className="w-5 h-5 mr-2 text-primary-400" />
+                <FiPhone className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
                 <a
                   href="tel:+48531890827"
                   className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
@@ -287,7 +287,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center">
-                <FiMail className="w-5 h-5 mr-2 text-primary-400" />
+                <FiMail className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
                 <a
                   href="mailto:mariusz1989poczta@wp.pl"
                   className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
@@ -296,13 +296,13 @@ const Footer = () => {
                 </a>
               </li>
               <li className="flex items-center">
-                <FiMapPin className="w-5 h-5 mr-2 text-primary-400" />
+                <FiMapPin className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
                 <span className="text-foreground dark:text-gray-100">
                   {t("footer.area")}
                 </span>
               </li>
               <li className="flex items-center">
-                <FiClock className="w-5 h-5 mr-2 text-primary-400" />
+                <FiClock className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
                 <span className="text-foreground dark:text-gray-100">
                   {t("footer.hours")}
                 </span>
@@ -313,7 +313,8 @@ const Footer = () => {
         <div className="border-t border-gray-600 pt-6 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-foreground dark:text-gray-200 text-center text-sm mb-2 sm:mb-0">
             {yearDisplay}, SUPER PUCUŚ{" "}
-            {t("footer.companyType", "Pralnia dywanów")} Radom.
+            {t("footer.companyType", "Pralnia dywanów")}{" "}
+            {t("footer.rights", "Radom.")}
           </p>
           <div className="flex space-x-4">
             <WouterLink

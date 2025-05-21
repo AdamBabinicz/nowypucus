@@ -83,19 +83,23 @@ const Oferta = () => {
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.carpetCleaning")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 25 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.orientalCarpet")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 25 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.stainRemoval")}</td>
                     <td className="text-right py-2">
-                      +20% {t("modalContent.toBasePrice")}
+                      {t("modalContent.info_stain_removal", {
+                        priceText: t("modalContent.toBasePrice"),
+                      })}
                     </td>
                   </tr>
                 </tbody>
@@ -154,13 +158,16 @@ const Oferta = () => {
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.floorCleaning")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 14 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_floor_14_pln_m2")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.stainRemoval")}</td>
                     <td className="text-right py-2">
-                      +20% {t("modalContent.toBasePrice")}
+                      {t("modalContent.info_stain_removal", {
+                        priceText: t("modalContent.toBasePrice"),
+                      })}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
@@ -168,7 +175,8 @@ const Oferta = () => {
                       {t("modalContent.commercialFloor")}
                     </td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 10 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_commercial_10_pln_m2")}
                     </td>
                   </tr>
                 </tbody>
@@ -228,31 +236,36 @@ const Oferta = () => {
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.sofa2")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 100 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_sofa2_100_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.sofa3")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 150 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_sofa3_150_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.corner")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 200 - 250 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_corner_200_250_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.armchair")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 70 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_armchair_70_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.chair")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 30 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_chair_30_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
@@ -282,13 +295,15 @@ const Oferta = () => {
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.mattress1")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 120 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_mattress1_120_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.mattress2")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 160 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_mattress2_160_pln")}
                     </td>
                   </tr>
                 </tbody>
@@ -345,23 +360,28 @@ const Oferta = () => {
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.paverCleaning")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 10 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_paver_10_pln_m2")}
                     </td>
                   </tr>
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("services.tileCleaning")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 12 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_12_pln_m2")}
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.mossRemoval")}</td>
-                    <td className="text-right py-2">+3 zł/m²</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.info_moss_removal_3_pln_m2")}
+                    </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.jointFilling")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 5 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_jointfilling_5_pln_m2")}
                     </td>
                   </tr>
                 </tbody>
@@ -419,18 +439,22 @@ const Oferta = () => {
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("services.tileCleaning")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 12 zł/m²
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_12_pln_m2")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.bathrooms")}</td>
                     <td className="text-right py-2">
-                      {t("modalContent.from")} 150 zł
+                      {t("modalContent.from")}{" "}
+                      {t("modalContent.price_bathrooms_150_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.groutCleaning")}</td>
-                    <td className="text-right py-2">+2 zł/m²</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.info_groutcleaning_2_pln_m2")}
+                    </td>
                   </tr>
                 </tbody>
               </table>

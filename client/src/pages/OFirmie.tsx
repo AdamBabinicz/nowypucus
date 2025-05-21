@@ -105,7 +105,7 @@ const OFirmie = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative h-96 md:h-full min-h-[320px] bg-gray-200 dark:bg-slate-800 rounded-xl overflow-hidden"
+              className="relative h-96 md:h-full min-h-[320px] bg-gray-200 dark:bg-transparent rounded-xl overflow-hidden"
             >
               <img
                 src="/images/team/5.avif"
