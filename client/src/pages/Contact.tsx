@@ -6,10 +6,10 @@ import {
   BsFacebook,
   BsInstagram,
   BsMessenger,
-  BsTwitter,
   BsPinterest,
   BsYoutube,
 } from "react-icons/bs";
+import { FaXTwitter } from "react-icons/fa6";
 import { FaGoogle, FaStar } from "react-icons/fa";
 import ContactForm from "@/components/ContactForm";
 import qrCode from "@assets/qr.avif";
@@ -48,7 +48,7 @@ const Contact = () => {
     },
     {
       href: "https://twitter.com/Mariusz04417578",
-      icon: BsTwitter,
+      icon: FaXTwitter,
       ariaLabelKey: "footer.social.twitter",
       defaultAriaLabel: "Twitter",
       colorClasses:
