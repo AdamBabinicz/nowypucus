@@ -113,7 +113,6 @@ const ContactForm = () => {
         variant: "destructive",
       });
     }
-    // react-hook-form automatycznie ustawi isSubmitting na false po zakończeniu onSubmit
   };
 
   return (
