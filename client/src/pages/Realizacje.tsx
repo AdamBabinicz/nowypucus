@@ -65,17 +65,41 @@ const dywanyImages: Image[] = [
     alt: "Inny dywan po praniu",
     type: "after",
   },
+  {
+    id: "d7",
+    src: "/images/dywany/110.avif",
+    alt: "Inny dywan przed praniem",
+    type: "before",
+  },
+  {
+    id: "d8",
+    src: "/images/dywany/111.avif",
+    alt: "Inny dywan po praniu",
+    type: "after",
+  },
 ];
 const wykladzinyImages: Image[] = [
   {
     id: "w1",
-    src: "/images/dywany/110.avif",
+    src: "/images/wykladzina/1.avif",
     alt: "Wykładzina przed praniem",
     type: "before",
   },
   {
     id: "w2",
-    src: "/images/dywany/111.avif",
+    src: "/images/wykladzina/2.avif",
+    alt: "Wykładzina po praniu",
+    type: "after",
+  },
+  {
+    id: "w3",
+    src: "/images/wykladzina/3.avif",
+    alt: "Wykładzina przed praniem",
+    type: "before",
+  },
+  {
+    id: "w4",
+    src: "/images/wykladzina/4.avif",
     alt: "Wykładzina po praniu",
     type: "after",
   },
@@ -90,6 +114,18 @@ const mebleImages: Image[] = [
   {
     id: "m2",
     src: "/images/meble/44.avif",
+    alt: "Mebel po czyszczeniu",
+    type: "after",
+  },
+  {
+    id: "m3",
+    src: "/images/meble/65.avif",
+    alt: "Mebel przed czyszczeniem",
+    type: "before",
+  },
+  {
+    id: "m4",
+    src: "/images/meble/66.avif",
     alt: "Mebel po czyszczeniu",
     type: "after",
   },
