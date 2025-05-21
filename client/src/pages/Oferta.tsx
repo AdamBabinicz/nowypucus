@@ -443,13 +443,13 @@ const Oferta = () => {
                       {t("modalContent.price_12_pln_m2")}
                     </td>
                   </tr>
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.bathrooms")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.from")}{" "}
                       {t("modalContent.price_bathrooms_150_pln")}
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.groutCleaning")}</td>
                     <td className="text-right py-2">
