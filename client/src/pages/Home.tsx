@@ -700,7 +700,6 @@ const Home = () => {
           </div>
         </ContentContainer>
       </section>
-
       <PriceCalculator
         isOpen={isCalculatorOpen}
         onClose={() => setIsCalculatorOpen(false)}
