@@ -35,10 +35,10 @@ const ContactForm = () => {
           "Message must be at least 10 characters"
         ),
       })
-      .max(1000, {
+      .max(1500, {
         message: t(
           "validation.messageMax",
-          "Message must be at most 1000 characters"
+          "Message must be at most 1500 characters"
         ),
       }),
     terms: z.boolean().refine((value) => value === true, {

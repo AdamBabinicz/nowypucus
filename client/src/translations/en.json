@@ -151,7 +151,7 @@
     "nameMax": "Name must be at most 50 characters",
     "emailInvalid": "Please enter a valid email address",
     "messageMin": "Message must be at least 10 characters",
-    "messageMax": "Message must be at most 1000 characters",
+    "messageMax": "Message must be at most 1500 characters",
     "termsRequired": "You must accept the terms"
   },
   "common": { "close": "Close" },

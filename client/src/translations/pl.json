@@ -151,7 +151,7 @@
     "nameMax": "Imię może mieć maksymalnie 50 znaków",
     "emailInvalid": "Proszę podać poprawny adres email",
     "messageMin": "Wiadomość musi mieć co najmniej 10 znaków",
-    "messageMax": "Wiadomość może mieć maksymalnie 1000 znaków",
+    "messageMax": "Wiadomość może mieć maksymalnie 1500 znaków",
     "termsRequired": "Musisz zaakceptować warunki"
   },
   "common": { "close": "Zamknij" },
