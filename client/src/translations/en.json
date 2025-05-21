@@ -151,7 +151,7 @@
     "nameMax": "Name must be at most 50 characters",
     "emailInvalid": "Please enter a valid email address",
     "messageMin": "Message must be at least 10 characters",
-    "messageMax": "Message must be at most 500 characters",
+    "messageMax": "Message must be at most 1000 characters",
     "termsRequired": "You must accept the terms"
   },
   "common": { "close": "Close" },
@@ -490,6 +490,7 @@
     "section2List2": "The service execution date is agreed individually with the Principal.",
     "section2List3": "The Contractor reserves the right to change the service execution date for reasons beyond their control, notifying the Principal thereof.",
     "section2List4": "In the event of cancellation of the service on the day of its execution, the Contractor may charge the Principal for travel costs.",
+    "section2List5": "If the Principal fails to collect the cleaned carpet within 30 days of being notified of the service completion, the Contractor is entitled to charge a fee for its non-contractual storage. After a further ineffective period of 60 days (total of 90 days from notification of service completion) and no contact from the Principal, the Contractor reserves the right to deal with the uncollected item in accordance with applicable law (e.g., through commission sale) to cover the costs incurred for the service and storage.",
     "section2Para2": "The Contractor undertakes to make every effort to ensure that the service is performed in accordance with the highest quality standards.",
     "section3Title": "3. Pricing and Payment",
     "section3Para1": "Service prices are determined individually, depending on the type, scope of work, and degree of soiling of the cleaned surfaces.",

@@ -62,6 +62,7 @@ const Regulamin = () => {
                   <li>{t("termsPage.section2List2")}</li>
                   <li>{t("termsPage.section2List3")}</li>
                   <li>{t("termsPage.section2List4")}</li>
+                  <li>{t("termsPage.section2List5")}</li>
                 </ul>
                 <p>{t("termsPage.section2Para2")}</p>
                 <h3 className="text-2xl font-bold mt-8 mb-4">

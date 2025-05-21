@@ -151,7 +151,7 @@
     "nameMax": "Imię może mieć maksymalnie 50 znaków",
     "emailInvalid": "Proszę podać poprawny adres email",
     "messageMin": "Wiadomość musi mieć co najmniej 10 znaków",
-    "messageMax": "Wiadomość może mieć maksymalnie 500 znaków",
+    "messageMax": "Wiadomość może mieć maksymalnie 1000 znaków",
     "termsRequired": "Musisz zaakceptować warunki"
   },
   "common": { "close": "Zamknij" },
@@ -490,6 +490,7 @@
     "section2List2": "Termin realizacji usługi ustalany jest indywidualnie ze Zleceniodawcą.",
     "section2List3": "Wykonawca zastrzega sobie prawo do zmiany terminu realizacji usługi z przyczyn niezależnych, powiadamiając o tym Zleceniodawcę.",
     "section2List4": "W przypadku rezygnacji z usługi w dniu jej realizacji, Wykonawca może obciążyć Zleceniodawcę kosztami dojazdu.",
+    "section2List5": "W przypadku nieodebrania wypranego dywanu przez Zleceniodawcę w terminie do 30 dni od poinformowania o zakończeniu usługi, Wykonawca ma prawo naliczyć opłatę za jego bezumowne przechowywanie. Po bezskutecznym upływie kolejnych 60 dni (łącznie 90 dni od informacji o zakończeniu usługi) i braku kontaktu ze strony Zleceniodawcy, Wykonawca zastrzega sobie prawo do postępowania z nieodebraną rzeczą zgodnie z obowiązującymi przepisami prawa (np. poprzez sprzedaż komisową) w celu pokrycia poniesionych kosztów usługi oraz przechowywania.",
     "section2Para2": "Wykonawca zobowiązuje się do dołożenia wszelkich starań, aby usługa została wykonana zgodnie z najwyższymi standardami jakości.",
     "section3Title": "3. Cennik i płatność",
     "section3Para1": "Ceny usług są ustalane indywidualnie, w zależności od rodzaju, zakresu prac oraz stopnia zabrudzenia czyszczonych powierzchni.",
