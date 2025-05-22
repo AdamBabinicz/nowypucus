@@ -38,11 +38,10 @@ export const SchemaOrg = () => {
     slugPathToDetermineCanonicalKey = pathSegments.join("/");
   }
   if (slugPathToDetermineCanonicalKey === "" || pathOnly === "/") {
-    // Obsługa / i /lang/
     slugPathToDetermineCanonicalKey = getLocalizedSlug(
       PAGE_KEYS.HOME,
       langUsedInUrl
-    ); // Powinno być ""
+    );
   }
 
   const canonicalKeyCurrentPage =
