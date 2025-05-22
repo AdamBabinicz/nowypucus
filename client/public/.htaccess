@@ -34,6 +34,15 @@ AddDefaultCharset utf-8
     Header append Vary "Accept-Encoding"
 </IfModule>
 
+# DODANE PRZEKIEROWANIA 301
+RewriteRule ^oferta-na-pranie-dywanow-wykladzin-tapicerki-meblowej/?$ /oferta [L,R=301,NC]
+RewriteRule ^pierzemy-dywany-wykladziny-tapicerka-meblowa/?$ /o-firmie [L,R=301,NC]
+RewriteRule ^uslugi-prania-dywanow-wykladzin-tapicerki-meblowej/?$ /sprzet [L,R=301,NC]
+RewriteRule ^zamow-pranie-dywanow-wykladzin-tapicerki-meblowej/?$ /kontakt [L,R=301,NC]
+RewriteRule ^czyszczenie-i-usuwanie-plam-z-dywanow-wykladzin-tapicerki-meblowej/?$ /realizacje [L,R=301,NC]
+RewriteRule ^czyszczenie-kostki-brukowej-wykladzin-tapicerki-meblowej/?$ /realizacje [L,R=301,NC]
+RewriteRule ^czyszczenie-tapicerki-meblowej-dywanow-wykladzin-oraz-kostki-brukowej/?$ /realizacje [L,R=301,NC]
+
 # Reguła dla SPA – musi być po przekierowaniach 301
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
