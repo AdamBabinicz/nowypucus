@@ -114,13 +114,13 @@ const Home = () => {
                       {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.floorCleaning")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.from")}{" "}
                       {t("modalContent.price_12_pln_m2")}
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.orientalCarpet")}</td>
                     <td className="text-right py-2">
