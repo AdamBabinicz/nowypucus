@@ -1,59 +1,56 @@
 RewriteEngine On
 
+# Przekierowanie z www na bez www
 RewriteCond %{HTTP_HOST} ^www\.pranie-dywanow\.j\.pl [NC]
 RewriteRule ^(.*)$ https://pranie-dywanow.j.pl/$1 [L,R=301]
 
+# Wymuszenie HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Podstawowe ustawienia
 Options -Indexes
 AddDefaultCharset utf-8
 
 <IfModule mod_headers.c>
+    # Bezpieczeństwo
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 
-    <FilesMatch "\.(ico|jpe?g|png|gif|swf|svg|avif|webp|mp4|webm|woff2?|ttf|otf)$">
+    # Cache'owanie plików statycznych (obrazów, fontów, JS, CSS)
+    <FilesMatch "\.(ico|jpe?g|png|gif|swf|svg|avif|webp|mp4|webm|woff2?|ttf|otf|css|js)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
         Header set Access-Control-Allow-Origin "*"
     </FilesMatch>
 
-    <FilesMatch "^assets\/.+\.(css|js)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
-    </FilesMatch>
-
+    # Brak cache'owania dla index.html (np. w SPA)
     <FilesMatch "^index\.html$">
         Header set Cache-Control "no-cache, must-revalidate"
     </FilesMatch>
 
+    # Kompatybilność kompresji gzip/brotli
     Header append Vary "Accept-Encoding"
 </IfModule>
 
-# DODANE PRZEKIEROWANIA 301
-RewriteRule ^oferta-na-pranie-dywanow-wykladzin-tapicerki-meblowej/?$ /oferta [L,R=301,NC]
-RewriteRule ^pierzemy-dywany-wykladziny-tapicerka-meblowa/?$ /o-firmie [L,R=301,NC]
-RewriteRule ^uslugi-prania-dywanow-wykladzin-tapicerki-meblowej/?$ /sprzet [L,R=301,NC]
-RewriteRule ^zamow-pranie-dywanow-wykladzin-tapicerki-meblowej/?$ /kontakt [L,R=301,NC]
-RewriteRule ^czyszczenie-i-usuwanie-plam-z-dywanow-wykladzin-tapicerki-meblowej/?$ /realizacje [L,R=301,NC]
-RewriteRule ^czyszczenie-kostki-brukowej-wykladzin-tapicerki-meblowej/?$ /realizacje [L,R=301,NC]
-RewriteRule ^czyszczenie-tapicerki-meblowej-dywanow-wykladzin-oraz-kostki-brukowej/?$ /realizacje [L,R=301,NC]
-
-# To jest kluczowa reguła dla SPA, musi być PO przekierowaniach 301
+# Reguła dla SPA – musi być po przekierowaniach 301
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.html [L]
 
+# Kompresja gzip (jeśli dostępna)
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
-  AddOutputFilterByType DEFLATE image/svg+xml
-  AddOutputFilterByType DEFLATE font/ttf font/otf font/woff font/woff2
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/ttf font/otf font/woff font/woff2
 </IfModule>
 
+# Obsługa typów MIME dla nowoczesnych formatów
 AddType image/avif .avif
 AddType image/webp .webp
 
+# Blokowanie niechcianych botów
 RewriteCond %{HTTP_USER_AGENT} ^BlackWidow [OR]
 RewriteCond %{HTTP_USER_AGENT} ^HTTrack [NC]
 RewriteRule ^.* - [F,L]
