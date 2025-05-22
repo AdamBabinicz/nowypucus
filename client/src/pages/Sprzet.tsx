@@ -235,7 +235,7 @@ const Sprzet = () => {
                   src={item.image}
                   alt={item.name}
                   className="w-full h-[480px] object-cover"
-                  loading="lazy"
+                  // loading="lazy"
                 />
                 <div className="p-6 flex-grow flex flex-col">
                   <h3 className="font-heading text-xl font-semibold mb-3 text-card-foreground dark:text-card-foreground">
