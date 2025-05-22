@@ -410,7 +410,7 @@ const Sprzet = () => {
                 src="/images/tools/7.avif"
                 alt="Profesjonalny sprzęt do czyszczenia"
                 className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
+                // loading="lazy"
               />
             </motion.div>
           </div>
