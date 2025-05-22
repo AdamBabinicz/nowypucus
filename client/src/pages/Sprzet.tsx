@@ -218,12 +218,12 @@ const Sprzet = () => {
               {t("equipmentPage.mainEquipmentDesc")}
             </p>
           </div>
-          <div
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8"
-            // variants={containerVariants}
-            // initial="hidden"
-            // whileInView="visible"
-            // viewport={{ once: true, amount: 0.1 }}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
           >
             {equipment.map((item) => (
               <motion.div
@@ -271,7 +271,7 @@ const Sprzet = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </ContentContainer>
       </section>
 
