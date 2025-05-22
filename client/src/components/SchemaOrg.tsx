@@ -5,20 +5,31 @@ import {
   PAGE_KEYS,
   getLocalizedPath,
   getCanonicalKeyFromSlug,
-  PageKey,
   defaultLang,
   supportedLngs,
   getLocalizedSlug,
   SupportedLanguage,
-} from "@/config/slugs";
+  PageKey,
+} from "@/config/slugs"; // Dodaj PageKey, jeśli nie ma
+
+// Definicje typów dla breadcrumbs
+interface BreadcrumbItem {
+  "@type": "ListItem";
+  position: number;
+  name: string;
+  item: string;
+}
+
+interface BreadcrumbListSchema {
+  "@context": "https://schema.org";
+  "@type": "BreadcrumbList";
+  itemListElement: BreadcrumbItem[];
+}
 
 export const SchemaOrg = () => {
   const { t, i18n } = useTranslation();
   const [locationPath] = useLocation();
-  const langFromI18n = i18n.language.split("-")[0] as SupportedLanguage;
-  const currentLang: SupportedLanguage = supportedLngs.includes(langFromI18n)
-    ? langFromI18n
-    : defaultLang;
+  // const currentUiLang = i18n.language.split("-")[0] as SupportedLanguage; // Język UI
 
   const baseUrl = "https://pranie-dywanow.j.pl";
 
@@ -37,21 +48,33 @@ export const SchemaOrg = () => {
   } else {
     slugPathToDetermineCanonicalKey = pathSegments.join("/");
   }
-  if (slugPathToDetermineCanonicalKey === "" || pathOnly === "/") {
+
+  if (slugPathToDetermineCanonicalKey === "" && pathOnly === "/") {
+    slugPathToDetermineCanonicalKey = getLocalizedSlug(
+      PAGE_KEYS.HOME,
+      defaultLang
+    );
+    langUsedInUrl = defaultLang;
+  } else if (
+    slugPathToDetermineCanonicalKey === "" &&
+    pathSegments[0] === langUsedInUrl &&
+    pathSegments.length === 1
+  ) {
     slugPathToDetermineCanonicalKey = getLocalizedSlug(
       PAGE_KEYS.HOME,
       langUsedInUrl
     );
   }
 
-  const canonicalKeyCurrentPage =
+  const canonicalKeyCurrentPage: PageKey =
     getCanonicalKeyFromSlug(slugPathToDetermineCanonicalKey, langUsedInUrl) ||
     PAGE_KEYS.HOME;
-  const canonicalUrlPath = getLocalizedPath(
+
+  const currentLocalizedPath = getLocalizedPath(
     canonicalKeyCurrentPage,
-    defaultLang
+    langUsedInUrl
   );
-  const canonicalUrl = `${baseUrl}${canonicalUrlPath.split("#")[0]}`;
+  const canonicalUrl = `${baseUrl}${currentLocalizedPath.split("#")[0]}`;
 
   const socialLinksHrefs = [
     "https://www.facebook.com/super.pucus",
@@ -107,108 +130,123 @@ export const SchemaOrg = () => {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: t("schema.searchActionTarget").replace(
+        urlTemplate: `${baseUrl}/${
+          langUsedInUrl === defaultLang ? "" : langUsedInUrl + "/"
+        }search?q={search_term_string}`.replace(
           "{search_term_string}",
           "{search_term_string}"
         ),
       },
       "query-input": "required name=search_term_string",
     },
-    inLanguage: currentLang,
+    inLanguage: langUsedInUrl,
   };
 
-  const getBreadcrumbList = () => {
-    const currentLangHomePath = getLocalizedPath(PAGE_KEYS.HOME, currentLang); // np. / lub /en/
+  const getBreadcrumbList = (): BreadcrumbListSchema | null => {
+    const currentLangForBreadcrumbs = langUsedInUrl;
+    const currentLangHomePath = getLocalizedPath(
+      PAGE_KEYS.HOME,
+      currentLangForBreadcrumbs
+    );
     const pathForBreadcrumbs = locationPath.split("#")[0];
 
-    let firstBreadcrumbName;
-    const homeSlugForCurrentLangBreadcrumb = getLocalizedSlug(
-      PAGE_KEYS.HOME,
-      currentLang
-    ); // ""
-    const firstBreadcrumbKey = `breadcrumbs.${homeSlugForCurrentLangBreadcrumb}`; // breadcrumbs.
+    const homeBreadcrumbNameKey = `breadcrumbs.${String(
+      PAGE_KEYS.HOME
+    ).toLowerCase()}`;
+    const navHomeNameKey = `nav.home`;
+    let firstBreadcrumbName = i18n.exists(homeBreadcrumbNameKey)
+      ? t(homeBreadcrumbNameKey)
+      : t(navHomeNameKey);
 
-    if (homeSlugForCurrentLangBreadcrumb && i18n.exists(firstBreadcrumbKey)) {
-      firstBreadcrumbName = t(firstBreadcrumbKey);
-    } else {
-      firstBreadcrumbName = t("nav.home");
-    }
-
-    const itemList: any[] = [
+    const itemList: BreadcrumbItem[] = [
       {
         "@type": "ListItem",
         position: 1,
         name: firstBreadcrumbName,
-        item: `${baseUrl}${currentLangHomePath}`,
+        item: `${baseUrl}${currentLangHomePath.split("#")[0]}`,
       },
     ];
 
-    if (pathForBreadcrumbs === currentLangHomePath) {
-      if (
-        itemList.length === 1 &&
-        currentLang === defaultLang &&
-        pathForBreadcrumbs === "/"
-      ) {
-        return null; // Nie pokazuj breadcrumbs dla samej strony głównej w domyślnym języku
-      }
-      return {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: itemList,
-      };
+    const isDefaultLangHomePage =
+      pathForBreadcrumbs === getLocalizedPath(PAGE_KEYS.HOME, defaultLang) &&
+      currentLangForBreadcrumbs === defaultLang;
+    const isCurrentLangHomePage = pathForBreadcrumbs === currentLangHomePath;
+
+    if (isDefaultLangHomePage) {
+      if (itemList.length === 1) return null; // Nie pokazuj dla PL strony głównej jeśli tylko 1 element
     }
-
-    const pathSegmentsForBreadcrumbs = pathForBreadcrumbs
-      .substring(1)
-      .split("/")
-      .filter(Boolean);
-    let segmentsToIterate = pathSegmentsForBreadcrumbs;
-
-    if (
-      currentLang !== defaultLang &&
-      segmentsToIterate.length > 0 &&
-      segmentsToIterate[0] === currentLang
-    ) {
-      segmentsToIterate = segmentsToIterate.slice(1); // Usuń prefiks języka z segmentów
+    // Dla strony głównej w innym języku niż domyślny (np. /en),
+    // możesz chcieć zostawić breadcrumb "Home"
+    // Jeśli nie chcesz, odkomentuj poniższy blok:
+    /*
+    else if (isCurrentLangHomePage && currentLangForBreadcrumbs !== defaultLang) {
+        if (itemList.length === 1) return null;
     }
+    */
 
-    let builtPathForItems = currentLangHomePath;
+    if (!isCurrentLangHomePage) {
+      // Tylko jeśli nie jesteśmy na stronie głównej bieżącego języka
+      const pathSegmentsForBreadcrumbs = pathForBreadcrumbs
+        .substring(1)
+        .split("/")
+        .filter(Boolean);
 
-    segmentsToIterate.filter(Boolean).forEach((segmentSlug) => {
-      if (builtPathForItems.endsWith("/") && segmentSlug) {
-        builtPathForItems = `${builtPathForItems}${segmentSlug}`;
-      } else if (segmentSlug) {
-        builtPathForItems = `${builtPathForItems}/${segmentSlug}`;
-      }
+      let segmentsToIterate = pathSegmentsForBreadcrumbs;
+      let builtPathForItems = ""; // Zaczynamy od pustego, bo prefix językowy jest częścią segmentów
 
-      const canonicalKey = getCanonicalKeyFromSlug(segmentSlug, currentLang);
-      const breadcrumbNameKeyForSegment = `breadcrumbs.${segmentSlug}`;
-
-      const navNameKeyForSegment = canonicalKey
-        ? `nav.${String(canonicalKey).toLowerCase()}`
-        : segmentSlug;
-      const fallbackSegmentName = segmentSlug
-        .replace(/-/g, " ")
-        .replace(/\b\w/g, (l) => l.toUpperCase());
-
-      let segmentBreadcrumbName;
-      if (i18n.exists(breadcrumbNameKeyForSegment)) {
-        segmentBreadcrumbName = t(breadcrumbNameKeyForSegment);
-      } else if (navNameKeyForSegment && i18n.exists(navNameKeyForSegment)) {
-        segmentBreadcrumbName = t(navNameKeyForSegment);
+      // Określ, czy pierwszy segment to język i ustaw poprawnie builtPathForItems
+      if (supportedLngs.includes(segmentsToIterate[0] as SupportedLanguage)) {
+        builtPathForItems = `/${segmentsToIterate[0]}`;
+        segmentsToIterate = segmentsToIterate.slice(1); // Usuń język z segmentów do iteracji
       } else {
-        segmentBreadcrumbName = fallbackSegmentName;
+        // Jeśli nie ma prefixu językowego, zakładamy język domyślny
+        // a ścieżka zaczyna się od slasha (dla strony głównej już obsłużone)
+        // dla podstron w domyślnym języku:
+        builtPathForItems = getLocalizedPath(
+          PAGE_KEYS.HOME,
+          defaultLang
+        ).endsWith("/")
+          ? getLocalizedPath(PAGE_KEYS.HOME, defaultLang).slice(0, -1)
+          : getLocalizedPath(PAGE_KEYS.HOME, defaultLang);
       }
 
-      itemList.push({
-        "@type": "ListItem",
-        position: itemList.length + 1,
-        name: segmentBreadcrumbName,
-        item: `${baseUrl}${builtPathForItems}`,
-      });
-    });
+      segmentsToIterate.forEach((segmentSlug) => {
+        builtPathForItems = `${builtPathForItems}/${segmentSlug}`;
 
-    if (itemList.length <= 1) return null;
+        const canonicalKey = getCanonicalKeyFromSlug(
+          segmentSlug,
+          currentLangForBreadcrumbs
+        );
+        const breadcrumbNameKeyForSegment = canonicalKey
+          ? `breadcrumbs.${String(canonicalKey).toLowerCase()}`
+          : `breadcrumbs.${segmentSlug}`;
+        const navNameKeyForSegment = canonicalKey
+          ? `nav.${String(canonicalKey).toLowerCase()}`
+          : null;
+        const fallbackSegmentName = segmentSlug
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (l) => l.toUpperCase());
+
+        let segmentBreadcrumbName;
+        if (i18n.exists(breadcrumbNameKeyForSegment)) {
+          segmentBreadcrumbName = t(breadcrumbNameKeyForSegment);
+        } else if (navNameKeyForSegment && i18n.exists(navNameKeyForSegment)) {
+          segmentBreadcrumbName = t(navNameKeyForSegment);
+        } else {
+          segmentBreadcrumbName = fallbackSegmentName;
+        }
+
+        itemList.push({
+          "@type": "ListItem",
+          position: itemList.length + 1,
+          name: segmentBreadcrumbName,
+          item: `${baseUrl}${builtPathForItems.split("#")[0]}`,
+        });
+      });
+    }
+
+    if (itemList.length <= 1 && isCurrentLangHomePage) return null; // Jeśli to strona główna (dowolnego języka) i ma tylko 1 element
+    if (itemList.length === 0) return null; // Na wszelki wypadek
 
     return {
       "@context": "https://schema.org",
@@ -218,8 +256,8 @@ export const SchemaOrg = () => {
   };
 
   const breadcrumbSchema = getBreadcrumbList();
-  const alternateLinks: JSX.Element[] = [];
 
+  const alternateLinks: JSX.Element[] = [];
   supportedLngs.forEach((lng) => {
     const alternatePath = getLocalizedPath(canonicalKeyCurrentPage, lng);
     alternateLinks.push(
@@ -227,7 +265,7 @@ export const SchemaOrg = () => {
         key={lng}
         rel="alternate"
         hrefLang={lng}
-        href={`${baseUrl}${alternatePath}`}
+        href={`${baseUrl}${alternatePath.split("#")[0]}`}
       />
     );
   });
@@ -239,7 +277,9 @@ export const SchemaOrg = () => {
       <link
         rel="alternate"
         hrefLang="x-default"
-        href={`${baseUrl}${getLocalizedPath(PAGE_KEYS.HOME, defaultLang)}`}
+        href={`${baseUrl}${
+          getLocalizedPath(canonicalKeyCurrentPage, defaultLang).split("#")[0]
+        }`}
       />
       <script type="application/ld+json">
         {JSON.stringify(serviceSchema)}
