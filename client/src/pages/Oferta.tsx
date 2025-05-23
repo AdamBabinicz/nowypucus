@@ -94,14 +94,14 @@ const Oferta = () => {
                       {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.stainRemoval")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.info_stain_removal", {
                         priceText: t("modalContent.toBasePrice"),
                       })}
                     </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
@@ -162,14 +162,14 @@ const Oferta = () => {
                       {t("modalContent.price_floor_14_pln_m2")}
                     </td>
                   </tr>
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.stainRemoval")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.info_stain_removal", {
                         priceText: t("modalContent.toBasePrice"),
                       })}
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">
                       {t("modalContent.commercialFloor")}
@@ -371,12 +371,12 @@ const Oferta = () => {
                       {t("modalContent.price_12_pln_m2")}
                     </td>
                   </tr> */}
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.mossRemoval")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.info_moss_removal_3_pln_m2")}
                     </td>
-                  </tr>
+                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.jointFilling")}</td>
                     <td className="text-right py-2">
@@ -450,12 +450,12 @@ const Oferta = () => {
                       {t("modalContent.price_bathrooms_150_pln")}
                     </td>
                   </tr> */}
-                  <tr className="border-t border-border dark:border-border">
+                  {/* <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.groutCleaning")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.info_groutcleaning_2_pln_m2")}
                     </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
