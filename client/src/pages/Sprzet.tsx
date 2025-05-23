@@ -208,7 +208,7 @@ const Sprzet = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-16 bg-background dark:bg-background overflow-hidden">
+      <section className="py-16 bg-background dark:bg-background">
         <ContentContainer>
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="font-limelight text-3xl font-bold mb-6  dark:text-foreground">
@@ -276,7 +276,7 @@ const Sprzet = () => {
       </section>
 
       <section className="py-16 bg-muted dark:bg-muted">
-        <ContentContainer>
+        <ContentContainer className="overflow-hidden">
           <div className="max-w-3xl mx-auto">
             <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground">
               {t("equipmentPage.productsTitle")}
@@ -336,7 +336,7 @@ const Sprzet = () => {
 
       <section className="py-16 bg-background dark:bg-background">
         <ContentContainer>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
