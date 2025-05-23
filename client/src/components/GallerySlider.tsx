@@ -246,6 +246,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
               src={modalImage.src}
               alt={modalImage.alt}
               className="max-w-full max-h-[70vh] object-contain rounded-lg"
+              loading="lazy"
             />
           </div>
         </Modal>

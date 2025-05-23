@@ -239,6 +239,7 @@ const Contact = () => {
                         "QR code to leave a Google review"
                       )}
                       className="w-40 h-40"
+                      loading="lazy"
                     />
                     <div>
                       <p className="text-gray-600 dark:text-gray-300 mb-3">

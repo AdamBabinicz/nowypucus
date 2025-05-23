@@ -176,6 +176,7 @@ const Navbar = () => {
               src={currentLogo}
               alt="SUPER PUCUŚ Logo"
               className="h-7 sm:h-8 w-auto"
+              loading="lazy"
             />
             <span className="ml-2 text-lg font-major-mono font-semibold text-primary dark:text-sky-400">
               SUPER PUCUŚ
