@@ -208,7 +208,7 @@ const Sprzet = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-16 bg-background dark:bg-background">
+      <section className="py-16 bg-background dark:bg-background overflow-hidden">
         <ContentContainer>
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="font-limelight text-3xl font-bold mb-6  dark:text-foreground">
