@@ -16,5 +16,17 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Oddziel React i jego ekosystem
+          if (id.includes("node_modules")) {
+            if (id.includes("react")) return "vendor-react";
+            if (id.includes("tailwind")) return "vendor-css";
+            return "vendor";
+          }
+        },
+      },
+    },
   },
 });
