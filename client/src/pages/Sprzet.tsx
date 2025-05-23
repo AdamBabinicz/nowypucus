@@ -235,7 +235,7 @@ const Sprzet = () => {
                   src={item.image}
                   alt={item.name}
                   className="w-full h-[480px] object-cover"
-                  // loading="lazy"
+                  loading="lazy"
                 />
                 <div className="p-6 flex-grow flex flex-col">
                   <h3 className="font-heading text-xl font-semibold mb-3 text-card-foreground dark:text-card-foreground">
@@ -410,7 +410,7 @@ const Sprzet = () => {
                 src="/images/tools/7.avif"
                 alt="Profesjonalny sprzęt do czyszczenia"
                 className="absolute inset-0 w-full h-full object-cover"
-                // loading="lazy"
+                loading="lazy"
               />
             </motion.div>
           </div>
