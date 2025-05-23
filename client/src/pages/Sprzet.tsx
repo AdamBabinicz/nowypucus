@@ -290,19 +290,19 @@ const Sprzet = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground dark:text-muted-foreground uppercase tracking-wider"
+                      className="px-3 sm:px-6 py-3 text-left text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider"
                     >
                       {t("equipmentPage.productName")}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground dark:text-muted-foreground uppercase tracking-wider"
+                      className="px-3 sm:px-6 py-3 text-left text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider"
                     >
                       {t("equipmentPage.productType")}
                     </th>
                     <th
                       scope="col"
-                      className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-muted-foreground dark:text-muted-foreground uppercase tracking-wider"
+                      className="px-3 sm:px-6 py-3 text-left text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-wider"
                     >
                       {t("equipmentPage.productUsage")}
                     </th>
