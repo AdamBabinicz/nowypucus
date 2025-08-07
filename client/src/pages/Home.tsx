@@ -629,10 +629,10 @@ const Home = () => {
                       {t("contact.email")}
                     </h3>
                     <a
-                      href="mailto:mariusz1989poczta@wp.pl"
+                      href="mailto:mariuszek1989poczta@wp.pl"
                       className="text-primary dark:text-primary"
                     >
-                      mariusz1989poczta@wp.pl
+                      mariuszek1989poczta@wp.pl
                     </a>
                   </div>
                 </div>

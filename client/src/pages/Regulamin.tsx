@@ -123,10 +123,10 @@ const Regulamin = () => {
             </p>
             <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-6">
               <a
-                href="mailto:mariusz1989poczta@wp.pl"
+                href="mailto:mariuszek1989poczta@wp.pl"
                 className="text-primary dark:text-primary-400 hover:underline"
               >
-                mariusz1989poczta@wp.pl
+                mariuszek1989poczta@wp.pl
               </a>
               <span className="hidden md:inline text-gray-400">|</span>
               <a

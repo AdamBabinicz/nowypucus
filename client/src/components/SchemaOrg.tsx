@@ -100,7 +100,7 @@ export const SchemaOrg = () => {
       addressCountry: t("schema.country"),
     },
     telephone: "+48531890827",
-    email: "mariusz1989poczta@wp.pl",
+    email: "mariuszek1989poczta@wp.pl",
     url: baseUrl,
     image: `${baseUrl}/images/logo-og.avif`,
     priceRange: "$$",

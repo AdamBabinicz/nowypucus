@@ -289,10 +289,10 @@ const Footer = () => {
               <li className="flex items-center">
                 <FiMail className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
                 <a
-                  href="mailto:mariusz1989poczta@wp.pl"
+                  href="mailto:mariuszek1989poczta@wp.pl"
                   className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
                 >
-                  mariusz1989poczta@wp.pl
+                  mariuszek1989poczta@wp.pl
                 </a>
               </li>
               <li className="flex items-center">

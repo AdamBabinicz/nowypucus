@@ -97,7 +97,7 @@ const Contact = () => {
             "name": "SUPER PUCUŚ",
             "image": "https://pranie-dywanow.j.pl/logo.avif",
             "telephone": "+48531890827",
-            "email": "mariusz1989poczta@wp.pl",
+            "email": "mariuszek1989poczta@wp.pl",
             "address": {"@type": "PostalAddress", "addressLocality": "Radom", "addressRegion": "mazowieckie", "addressCountry": "PL"},
             "geo": {"@type": "GeoCoordinates", "latitude": 51.4027, "longitude": 21.1470},
             "url": "https://pranie-dywanow.j.pl",
@@ -190,10 +190,10 @@ const Contact = () => {
                         {t("contact.email")}
                       </h3>
                       <a
-                        href="mailto:mariusz1989poczta@wp.pl"
+                        href="mailto:mariuszek1989poczta@wp.pl"
                         className="text-primary dark:text-primary-400"
                       >
-                        mariusz1989poczta@wp.pl
+                        mariuszek1989poczta@wp.pl
                       </a>
                     </div>
                   </div>
