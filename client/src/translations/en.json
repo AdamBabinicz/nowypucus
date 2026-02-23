@@ -98,11 +98,11 @@
     "tileFeature1": "Grout cleaning",
     "tileFeature2": "Tile and terracotta washing",
     "tileFeature3": "Gres surface renovation",
-    "carCleaning": "Car Upholstery Cleaning",
-    "carCleaningDesc": "Comprehensive cleaning of vehicle interiors, restoring freshness and cleanliness to car upholstery.",
-    "carFeature1": "Seats and chairs",
-    "carFeature2": "Headliners and floor mats",
-    "carFeature3": "Refreshing and disinfection"
+    "drying": "Carpet & Upholstery Drying",
+    "dryingDesc": "Professional mechanical drying service that significantly reduces drying time after cleaning.",
+    "dryingFeature1": "Shortens drying time",
+    "dryingFeature2": "Prevents moisture issues",
+    "dryingFeature3": "Faster readiness for use"
   },
   "gallery": {
     "title": "Our",
@@ -217,6 +217,8 @@
     "tileProcess2": "Application of specialized cleaning agents",
     "tileProcess3": "Mechanical scrubbing of the surface",
     "tileProcess4": "Thorough rinsing and drying",
+    "dryingDesc": "We offer professional mechanical drying after cleaning.",
+    "dryingProcessTitle": "Benefits of Drying:",
     "bathrooms": "Bathrooms",
     "groutCleaning": "Grout Cleaning",
     "pricing": "Pricing:",
@@ -436,13 +438,6 @@
         "feature1": "Powerful 13 HP engine and a brass pump with ceramic pistons for maximum durability.",
         "feature2": "Self-priming pump allowing water to be drawn from an external tank (e.g., IBC tote).",
         "feature3": "Large pneumatic wheels for easy transport on rough, uneven terrain."
-      },
-      "nilfisk_premium200": {
-        "name": "Nilfisk Premium 200-15 EU Pressure Washer",
-        "description": "Powerful high-pressure washer for cleaning paving stones, facades, terraces, and other hard outdoor surfaces.",
-        "feature1": "Maximum pressure of 200 bar for effective dirt removal.",
-        "feature2": "Durable pump and induction motor.",
-        "feature3": "Wide range of accessories for various applications."
       },
       "dacia_transport": {
         "name": "Car Transport (Dacia)",

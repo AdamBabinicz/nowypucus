@@ -94,14 +94,6 @@ const Oferta = () => {
                       {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.stainRemoval")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.info_stain_removal", {
-                        priceText: t("modalContent.toBasePrice"),
-                      })}
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>
@@ -162,14 +154,6 @@ const Oferta = () => {
                       {t("modalContent.price_floor_14_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.stainRemoval")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.info_stain_removal", {
-                        priceText: t("modalContent.toBasePrice"),
-                      })}
-                    </td>
-                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">
                       {t("modalContent.commercialFloor")}
@@ -317,6 +301,53 @@ const Oferta = () => {
       },
     },
     {
+      id: PAGE_KEYS.HASH_DRYING,
+      title: t("services.drying"),
+      description: t("services.dryingDesc"),
+      features: [
+        { id: "d1", text: t("services.dryingFeature1") },
+        { id: "d2", text: t("services.dryingFeature2") },
+        { id: "d3", text: t("services.dryingFeature3") },
+      ],
+      image: "/images/tools/dripod.avif",
+      modalContent: {
+        title: t("services.drying"),
+        content: (
+          <div className="space-y-4">
+            <p className="text-foreground dark:text-muted-foreground">
+              {t("modalContent.dryingDesc")}
+            </p>
+            <h4 className="font-heading text-xl font-semibold text-foreground dark:text-foreground mt-6 mb-2">
+              {t("modalContent.pricing")}
+            </h4>
+            <div className="bg-muted dark:bg-card rounded-lg p-4">
+              <table className="w-full text-muted-foreground dark:text-muted-foreground">
+                <thead>
+                  <tr>
+                    <th className="text-left pb-2">
+                      {t("modalContent.service")}
+                    </th>
+                    <th className="text-right pb-2">
+                      {t("modalContent.price")}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("services.drying")}</td>
+                    <td className="text-right py-2">50 PLN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-sm text-muted-foreground dark:text-muted-foreground/80 mt-2">
+              {t("modalContent.pricingNote")}
+            </p>
+          </div>
+        ),
+      },
+    },
+    {
       id: PAGE_KEYS.HASH_PAVER_CLEANING,
       title: t("services.paverCleaning"),
       description: t("services.paverCleaningDesc"),
@@ -364,19 +395,6 @@ const Oferta = () => {
                       {t("modalContent.price_paver_10_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("services.tileCleaning")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.from")}{" "}
-                      {t("modalContent.price_12_pln_m2")}
-                    </td>
-                  </tr> */}
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.mossRemoval")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.info_moss_removal_3_pln_m2")}
-                    </td>
-                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.jointFilling")}</td>
                     <td className="text-right py-2">
@@ -443,19 +461,6 @@ const Oferta = () => {
                       {t("modalContent.price_12_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.bathrooms")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.from")}{" "}
-                      {t("modalContent.price_bathrooms_150_pln")}
-                    </td>
-                  </tr> */}
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.groutCleaning")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.info_groutcleaning_2_pln_m2")}
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>

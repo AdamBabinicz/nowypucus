@@ -98,11 +98,11 @@
     "tileFeature1": "Doczyszczanie fug",
     "tileFeature2": "Mycie płytek i terakoty",
     "tileFeature3": "Renowacja powierzchni gresowych",
-    "carCleaning": "Pranie tapicerek samochodowych",
-    "carCleaningDesc": "Kompleksowe czyszczenie wnętrz pojazdów, przywracające świeżość i czystość tapicerki samochodowej.",
-    "carFeature1": "Fotele i siedzenia",
-    "carFeature2": "Podsufitki i dywaniki",
-    "carFeature3": "Odświeżanie i dezynfekcja"
+    "drying": "Dosuszanie wykładzin i tapicerki meblowej",
+    "dryingDesc": "Usługa profesjonalnego dosuszania pranych powierzchni, znacznie skracająca czas schnięcia po wykonanej usłudze.",
+    "dryingFeature1": "Skrócenie czasu schnięcia",
+    "dryingFeature2": "Zapobieganie wilgoci",
+    "dryingFeature3": "Szybszy powrót do użytkowania"
   },
   "gallery": {
     "title": "Nasze",
@@ -217,6 +217,8 @@
     "tileProcess2": "Aplikacja specjalistycznych środków czyszczących",
     "tileProcess3": "Mechaniczne szorowanie powierzchni",
     "tileProcess4": "Dokładne spłukanie i osuszenie",
+    "dryingDesc": "Oferujemy profesjonalne dosuszanie mechaniczne po praniu.",
+    "dryingProcessTitle": "Zalety dosuszania:",
     "bathrooms": "Łazienki",
     "groutCleaning": "Czyszczenie fug",
     "pricing": "Cennik:",
