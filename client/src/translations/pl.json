@@ -395,12 +395,26 @@
         "feature2": "Możliwość stosowania z różnymi rodzajami szczotek i padów.",
         "feature3": "Poprawia wygląd i higienę dywanów."
       },
+      "carpet_cleaner_tm3": {
+        "name": "Szorowarka walcowa CARPET CLEANER TM3 Renovator",
+        "description": "Kompaktowa szorowarka walcowa z dwiema przeciwbieżnymi szczotkami. Niezastąpiona przy dogłębnym czyszczeniu, podnoszeniu runa dywanu oraz wcieraniu presprayu.",
+        "feature1": "Przeciwbieżne szczotki (400 obr./min) idealnie rozczesujące włókna dywanu.",
+        "feature2": "W zestawie nakładki Renovator pozwalające na skuteczne zbieranie suchego brudu i piasku.",
+        "feature3": "Lekka i poręczna konstrukcja (ok. 12 kg), idealna do precyzyjnej pracy na średnich powierzchniach."
+      },
       "warmtek_op50": {
         "name": "Pochłaniacz wilgoci Warmtek OP-50",
         "description": "Wydajny osuszacz powietrza, przyspieszający proces schnięcia dywanów i tapicerki, szczególnie w pomieszczeniach o ograniczonej wentylacji.",
         "feature1": "Wysoka wydajność osuszania (do 50 litrów/24h).",
         "feature2": "Zapobiega rozwojowi pleśni i grzybów.",
         "feature3": "Przyspiesza schnięcie po praniu ekstrakcyjnym."
+      },
+      "dri_pod": {
+        "name": "Wentylator do suszenia Dri-Pod",
+        "description": "Specjalistyczna dmuchawa do błyskawicznego suszenia tapicerek oraz podłóg miękkich i twardych. Znacznie skraca czas oczekiwania na suchą powierzchnię.",
+        "feature1": "Wysoki przepływ powietrza (1270 m³/h) gwarantujący szybkie efekty suszenia.",
+        "feature2": "Uniwersalne zastosowanie: dywany, wykładziny, panele, drewno i PCV.",
+        "feature3": "Kompaktowa i lekka konstrukcja (tylko 4,8 kg) idealna do trudno dostępnych miejsc."
       },
       "nilfisk_premium200": {
         "name": "Myjka ciśnieniowa Nilfisk Premium 200-15 EU",
@@ -422,6 +436,13 @@
         "feature1": "Umożliwia równomierne schnięcie dywanów.",
         "feature2": "Zapobiega gnieceniu i odkształcaniu się dywanów.",
         "feature3": "Optymalizuje przestrzeń w suszarni."
+      },
+      "lavor_washer": {
+        "name": "Myjka spalinowa LAVOR",
+        "description": "Profesjonalna włoska myjka ciśnieniowa z niezawodnym silnikiem spalinowym. Gwarantuje wysoką skuteczność czyszczenia i pełną niezależność od sieci elektrycznej.",
+        "feature1": "Wydajny silnik 13 HP oraz mosiężna pompa z ceramicznymi tłokami dla maksymalnej trwałości.",
+        "feature2": "Pompa samozasysająca umożliwiająca pobieranie wody z zewnętrznego zbiornika (np. typu mauser).",
+        "feature3": "Duże pneumatyczne koła ułatwiające transport w trudnym, nierównym terenie."
       },
       "dacia_transport": {
         "name": "Transport samochodowy (Dacia)",

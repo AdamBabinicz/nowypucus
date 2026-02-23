@@ -51,7 +51,7 @@ export default function App() {
     } else {
       const potentialKey = getCanonicalKeyFromSlug(
         pathSegments.join("/"),
-        defaultLang
+        defaultLang,
       );
       if (potentialKey) {
         detectedLangInUrl = defaultLang;
@@ -103,14 +103,14 @@ export default function App() {
       ) {
         slugFromOldLangUrl = getLocalizedSlug(
           PAGE_KEYS.HOME,
-          langBeforeThisEffect
+          langBeforeThisEffect,
         );
       }
 
       let canonicalPageKey =
         getCanonicalKeyFromSlug(
           slugFromOldLangUrl,
-          oldLangForCanonicalLookup
+          oldLangForCanonicalLookup,
         ) || PAGE_KEYS.HOME;
 
       if (
@@ -124,7 +124,7 @@ export default function App() {
 
       const newLocalizedFullPath = getLocalizedPath(
         canonicalPageKey,
-        currentUiLang
+        currentUiLang,
       );
       let finalPathWithHash = newLocalizedFullPath;
 
@@ -132,12 +132,12 @@ export default function App() {
         const hashWithoutSymbol = currentHash.substring(1);
         const canonicalHashKey = getCanonicalKeyFromSlug(
           hashWithoutSymbol,
-          langBeforeThisEffect
+          langBeforeThisEffect,
         );
         if (canonicalHashKey) {
           const newLocalizedHashSlug = getLocalizedSlug(
             canonicalHashKey,
-            currentUiLang
+            currentUiLang,
           );
           finalPathWithHash += `#${newLocalizedHashSlug}`;
         } else {
@@ -146,8 +146,17 @@ export default function App() {
       }
 
       if (finalPathWithHash !== locationPath) {
+        const currentScrollY = window.scrollY;
+
         setLocation(finalPathWithHash, { replace: true });
         prevLocationPathRef.current = finalPathWithHash;
+
+        setTimeout(() => {
+          window.scrollTo(0, currentScrollY);
+        }, 0);
+        setTimeout(() => {
+          window.scrollTo(0, currentScrollY);
+        }, 50);
       }
     }
     prevUiLangRef.current = currentUiLang;
@@ -156,7 +165,7 @@ export default function App() {
   useEffect(() => {
     const portfolioPathForCurrentLang = getLocalizedPath(
       PAGE_KEYS.PORTFOLIO,
-      currentUiLang
+      currentUiLang,
     );
     const currentPathSlugOnly = locationPath.split("#")[0];
 
@@ -172,7 +181,7 @@ export default function App() {
       const localizedHashValue = hash.substring(1);
       const canonicalKeyForHash = getCanonicalKeyFromSlug(
         localizedHashValue,
-        currentUiLang
+        currentUiLang,
       );
       const idToScroll = canonicalKeyForHash || localizedHashValue;
 

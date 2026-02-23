@@ -395,6 +395,13 @@
         "feature2": "Can be used with various types of brushes and pads.",
         "feature3": "Improves the appearance and hygiene of carpets."
       },
+      "carpet_cleaner_tm3": {
+        "name": "CARPET CLEANER TM3 CRB Machine",
+        "description": "Compact cylindrical brush scrubber with counter-rotating brushes. Essential for deep cleaning, pile lifting, and prespray agitation.",
+        "feature1": "Twin counter-rotating brushes (400 RPM) for perfect fiber grooming and dirt loosening.",
+        "feature2": "Includes Renovator catch trays allowing collection of dry soil and sand before wet extraction.",
+        "feature3": "Lightweight and handy design (approx. 12 kg), ideal for precise work on medium-sized carpets."
+      },
       "warmtek_op50": {
         "name": "Warmtek OP-50 Dehumidifier",
         "description": "Efficient air dehumidifier, accelerating the drying process of carpets and upholstery, especially in rooms with limited ventilation.",
@@ -402,12 +409,12 @@
         "feature2": "Prevents mold and mildew growth.",
         "feature3": "Accelerates drying after extraction cleaning."
       },
-      "nilfisk_premium200": {
-        "name": "Nilfisk Premium 200-15 EU Pressure Washer",
-        "description": "Powerful high-pressure washer for cleaning paving stones, facades, terraces, and other hard outdoor surfaces.",
-        "feature1": "Maximum pressure of 200 bar for effective dirt removal.",
-        "feature2": "Durable pump and induction motor.",
-        "feature3": "Wide range of accessories for various applications."
+      "dri_pod": {
+        "name": "Dri-Pod Drying Fan",
+        "description": "Specialized blower for rapid drying of upholstery and soft/hard floors. Significantly reduces the waiting time for a completely dry surface.",
+        "feature1": "High airflow (1270 m³/h) guaranteeing fast drying results.",
+        "feature2": "Universal use: carpets, rugs, laminate, wood, and PVC floors.",
+        "feature3": "Compact and lightweight design (only 4.8 kg), ideal for hard-to-reach areas."
       },
       "heaters_fans": {
         "name": "Heaters and Fans",
@@ -422,6 +429,20 @@
         "feature1": "Allows for even drying of carpets.",
         "feature2": "Prevents creasing and deformation of carpets.",
         "feature3": "Optimizes space in the drying room."
+      },
+      "lavor_washer": {
+        "name": "LAVOR Combustion Pressure Washer",
+        "description": "Professional Italian pressure washer with a reliable combustion engine. Ensures high cleaning efficiency and complete independence from the electrical grid.",
+        "feature1": "Powerful 13 HP engine and a brass pump with ceramic pistons for maximum durability.",
+        "feature2": "Self-priming pump allowing water to be drawn from an external tank (e.g., IBC tote).",
+        "feature3": "Large pneumatic wheels for easy transport on rough, uneven terrain."
+      },
+      "nilfisk_premium200": {
+        "name": "Nilfisk Premium 200-15 EU Pressure Washer",
+        "description": "Powerful high-pressure washer for cleaning paving stones, facades, terraces, and other hard outdoor surfaces.",
+        "feature1": "Maximum pressure of 200 bar for effective dirt removal.",
+        "feature2": "Durable pump and induction motor.",
+        "feature3": "Wide range of accessories for various applications."
       },
       "dacia_transport": {
         "name": "Car Transport (Dacia)",

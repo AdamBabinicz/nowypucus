@@ -86,6 +86,17 @@ const Sprzet = () => {
       ],
     },
     {
+      id: "carpet_cleaner_tm3",
+      name: t("equipmentPage.equipment.carpet_cleaner_tm3.name"),
+      image: "/images/tools/tm3.avif",
+      description: t("equipmentPage.equipment.carpet_cleaner_tm3.description"),
+      features: [
+        t("equipmentPage.equipment.carpet_cleaner_tm3.feature1"),
+        t("equipmentPage.equipment.carpet_cleaner_tm3.feature2"),
+        t("equipmentPage.equipment.carpet_cleaner_tm3.feature3"),
+      ],
+    },
+    {
       id: "warmtek_op50",
       name: t("equipmentPage.equipment.warmtek_op50.name"),
       image: "/images/tools/18.avif",
@@ -94,6 +105,17 @@ const Sprzet = () => {
         t("equipmentPage.equipment.warmtek_op50.feature1"),
         t("equipmentPage.equipment.warmtek_op50.feature2"),
         t("equipmentPage.equipment.warmtek_op50.feature3"),
+      ],
+    },
+    {
+      id: "dri_pod",
+      name: t("equipmentPage.equipment.dri_pod.name"),
+      image: "/images/tools/dripod.avif",
+      description: t("equipmentPage.equipment.dri_pod.description"),
+      features: [
+        t("equipmentPage.equipment.dri_pod.feature1"),
+        t("equipmentPage.equipment.dri_pod.feature2"),
+        t("equipmentPage.equipment.dri_pod.feature3"),
       ],
     },
     {
@@ -116,6 +138,17 @@ const Sprzet = () => {
         t("equipmentPage.equipment.carpet_rack.feature1"),
         t("equipmentPage.equipment.carpet_rack.feature2"),
         t("equipmentPage.equipment.carpet_rack.feature3"),
+      ],
+    },
+    {
+      id: "lavor_washer",
+      name: t("equipmentPage.equipment.lavor_washer.name"),
+      image: "/images/tools/lavor1.avif",
+      description: t("equipmentPage.equipment.lavor_washer.description"),
+      features: [
+        t("equipmentPage.equipment.lavor_washer.feature1"),
+        t("equipmentPage.equipment.lavor_washer.feature2"),
+        t("equipmentPage.equipment.lavor_washer.feature3"),
       ],
     },
     {
