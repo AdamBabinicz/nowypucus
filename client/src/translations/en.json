@@ -501,7 +501,7 @@
     "section1Para2": "Placing an order for a service means acceptance of these regulations.",
     "section1Para3": "In matters not regulated by these regulations, the provisions of the Civil Code and other relevant provisions of Polish law shall apply.",
     "section2Title": "2. Conditions for Service Provision",
-    "section2Para1": "The Contractor provides services for cleaning carpets, rugs, upholstery, car upholstery, and washing paving stones, tiles, and other surfaces. Services are performed using professional equipment and cleaning agents.",
+    "section2Para1": "The Contractor provides services for cleaning carpets, rugs, upholstery, and washing paving stones, tiles, and other surfaces. Services are performed using professional equipment and cleaning agents.",
     "section2List1": "Services are provided based on an order placed by phone, e-mail, or through the contact form.",
     "section2List2": "The service execution date is agreed individually with the Principal.",
     "section2List3": "The Contractor reserves the right to change the service execution date for reasons beyond their control, notifying the Principal thereof.",
@@ -586,7 +586,7 @@
   },
   "schema": {
     "serviceName": "SUPER PUCUŚ - Carpet and Upholstery Cleaning Radom",
-    "serviceDescription": "Professional carpet, rug, upholstery, and car interior cleaning. Paving stone washing. Radom and surrounding areas. We come to your location.",
+    "serviceDescription": "Professional carpet, rug, and furniture upholstery cleaning. Paving stone washing. Radom and surrounding areas. We come to your location.",
     "streetAddress": "Radom, Mazowieckie",
     "locality": "Radom",
     "postalCode": "26-600",

@@ -508,7 +508,7 @@
     "section1Para2": "Złożenie zamówienia na usługę oznacza akceptację warunków niniejszego regulaminu.",
     "section1Para3": "W sprawach nieuregulowanych niniejszym regulaminem mają zastosowanie przepisy Kodeksu cywilnego oraz inne właściwe przepisy prawa polskiego.",
     "section2Title": "2. Warunki realizacji usług",
-    "section2Para1": "Wykonawca świadczy usługi prania i czyszczenia dywanów, wykładzin, tapicerki meblowej, tapicerki samochodowej oraz mycia kostki brukowej, płytek i innych powierzchni. Usługi wykonywane są przy użyciu profesjonalnego sprzętu i środków czyszczących.",
+    "section2Para1": "Wykonawca świadczy usługi prania i czyszczenia dywanów, wykładzin, tapicerki meblowej, oraz mycia kostki brukowej, płytek i innych powierzchni. Usługi wykonywane są przy użyciu profesjonalnego sprzętu i środków czyszczących.",
     "section2List1": "Usługi realizowane są na podstawie zamówienia złożonego telefonicznie, przez e-mail lub przez formularz kontaktowy.",
     "section2List2": "Termin realizacji usługi ustalany jest indywidualnie ze Zleceniodawcą.",
     "section2List3": "Wykonawca zastrzega sobie prawo do zmiany terminu realizacji usługi z przyczyn niezależnych, powiadamiając o tym Zleceniodawcę.",
@@ -593,7 +593,7 @@
   },
   "schema": {
     "serviceName": "SUPER PUCUŚ - Pranie Dywanów i Tapicerki Radom",
-    "serviceDescription": "Profesjonalne pranie dywanów, wykładzin, tapicerki meblowej i samochodowej. Mycie kostki brukowej. Radom i okolice. Dojazd do klienta.",
+    "serviceDescription": "Profesjonalne pranie dywanów, wykładzin i tapicerki meblowej. Mycie kostki brukowej. Radom i okolice. Dojazd do klienta.",
     "streetAddress": "Radom, Mazowieckie",
     "locality": "Radom",
     "postalCode": "26-600",
