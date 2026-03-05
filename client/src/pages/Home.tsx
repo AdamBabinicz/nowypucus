@@ -114,13 +114,6 @@ const Home = () => {
                       {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.floorCleaning")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.from")}{" "}
-                      {t("modalContent.price_12_pln_m2")}
-                    </td>
-                  </tr> */}
                   <tr className="border-t border-border dark:border-border">
                     <td className="py-2">{t("modalContent.orientalCarpet")}</td>
                     <td className="text-right py-2">
@@ -128,14 +121,6 @@ const Home = () => {
                       {t("modalContent.price_25_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.stainRemoval")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.info_stain_removal", {
-                        priceText: t("modalContent.toBasePrice"),
-                      })}
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>
@@ -283,19 +268,6 @@ const Home = () => {
                       {t("modalContent.price_paver_10_pln_m2")}
                     </td>
                   </tr>
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("services.tileCleaning")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.from")}{" "}
-                      {t("modalContent.price_12_pln_m2")}
-                    </td>
-                  </tr> */}
-                  {/* <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("modalContent.mossRemoval")}</td>
-                    <td className="text-right py-2">
-                      {t("modalContent.info_moss_removal_3_pln_m2")}
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>
@@ -375,7 +347,7 @@ const Home = () => {
   const heroTitleSuffix = heroTitleFull.includes(heroTitleBrand)
     ? heroTitleFull
         .substring(
-          heroTitleFull.indexOf(heroTitleBrand) + heroTitleBrand.length
+          heroTitleFull.indexOf(heroTitleBrand) + heroTitleBrand.length,
         )
         .trimStart()
     : t(heroTitleSuffixKey, heroTitleFull);
@@ -676,14 +648,14 @@ const Home = () => {
                   rel="noopener noreferrer"
                   aria-label={t(
                     "contactPage.qrAltToReview",
-                    "QR code to leave a Google review"
+                    "QR code to leave a Google review",
                   )}
                 >
                   <img
                     src={qrCode}
                     alt={t(
                       "contactPage.qrAltToReview",
-                      "QR code to leave a Google review"
+                      "QR code to leave a Google review",
                     )}
                     className="w-40 h-40 cursor-pointer transition-opacity hover:opacity-80"
                     loading="lazy"
@@ -704,6 +676,20 @@ const Home = () => {
         isOpen={isCalculatorOpen}
         onClose={() => setIsCalculatorOpen(false)}
       />
+      <a
+        href="tel:+48531890827"
+        onClick={() => {
+          if (typeof window !== "undefined" && (window as any).gtag) {
+            (window as any).gtag("event", "conversion", {
+              send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+            });
+          }
+        }}
+        className="fixed bottom-[96px] right-6 z-50 flex items-center justify-center w-16 h-16 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] md:hidden hover:scale-110 active:scale-95 transition-transform"
+        aria-label={t("contact.phone")}
+      >
+        <FiPhone className="w-8 h-8" />
+      </a>
     </>
   );
 };
