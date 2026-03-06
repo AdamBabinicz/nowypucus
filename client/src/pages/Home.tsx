@@ -32,6 +32,7 @@ const Home = () => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   const trackPhoneClick = () => {
+    console.log("TEST TELEFONU");
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "conversion", {
         send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
