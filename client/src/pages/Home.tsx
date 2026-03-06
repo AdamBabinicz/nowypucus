@@ -381,6 +381,18 @@ const Home = () => {
       alt: t("realizacjePage.alt.paverAfter"),
       type: "after",
     },
+    {
+      id: "kp3",
+      src: "/images/kostka/20.avif",
+      alt: t("realizacjePage.alt.paverBefore"),
+      type: "before",
+    },
+    {
+      id: "kp4",
+      src: "/images/kostka/21.avif",
+      alt: t("realizacjePage.alt.paverAfter"),
+      type: "after",
+    },
   ];
 
   const heroTitleFull = t("hero.title");
