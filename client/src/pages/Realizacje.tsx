@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useLocation as useWouterLocation } from "wouter";
@@ -28,161 +34,166 @@ interface RealizacjeSection {
   images: Image[];
 }
 
-const dywanyImages: Image[] = [
-  {
-    id: "d1",
-    src: "/images/dywany/48.avif",
-    alt: "Dywan przed praniem",
-    type: "before",
-  },
-  {
-    id: "d2",
-    src: "/images/dywany/102.avif",
-    alt: "Dywan po praniu",
-    type: "after",
-  },
-  {
-    id: "d3",
-    src: "/images/dywany/72.avif",
-    alt: "Inny dywan przed praniem",
-    type: "before",
-  },
-  {
-    id: "d4",
-    src: "/images/dywany/73.avif",
-    alt: "Inny dywan po praniu",
-    type: "after",
-  },
-  {
-    id: "d5",
-    src: "/images/dywany/108.avif",
-    alt: "Inny dywan przed praniem",
-    type: "before",
-  },
-  {
-    id: "d6",
-    src: "/images/dywany/109.avif",
-    alt: "Inny dywan po praniu",
-    type: "after",
-  },
-  {
-    id: "d7",
-    src: "/images/dywany/110.avif",
-    alt: "Inny dywan przed praniem",
-    type: "before",
-  },
-  {
-    id: "d8",
-    src: "/images/dywany/111.avif",
-    alt: "Inny dywan po praniu",
-    type: "after",
-  },
-];
-const wykladzinyImages: Image[] = [
-  {
-    id: "w1",
-    src: "/images/wykladzina/1.avif",
-    alt: "Wykładzina przed praniem",
-    type: "before",
-  },
-  {
-    id: "w2",
-    src: "/images/wykladzina/2.avif",
-    alt: "Wykładzina po praniu",
-    type: "after",
-  },
-  {
-    id: "w3",
-    src: "/images/wykladzina/3.avif",
-    alt: "Wykładzina przed praniem",
-    type: "before",
-  },
-  {
-    id: "w4",
-    src: "/images/wykladzina/4.avif",
-    alt: "Wykładzina po praniu",
-    type: "after",
-  },
-];
-const mebleImages: Image[] = [
-  {
-    id: "m1",
-    src: "/images/meble/43.avif",
-    alt: "Mebel przed czyszczeniem",
-    type: "before",
-  },
-  {
-    id: "m2",
-    src: "/images/meble/44.avif",
-    alt: "Mebel po czyszczeniu",
-    type: "after",
-  },
-  {
-    id: "m3",
-    src: "/images/meble/65.avif",
-    alt: "Mebel przed czyszczeniem",
-    type: "before",
-  },
-  {
-    id: "m4",
-    src: "/images/meble/66.avif",
-    alt: "Mebel po czyszczeniu",
-    type: "after",
-  },
-];
-const kostkaPlytkiImages: Image[] = [
-  {
-    id: "kp1",
-    src: "/images/kostka/9.avif",
-    alt: "Kostka brukowa przed myciem",
-    type: "before",
-  },
-  {
-    id: "kp2",
-    src: "/images/kostka/8.avif",
-    alt: "Kostka brukowa po myciu",
-    type: "after",
-  },
-];
-
-const sectionsData: RealizacjeSection[] = [
-  {
-    id: PAGE_KEYS.HASH_CARPETS,
-    titleKey: "realizacjePage.carpetTitle",
-    descriptionKey: "realizacjePage.carpetDesc",
-    images: dywanyImages,
-  },
-  {
-    id: PAGE_KEYS.HASH_FLOORING,
-    titleKey: "realizacjePage.floorTitle",
-    descriptionKey: "realizacjePage.floorDesc",
-    images: wykladzinyImages,
-  },
-  {
-    id: PAGE_KEYS.HASH_UPHOLSTERY,
-    titleKey: "realizacjePage.furnitureTitle",
-    descriptionKey: "realizacjePage.furnitureDesc",
-    images: mebleImages,
-  },
-  {
-    id: PAGE_KEYS.HASH_PAVERS_TILES,
-    titleKey: "realizacjePage.paverTitle",
-    descriptionKey: "realizacjePage.paverDesc",
-    images: kostkaPlytkiImages,
-  },
-];
-
 const Realizacje = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language.split("-")[0];
   const [currentWouterPath, navigateWouter] = useWouterLocation();
+
+  const sectionsData: RealizacjeSection[] = useMemo(() => {
+    const dywanyImages: Image[] = [
+      {
+        id: "d1",
+        src: "/images/dywany/48.avif",
+        alt: t("realizacjePage.alt.carpetBefore"),
+        type: "before",
+      },
+      {
+        id: "d2",
+        src: "/images/dywany/102.avif",
+        alt: t("realizacjePage.alt.carpetAfter"),
+        type: "after",
+      },
+      {
+        id: "d3",
+        src: "/images/dywany/72.avif",
+        alt: t("realizacjePage.alt.otherCarpetBefore"),
+        type: "before",
+      },
+      {
+        id: "d4",
+        src: "/images/dywany/73.avif",
+        alt: t("realizacjePage.alt.otherCarpetAfter"),
+        type: "after",
+      },
+      {
+        id: "d5",
+        src: "/images/dywany/108.avif",
+        alt: t("realizacjePage.alt.otherCarpetBefore"),
+        type: "before",
+      },
+      {
+        id: "d6",
+        src: "/images/dywany/109.avif",
+        alt: t("realizacjePage.alt.otherCarpetAfter"),
+        type: "after",
+      },
+      {
+        id: "d7",
+        src: "/images/dywany/110.avif",
+        alt: t("realizacjePage.alt.otherCarpetBefore"),
+        type: "before",
+      },
+      {
+        id: "d8",
+        src: "/images/dywany/111.avif",
+        alt: t("realizacjePage.alt.otherCarpetAfter"),
+        type: "after",
+      },
+    ];
+
+    const wykladzinyImages: Image[] = [
+      {
+        id: "w1",
+        src: "/images/wykladzina/1.avif",
+        alt: t("realizacjePage.alt.floorBefore"),
+        type: "before",
+      },
+      {
+        id: "w2",
+        src: "/images/wykladzina/2.avif",
+        alt: t("realizacjePage.alt.floorAfter"),
+        type: "after",
+      },
+      {
+        id: "w3",
+        src: "/images/wykladzina/3.avif",
+        alt: t("realizacjePage.alt.floorBefore"),
+        type: "before",
+      },
+      {
+        id: "w4",
+        src: "/images/wykladzina/4.avif",
+        alt: t("realizacjePage.alt.floorAfter"),
+        type: "after",
+      },
+    ];
+
+    const mebleImages: Image[] = [
+      {
+        id: "m1",
+        src: "/images/meble/43.avif",
+        alt: t("realizacjePage.alt.furnitureBefore"),
+        type: "before",
+      },
+      {
+        id: "m2",
+        src: "/images/meble/44.avif",
+        alt: t("realizacjePage.alt.furnitureAfter"),
+        type: "after",
+      },
+      {
+        id: "m3",
+        src: "/images/meble/65.avif",
+        alt: t("realizacjePage.alt.furnitureBefore"),
+        type: "before",
+      },
+      {
+        id: "m4",
+        src: "/images/meble/66.avif",
+        alt: t("realizacjePage.alt.furnitureAfter"),
+        type: "after",
+      },
+    ];
+
+    const kostkaPlytkiImages: Image[] = [
+      {
+        id: "kp1",
+        src: "/images/kostka/9.avif",
+        alt: t("realizacjePage.alt.paverBefore"),
+        type: "before",
+      },
+      {
+        id: "kp2",
+        src: "/images/kostka/8.avif",
+        alt: t("realizacjePage.alt.paverAfter"),
+        type: "after",
+      },
+    ];
+
+    return [
+      {
+        id: PAGE_KEYS.HASH_CARPETS,
+        titleKey: "realizacjePage.carpetTitle",
+        descriptionKey: "realizacjePage.carpetDesc",
+        images: dywanyImages,
+      },
+      {
+        id: PAGE_KEYS.HASH_FLOORING,
+        titleKey: "realizacjePage.floorTitle",
+        descriptionKey: "realizacjePage.floorDesc",
+        images: wykladzinyImages,
+      },
+      {
+        id: PAGE_KEYS.HASH_UPHOLSTERY,
+        titleKey: "realizacjePage.furnitureTitle",
+        descriptionKey: "realizacjePage.furnitureDesc",
+        images: mebleImages,
+      },
+      {
+        id: PAGE_KEYS.HASH_PAVERS_TILES,
+        titleKey: "realizacjePage.paverTitle",
+        descriptionKey: "realizacjePage.paverDesc",
+        images: kostkaPlytkiImages,
+      },
+    ];
+  }, [t]);
 
   const [activeSectionId, setActiveSectionId] = useState<PageKey | null>(() => {
     const initialLocalizedHash = window.location.hash.substring(1);
     if (initialLocalizedHash) {
       const canonicalKey = getCanonicalKeyFromSlug(
         initialLocalizedHash,
-        currentLang
+        currentLang,
       );
       if (canonicalKey && sectionsData.some((s) => s.id === canonicalKey)) {
         return canonicalKey;
@@ -210,18 +221,18 @@ const Realizacje = () => {
         }
       }
     },
-    [currentLang]
+    [currentLang],
   );
 
   const updateActiveSectionFromHashAndScroll = useCallback(() => {
     const localizedHashSlug = window.location.hash.substring(1);
     const canonicalKeyFromHash = getCanonicalKeyFromSlug(
       localizedHashSlug,
-      currentLang
+      currentLang,
     );
     const portfolioBasePath = getLocalizedPath(
       PAGE_KEYS.PORTFOLIO,
-      currentLang
+      currentLang,
     );
 
     let newActiveId: PageKey | null = null;
@@ -249,38 +260,38 @@ const Realizacje = () => {
     if (newActiveId && newActiveId !== activeSectionId) {
       setActiveSectionId(newActiveId);
     }
-
-    // Przewijanie jest teraz w osobnym useEffect zależnym od activeSectionId
-    // lub wywoływane bezpośrednio w handleInternalNavClick jeśli hash się nie zmienia
-  }, [activeSectionId, currentWouterPath, navigateWouter, currentLang]);
+  }, [
+    activeSectionId,
+    currentWouterPath,
+    navigateWouter,
+    currentLang,
+    sectionsData,
+  ]);
 
   useEffect(() => {
-    updateActiveSectionFromHashAndScroll(); // Uruchom przy montowaniu
+    updateActiveSectionFromHashAndScroll();
     window.addEventListener(
       "hashchange",
       updateActiveSectionFromHashAndScroll,
-      false
+      false,
     );
     isInitialMountRef.current = false;
     return () => {
       window.removeEventListener(
         "hashchange",
         updateActiveSectionFromHashAndScroll,
-        false
+        false,
       );
     };
   }, [updateActiveSectionFromHashAndScroll]);
 
   useEffect(() => {
-    // Ten useEffect odpowiada tylko za przewijanie, gdy activeSectionId się zmieni
-    // lub gdy komponent jest montowany z już ustawionym activeSectionId
     if (activeSectionId) {
       const behavior =
         isInitialMountRef.current && window.location.hash ? "auto" : "smooth";
-      // Dajemy mały timeout, aby DOM zdążył się przerysować po zmianie activeSectionData
       const timer = setTimeout(
         () => scrollToSection(activeSectionId, behavior),
-        50
+        50,
       );
       return () => clearTimeout(timer);
     }
@@ -290,7 +301,7 @@ const Realizacje = () => {
     const localizedHash = getLocalizedSlug(sectionCanonicalId, currentLang);
     const portfolioBasePath = getLocalizedPath(
       PAGE_KEYS.PORTFOLIO,
-      currentLang
+      currentLang,
     );
     const targetPath = `${portfolioBasePath}#${localizedHash}`;
 
@@ -300,18 +311,18 @@ const Realizacje = () => {
     ) {
       scrollToSection(sectionCanonicalId, "smooth");
     } else {
-      setActiveSectionId(sectionCanonicalId); // To wywoła useEffect od przewijania
+      setActiveSectionId(sectionCanonicalId);
       if (
         currentWouterPath !== targetPath ||
         window.location.hash !== `#${localizedHash}`
       ) {
-        navigateWouter(targetPath); // To wywoła hashchange listener
+        navigateWouter(targetPath);
       }
     }
   };
 
   const activeSectionData = sectionsData.find(
-    (sec) => sec.id === activeSectionId
+    (sec) => sec.id === activeSectionId,
   );
 
   return (
@@ -414,7 +425,7 @@ const Realizacje = () => {
             <div className="py-12 text-center text-muted-foreground">
               {t(
                 "realizacjePage.selectCategory",
-                "Wybierz kategorię, aby zobaczyć realizacje."
+                "Wybierz kategorię, aby zobaczyć realizacje.",
               )}
             </div>
           )}
@@ -423,4 +434,5 @@ const Realizacje = () => {
     </>
   );
 };
+
 export default Realizacje;

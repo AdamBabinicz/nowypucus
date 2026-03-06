@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiMaximize } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import Modal from "@/components/Modal";
 
 interface Image {
@@ -42,6 +43,7 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 const GallerySlider = ({ images, title }: GallerySliderProps) => {
+  const { t } = useTranslation();
   const [[page, direction], setPage] = useState([0, 0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<Image | null>(null);
@@ -98,7 +100,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
 
   const handleDragEnd = (
     _e: MouseEvent | TouchEvent | PointerEvent,
-    { offset, velocity }: PanInfo
+    { offset, velocity }: PanInfo,
   ) => {
     const swipe = swipePower(offset.x, velocity.x);
 
@@ -116,7 +118,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
           {title}
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
-          Brak obrazów do wyświetlenia.
+          {t("realizacjePage.noImages", "Brak obrazów do wyświetlenia.")}
         </p>
       </div>
     );
@@ -164,12 +166,14 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                         image.type === "before" ? "bg-red-700" : "bg-green-700"
                       } text-white py-1 px-4 rounded-tr-lg font-medium`}
                     >
-                      {image.type === "before" ? "PRZED" : "PO"}
+                      {image.type === "before"
+                        ? t("common.before", "PRZED").toUpperCase()
+                        : t("common.after", "PO").toUpperCase()}
                     </div>
                     <button
                       onClick={() => openModal(image)}
                       className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                      aria-label="Powiększ zdjęcie"
+                      aria-label={t("common.expandImage", "Powiększ zdjęcie")}
                     >
                       <FiMaximize className="w-5 h-5" />
                     </button>
@@ -183,14 +187,14 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
             <button
               onClick={() => paginate(-1)}
               className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              aria-label="Poprzednie zdjęcie"
+              aria-label={t("common.prevImage", "Poprzednie zdjęcie")}
             >
               <FiChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={() => paginate(1)}
               className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              aria-label="Następne zdjęcie"
+              aria-label={t("common.nextImage", "Następne zdjęcie")}
             >
               <FiChevronRight className="w-6 h-6" />
             </button>
@@ -211,7 +215,11 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 dark:focus-visible:ring-offset-slate-700
                     transition-all
                   `}
-                  aria-label={`Przejdź do slajdu ${idx + 1}`}
+                  aria-label={t(
+                    "common.goToSlide",
+                    "Przejdź do slajdu {{number}}",
+                    { number: idx + 1 },
+                  )}
                 >
                   <span
                     className={`
@@ -236,8 +244,8 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
           isOpen={isModalOpen}
           title={`${title} - ${
             modalImage.type === "before"
-              ? "Przed czyszczeniem"
-              : "Po czyszczeniu"
+              ? t("common.beforeCleaning", "Przed czyszczeniem")
+              : t("common.afterCleaning", "Po czyszczeniu")
           }`}
           onClose={closeModal}
         >

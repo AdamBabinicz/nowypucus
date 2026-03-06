@@ -291,25 +291,52 @@ const Home = () => {
     {
       id: "c1",
       src: "/images/dywany/48.avif",
-      alt: "Przed czyszczeniem",
+      alt: t("realizacjePage.alt.carpetBefore"),
       type: "before",
     },
     {
       id: "c2",
       src: "/images/dywany/102.avif",
-      alt: "Po czyszczeniu",
+      alt: t("realizacjePage.alt.carpetAfter"),
       type: "after",
     },
     {
       id: "c3",
       src: "/images/dywany/52.avif",
-      alt: "Przed czyszczeniem",
+      alt: t("realizacjePage.alt.otherCarpetBefore"),
       type: "before",
     },
     {
       id: "c4",
       src: "/images/dywany/53.avif",
-      alt: "Po czyszczeniu",
+      alt: t("realizacjePage.alt.otherCarpetAfter"),
+      type: "after",
+    },
+  ];
+
+  const floorImages: Image[] = [
+    {
+      id: "w1",
+      src: "/images/wykladzina/1.avif",
+      alt: t("realizacjePage.alt.floorBefore"),
+      type: "before",
+    },
+    {
+      id: "w2",
+      src: "/images/wykladzina/2.avif",
+      alt: t("realizacjePage.alt.floorAfter"),
+      type: "after",
+    },
+    {
+      id: "w3",
+      src: "/images/wykladzina/3.avif",
+      alt: t("realizacjePage.alt.floorBefore"),
+      type: "before",
+    },
+    {
+      id: "w4",
+      src: "/images/wykladzina/4.avif",
+      alt: t("realizacjePage.alt.floorAfter"),
       type: "after",
     },
   ];
@@ -318,25 +345,40 @@ const Home = () => {
     {
       id: "f1",
       src: "/images/meble/p1.avif",
-      alt: "Przed czyszczeniem",
+      alt: t("realizacjePage.alt.furnitureBefore"),
       type: "before",
     },
     {
       id: "f2",
       src: "/images/meble/p2.avif",
-      alt: "Po czyszczeniu",
+      alt: t("realizacjePage.alt.furnitureAfter"),
       type: "after",
     },
     {
       id: "f3",
       src: "/images/meble/39.avif",
-      alt: "Przed czyszczeniem",
+      alt: t("realizacjePage.alt.furnitureBefore"),
       type: "before",
     },
     {
       id: "f4",
       src: "/images/meble/38.avif",
-      alt: "Po czyszczeniu",
+      alt: t("realizacjePage.alt.furnitureAfter"),
+      type: "after",
+    },
+  ];
+
+  const paverImages: Image[] = [
+    {
+      id: "kp1",
+      src: "/images/kostka/9.avif",
+      alt: t("realizacjePage.alt.paverBefore"),
+      type: "before",
+    },
+    {
+      id: "kp2",
+      src: "/images/kostka/8.avif",
+      alt: t("realizacjePage.alt.paverAfter"),
       type: "after",
     },
   ];
@@ -545,9 +587,14 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <GallerySlider images={carpetImages} title={t("gallery.carpets")} />
             <GallerySlider
+              images={floorImages}
+              title={t("portfolio.flooring")}
+            />
+            <GallerySlider
               images={furnitureImages}
               title={t("gallery.furniture")}
             />
+            <GallerySlider images={paverImages} title={t("portfolio.pavers")} />
           </div>
           <div className="text-center">
             <WouterLink
@@ -562,7 +609,7 @@ const Home = () => {
 
       <CallToAction />
 
-      <section className="py-16 bg-background bg-background dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
+      <section className="py-16 bg-background dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
         <ContentContainer>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>

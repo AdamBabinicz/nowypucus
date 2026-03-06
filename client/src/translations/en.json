@@ -154,7 +154,11 @@
     "messageMax": "Message must be at most 1500 characters",
     "termsRequired": "You must accept the terms"
   },
-  "common": { "close": "Close" },
+  "common": {
+    "close": "Close",
+    "before": "Before",
+    "after": "After"
+  },
   "modalContent": {
     "carpetDesc": "Our professional carpet cleaning includes comprehensive cleaning using top-quality equipment and safe cleaning agents.",
     "carpetProcessTitle": "8 Stages of Carpet Cleaning:",
@@ -341,7 +345,19 @@
     "testimonial2": "Professional paving stone washing service. The driveway looked terrible, overgrown with moss and dirty. Now it looks like new. I recommend!",
     "testimonial2Location": "Kozienice",
     "testimonial3": "SUPER PUCUŚ is a company worth recommending. The carpet looks like new after cleaning, and the smell is fresh and pleasant. I will definitely use their services again.",
-    "testimonial3Location": "Pionki"
+    "testimonial3Location": "Pionki",
+    "alt": {
+      "carpetBefore": "Carpet before cleaning",
+      "carpetAfter": "Carpet after cleaning",
+      "otherCarpetBefore": "Another carpet before cleaning",
+      "otherCarpetAfter": "Another carpet after cleaning",
+      "floorBefore": "Lining before cleaning",
+      "floorAfter": "Lining after cleaning",
+      "furnitureBefore": "Furniture before cleaning",
+      "furnitureAfter": "Furniture after cleaning",
+      "paverBefore": "Paving stone before washing",
+      "paverAfter": "Paving stone after washing"
+    }
   },
   "equipmentPage": {
     "title": "Our Professional Equipment",
