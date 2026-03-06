@@ -157,7 +157,11 @@
   "common": {
     "close": "Zamknij",
     "before": "Przed",
-    "after": "Po"
+    "after": "Po",
+    "expandImage": "Powiększ zdjęcie",
+    "prevImage": "Poprzednie zdjęcie",
+    "nextImage": "Następne zdjęcie",
+    "goToSlide": "Przejdź do slajdu {{number}}"
   },
   "modalContent": {
     "carpetDesc": "Nasze profesjonalne pranie dywanów obejmuje kompleksowe czyszczenie przy użyciu najwyższej jakości sprzętu i\u00A0bezpiecznych środków czyszczących.",

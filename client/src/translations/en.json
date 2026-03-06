@@ -157,7 +157,11 @@
   "common": {
     "close": "Close",
     "before": "Before",
-    "after": "After"
+    "after": "After",
+    "expandImage": "Expand image",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "goToSlide": "Go to slide {{number}}"
   },
   "modalContent": {
     "carpetDesc": "Our professional carpet cleaning includes comprehensive cleaning using top-quality equipment and safe cleaning agents.",
@@ -612,7 +616,7 @@
   },
   "breadcrumbs": {
     "oferta": "Offer",
-    "offer": "Services",
+    "services": "Services",
     "o-firmie": "About Us Page",
     "about-us": "About Us",
     "realizacje": "Portfolio Page",
