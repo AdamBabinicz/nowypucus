@@ -31,6 +31,14 @@ const Home = () => {
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
+  const trackPhoneClick = () => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+      });
+    }
+  };
+
   const heroSliderImages = [
     "/images/dywany/88.avif",
     "/images/dywany/96.avif",
@@ -645,6 +653,7 @@ const Home = () => {
                     </h3>
                     <a
                       href="tel:+48531890827"
+                      onClick={trackPhoneClick}
                       className="text-primary dark:text-primary font-medium text-lg"
                     >
                       +48 531 890 827
@@ -737,13 +746,7 @@ const Home = () => {
       />
       <a
         href="tel:+48531890827"
-        onClick={() => {
-          if (typeof window !== "undefined" && (window as any).gtag) {
-            (window as any).gtag("event", "conversion", {
-              send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
-            });
-          }
-        }}
+        onClick={trackPhoneClick}
         className="fixed bottom-[96px] right-6 z-50 flex items-center justify-center w-16 h-16 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] md:hidden hover:scale-110 active:scale-95 transition-transform"
         aria-label={t("contact.phone")}
       >
