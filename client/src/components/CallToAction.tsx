@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { FiPhone, FiMail } from "react-icons/fi";
@@ -9,6 +10,35 @@ interface CallToActionProps {
 
 const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
   const { t } = useTranslation();
+
+  const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+
+    let callbackFired = false;
+
+    const executeCall = () => {
+      if (!callbackFired) {
+        callbackFired = true;
+        window.location.href = url;
+      }
+    };
+
+    setTimeout(executeCall, 500);
+
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "phone_click", {
+        event_category: "contact",
+        event_label: "phone_number",
+      });
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        event_callback: executeCall,
+      });
+    } else {
+      executeCall();
+    }
+  };
 
   let sectionBgClass = "";
   let sectionFgClass = "";
@@ -87,7 +117,11 @@ const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
           {t("cta.subtitle")} <strong>{t("cta.freeQuote")}</strong>
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-stretch gap-4">
-          <a href="tel:+48531890827" className={finalSideButtonClasses}>
+          <a
+            href="tel:+48531890827"
+            onClick={trackPhoneClick}
+            className={finalSideButtonClasses}
+          >
             <FiPhone className="w-5 h-5 mr-2" />
             {t("cta.call")}: +48 531 890 827
           </a>

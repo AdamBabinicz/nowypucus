@@ -1,3 +1,4 @@
+import React from "react";
 import { Link as WouterLink, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { FiPhone, FiMail, FiMapPin, FiClock } from "react-icons/fi";
@@ -37,10 +38,39 @@ const Footer = () => {
     if (currentYearNumber < startYear) {
       console.warn(
         "Current year is before start year. Displaying start year only.",
-        { currentYear: currentYearNumber, startYear }
+        { currentYear: currentYearNumber, startYear },
       );
     }
   }
+
+  const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+
+    let callbackFired = false;
+
+    const executeCall = () => {
+      if (!callbackFired) {
+        callbackFired = true;
+        window.location.href = url;
+      }
+    };
+
+    setTimeout(executeCall, 500);
+
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "phone_click", {
+        event_category: "contact",
+        event_label: "phone_number",
+      });
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        event_callback: executeCall,
+      });
+    } else {
+      executeCall();
+    }
+  };
 
   const handleLocalizedLinkClick = (pageKey: PageKey, hashKey?: PageKey) => {
     let targetPath = getLocalizedPath(pageKey, currentLang);
@@ -131,7 +161,7 @@ const Footer = () => {
       ariaLabel: "Pinterest",
     },
     {
-      href: "https://www.youtube.com/channel/UCKRWZoyA4cWXHANrQmwZiyw",
+      href: "",
       icon: BsYoutube,
       ariaLabel: "YouTube",
     },
@@ -160,7 +190,7 @@ const Footer = () => {
                   `footer.social.${link.ariaLabel
                     .toLowerCase()
                     .replace(/\s+/g, "")}`,
-                  link.ariaLabel
+                  link.ariaLabel,
                 );
                 return (
                   <a
@@ -258,7 +288,7 @@ const Footer = () => {
                   <a
                     href={`${getLocalizedPath(
                       PAGE_KEYS.OFFER,
-                      currentLang
+                      currentLang,
                     )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
                     onClick={(e) => {
                       e.preventDefault();
@@ -281,6 +311,7 @@ const Footer = () => {
                 <FiPhone className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
                 <a
                   href="tel:+48531890827"
+                  onClick={trackPhoneClick}
                   className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
                 >
                   +48 531 890 827

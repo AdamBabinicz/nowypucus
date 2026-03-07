@@ -49,9 +49,13 @@ const Home = () => {
     setTimeout(executeCall, 500);
 
     if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "phone_click", {
+        event_category: "contact",
+        event_label: "phone_number",
+      });
       (window as any).gtag("event", "conversion", {
         send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
-        event_callback: executeCall, // Używamy naszej bezpiecznej funkcji
+        event_callback: executeCall,
       });
     } else {
       executeCall();

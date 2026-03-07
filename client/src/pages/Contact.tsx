@@ -1,3 +1,4 @@
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -20,6 +21,35 @@ const Contact = () => {
 
   const googleReviewLink =
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
+
+  const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+
+    let callbackFired = false;
+
+    const executeCall = () => {
+      if (!callbackFired) {
+        callbackFired = true;
+        window.location.href = url;
+      }
+    };
+
+    setTimeout(executeCall, 500);
+
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "phone_click", {
+        event_category: "contact",
+        event_label: "phone_number",
+      });
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        event_callback: executeCall,
+      });
+    } else {
+      executeCall();
+    }
+  };
 
   const socialLinks = [
     {
@@ -63,7 +93,7 @@ const Contact = () => {
         "text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300",
     },
     {
-      href: "https://www.youtube.com/channel/UCKRWZoyA4cWXHANrQmwZiyw",
+      href: "",
       icon: BsYoutube,
       ariaLabelKey: "footer.social.youtube",
       defaultAriaLabel: "YouTube",
@@ -107,7 +137,7 @@ const Contact = () => {
               "https://m.me/super.pucus",
               "https://twitter.com/Mariusz04417578",
               "https://pl.pinterest.com/praniedywanow03",
-              "https://www.youtube.com/channel/UCKRWZoyA4cWXHANrQmwZiyw",
+              "",
               "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6"
             ],
             "openingHoursSpecification": [
@@ -175,6 +205,7 @@ const Contact = () => {
                       </h3>
                       <a
                         href="tel:+48531890827"
+                        onClick={trackPhoneClick}
                         className="text-primary dark:text-primary-400 font-medium text-lg"
                       >
                         +48 531 890 827
@@ -236,7 +267,7 @@ const Contact = () => {
                       src={qrCode}
                       alt={t(
                         "contactPage.qrAltToReview",
-                        "QR code to leave a Google review"
+                        "QR code to leave a Google review",
                       )}
                       className="w-40 h-40"
                       loading="lazy"
@@ -245,7 +276,7 @@ const Contact = () => {
                       <p className="text-gray-600 dark:text-gray-300 mb-3">
                         {t(
                           "contactPage.scanQRToReview",
-                          "Scan the QR code with your phone to quickly add a company review on Google."
+                          "Scan the QR code with your phone to quickly add a company review on Google.",
                         )}
                       </p>
                       <a
@@ -276,7 +307,7 @@ const Contact = () => {
                       const IconComponent = link.icon;
                       const translatedAriaLabel = t(
                         link.ariaLabelKey,
-                        link.defaultAriaLabel
+                        link.defaultAriaLabel,
                       );
                       return (
                         <a
