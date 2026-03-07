@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as WouterLink, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,10 +47,13 @@ const Navbar = () => {
   const toggleDropdown = (section?: string) => {
     const keyToToggle = section || "portfolio";
     setIsDropdownOpen((prev) => ({
-      ...Object.keys(prev).reduce((acc, key) => {
-        if (key !== keyToToggle) acc[key] = false;
-        return acc;
-      }, {} as { [key: string]: boolean }),
+      ...Object.keys(prev).reduce(
+        (acc, key) => {
+          if (key !== keyToToggle) acc[key] = false;
+          return acc;
+        },
+        {} as { [key: string]: boolean },
+      ),
       [keyToToggle]: !prev[keyToToggle],
     }));
   };
@@ -73,6 +76,30 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+    let callbackFired = false;
+
+    const executeCall = () => {
+      if (!callbackFired) {
+        callbackFired = true;
+        window.location.href = url;
+      }
+    };
+
+    setTimeout(executeCall, 500);
+
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        event_callback: executeCall,
+      });
+    } else {
+      executeCall();
+    }
+  };
+
   const handleLocalizedLinkClick = (pageKey: PageKey, hashKey?: PageKey) => {
     if (isOpen) setIsOpen(false);
     setIsDropdownOpen({});
@@ -88,16 +115,12 @@ const Navbar = () => {
     const targetBasePath = targetPath.split("#")[0];
 
     if (currentBasePath !== targetBasePath) {
-      navigate(targetPath); // Zwykła nawigacja do nowej strony
+      navigate(targetPath);
     } else {
-      // Jesteśmy na tej samej stronie bazowej, zmieniamy tylko hash (lub odświeżamy)
       if (hashKey) {
-        // Jeśli hash się faktycznie zmienia, ustawienie window.location.hash powinno wystarczyć
-        // aby wywołać listener 'hashchange' w komponencie Realizacje
         if (window.location.hash !== `#${localizedHashSlug}`) {
           window.location.hash = localizedHashSlug;
         } else {
-          // Hash jest ten sam, ale chcemy przewinąć (np. użytkownik kliknął ten sam link ponownie)
           const elementId = localizedHashSlug;
           const element = document.getElementById(elementId);
           if (element) {
@@ -115,22 +138,17 @@ const Navbar = () => {
       ) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        // Jeśli nie ma hasha, a jesteśmy na tej samej stronie bazowej,
-        // możemy chcieć przewinąć na górę tej strony
-        const element = document.getElementById(pageKey); // Zakładając, że główny kontener strony ma ID równy PageKey
+        const element = document.getElementById(pageKey);
         if (element) {
           const yOffset = -HEADER_OFFSET;
           const y =
             element.getBoundingClientRect().top + window.pageYOffset + yOffset;
           window.scrollTo({ top: y, behavior: "smooth" });
         } else {
-          window.scrollTo({ top: 0, behavior: "smooth" }); // Domyślnie na górę
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       }
-      // Aktualizacja ścieżki w wouter, aby odzwierciedlała hash (ważne dla historii i odświeżania)
-      // Używamy navigate z wouter, aby uniknąć pełnego przeładowania strony.
       if (navigate && currentPath !== targetPath) {
-        // navigate może nie być potrzebne jeśli window.location.hash wystarczy
         navigate(targetPath, { replace: true });
       }
     }
@@ -216,7 +234,7 @@ const Navbar = () => {
               <button
                 onClick={() => toggleDropdown("portfolio")}
                 className={`${navLinkClasses(
-                  PAGE_KEYS.PORTFOLIO
+                  PAGE_KEYS.PORTFOLIO,
                 )} flex items-center`}
               >
                 {t("nav.portfolio")}
@@ -251,13 +269,13 @@ const Navbar = () => {
                         key={link.hashKey}
                         href={`${getLocalizedPath(
                           PAGE_KEYS.PORTFOLIO,
-                          currentLang
+                          currentLang,
                         )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
                         onClick={(e) => {
                           e.preventDefault();
                           handleLocalizedLinkClick(
                             PAGE_KEYS.PORTFOLIO,
-                            link.hashKey
+                            link.hashKey,
                           );
                         }}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700"
@@ -301,6 +319,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-3">
             <a
               href="tel:+48531890827"
+              onClick={trackPhoneClick}
               className="flex items-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
             >
               <FiPhone className="w-5 h-5 mr-2" />
@@ -382,7 +401,7 @@ const Navbar = () => {
                 <button
                   onClick={() => toggleDropdown("portfolio")}
                   className={`flex justify-between items-center w-full py-2.5 font-medium ${mobileNavLinkClasses(
-                    PAGE_KEYS.PORTFOLIO
+                    PAGE_KEYS.PORTFOLIO,
                   )}`}
                 >
                   {t("nav.portfolio")}
@@ -416,13 +435,13 @@ const Navbar = () => {
                           key={link.hashKey}
                           href={`${getLocalizedPath(
                             PAGE_KEYS.PORTFOLIO,
-                            currentLang
+                            currentLang,
                           )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleLocalizedLinkClick(
                               PAGE_KEYS.PORTFOLIO,
-                              link.hashKey
+                              link.hashKey,
                             );
                           }}
                           className="block py-1.5 text-gray-600 dark:text-gray-300"
@@ -470,7 +489,10 @@ const Navbar = () => {
                 <a
                   href="tel:+48531890827"
                   className="flex items-center font-semibold py-2.5 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    trackPhoneClick(e);
+                  }}
                 >
                   <FiPhone className="w-5 h-5 mr-2" />
                   <span>{t("nav.callNow")} +48 531 890 827</span>
