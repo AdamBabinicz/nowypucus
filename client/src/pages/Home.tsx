@@ -32,18 +32,29 @@ const Home = () => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault(); // Zatrzymuje natychmiastowe otwarcie dialera
+    e.preventDefault();
     const url = e.currentTarget.href;
+
+    let callbackFired = false;
+
+    // Funkcja, która uruchomi dzwonienie
+    const executeCall = () => {
+      if (!callbackFired) {
+        callbackFired = true;
+        window.location.href = url;
+      }
+    };
+
+    // Zabezpieczenie: jeśli Google nie odpowie w 500ms (np. przez AdBlocka), dzwoń i tak
+    setTimeout(executeCall, 500);
 
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "conversion", {
         send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
-        event_callback: () => {
-          window.location.href = url; // Otwiera dialer dopiero po wysłaniu konwersji
-        },
+        event_callback: executeCall, // Używamy naszej bezpiecznej funkcji
       });
     } else {
-      window.location.href = url;
+      executeCall();
     }
   };
 
