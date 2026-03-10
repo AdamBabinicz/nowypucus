@@ -454,13 +454,17 @@ const Home = () => {
         <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-[url('/images/3.avif')] bg-cover bg-center bg-no-repeat">
-        <div className="absolute inset-0 z-0">
-          <HeroImageSlider images={heroSliderImages} />
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-        </div>
+      <section className="py-20 relative text-[hsl(var(--primary-foreground))]">
+        <img
+          src="/images/3.avif"
+          alt={t("hero.title")}
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
+        <div className="absolute inset-0 z-0 bg-black opacity-50"></div>
         <div className="relative z-10 flex items-center min-h-[calc(85vh)]">
           <ContentContainer className="py-16 lg:py-24">
+            <HeroImageSlider images={heroSliderImages} />
             <motion.div
               className="max-w-3xl"
               initial={{ opacity: 0, y: 20 }}
@@ -781,7 +785,7 @@ const Home = () => {
         className="fixed bottom-[96px] right-6 z-50 flex items-center justify-center w-16 h-16 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] md:hidden hover:scale-110 active:scale-95 transition-transform"
         aria-label={t("contact.phone")}
       >
-        <FiPhone className="w-8 h-8" />
+        <FiPhone className="w-6 h-6" />
       </a>
     </>
   );
