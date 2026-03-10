@@ -455,16 +455,13 @@ const Home = () => {
       </Helmet>
 
       <section className="py-20 relative text-[hsl(var(--primary-foreground))]">
-        <img
-          src="/images/3.avif"
-          alt={t("hero.title")}
-          fetchPriority="high"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        />
-        <div className="absolute inset-0 z-0 bg-black opacity-50"></div>
+        <div className="absolute inset-0 z-0">
+          <HeroImageSlider images={heroSliderImages} />
+          <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
+        </div>
+
         <div className="relative z-10 flex items-center min-h-[calc(85vh)]">
           <ContentContainer className="py-16 lg:py-24">
-            <HeroImageSlider images={heroSliderImages} />
             <motion.div
               className="max-w-3xl"
               initial={{ opacity: 0, y: 20 }}
@@ -524,7 +521,7 @@ const Home = () => {
               variants={itemVariants}
             >
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
-                <FiZap className="w-8 h-8 text-primary dark:text-primary" />
+                <FiZap className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature1.title")}
@@ -538,7 +535,7 @@ const Home = () => {
               variants={itemVariants}
             >
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
-                <FiCheckCircle className="w-8 h-8 text-primary dark:text-primary" />
+                <FiCheckCircle className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature2.title")}
@@ -552,7 +549,7 @@ const Home = () => {
               variants={itemVariants}
             >
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
-                <FiClock className="w-8 h-8 text-primary dark:text-primary" />
+                <FiClock className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature3.title")}
@@ -566,7 +563,7 @@ const Home = () => {
               variants={itemVariants}
             >
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
-                <BsPiggyBank className="w-8 h-8 text-primary dark:text-primary" />
+                <BsPiggyBank className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature4.title")}
@@ -580,7 +577,7 @@ const Home = () => {
               variants={itemVariants}
             >
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
-                <FiMapPin className="w-8 h-8 text-primary dark:text-primary" />
+                <FiMapPin className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature5.title")}
@@ -594,7 +591,7 @@ const Home = () => {
               variants={itemVariants}
             >
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
-                <FiThumbsUp className="w-8 h-8 text-primary dark:text-primary" />
+                <FiThumbsUp className="w-8 h-8 text-primary" />
               </div>
               <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature6.title")}
@@ -654,7 +651,7 @@ const Home = () => {
           <div className="text-center">
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.PORTFOLIO, currentLang)}
-              className="inline-block font-semibold py-3 px-8 rounded-lg shadow-lg transition-colors duration-300 border-2 border-marine bg-transparent text-marine hover:bg-marine hover:text-marine-foreground hover:border-marine dark:border-accent dark:bg-transparent dark:text-accent dark:hover:bg-accent dark:hover:text-accent-foreground dark:hover:border-accent"
+              className="inline-block font-semibold py-3 px-8 rounded-lg shadow-lg transition-colors duration-300 border-2 border-marine bg-transparent text-marine hover:bg-marine hover:text-marine-foreground hover:border-marine"
             >
               {t("gallery.viewMore")}
             </WouterLink>
@@ -749,17 +746,10 @@ const Home = () => {
                   href={googleReviewLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={t(
-                    "contactPage.qrAltToReview",
-                    "QR code to leave a Google review",
-                  )}
                 >
                   <img
                     src={qrCode}
-                    alt={t(
-                      "contactPage.qrAltToReview",
-                      "QR code to leave a Google review",
-                    )}
+                    alt={t("contactPage.qrAltToReview")}
                     className="w-40 h-40 cursor-pointer transition-opacity hover:opacity-80"
                     loading="lazy"
                   />
@@ -785,7 +775,7 @@ const Home = () => {
         className="fixed bottom-[96px] right-6 z-50 flex items-center justify-center w-16 h-16 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] md:hidden hover:scale-110 active:scale-95 transition-transform"
         aria-label={t("contact.phone")}
       >
-        <FiPhone className="w-6 h-6" />
+        <FiPhone className="w-8 h-8" />
       </a>
     </>
   );
