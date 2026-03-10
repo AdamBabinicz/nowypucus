@@ -34,6 +34,9 @@ const Home = () => {
   const canonicalUrl = `${domain}${isPl ? "/" : "/en"}`;
   const alternateUrl = `${domain}${isPl ? "/en" : "/"}`;
 
+  // Obraz LCP dla pre-loada
+  const LCP_IMAGE = "/images/dywany/88.avif";
+
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -66,7 +69,7 @@ const Home = () => {
   };
 
   const heroSliderImages = [
-    "/images/dywany/88.avif",
+    LCP_IMAGE,
     "/images/dywany/96.avif",
     "/images/kostka/24.avif",
     "/images/meble/64.avif",
@@ -441,12 +444,8 @@ const Home = () => {
         <meta property="og:description" content={t("meta.homeDescription")} />
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
-        <link
-          rel="preload"
-          href="/images/dywany/88.avif"
-          as="image"
-          fetchPriority="high"
-        />
+        {/* LCP Preload */}
+        <link rel="preload" href={LCP_IMAGE} as="image" fetchPriority="high" />
         <link
           rel="alternate"
           hrefLang={isPl ? "en" : "pl"}
