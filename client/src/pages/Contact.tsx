@@ -17,7 +17,11 @@ import qrCode from "@assets/qr.avif";
 import ContentContainer from "@/components/ContentContainer";
 
 const Contact = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const domain = "https://pranie-dywanow.j.pl";
+  const currentPath = i18n.language === "pl" ? "/kontakt" : "/contact";
+  const canonicalUrl = `${domain}${currentPath}`;
 
   const googleReviewLink =
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
@@ -120,6 +124,10 @@ const Contact = () => {
           property="og:description"
           content={t("meta.contactDescription")}
         />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="pl" href={`${domain}/kontakt`} />
+        <link rel="alternate" hrefLang="en" href={`${domain}/contact`} />
+        <link rel="alternate" hrefLang="x-default" href={`${domain}/kontakt`} />
         <script type="application/ld+json">{`
           {
             "@context": "https://schema.org",
@@ -151,14 +159,14 @@ const Contact = () => {
 
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
         <ContentContainer className="text-center">
-          <motion.h2
+          <motion.h1
             className="font-limelight text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             {t("contactPage.title")}
-          </motion.h2>
+          </motion.h1>
           <motion.div
             className="w-20 h-1 bg-primary mx-auto mb-6"
             initial={{ width: 0 }}

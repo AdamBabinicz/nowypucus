@@ -13,7 +13,12 @@ import CallToAction from "@/components/CallToAction";
 import ContentContainer from "@/components/ContentContainer";
 
 const OFirmie = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const domain = "https://pranie-dywanow.j.pl";
+  const isPl = i18n.language === "pl";
+  const canonicalUrl = `${domain}${isPl ? "/o-firmie" : "/about"}`;
+  const alternateUrl = `${domain}${isPl ? "/about" : "/o-firmie"}`;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,18 +50,34 @@ const OFirmie = () => {
         <meta name="description" content={t("meta.aboutDescription")} />
         <meta property="og:title" content={t("meta.aboutTitle")} />
         <meta property="og:description" content={t("meta.aboutDescription")} />
+        <link rel="canonical" href={canonicalUrl} />
+        <link
+          rel="alternate"
+          hrefLang={isPl ? "en" : "pl"}
+          href={alternateUrl}
+        />
+        <link
+          rel="alternate"
+          hrefLang={isPl ? "pl" : "en"}
+          href={canonicalUrl}
+        />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={`${domain}/o-firmie`}
+        />
       </Helmet>
 
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
         <ContentContainer className="text-center">
-          <motion.h2
+          <motion.h1
             className="font-limelight text-3xl md:text-4xl font-bold dark:text-white mb-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             {t("aboutPage.title")}
-          </motion.h2>
+          </motion.h1>
           <motion.div
             className="w-20 h-1 bg-primary mx-auto mb-6"
             initial={{ width: 0 }}
@@ -109,7 +130,7 @@ const OFirmie = () => {
             >
               <img
                 src="/images/team/5.avif"
-                alt="Zespół profesjonalnego czyszczenia"
+                alt={t("aboutPage.teamImageAlt")}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />

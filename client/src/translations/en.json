@@ -255,7 +255,8 @@
     "price_mattress2_160_pln": "160 PLN",
     "price_jointfilling_5_pln_m2": "5 PLN/m²",
     "price_bathrooms_150_pln": "150 PLN",
-    "info_groutcleaning_2_pln_m2": "+2 PLN/m²"
+    "info_groutcleaning_2_pln_m2": "+2 PLN/m²",
+    "price_drying_50_pln": "50 PLN"
   },
   "cookies": {
     "message": "We use cookies to ensure you get the best experience on our website. By continuing to use the site, you agree to the use of cookies.",
@@ -327,7 +328,8 @@
     "cert1Desc": "We use only preparations that have the necessary approvals and safety certificates, which are effective and at the same time safe for people and animals.",
     "cert2Title": "Professional Training",
     "cert2Desc": "Our team regularly participates in training to stay up-to-date with the latest cleaning technologies and methods.",
-    "certificationNote": "The quality of our services is confirmed by customer satisfaction and positive opinions, which you can find on our social media profiles."
+    "certificationNote": "The quality of our services is confirmed by customer satisfaction and positive opinions, which you can find on our social media profiles.",
+    "teamImageAlt": "Professional cleaning team"
   },
   "realizacjePage": {
     "title": "Our Projects",
@@ -381,6 +383,7 @@
     "approachPoint1": "We use only proven cleaning techniques, adapted to specific surfaces",
     "approachPoint2": "We regularly service our equipment to ensure its reliability and effectiveness",
     "approachPoint3": "We invest in the latest technologies to meet the growing market demands",
+    "approachImageAlt": "Professional cleaning equipment",
     "equipment": {
       "karcher_puzzi_10_1": {
         "name": "Kärcher Puzzi 10/1",
@@ -553,6 +556,7 @@
     "section7List3": "contact in matters related to the execution of the service.",
     "section7Para3": "The Principal has the right to access their data, rectify it, delete it, limit its processing, and the right to object to its processing.",
     "lastUpdate": "Last updated",
+    "lastUpdateDate": "01.01.2024",
     "contactTitle": "Contact Details",
     "contactText": "If you have any questions or concerns regarding the regulations, please contact us:"
   },
@@ -587,7 +591,8 @@
       "title": "Changes to the Privacy Policy",
       "content": "The Administrator reserves the right to change the website's privacy policy, which may be caused by the development of internet technology, possible changes in the law regarding personal data protection, and the development of the website."
     },
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated",
+    "lastUpdatedDate": "05.16.2025"
   },
   "calculator": {
     "title": "Price Calculator",
@@ -630,5 +635,10 @@
     "polityka-prywatnosci": "Privacy",
     "privacy-policy": "Privacy Policy",
     "home": "Home"
+  },
+  "not_found": {
+    "meta_title": "Page Not Found | SUPER PUCUŚ",
+    "title": "404 Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist or has been moved."
   }
 }

@@ -9,7 +9,7 @@
     "portfolioTitle": "Nasze Realizacje - SUPER PUCUŚ",
     "portfolioDescription": "Zobacz efekty naszej pracy - zdjęcia przed i\u00A0po czyszczeniu dywanów, mebli, kostki brukowej. Profesjonalne usługi czyszczące.",
     "equipmentTitle": "Nasz Sprzęt - SUPER PUCUŚ",
-    "equipmentDescription": "Profesjonalny sprzęt do prania dywanów, tapicerki i\u00A0mycia kostki brukowej. Poznaj technologię, którą używamy.",
+    "equipmentDescription": "Profesjonal sprzęt do prania dywanów, tapicerki i\u00A0mycia kostki brukowej. Poznaj technologię, którą używamy.",
     "contactTitle": "Kontakt - SUPER PUCUŚ",
     "contactDescription": "Skontaktuj się z\u00A0nami w\u00A0sprawie prania dywanów, tapicerki meblowej lub mycia kostki brukowej. Radom i\u00A0okolice.",
     "termsTitle": "Regulamin Świadczenia Usług - SUPER PUCUŚ",
@@ -255,7 +255,8 @@
     "price_mattress2_160_pln": "160 zł",
     "price_jointfilling_5_pln_m2": "5 zł/m²",
     "price_bathrooms_150_pln": "150 zł",
-    "info_groutcleaning_2_pln_m2": "+2 zł/m²"
+    "info_groutcleaning_2_pln_m2": "+2 zł/m²",
+    "price_drying_50_pln": "50 zł"
   },
   "cookies": {
     "message": "Używamy plików cookie, aby zapewnić najlepsze doświadczenia na naszej stronie. Kontynuując korzystanie z\u00A0witryny, zgadzasz się na użycie plików cookie.",
@@ -327,14 +328,15 @@
     "cert1Desc": "Stosujemy wyłącznie preparaty posiadające niezbędne atesty i\u00A0certyfikaty bezpieczeństwa, które są skuteczne, a\u00A0jednocześnie bezpieczne dla ludzi i\u00A0zwierząt.",
     "cert2Title": "Profesjonalne szkolenia",
     "cert2Desc": "Nasz zespół regularnie uczestniczy w\u00A0szkoleniach, by być na bieżąco z\u00A0najnowszymi technologiami i\u00A0metodami czyszczenia.",
-    "certificationNote": "Jakość naszych usług potwierdza zadowolenie Klientów oraz pozytywne opinie, które możesz znaleźć na naszych profilach w\u00A0mediach społecznościowych."
+    "certificationNote": "Jakość naszych usług potwierdza zadowolenie Klientów oraz pozytywne opinie, które możesz znaleźć na naszych profilach w\u00A0mediach społecznościowych.",
+    "teamImageAlt": "Zespół profesjonalnego czyszczenia"
   },
   "realizacjePage": {
     "title": "Nasze Realizacje",
     "subtitle": "Przekonaj się sam o\u00A0jakości naszych usług. Poniżej prezentujemy zdjęcia przed i\u00A0po wykonaniu naszych prac.",
     "introText": "W galerii prezentujemy wybrane przykłady naszych realizacji, które najlepiej pokazują efekty naszej pracy. Zdjęcia przed i\u00A0po pozwalają ocenić skuteczność stosowanych przez nas metod czyszczenia.",
     "carpetTitle": "Pranie Dywanów",
-    "carpetDesc": "Dywany to niezwykle trudne do czyszczenia elementy wyposażenia domu. Pochłaniają kurz, roztocza, a\u00A0także narażone są na plamy i\u00A0zabrudzenia. Nasze profesjonalne pranie przywraca im świeżość i\u00A0oryginalny wygląd.",
+    "carpetDesc": "Dywany to niezwykle trudne do czyszczenia elementów wyposażenia domu. Pochłaniają kurz, roztocza, a\u00A0także narażone są na plamy i\u00A0zabrudzenia. Nasze profesjonalne pranie przywraca im świeżość i\u00A0oryginalny wygląd.",
     "floorTitle": "Pranie Wykładzin",
     "floorDesc": "Wykładziny w\u00A0biurach, hotelach czy domach często narażone są na intensywne użytkowanie. Nasze usługi czyszczenia skutecznie usuwają głęboko osadzone zabrudzenia, przywracając wykładzinom estetyczny wygląd.",
     "furnitureTitle": "Pranie Tapicerki Meblowej",
@@ -381,6 +383,7 @@
     "approachPoint1": "Używamy tylko sprawdzonych technik czyszczenia, dostosowanych do konkretnych powierzchni",
     "approachPoint2": "Regularnie serwisujemy nasz sprzęt, aby zapewnić jego niezawodność i\u00A0skuteczność",
     "approachPoint3": "Inwestujemy w\u00A0najnowsze technologie, by sprostać rosnącym wymaganiom rynku",
+    "approachImageAlt": "Profesjonalny sprzęt do czyszczenia",
     "equipment": {
       "karcher_puzzi_10_1": {
         "name": "Kärcher Puzzi 10/1",
@@ -560,6 +563,7 @@
     "section7List3": "kontaktu w\u00A0sprawach związanych z\u00A0realizacją usługi.",
     "section7Para3": "Zleceniodawca ma prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania oraz prawo do wniesienia sprzeciwu wobec przetwarzania.",
     "lastUpdate": "Ostatnia aktualizacja regulaminu",
+    "lastUpdateDate": "01.01.2024",
     "contactTitle": "Dane kontaktowe",
     "contactText": "W przypadku pytań lub wątpliwości dotyczących regulaminu, prosimy o\u00A0kontakt:"
   },
@@ -594,7 +598,8 @@
       "title": "Zmiany w\u00A0polityce prywatności",
       "content": "Administrator zastrzega sobie prawo do zmiany w\u00A0polityce prywatności serwisu, co może zostać spowodowane rozwojem technologii internetowej, ewentualnymi zmianami prawa w\u00A0zakresie ochrony danych osobowych oraz rozwojem strony internetowej."
     },
-    "lastUpdated": "Ostatnia aktualizacja"
+    "lastUpdated": "Ostatnia aktualizacja",
+    "lastUpdatedDate": "16.05.2025"
   },
   "calculator": {
     "title": "Kalkulator Cen",
@@ -638,5 +643,10 @@
     "privacy-policy": "Privacy Policy",
     "home": "Strona Główna",
     "start": "Początek"
+  },
+  "not_found": {
+    "meta_title": "Strona nie znaleziona | SUPER PUCUŚ",
+    "title": "404 Strona nie znaleziona",
+    "description": "Przepraszamy, ale strona o podanym adresie nie istnieje lub została przeniesiona."
   }
 }

@@ -36,7 +36,7 @@ const ServiceCard = ({
 
   return (
     <>
-      <div className="bg-card dark:bg-card rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+      <article className="bg-card dark:bg-card rounded-xl shadow-md overflow-hidden h-full flex flex-col">
         <img
           src={image}
           alt={title}
@@ -72,7 +72,7 @@ const ServiceCard = ({
             <strong>{t("services.detailsAndPricing")}</strong>
           </button>
         </div>
-      </div>
+      </article>
 
       <Modal
         isOpen={isModalOpen}

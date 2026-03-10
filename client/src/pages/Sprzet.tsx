@@ -5,7 +5,13 @@ import CallToAction from "@/components/CallToAction";
 import ContentContainer from "@/components/ContentContainer";
 
 const Sprzet = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language.split("-")[0];
+
+  const domain = "https://pranie-dywanow.j.pl";
+  const pathPl = "/sprzet";
+  const pathEn = "/equipment";
+  const canonicalUrl = `${domain}${currentLang === "pl" ? pathPl : pathEn}`;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -212,18 +218,26 @@ const Sprzet = () => {
           property="og:description"
           content={t("meta.equipmentDescription")}
         />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="pl" href={`${domain}${pathPl}`} />
+        <link rel="alternate" hrefLang="en" href={`${domain}${pathEn}`} />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={`${domain}${pathPl}`}
+        />
       </Helmet>
 
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
         <ContentContainer className="text-center">
-          <motion.h2
+          <motion.h1
             className="font-limelight text-3xl md:text-4xl font-bold dark:text-primary-foreground mb-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             {t("equipmentPage.title")}
-          </motion.h2>
+          </motion.h1>
           <motion.div
             className="w-20 h-1 bg-primary mx-auto mb-6"
             initial={{ width: 0 }}
@@ -441,7 +455,10 @@ const Sprzet = () => {
             >
               <img
                 src="/images/tools/7.avif"
-                alt="Profesjonalny sprzęt do czyszczenia"
+                alt={t(
+                  "equipmentPage.approachImageAlt",
+                  "Profesjonalny sprzęt do czyszczenia",
+                )}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />

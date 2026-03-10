@@ -29,6 +29,11 @@ const Home = () => {
   const googleReviewLink =
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
 
+  const domain = "https://pranie-dywanow.j.pl";
+  const isPl = currentLang === "pl";
+  const canonicalUrl = `${domain}${isPl ? "/" : "/en"}`;
+  const alternateUrl = `${domain}${isPl ? "/en" : "/"}`;
+
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -37,7 +42,6 @@ const Home = () => {
 
     let callbackFired = false;
 
-    // Funkcja, która uruchomi dzwonienie
     const executeCall = () => {
       if (!callbackFired) {
         callbackFired = true;
@@ -45,7 +49,6 @@ const Home = () => {
       }
     };
 
-    // Zabezpieczenie: jeśli Google nie odpowie w 500ms (np. przez AdBlocka), dzwoń i tak
     setTimeout(executeCall, 500);
 
     if (typeof window !== "undefined" && (window as any).gtag) {
@@ -311,14 +314,7 @@ const Home = () => {
     },
   ];
 
-  interface Image {
-    id: string;
-    src: string;
-    alt: string;
-    type: "before" | "after";
-  }
-
-  const carpetImages: Image[] = [
+  const carpetImages: any[] = [
     {
       id: "c1",
       src: "/images/dywany/48.avif",
@@ -345,7 +341,7 @@ const Home = () => {
     },
   ];
 
-  const floorImages: Image[] = [
+  const floorImages: any[] = [
     {
       id: "w1",
       src: "/images/wykladzina/1.avif",
@@ -372,7 +368,7 @@ const Home = () => {
     },
   ];
 
-  const furnitureImages: Image[] = [
+  const furnitureImages: any[] = [
     {
       id: "f1",
       src: "/images/meble/p1.avif",
@@ -399,7 +395,7 @@ const Home = () => {
     },
   ];
 
-  const paverImages: Image[] = [
+  const paverImages: any[] = [
     {
       id: "kp1",
       src: "/images/kostka/9.avif",
@@ -428,14 +424,13 @@ const Home = () => {
 
   const heroTitleFull = t("hero.title");
   const heroTitleBrand = t("hero.titleBrand", "SUPER PUCUŚ");
-  const heroTitleSuffixKey = "hero.titleSuffix";
   const heroTitleSuffix = heroTitleFull.includes(heroTitleBrand)
     ? heroTitleFull
         .substring(
           heroTitleFull.indexOf(heroTitleBrand) + heroTitleBrand.length,
         )
         .trimStart()
-    : t(heroTitleSuffixKey, heroTitleFull);
+    : heroTitleFull;
 
   return (
     <>
@@ -444,9 +439,22 @@ const Home = () => {
         <meta name="description" content={t("meta.homeDescription")} />
         <meta property="og:title" content={t("meta.homeTitle")} />
         <meta property="og:description" content={t("meta.homeDescription")} />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href={canonicalUrl} />
+        <link
+          rel="alternate"
+          hrefLang={isPl ? "en" : "pl"}
+          href={alternateUrl}
+        />
+        <link
+          rel="alternate"
+          hrefLang={isPl ? "pl" : "en"}
+          href={canonicalUrl}
+        />
+        <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      <section className=" py-20 relative text-[hsl(var(--primary-foreground))] bg-[url('/images/3.avif')] bg-cover bg-center bg-no-repeat">
+      <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-[url('/images/3.avif')] bg-cover bg-center bg-no-repeat">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
           <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -514,10 +522,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiZap className="w-8 h-8 text-primary dark:text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground dark:text-card-foreground">
+              <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature1.title")}
               </h3>
-              <p className="text-card-foreground/80 dark:text-card-foreground/80 font-sans">
+              <p className="text-card-foreground/80 font-sans">
                 {t("whyUs.feature1.description")}
               </p>
             </motion.div>
@@ -528,10 +536,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiCheckCircle className="w-8 h-8 text-primary dark:text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground dark:text-card-foreground">
+              <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature2.title")}
               </h3>
-              <p className="text-card-foreground/80 dark:text-card-foreground/80 font-sans">
+              <p className="text-card-foreground/80 font-sans">
                 {t("whyUs.feature2.description")}
               </p>
             </motion.div>
@@ -542,10 +550,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiClock className="w-8 h-8 text-primary dark:text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground dark:text-card-foreground">
+              <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature3.title")}
               </h3>
-              <p className="text-card-foreground/80 dark:text-card-foreground/80 font-sans">
+              <p className="text-card-foreground/80 font-sans">
                 {t("whyUs.feature3.description")}
               </p>
             </motion.div>
@@ -556,10 +564,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <BsPiggyBank className="w-8 h-8 text-primary dark:text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground dark:text-card-foreground">
+              <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature4.title")}
               </h3>
-              <p className="text-card-foreground/80 dark:text-card-foreground/80 font-sans">
+              <p className="text-card-foreground/80 font-sans">
                 {t("whyUs.feature4.description")}
               </p>
             </motion.div>
@@ -570,10 +578,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiMapPin className="w-8 h-8 text-primary dark:text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground dark:text-card-foreground">
+              <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature5.title")}
               </h3>
-              <p className="text-card-foreground/80 dark:text-card-foreground/80 font-sans">
+              <p className="text-card-foreground/80 font-sans">
                 {t("whyUs.feature5.description")}
               </p>
             </motion.div>
@@ -584,10 +592,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiThumbsUp className="w-8 h-8 text-primary dark:text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground dark:text-card-foreground">
+              <h3 className="font-heading text-xl font-semibold mb-2">
                 {t("whyUs.feature6.title")}
               </h3>
-              <p className="text-card-foreground/80 dark:text-card-foreground/80 font-sans">
+              <p className="text-card-foreground/80 font-sans">
                 {t("whyUs.feature6.description")}
               </p>
             </motion.div>

@@ -39,6 +39,11 @@ const Realizacje = () => {
   const currentLang = i18n.language.split("-")[0];
   const [currentWouterPath, navigateWouter] = useWouterLocation();
 
+  const domain = "https://pranie-dywanow.j.pl";
+  const canonicalUrl = `${domain}${getLocalizedPath(PAGE_KEYS.PORTFOLIO, currentLang)}`;
+  const pathPl = getLocalizedPath(PAGE_KEYS.PORTFOLIO, "pl");
+  const pathEn = getLocalizedPath(PAGE_KEYS.PORTFOLIO, "en");
+
   const sectionsData: RealizacjeSection[] = useMemo(() => {
     const dywanyImages: Image[] = [
       {
@@ -342,17 +347,30 @@ const Realizacje = () => {
       <Helmet>
         <title>{t("meta.portfolioTitle")}</title>
         <meta name="description" content={t("meta.portfolioDescription")} />
+        <meta property="og:title" content={t("meta.portfolioTitle")} />
+        <meta
+          property="og:description"
+          content={t("meta.portfolioDescription")}
+        />
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="pl" href={`${domain}${pathPl}`} />
+        <link rel="alternate" hrefLang="en" href={`${domain}${pathEn}`} />
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={`${domain}${pathPl}`}
+        />
       </Helmet>
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20 text-primary-foreground">
         <ContentContainer className="text-center">
-          <motion.h2
+          <motion.h1
             className="font-limelight text-3xl md:text-4xl font-bold mb-4 text-foreground"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             {t("realizacjePage.title")}
-          </motion.h2>
+          </motion.h1>
           <motion.div
             className="w-20 h-1 bg-primary mx-auto mb-6"
             initial={{ width: 0 }}
@@ -426,7 +444,10 @@ const Realizacje = () => {
                   ) : (
                     <div className="text-center py-8 px-4 bg-card dark:bg-slate-700 rounded-lg">
                       <p className="text-muted-foreground dark:text-gray-300">
-                        {t("realizacjePage.noImages")}
+                        {t(
+                          "realizacjePage.noImages",
+                          "Wybierz kategorię, aby zobaczyć realizacje.",
+                        )}
                       </p>
                     </div>
                   )}
