@@ -442,6 +442,12 @@ const Home = () => {
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
         <link
+          rel="preload"
+          href="/images/dywany/88.avif"
+          as="image"
+          fetchPriority="high"
+        />
+        <link
           rel="alternate"
           hrefLang={isPl ? "en" : "pl"}
           href={alternateUrl}
@@ -454,7 +460,7 @@ const Home = () => {
         <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      <section className="py-20 relative text-[hsl(var(--primary-foreground))]">
+      <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-[url('/images/3.avif')] bg-cover bg-center bg-no-repeat">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
           <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
