@@ -3,13 +3,15 @@ import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { FiPhone, FiMail } from "react-icons/fi";
 import { BsMessenger } from "react-icons/bs";
+import { getLocalizedPath, PAGE_KEYS } from "@/config/slugs";
 
 interface CallToActionProps {
   variant?: "primary" | "secondary";
 }
 
 const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language.split("-")[0];
 
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -54,9 +56,6 @@ const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
     sectionFgClass =
       "text-[hsl(var(--cta-primary-foreground-light))] dark:text-[hsl(var(--cta-primary-foreground-dark))]";
 
-    // Przyciski skrajne dla variant="primary"
-    // Jasny motyw: Ramka i tekst ciemnoniebieski/szary. Hover: tło ciemnoniebieskie/szare, tekst bardzo jasny błękit.
-    // Ciemny motyw: Ramka i tekst jasny cyjanowo-biały. Hover: tło jasne cyjanowo-białe, tekst ciemny granat.
     sideButtonStaticBorderTextColorClass =
       "border-[hsl(var(--cta-primary-foreground-light))] text-[hsl(var(--cta-primary-foreground-light))] dark:border-[hsl(var(--cta-primary-foreground-dark))] dark:text-[hsl(var(--cta-primary-foreground-dark))]";
     sideButtonHoverBgClass =
@@ -64,22 +63,16 @@ const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
     sideButtonHoverTextColorClass =
       "hover:text-[hsl(var(--cta-primary-background-light))] dark:hover:text-[hsl(var(--cta-primary-background-dark))]";
 
-    // Przycisk Messenger dla variant="primary"
-    // Na hover tekst i ramka w kolorze tekstu sekcji
     messengerButtonHoverBorderColorClass =
       "hover:border-[hsl(var(--cta-primary-foreground-light))] dark:hover:border-[hsl(var(--cta-primary-foreground-dark))]";
     messengerButtonHoverTextColorClass =
       "hover:text-[hsl(var(--cta-primary-foreground-light))] dark:hover:text-[hsl(var(--cta-primary-foreground-dark))]";
   } else {
-    // variant === "secondary"
     sectionBgClass =
       "bg-[hsl(var(--cta-secondary-background-light))] dark:bg-[hsl(var(--cta-secondary-background-dark))]";
     sectionFgClass =
       "text-[hsl(var(--cta-secondary-foreground-light))] dark:text-[hsl(var(--cta-secondary-foreground-dark))]";
 
-    // Przyciski skrajne dla variant="secondary"
-    // Jasny motyw: Ramka i tekst ciemnopomarańczowy/brązowy. Hover: tło ciemnopomarańczowe/brązowe, tekst bardzo jasny pomarańcz.
-    // Ciemny motyw: Ramka i tekst jasny różowo-biały. Hover: tło jasne różowo-białe, tekst ciemne bordo.
     sideButtonStaticBorderTextColorClass =
       "border-[hsl(var(--cta-secondary-foreground-light))] text-[hsl(var(--cta-secondary-foreground-light))] dark:border-[hsl(var(--cta-secondary-foreground-dark))] dark:text-[hsl(var(--cta-secondary-foreground-dark))]";
     sideButtonHoverBgClass =
@@ -87,7 +80,6 @@ const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
     sideButtonHoverTextColorClass =
       "hover:text-[hsl(var(--cta-secondary-background-light))] dark:hover:text-[hsl(var(--cta-secondary-background-dark))]";
 
-    // Przycisk Messenger dla variant="secondary"
     messengerButtonHoverBorderColorClass =
       "hover:border-[hsl(var(--cta-secondary-foreground-light))] dark:hover:border-[hsl(var(--cta-secondary-foreground-dark))]";
     messengerButtonHoverTextColorClass =
@@ -134,7 +126,10 @@ const CallToAction = ({ variant = "primary" }: CallToActionProps) => {
             <BsMessenger className="w-5 h-5 mr-2" />
             {t("cta.messenger")}
           </a>
-          <Link href="/kontakt" className={finalSideButtonClasses}>
+          <Link
+            href={getLocalizedPath(PAGE_KEYS.CONTACT, currentLang)}
+            className={finalSideButtonClasses}
+          >
             <FiMail className="w-5 h-5 mr-2" />
             {t("cta.contactForm")}
           </Link>

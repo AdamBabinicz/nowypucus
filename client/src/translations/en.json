@@ -25,7 +25,14 @@
     "equipment": "Equipment",
     "contact": "Contact",
     "blog": "Blog",
-    "callNow": "Call Now!"
+    "callNow": "Call Now!",
+    "logoAlt": "SUPER PUCUŚ Logo",
+    "connectMessenger": "Connect on Messenger",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "messenger": "Messenger",
+    "switch_pl": "Switch to Polish",
+    "switch_en": "Switch to English"
   },
   "portfolio": {
     "carpets": "Carpets",
@@ -144,7 +151,8 @@
     "successMessage": "Thank you for contacting us. We will respond as soon as possible.",
     "errorTitle": "An Error Occurred",
     "errorMessage": "Sorry, we couldn't send your message. Please try again later or contact us by phone.",
-    "quickForm": "Quick Form"
+    "quickForm": "Quick Form",
+    "errorMessageNetwork": "A network error occurred. Please try again later."
   },
   "validation": {
     "nameMin": "Name must be at least 2 characters",
@@ -161,7 +169,13 @@
     "expandImage": "Expand image",
     "prevImage": "Previous image",
     "nextImage": "Next image",
-    "goToSlide": "Go to slide {{number}}"
+    "goToSlide": "Go to slide {{number}}",
+    "beforeCleaning": "Before cleaning",
+    "afterCleaning": "After cleaning",
+    "hero_slide_alt": "Photo showing carpet cleaning service",
+    "scroll_to_top": "Scroll to top",
+    "switch_light_mode": "Switch to light mode",
+    "switch_dark_mode": "Switch to dark mode"
   },
   "modalContent": {
     "carpetDesc": "Our professional carpet cleaning includes comprehensive cleaning using top-quality equipment and safe cleaning agents.",

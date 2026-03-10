@@ -22,7 +22,7 @@ const ContactForm = () => {
     email: z.string().email({
       message: t(
         "validation.emailInvalid",
-        "Please enter a valid email address"
+        "Please enter a valid email address",
       ),
     }),
     phone: z.string().optional(),
@@ -32,13 +32,13 @@ const ContactForm = () => {
       .min(10, {
         message: t(
           "validation.messageMin",
-          "Message must be at least 10 characters"
+          "Message must be at least 10 characters",
         ),
       })
       .max(1500, {
         message: t(
           "validation.messageMax",
-          "Message must be at most 1500 characters"
+          "Message must be at most 1500 characters",
         ),
       }),
     terms: z.boolean().refine((value) => value === true, {
@@ -54,7 +54,7 @@ const ContactForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting }, // Używamy isSubmitting z react-hook-form
+    formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -80,35 +80,35 @@ const ContactForm = () => {
 
       if (response.ok) {
         toast({
-          title: t("contact.successTitle", "Wiadomość wysłana!"),
+          title: t("contact.successTitle", "Message Sent!"),
           description: t(
             "contact.successMessage",
-            "Dziękujemy za kontakt. Odpowiemy najszybciej jak to możliwe."
+            "Thank you for contacting us. We will respond as soon as possible.",
           ),
           variant: "default",
         });
         reset();
       } else {
-        const errorData = await response.json().catch(() => ({})); // Spróbuj sparsować błąd, jeśli nie - pusty obiekt
+        const errorData = await response.json().catch(() => ({}));
         const errorMessage =
           errorData.errors?.map((err: any) => err.message).join(", ") ||
           t(
             "contact.errorMessage",
-            "Wystąpił błąd podczas wysyłania wiadomości."
+            "An error occurred while sending the message.",
           );
         toast({
-          title: t("contact.errorTitle", "Błąd wysyłania"),
+          title: t("contact.errorTitle", "An Error Occurred"),
           description: errorMessage,
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error("Błąd przesyłania formularza:", error);
+      console.error("Form submission error:", error);
       toast({
-        title: t("contact.errorTitle", "Błąd wysyłania"),
+        title: t("contact.errorTitle", "An Error Occurred"),
         description: t(
           "contact.errorMessageNetwork",
-          "Wystąpił błąd sieciowy. Spróbuj ponownie później."
+          "A network error occurred. Please try again later.",
         ),
         variant: "destructive",
       });
@@ -122,7 +122,7 @@ const ContactForm = () => {
           htmlFor="name"
           className="block text-sm font-medium text-foreground dark:text-foreground/80 mb-1"
         >
-          {t("contact.nameLabel", "Imię i nazwisko")} *
+          {t("contact.nameLabel", "Name")} *
         </label>
         <input
           type="text"
@@ -145,7 +145,7 @@ const ContactForm = () => {
           htmlFor="email"
           className="block text-sm font-medium text-foreground dark:text-foreground/80 mb-1"
         >
-          {t("contact.emailLabel", "Adres e-mail")} *
+          {t("contact.emailLabel", "Email")} *
         </label>
         <input
           type="email"
@@ -170,7 +170,7 @@ const ContactForm = () => {
           htmlFor="phone"
           className="block text-sm font-medium text-foreground dark:text-foreground/80 mb-1"
         >
-          {t("contact.phoneLabel", "Numer telefonu")}
+          {t("contact.phoneLabel", "Phone")}
         </label>
         <input
           type="tel"
@@ -186,7 +186,7 @@ const ContactForm = () => {
           htmlFor="service"
           className="block text-sm font-medium text-foreground dark:text-foreground/80 mb-1"
         >
-          {t("contact.serviceLabel", "Usługa")}
+          {t("contact.serviceLabel", "Service")}
         </label>
         <select
           id="service"
@@ -195,18 +195,18 @@ const ContactForm = () => {
           disabled={isSubmitting}
         >
           <option value="">
-            {t("contact.selectService", "Wybierz usługę...")}
+            {t("contact.selectService", "Select a service...")}
           </option>
           <option value="dywany">
-            {t("services.carpetCleaning", "Pranie dywanów")}
+            {t("services.carpetCleaning", "Carpet Cleaning")}
           </option>
           <option value="meble">
-            {t("services.furnitureCleaning", "Pranie mebli")}
+            {t("services.furnitureCleaning", "Furniture Cleaning")}
           </option>
           <option value="kostka">
-            {t("services.paverCleaning", "Czyszczenie kostki")}
+            {t("services.paverCleaning", "Paver Cleaning")}
           </option>
-          <option value="inne">{t("contact.other", "Inne")}</option>
+          <option value="inne">{t("contact.other", "Other")}</option>
         </select>
       </div>
 
@@ -215,7 +215,7 @@ const ContactForm = () => {
           htmlFor="message"
           className="block text-sm font-medium text-foreground dark:text-foreground/80 mb-1"
         >
-          {t("contact.messageLabel", "Wiadomość")} *
+          {t("contact.messageLabel", "Message")} *
         </label>
         <textarea
           id="message"
@@ -251,7 +251,7 @@ const ContactForm = () => {
           htmlFor="terms"
           className="ml-2 block text-sm text-foreground dark:text-foreground/80"
         >
-          {t("contact.termsLabel", "Akceptuję warunki")} *
+          {t("contact.termsLabel", "I accept the terms")} *
         </label>
       </div>
       {errors.terms && (
@@ -273,8 +273,8 @@ const ContactForm = () => {
         >
           <FiSend className="w-5 h-5 mr-2" />
           {isSubmitting
-            ? t("contact.sending", "Wysyłanie...")
-            : t("contact.sendMessage", "Wyślij wiadomość")}
+            ? t("contact.sending", "Sending...")
+            : t("contact.sendMessage", "Send Message")}
         </button>
       </div>
     </form>

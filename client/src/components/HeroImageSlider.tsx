@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface HeroImageSliderProps {
   images: string[];
@@ -7,6 +8,7 @@ interface HeroImageSliderProps {
 }
 
 const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -29,13 +31,16 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}
-          alt={`Hero background slide ${currentIndex + 1}`}
+          alt={t(
+            "hero_slide_alt",
+            "Zdjęcie przedstawiające realizację prania dywanów",
+          )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
           className="w-full h-full object-cover absolute inset-0"
-          loading="lazy"
+          loading="eager"
         />
       </AnimatePresence>
     </div>

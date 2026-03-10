@@ -26,7 +26,7 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
     setWidth("");
     setLength("");
     setPrice(null);
-  }, [i18n.language, serviceType, isOpen]); // Resetuj także przy otwarciu/zamknięciu
+  }, [i18n.language, serviceType, isOpen]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat(i18n.language, {
@@ -78,14 +78,14 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border">
-              <h3 className="text-xl font-semibold font-heading flex items-center">
+              <h2 className="text-xl font-semibold font-heading flex items-center">
                 <FiZap className="w-6 h-6 mr-2 text-primary" />
-                {t("calculator.title")}
-              </h3>
+                {t("calculator.title", "Kalkulator Cen")}
+              </h2>
               <button
                 onClick={onClose}
                 className="p-1 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-                aria-label={t("common.close")}
+                aria-label={t("common.close", "Zamknij")}
               >
                 <FiX className="w-6 h-6" />
               </button>
@@ -94,7 +94,7 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
             <div className="p-4 sm:p-6 space-y-6 overflow-y-auto">
               <div>
                 <label className="block text-sm font-medium text-foreground/80 mb-1">
-                  {t("calculator.serviceType")}
+                  {t("calculator.serviceType", "Rodzaj usługi")}
                 </label>
                 <div className="flex space-x-2">
                   <button
@@ -106,7 +106,7 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
                                                 : "bg-muted hover:bg-muted/80 text-muted-foreground"
                                             }`}
                   >
-                    {t("services.carpetCleaning")}
+                    {t("services.carpetCleaning", "Pranie dywanów")}
                   </button>
                   <button
                     onClick={() => setServiceType("lining")}
@@ -117,7 +117,7 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
                                                 : "bg-muted hover:bg-muted/80 text-muted-foreground"
                                             }`}
                   >
-                    {t("services.floorCleaning")}
+                    {t("services.floorCleaning", "Pranie wykładzin")}
                   </button>
                 </div>
               </div>
@@ -125,33 +125,33 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label
-                    htmlFor="calc-width" // Unikalne ID dla inputów
+                    htmlFor="calc-width"
                     className="block text-sm font-medium text-foreground/80 mb-1"
                   >
-                    {t("calculator.width")}
+                    {t("calculator.width", "Szerokość (cm)")}
                   </label>
                   <input
                     type="number"
                     id="calc-width"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
-                    placeholder={t("calculator.widthPlaceholder") || "np. 150"}
+                    placeholder={t("calculator.widthPlaceholder", "np. 150")}
                     className="w-full px-3 py-2 border border-input rounded-md focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="calc-length" // Unikalne ID dla inputów
+                    htmlFor="calc-length"
                     className="block text-sm font-medium text-foreground/80 mb-1"
                   >
-                    {t("calculator.length")}
+                    {t("calculator.length", "Długość (cm)")}
                   </label>
                   <input
                     type="number"
                     id="calc-length"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
-                    placeholder={t("calculator.lengthPlaceholder") || "np. 200"}
+                    placeholder={t("calculator.lengthPlaceholder", "np. 200")}
                     className="w-full px-3 py-2 border border-input rounded-md focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                   />
                 </div>
@@ -168,7 +168,7 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
                                  dark:hover:text-[hsl(var(--foreground))]
                                  dark:hover:border-[hsl(var(--foreground))]"
               >
-                {t("calculator.calculate")}
+                {t("calculator.calculate", "Oblicz Cenę")}
               </button>
 
               {price !== null && (
@@ -178,13 +178,13 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
                   className="mt-6 p-4 bg-muted rounded-lg text-center"
                 >
                   <p className="text-sm text-muted-foreground">
-                    {t("calculator.estimatedPrice")}
+                    {t("calculator.estimatedPrice", "Szacunkowa cena usługi:")}
                   </p>
                   <p className="text-2xl font-bold text-primary">
                     {formatCurrency(
                       price < MINIMUM_ORDER_VALUE && price > 0
                         ? MINIMUM_ORDER_VALUE
-                        : price
+                        : price,
                     )}
                   </p>
                   {price < MINIMUM_ORDER_VALUE && price > 0 && (
@@ -210,7 +210,10 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
                   price: formatCurrency(TRANSPORT_COST),
                 })}
                 <br />
-                {t("calculator.finalPriceNote")}
+                {t(
+                  "calculator.finalPriceNote",
+                  "Ostateczna cena może się różnić.",
+                )}
               </p>
             </div>
           </motion.div>

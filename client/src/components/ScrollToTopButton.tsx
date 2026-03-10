@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsStars } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 const ScrollToTopButton = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const ScrollToTopButton = () => {
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 bg-primary dark:bg-primary-700 text-white rounded-full p-3 shadow-lg hover:bg-primary-700 dark:hover:bg-primary-800 transition-colors z-50"
-          aria-label="Scroll to top"
+          aria-label={t("common.scroll_to_top", "Przewiń do góry")}
         >
           <BsStars className="w-6 h-6" />
         </motion.button>

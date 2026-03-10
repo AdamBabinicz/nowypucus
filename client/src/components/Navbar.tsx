@@ -196,7 +196,7 @@ const Navbar = () => {
           >
             <img
               src={currentLogo}
-              alt="SUPER PUCUŚ Logo"
+              alt={t("nav.logoAlt", "SUPER PUCUŚ Logo")}
               className="h-7 sm:h-8 w-auto"
               loading="lazy"
             />
@@ -338,7 +338,7 @@ const Navbar = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
-              aria-label="Connect on Messenger"
+              aria-label={t("nav.connectMessenger", "Connect on Messenger")}
             >
               <BsMessenger className="w-6 h-6" />
             </a>
@@ -350,7 +350,11 @@ const Navbar = () => {
           <button
             onClick={toggleMenu}
             className="text-foreground dark:text-gray-200 focus:outline-none"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={
+              isOpen
+                ? t("nav.closeMenu", "Close menu")
+                : t("nav.openMenu", "Open menu")
+            }
           >
             {isOpen ? (
               <FiX className="w-6 h-6" />
@@ -508,13 +512,14 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
-                  aria-label="Connect on Messenger"
+                  aria-label={t("nav.connectMessenger", "Connect on Messenger")}
                   onClick={() => {
                     setIsOpen(false);
                     setIsDropdownOpen({});
                   }}
                 >
-                  <BsMessenger className="w-5 h-5 mr-2" /> Messenger
+                  <BsMessenger className="w-5 h-5 mr-2" />{" "}
+                  {t("nav.messenger", "Messenger")}
                 </a>
               </li>
             </ul>

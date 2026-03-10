@@ -24,7 +24,6 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
 
     if (isOpen) {
       document.addEventListener("keydown", handleEsc);
-
       document.body.style.overflow = "hidden";
     }
 
@@ -90,13 +89,13 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
             exit="hidden"
           >
             <div className="p-6 flex justify-between items-start border-b border-gray-200 dark:border-gray-700">
-              <h3 className="font-heading text-2xl font-semibold text-foreground dark:text-white">
+              <h2 className="font-heading text-2xl font-semibold text-foreground dark:text-white">
                 {title}
-              </h3>
+              </h2>
               <button
                 onClick={onClose}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                aria-label="Close modal"
+                aria-label={t("common.close", "Zamknij")}
               >
                 <FiX className="w-6 h-6" />
               </button>
@@ -107,14 +106,14 @@ const Modal = ({ isOpen, title, children, onClose }: ModalProps) => {
                 onClick={onClose}
                 className="bg-gray-200 dark:bg-gray-700 text-foreground dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 py-2 px-6 rounded-lg font-medium transition-colors"
               >
-                {t("common.close")}
+                {t("common.close", "Zamknij")}
               </button>
             </div>
           </motion.div>
         </div>
       )}
     </AnimatePresence>,
-    document.getElementById("modal-root")!
+    document.getElementById("modal-root")!,
   );
 };
 

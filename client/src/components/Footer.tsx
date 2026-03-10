@@ -174,12 +174,12 @@ const Footer = () => {
 
   return (
     <footer className="bg-primary-800 dark:bg-slate-800 text-foreground dark:text-white pt-12 pb-6">
-      <div className="container">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-major-mono text-xl font-semibold mb-4 text-primary dark:text-sky-400">
+            <h2 className="font-major-mono text-xl font-semibold mb-4 text-primary dark:text-sky-400">
               SUPER PUCUŚ
-            </h3>
+            </h2>
             <p className="mb-4 text-foreground dark:text-gray-100">
               {t("footer.companyDescription")}
             </p>
@@ -192,6 +192,9 @@ const Footer = () => {
                     .replace(/\s+/g, "")}`,
                   link.ariaLabel,
                 );
+
+                if (!link.href) return null; // Prevent rendering empty links (like Youtube placeholder)
+
                 return (
                   <a
                     key={index}
@@ -207,10 +210,10 @@ const Footer = () => {
               })}
             </div>
           </div>
-          <div>
-            <h3 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+          <nav aria-label={t("footer.quickLinks", "Szybkie linki")}>
+            <h2 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
               {t("footer.quickLinks")}
-            </h3>
+            </h2>
             <ul className="space-y-2">
               <li>
                 <WouterLink
@@ -277,11 +280,11 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </div>
-          <div>
-            <h3 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+          </nav>
+          <nav aria-label={t("footer.services", "Usługi")}>
+            <h2 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
               {t("footer.services")}
-            </h3>
+            </h2>
             <ul className="space-y-2">
               {serviceLinks.map((link) => (
                 <li key={link.hashKey}>
@@ -301,64 +304,78 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
           <div>
-            <h3 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+            <h2 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
               {t("footer.contact")}
-            </h3>
-            <ul className="space-y-2">
-              <li className="flex items-center">
-                <FiPhone className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
-                <a
-                  href="tel:+48531890827"
-                  onClick={trackPhoneClick}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
-                >
-                  +48 531 890 827
-                </a>
-              </li>
-              <li className="flex items-center">
-                <FiMail className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
-                <a
-                  href="mailto:mariuszek1989poczta@wp.pl"
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
-                >
-                  mariuszek1989poczta@wp.pl
-                </a>
-              </li>
-              <li className="flex items-center">
-                <FiMapPin className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
-                <span className="text-foreground dark:text-gray-100">
-                  {t("footer.area")}
-                </span>
-              </li>
-              <li className="flex items-center">
-                <FiClock className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0" />
-                <span className="text-foreground dark:text-gray-100">
-                  {t("footer.hours")}
-                </span>
-              </li>
-            </ul>
+            </h2>
+            <address className="not-italic">
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <FiPhone
+                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href="tel:+48531890827"
+                    onClick={trackPhoneClick}
+                    className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  >
+                    +48 531 890 827
+                  </a>
+                </li>
+                <li className="flex items-center">
+                  <FiMail
+                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <a
+                    href="mailto:mariuszek1989poczta@wp.pl"
+                    className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  >
+                    mariuszek1989poczta@wp.pl
+                  </a>
+                </li>
+                <li className="flex items-center">
+                  <FiMapPin
+                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span className="text-foreground dark:text-gray-100">
+                    {t("footer.area")}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FiClock
+                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span className="text-foreground dark:text-gray-100">
+                    {t("footer.hours")}
+                  </span>
+                </li>
+              </ul>
+            </address>
           </div>
         </div>
         <div className="border-t border-gray-600 pt-6 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-foreground dark:text-gray-200 text-center text-sm mb-2 sm:mb-0">
-            {yearDisplay}, SUPER PUCUŚ{" "}
+          <p className="text-foreground dark:text-gray-200 text-center text-sm mb-4 sm:mb-0">
+            &copy; {yearDisplay}, SUPER PUCUŚ -{" "}
             {t("footer.companyType", "Pralnia dywanów")}{" "}
             {t("footer.rights", "Radom.")}
           </p>
-          <div className="flex space-x-4">
+          <div className="flex space-x-6">
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.TERMS, currentLang)}
               onClick={() => handleLocalizedLinkClick(PAGE_KEYS.TERMS)}
-              className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+              className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors text-sm"
             >
               {t("footer.terms")}
             </WouterLink>
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.PRIVACY, currentLang)}
               onClick={() => handleLocalizedLinkClick(PAGE_KEYS.PRIVACY)}
-              className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+              className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors text-sm"
             >
               {t("footer.privacy")}
             </WouterLink>

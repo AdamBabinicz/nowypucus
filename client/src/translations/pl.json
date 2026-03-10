@@ -25,7 +25,14 @@
     "equipment": "Sprzęt",
     "contact": "Kontakt",
     "blog": "Blog",
-    "callNow": "Zadzwoń teraz!"
+    "callNow": "Zadzwoń teraz!",
+    "logoAlt": "Logo SUPER PUCUŚ",
+    "connectMessenger": "Połącz z Messengerem",
+    "closeMenu": "Zamknij menu",
+    "openMenu": "Otwórz menu",
+    "messenger": "Messenger",
+    "switch_pl": "Przełącz na język polski",
+    "switch_en": "Przełącz na język angielski"
   },
   "portfolio": {
     "carpets": "Dywany",
@@ -144,7 +151,8 @@
     "successMessage": "Dziękujemy za kontakt. Odpowiemy najszybciej jak to możliwe.",
     "errorTitle": "Wystąpił błąd",
     "errorMessage": "Przepraszamy, nie udało się wysłać wiadomości. Spróbuj ponownie później lub skontaktuj się z\u00A0nami telefonicznie.",
-    "quickForm": "Szybki formularz"
+    "quickForm": "Szybki formularz",
+    "errorMessageNetwork": "Wystąpił błąd sieciowy. Spróbuj ponownie później."
   },
   "validation": {
     "nameMin": "Imię musi mieć co najmniej 2 znaki",
@@ -161,7 +169,13 @@
     "expandImage": "Powiększ zdjęcie",
     "prevImage": "Poprzednie zdjęcie",
     "nextImage": "Następne zdjęcie",
-    "goToSlide": "Przejdź do slajdu {{number}}"
+    "goToSlide": "Przejdź do slajdu {{number}}",
+    "beforeCleaning": "Przed czyszczeniem",
+    "afterCleaning": "Po czyszczeniu",
+    "hero_slide_alt": "Zdjęcie przedstawiające realizację prania dywanów",
+    "scroll_to_top": "Przewiń do góry",
+    "switch_light_mode": "Przełącz na tryb jasny",
+    "switch_dark_mode": "Przełącz na tryb ciemny"
   },
   "modalContent": {
     "carpetDesc": "Nasze profesjonalne pranie dywanów obejmuje kompleksowe czyszczenie przy użyciu najwyższej jakości sprzętu i\u00A0bezpiecznych środków czyszczących.",

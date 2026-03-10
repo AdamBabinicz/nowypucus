@@ -118,7 +118,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
           {title}
         </h3>
         <p className="text-gray-600 dark:text-gray-300">
-          {t("realizacjePage.noImages", "Brak obrazów do wyświetlenia.")}
+          {t("realizacjePage.noImages", "No images to display.")}
         </p>
       </div>
     );
@@ -167,13 +167,13 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                       } text-white py-1 px-4 rounded-tr-lg font-medium`}
                     >
                       {image.type === "before"
-                        ? t("common.before", "PRZED").toUpperCase()
-                        : t("common.after", "PO").toUpperCase()}
+                        ? t("common.before", "BEFORE").toUpperCase()
+                        : t("common.after", "AFTER").toUpperCase()}
                     </div>
                     <button
                       onClick={() => openModal(image)}
                       className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                      aria-label={t("common.expandImage", "Powiększ zdjęcie")}
+                      aria-label={t("common.expandImage", "Expand image")}
                     >
                       <FiMaximize className="w-5 h-5" />
                     </button>
@@ -187,14 +187,14 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
             <button
               onClick={() => paginate(-1)}
               className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              aria-label={t("common.prevImage", "Poprzednie zdjęcie")}
+              aria-label={t("common.prevImage", "Previous image")}
             >
               <FiChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={() => paginate(1)}
               className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all z-20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              aria-label={t("common.nextImage", "Następne zdjęcie")}
+              aria-label={t("common.nextImage", "Next image")}
             >
               <FiChevronRight className="w-6 h-6" />
             </button>
@@ -215,11 +215,9 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 dark:focus-visible:ring-offset-slate-700
                     transition-all
                   `}
-                  aria-label={t(
-                    "common.goToSlide",
-                    "Przejdź do slajdu {{number}}",
-                    { number: idx + 1 },
-                  )}
+                  aria-label={t("common.goToSlide", "Go to slide {{number}}", {
+                    number: idx + 1,
+                  })}
                 >
                   <span
                     className={`
@@ -244,8 +242,8 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
           isOpen={isModalOpen}
           title={`${title} - ${
             modalImage.type === "before"
-              ? t("common.beforeCleaning", "Przed czyszczeniem")
-              : t("common.afterCleaning", "Po czyszczeniu")
+              ? t("common.beforeCleaning", "Before cleaning")
+              : t("common.afterCleaning", "After cleaning")
           }`}
           onClose={closeModal}
         >

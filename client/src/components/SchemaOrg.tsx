@@ -10,7 +10,7 @@ import {
   getLocalizedSlug,
   SupportedLanguage,
   PageKey,
-} from "@/config/slugs"; // Dodaj PageKey, jeśli nie ma
+} from "@/config/slugs";
 
 // Definicje typów dla breadcrumbs
 interface BreadcrumbItem {
@@ -29,7 +29,6 @@ interface BreadcrumbListSchema {
 export const SchemaOrg = () => {
   const { t, i18n } = useTranslation();
   const [locationPath] = useLocation();
-  // const currentUiLang = i18n.language.split("-")[0] as SupportedLanguage; // Język UI
 
   const baseUrl = "https://pranie-dywanow.j.pl";
 
@@ -52,7 +51,7 @@ export const SchemaOrg = () => {
   if (slugPathToDetermineCanonicalKey === "" && pathOnly === "/") {
     slugPathToDetermineCanonicalKey = getLocalizedSlug(
       PAGE_KEYS.HOME,
-      defaultLang
+      defaultLang,
     );
     langUsedInUrl = defaultLang;
   } else if (
@@ -62,7 +61,7 @@ export const SchemaOrg = () => {
   ) {
     slugPathToDetermineCanonicalKey = getLocalizedSlug(
       PAGE_KEYS.HOME,
-      langUsedInUrl
+      langUsedInUrl,
     );
   }
 
@@ -72,7 +71,7 @@ export const SchemaOrg = () => {
 
   const currentLocalizedPath = getLocalizedPath(
     canonicalKeyCurrentPage,
-    langUsedInUrl
+    langUsedInUrl,
   );
   const canonicalUrl = `${baseUrl}${currentLocalizedPath.split("#")[0]}`;
 
@@ -82,7 +81,7 @@ export const SchemaOrg = () => {
     "https://m.me/super.pucus",
     "https://twitter.com/Mariusz04417578",
     "https://pl.pinterest.com/praniedywanow03",
-    "https://www.youtube.com/channel/UCKRWZoyA4cWXHANrQmwZiyw",
+    "https://www.youtube.com/@SuperPucus",
     "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6",
   ];
 
@@ -130,12 +129,7 @@ export const SchemaOrg = () => {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${baseUrl}/${
-          langUsedInUrl === defaultLang ? "" : langUsedInUrl + "/"
-        }search?q={search_term_string}`.replace(
-          "{search_term_string}",
-          "{search_term_string}"
-        ),
+        urlTemplate: t("schema.searchActionTarget"),
       },
       "query-input": "required name=search_term_string",
     },
@@ -146,65 +140,37 @@ export const SchemaOrg = () => {
     const currentLangForBreadcrumbs = langUsedInUrl;
     const currentLangHomePath = getLocalizedPath(
       PAGE_KEYS.HOME,
-      currentLangForBreadcrumbs
+      currentLangForBreadcrumbs,
     );
     const pathForBreadcrumbs = locationPath.split("#")[0];
-
-    const homeBreadcrumbNameKey = `breadcrumbs.${String(
-      PAGE_KEYS.HOME
-    ).toLowerCase()}`;
-    const navHomeNameKey = `nav.home`;
-    let firstBreadcrumbName = i18n.exists(homeBreadcrumbNameKey)
-      ? t(homeBreadcrumbNameKey)
-      : t(navHomeNameKey);
 
     const itemList: BreadcrumbItem[] = [
       {
         "@type": "ListItem",
         position: 1,
-        name: firstBreadcrumbName,
+        name: t("breadcrumbs.home"),
         item: `${baseUrl}${currentLangHomePath.split("#")[0]}`,
       },
     ];
 
-    const isDefaultLangHomePage =
-      pathForBreadcrumbs === getLocalizedPath(PAGE_KEYS.HOME, defaultLang) &&
-      currentLangForBreadcrumbs === defaultLang;
     const isCurrentLangHomePage = pathForBreadcrumbs === currentLangHomePath;
 
-    if (isDefaultLangHomePage) {
-      if (itemList.length === 1) return null; // Nie pokazuj dla PL strony głównej jeśli tylko 1 element
-    }
-    // Dla strony głównej w innym języku niż domyślny (np. /en),
-    // możesz chcieć zostawić breadcrumb "Home"
-    // Jeśli nie chcesz, odkomentuj poniższy blok:
-    /*
-    else if (isCurrentLangHomePage && currentLangForBreadcrumbs !== defaultLang) {
-        if (itemList.length === 1) return null;
-    }
-    */
-
     if (!isCurrentLangHomePage) {
-      // Tylko jeśli nie jesteśmy na stronie głównej bieżącego języka
       const pathSegmentsForBreadcrumbs = pathForBreadcrumbs
         .substring(1)
         .split("/")
         .filter(Boolean);
 
       let segmentsToIterate = pathSegmentsForBreadcrumbs;
-      let builtPathForItems = ""; // Zaczynamy od pustego, bo prefix językowy jest częścią segmentów
+      let builtPathForItems = "";
 
-      // Określ, czy pierwszy segment to język i ustaw poprawnie builtPathForItems
       if (supportedLngs.includes(segmentsToIterate[0] as SupportedLanguage)) {
         builtPathForItems = `/${segmentsToIterate[0]}`;
-        segmentsToIterate = segmentsToIterate.slice(1); // Usuń język z segmentów do iteracji
+        segmentsToIterate = segmentsToIterate.slice(1);
       } else {
-        // Jeśli nie ma prefixu językowego, zakładamy język domyślny
-        // a ścieżka zaczyna się od slasha (dla strony głównej już obsłużone)
-        // dla podstron w domyślnym języku:
         builtPathForItems = getLocalizedPath(
           PAGE_KEYS.HOME,
-          defaultLang
+          defaultLang,
         ).endsWith("/")
           ? getLocalizedPath(PAGE_KEYS.HOME, defaultLang).slice(0, -1)
           : getLocalizedPath(PAGE_KEYS.HOME, defaultLang);
@@ -213,28 +179,11 @@ export const SchemaOrg = () => {
       segmentsToIterate.forEach((segmentSlug) => {
         builtPathForItems = `${builtPathForItems}/${segmentSlug}`;
 
-        const canonicalKey = getCanonicalKeyFromSlug(
-          segmentSlug,
-          currentLangForBreadcrumbs
+        const breadcrumbKey = `breadcrumbs.${segmentSlug}`;
+        const segmentBreadcrumbName = t(
+          breadcrumbKey,
+          segmentSlug.replace(/-/g, " "),
         );
-        const breadcrumbNameKeyForSegment = canonicalKey
-          ? `breadcrumbs.${String(canonicalKey).toLowerCase()}`
-          : `breadcrumbs.${segmentSlug}`;
-        const navNameKeyForSegment = canonicalKey
-          ? `nav.${String(canonicalKey).toLowerCase()}`
-          : null;
-        const fallbackSegmentName = segmentSlug
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (l) => l.toUpperCase());
-
-        let segmentBreadcrumbName;
-        if (i18n.exists(breadcrumbNameKeyForSegment)) {
-          segmentBreadcrumbName = t(breadcrumbNameKeyForSegment);
-        } else if (navNameKeyForSegment && i18n.exists(navNameKeyForSegment)) {
-          segmentBreadcrumbName = t(navNameKeyForSegment);
-        } else {
-          segmentBreadcrumbName = fallbackSegmentName;
-        }
 
         itemList.push({
           "@type": "ListItem",
@@ -245,8 +194,8 @@ export const SchemaOrg = () => {
       });
     }
 
-    if (itemList.length <= 1 && isCurrentLangHomePage) return null; // Jeśli to strona główna (dowolnego języka) i ma tylko 1 element
-    if (itemList.length === 0) return null; // Na wszelki wypadek
+    if (itemList.length <= 1 && isCurrentLangHomePage) return null;
+    if (itemList.length === 0) return null;
 
     return {
       "@context": "https://schema.org",
@@ -266,7 +215,7 @@ export const SchemaOrg = () => {
         rel="alternate"
         hrefLang={lng}
         href={`${baseUrl}${alternatePath.split("#")[0]}`}
-      />
+      />,
     );
   });
 

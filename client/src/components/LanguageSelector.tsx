@@ -1,6 +1,6 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { FiMail } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 interface LanguageSelectorProps {
   onLanguageChange?: () => void;
@@ -8,6 +8,7 @@ interface LanguageSelectorProps {
 
 const LanguageSelector = ({ onLanguageChange }: LanguageSelectorProps) => {
   const { language, changeLanguage } = useLanguage();
+  const { t } = useTranslation();
 
   const handleLanguageChange = (lang: "pl" | "en") => {
     changeLanguage(lang);
@@ -25,7 +26,7 @@ const LanguageSelector = ({ onLanguageChange }: LanguageSelectorProps) => {
             ? "bg-gray-100 text-gray-700 border border-gray-300 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
             : "text-gray-500 hover:bg-gray-100 dark:text-slate-400 dark:hover:bg-slate-700"
         }`}
-        aria-label="Switch to Polish"
+        aria-label={t("nav:switch_pl", "Przełącz na język polski")}
       >
         PL
         {language === "pl" && (
@@ -43,7 +44,7 @@ const LanguageSelector = ({ onLanguageChange }: LanguageSelectorProps) => {
             ? "bg-gray-100 text-gray-700 border border-gray-300 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600"
             : "text-gray-500 hover:bg-gray-100 dark:text-slate-400 dark:hover:bg-slate-700"
         }`}
-        aria-label="Switch to English"
+        aria-label={t("nav:switch_en", "Switch to English")}
       >
         EN
         {language === "en" && (
