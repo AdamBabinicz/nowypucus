@@ -34,7 +34,6 @@ const Home = () => {
   const canonicalUrl = `${domain}${isPl ? "/" : "/en"}`;
   const alternateUrl = `${domain}${isPl ? "/en" : "/"}`;
 
-  // Obraz LCP dla pre-loada
   const LCP_IMAGE = "/images/dywany/88.avif";
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
@@ -444,7 +443,18 @@ const Home = () => {
         <meta property="og:description" content={t("meta.homeDescription")} />
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
-        {/* LCP Preload */}
+
+        {/* Microsoft Clarity Tracking Code */}
+        <script type="text/javascript">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "vurujffd3k");
+          `}
+        </script>
+
         <link rel="preload" href={LCP_IMAGE} as="image" fetchPriority="high" />
         <link
           rel="alternate"
