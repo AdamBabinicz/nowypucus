@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Krytyczne przyspieszenie ładowania obrazu głównego (LCP) -->
+    <link
+      rel="preload"
+      href="/images/dywany/88.avif"
+      as="image"
+      type="image/avif"
+      fetchpriority="high"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -58,7 +68,6 @@
       name="description"
       content="SUPER PUCUŚ Radom: pranie dywanów, tapicerki meblowej, mycie kostki, posadzek. Profesjonalne czyszczenie dla domu i biura. Zadzwoń! Tel: +48531890827."
     />
-    <!-- <link rel="canonical" href="https://pranie-dywanow.j.pl/" /> -->
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
 

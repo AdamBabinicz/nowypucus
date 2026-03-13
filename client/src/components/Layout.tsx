@@ -2,6 +2,7 @@ import { ReactNode, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
+import { FiPhone } from "react-icons/fi";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
@@ -15,13 +16,42 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const [location] = useLocation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (!location.includes("#")) {
       window.scrollTo(0, 0);
     }
   }, [location]);
+
+  const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+
+    let callbackFired = false;
+
+    const executeCall = () => {
+      if (!callbackFired) {
+        callbackFired = true;
+        window.location.href = url;
+      }
+    };
+
+    setTimeout(executeCall, 500);
+
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "phone_click", {
+        event_category: "contact",
+        event_label: "phone_number",
+      });
+      (window as any).gtag("event", "conversion", {
+        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        event_callback: executeCall,
+      });
+    } else {
+      executeCall();
+    }
+  };
 
   return (
     <>
@@ -33,6 +63,14 @@ const Layout = ({ children }: LayoutProps) => {
       </main>
       <Footer />
       <ScrollToTopButton />
+      <a
+        href="tel:+48531890827"
+        onClick={trackPhoneClick}
+        className="fixed bottom-[96px] right-6 z-50 flex items-center justify-center w-16 h-16 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] rounded-full shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] md:hidden hover:scale-110 active:scale-95 transition-transform"
+        aria-label={t("contact.phone")}
+      >
+        <FiPhone className="w-8 h-8" />
+      </a>
     </>
   );
 };
