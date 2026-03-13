@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- OPTYMALIZACJA LCP: Preload obrazu głównego -->
+    <!-- 1. KRYTYCZNE ŁADOWANIE OBRAZU (LCP) -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -13,10 +13,9 @@
       fetchpriority="high"
     />
 
+    <!-- 2. OPTYMALIZACJA CZCIONEK - SZYBSZE POŁĄCZENIE -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- OPTYMALIZACJA: Ładowanie czcionek bez blokowania renderowania -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -49,7 +48,7 @@
       })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
     </script>
 
-    <!-- Ikony i manifest (Wszystkie Twoje oryginalne linki) -->
+    <!-- IKONY I MANIFEST -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -79,7 +78,7 @@
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
 
-    <!-- Meta Tagi Społecznościowe (Oryginalne) -->
+    <!-- META TAGI OG -->
     <meta
       property="og:title"
       content="SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej-Radom"
@@ -113,25 +112,31 @@
     <meta name="twitter:url" content="https://pranie-dywanow.j.pl/" />
 
     <style>
-      /* Styl dla obrazka-shell, aby strona nie była biała podczas ładowania JS */
+      /* Styl krytyczny dla tła LCP */
       #lcp-shell-bg {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 85vh; /* Dopasowane do Twojego sekcji Hero */
+        height: 85vh;
         background-color: #000;
         z-index: -1;
         object-fit: cover;
       }
+      /* Przyspieszenie wyświetlania tekstu */
+      body {
+        font-display: swap;
+      }
     </style>
   </head>
   <body>
-    <!-- Obrazek tła ładowany natychmiast przez HTML -->
+    <!-- 3. OBRAZ STARTOWY Z WYMIARAMI (DLA PRECYZJI LCP) -->
     <img
       id="lcp-shell-bg"
       src="/images/dywany/88.avif"
       alt=""
+      width="1920"
+      height="1080"
       fetchpriority="high"
       decoding="sync"
     />
