@@ -468,13 +468,14 @@ const Home = () => {
         <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-[url('/images/3.avif')] bg-cover bg-center bg-no-repeat">
+      <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-black min-h-[calc(85vh)] flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
-          <div className="absolute inset-0 z-10 bg-black opacity-50"></div>
+          {/* POPRAWKA: Overlay zapewniający kontrast tekstu niezależnie od motywu strony */}
+          <div className="absolute inset-0 z-10 bg-black/50"></div>
         </div>
 
-        <div className="relative z-10 flex items-center min-h-[calc(85vh)]">
+        <div className="relative z-20 w-full">
           <ContentContainer className="py-16 lg:py-24">
             <motion.div
               className="max-w-3xl"
@@ -482,7 +483,7 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="mb-6 text-left">
+              <h1 className="mb-6 text-left text-white">
                 <span className="font-major-mono block text-4xl md:text-5xl lg:text-6xl font-bold">
                   {heroTitleBrand}
                 </span>
@@ -495,19 +496,19 @@ const Home = () => {
                   </span>
                 )}
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-left opacity-90 font-sans">
+              <p className="text-xl md:text-2xl mb-8 text-left opacity-90 font-sans text-white">
                 {t("hero.subtitle")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
-                  className="inline-block text-center font-semibold py-3 px-6 rounded-lg shadow-lg transition-colors duration-300 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(0_0%_98%)] hover:border-[hsl(175_60%_65%)]"
+                  className="inline-block text-center font-semibold py-3 px-6 rounded-lg shadow-lg transition-colors duration-300 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-white hover:border-[hsl(175_60%_65%)]"
                 >
                   {t("hero.seeServices")}
                 </WouterLink>
                 <button
                   onClick={() => setIsCalculatorOpen(true)}
-                  className="inline-flex items-center justify-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 border-2 border-[hsl(175_60%_65%)] bg-transparent text-[hsl(0_0%_98%)] hover:bg-[hsl(190_80%_60%)] hover:text-[hsl(210_25%_15%)] hover:border-[hsl(190_80%_60%)]"
+                  className="inline-flex items-center justify-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 border-2 border-[hsl(175_60%_65%)] bg-transparent text-white hover:bg-[hsl(190_80%_60%)] hover:text-[hsl(210_25%_15%)] hover:border-[hsl(190_80%_60%)]"
                 >
                   {t("hero.getQuote")}
                 </button>
