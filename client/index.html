@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Krytyczne przyspieszenie ładowania obrazu głównego (LCP) -->
+    <!-- OPTYMALIZACJA LCP: Preload obrazu głównego -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -15,10 +15,15 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- OPTYMALIZACJA: Ładowanie czcionek bez blokowania renderowania -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
     />
+
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=AW-11057616603"
@@ -43,6 +48,8 @@
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
     </script>
+
+    <!-- Ikony i manifest (Wszystkie Twoje oryginalne linki) -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -63,6 +70,7 @@
       href="/android-chrome-192x192.png"
     />
     <link rel="manifest" href="/site.webmanifest" />
+
     <title>SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej-Radom</title>
     <meta
       name="description"
@@ -71,6 +79,7 @@
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
 
+    <!-- Meta Tagi Społecznościowe (Oryginalne) -->
     <meta
       property="og:title"
       content="SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej-Radom"
@@ -102,13 +111,37 @@
       content="https://pranie-dywanow.j.pl/images/96.avif"
     />
     <meta name="twitter:url" content="https://pranie-dywanow.j.pl/" />
+
+    <style>
+      /* Styl dla obrazka-shell, aby strona nie była biała podczas ładowania JS */
+      #lcp-shell-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 85vh; /* Dopasowane do Twojego sekcji Hero */
+        background-color: #000;
+        z-index: -1;
+        object-fit: cover;
+      }
+    </style>
   </head>
   <body>
+    <!-- Obrazek tła ładowany natychmiast przez HTML -->
+    <img
+      id="lcp-shell-bg"
+      src="/images/dywany/88.avif"
+      alt=""
+      fetchpriority="high"
+      decoding="sync"
+    />
+
     <noscript
       ><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-KSSZ23X6"
         height="0"
         width="0"
+        style="display: none; visibility: hidden"
       ></iframe
     ></noscript>
     <div id="root"></div>

@@ -10,12 +10,10 @@ interface HeroImageSliderProps {
 const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hasLoadedFirst, setHasLoadedFirst] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Odznaczamy, że pierwszy render już nastąpił, aby umożliwić animacje dla kolejnych slajdów
-    setHasLoadedFirst(true);
-
+    setIsMounted(true);
     if (images.length <= 1) return;
 
     const timer = setInterval(() => {
@@ -25,9 +23,7 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
     return () => clearInterval(timer);
   }, [images, interval]);
 
-  if (!images || images.length === 0) {
-    return null;
-  }
+  if (!images || images.length === 0) return null;
 
   return (
     <div className="relative w-full h-full bg-slate-900">
@@ -39,8 +35,10 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
             "hero_slide_alt",
             "Zdjęcie przedstawiające realizację prania dywanów",
           )}
-          // Jeśli to pierwszy obraz i pierwszy render, nie animujemy opacity, tylko pokazujemy go od razu
-          initial={hasLoadedFirst ? { opacity: 0 } : { opacity: 1 }}
+          // Brak animacji dla pierwszego slajdu przy starcie, aby pasował do obrazka z index.html
+          initial={
+            isMounted && currentIndex !== 0 ? { opacity: 0 } : { opacity: 1 }
+          }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
