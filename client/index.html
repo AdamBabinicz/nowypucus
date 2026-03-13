@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- OPTYMALIZACJA LCP: Tylko pobieranie w tle, bez wyświetlania globalnego -->
+    <!-- 1. PRIORYTETOWE POBIERANIE OBRAZU (Bez wyświetlania) -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -13,15 +13,12 @@
       fetchpriority="high"
     />
 
+    <!-- 2. SZYBKIE POŁĄCZENIE Z CZCIONKAMI -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- OPTYMALIZACJA: Ładowanie czcionek bez blokowania renderowania -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap"
       rel="stylesheet"
-      media="print"
-      onload="this.media = 'all'"
     />
 
     <script
@@ -49,6 +46,7 @@
       })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
     </script>
 
+    <!-- IKONY I MANIFEST -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -78,6 +76,7 @@
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
 
+    <!-- META TAGI SPOŁECZNOŚCIOWE -->
     <meta
       property="og:title"
       content="SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej-Radom"
@@ -94,7 +93,6 @@
     />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:site_name" content="SUPER PUCUŚ" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -109,6 +107,24 @@
       content="https://pranie-dywanow.j.pl/images/96.avif"
     />
     <meta name="twitter:url" content="https://pranie-dywanow.j.pl/" />
+
+    <!-- 3. INLINE CRITICAL CSS (Zapobiega białemu ekranowi) -->
+    <style>
+      body {
+        background-color: #0f172a;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      /* Przygotowanie miejsca pod Hero, aby uniknąć skoków (CLS) */
+      .hero-placeholder {
+        width: 100%;
+        height: 85vh;
+        background: #000;
+      }
+    </style>
   </head>
   <body>
     <noscript
@@ -119,7 +135,12 @@
         style="display: none; visibility: hidden"
       ></iframe
     ></noscript>
-    <div id="root"></div>
+
+    <div id="root">
+      <!-- To wyświetli się ZANIM React się załaduje -->
+      <div class="hero-placeholder"></div>
+    </div>
+
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

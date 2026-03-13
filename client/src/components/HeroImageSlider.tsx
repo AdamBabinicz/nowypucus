@@ -35,7 +35,11 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
             "hero_slide_alt",
             "Zdjęcie przedstawiające realizację prania dywanów",
           )}
-          // Brak animacji dla pierwszego slajdu przy starcie, aby pasował do obrazka z index.html
+          // Sposób na obejście błędu React i TypeScript - przekazujemy atrybut bezpośrednio do DOM
+          {...({ fetchpriority: currentIndex === 0 ? "high" : "low" } as any)}
+          decoding="sync"
+          width="1920"
+          height="1080"
           initial={
             isMounted && currentIndex !== 0 ? { opacity: 0 } : { opacity: 1 }
           }
@@ -44,7 +48,6 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="w-full h-full object-cover absolute inset-0"
           loading="eager"
-          decoding="sync"
         />
       </AnimatePresence>
     </div>
