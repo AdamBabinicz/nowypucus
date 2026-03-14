@@ -27,7 +27,6 @@ const Contact = () => {
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
 
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const url = e.currentTarget.href;
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "phone_click", {
         event_category: "contact",
@@ -129,7 +128,7 @@ const Contact = () => {
               "https://m.me/super.pucus",
               "https://twitter.com/Mariusz04417578",
               "https://pl.pinterest.com/praniedywanow03",
-              "https://www.youtube.com",
+              "TUTAJ_WKLEJ_LINK_DO_YOUTUBE",
               "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6"
             ],
             "openingHoursSpecification": [
