@@ -27,20 +27,7 @@ const Contact = () => {
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
 
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
     const url = e.currentTarget.href;
-
-    let callbackFired = false;
-
-    const executeCall = () => {
-      if (!callbackFired) {
-        callbackFired = true;
-        window.location.href = url;
-      }
-    };
-
-    setTimeout(executeCall, 500);
-
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "phone_click", {
         event_category: "contact",
@@ -48,10 +35,7 @@ const Contact = () => {
       });
       (window as any).gtag("event", "conversion", {
         send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
-        event_callback: executeCall,
       });
-    } else {
-      executeCall();
     }
   };
 
@@ -97,7 +81,7 @@ const Contact = () => {
         "text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300",
     },
     {
-      href: "",
+      href: "https://www.youtube.com/channel/UCKRWZoyA4cWXHANrQmwZiyw",
       icon: BsYoutube,
       ariaLabelKey: "footer.social.youtube",
       defaultAriaLabel: "YouTube",
@@ -145,7 +129,7 @@ const Contact = () => {
               "https://m.me/super.pucus",
               "https://twitter.com/Mariusz04417578",
               "https://pl.pinterest.com/praniedywanow03",
-              "",
+              "https://www.youtube.com",
               "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6"
             ],
             "openingHoursSpecification": [
