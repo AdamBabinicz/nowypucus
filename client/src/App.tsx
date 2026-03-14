@@ -35,6 +35,22 @@ export default function App() {
   const prevLocationPathRef = useRef(locationPath);
   const prevUiLangRef = useRef(currentUiLang);
 
+  // POPRAWKA: Przewijanie do góry przy nawigacji między stronami
+  useEffect(() => {
+    // Sprawdzamy, czy język pozostał ten sam
+    if (prevUiLangRef.current === currentUiLang) {
+      const currentBase = locationPath.split("#")[0];
+      const prevBase = prevLocationPathRef.current.split("#")[0];
+
+      // Jeśli zmieniła się sama podstrona (slug), a nie tylko kotwica (#)
+      if (currentBase !== prevBase) {
+        window.scrollTo(0, 0);
+      }
+    }
+    // Aktualizujemy ref ścieżki po sprawdzeniu (ważne dla kolejnych nawigacji)
+    prevLocationPathRef.current = locationPath;
+  }, [locationPath, currentUiLang]);
+
   useEffect(() => {
     const pathSegments = locationPath.substring(1).split("/");
     let detectedLangInUrl: SupportedLanguage | undefined = undefined;
@@ -66,6 +82,7 @@ export default function App() {
         i18n.changeLanguage(detectedLangInUrl);
       }
     }
+    // Ten ref jest już aktualizowany w nowym efekcie powyżej, ale zostawiamy dla spójności
     prevLocationPathRef.current = locationPath;
   }, [locationPath, i18n, currentUiLang]);
 
