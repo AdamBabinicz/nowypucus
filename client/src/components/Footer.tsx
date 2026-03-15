@@ -8,6 +8,7 @@ import {
   BsInstagram,
   BsPinterest,
   BsYoutube,
+  BsLinkedin,
 } from "react-icons/bs";
 import { FaGoogle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -161,7 +162,7 @@ const Footer = () => {
       ariaLabel: "Pinterest",
     },
     {
-      href: "",
+      href: "https://www.youtube.com/@mariuszkucharski7371",
       icon: BsYoutube,
       ariaLabel: "YouTube",
     },
@@ -169,6 +170,11 @@ const Footer = () => {
       href: "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6",
       icon: FaGoogle,
       ariaLabel: "Google Maps",
+    },
+    {
+      href: "https://www.linkedin.com/in/mariusz-kucharski-4a6508301/",
+      icon: BsLinkedin,
+      ariaLabel: "LinkedIn",
     },
   ];
 
@@ -193,7 +199,7 @@ const Footer = () => {
                   link.ariaLabel,
                 );
 
-                if (!link.href) return null; // Prevent rendering empty links (like Youtube placeholder)
+                if (!link.href) return null;
 
                 return (
                   <a
