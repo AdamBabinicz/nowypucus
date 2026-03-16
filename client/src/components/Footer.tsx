@@ -162,7 +162,7 @@ const Footer = () => {
       ariaLabel: "Pinterest",
     },
     {
-      href: "https://www.youtube.com/@mariuszkucharski7371",
+      href: "https://www.youtube.com/@SuperPucusRadom",
       icon: BsYoutube,
       ariaLabel: "YouTube",
     },
