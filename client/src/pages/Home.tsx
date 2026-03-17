@@ -444,7 +444,8 @@ const Home = () => {
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
 
-        <link rel="preload" href={LCP_IMAGE} as="image" fetchPriority="high" />
+        {/* Usunięty preload, który duplikował się z plikiem index.html */}
+
         <link
           rel="alternate"
           hrefLang={isPl ? "en" : "pl"}
@@ -461,7 +462,6 @@ const Home = () => {
       <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-black min-h-[calc(85vh)] flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
-          {/* POPRAWKA: Overlay zapewniający kontrast tekstu niezależnie od motywu strony */}
           <div className="absolute inset-0 z-10 bg-black/50"></div>
         </div>
 

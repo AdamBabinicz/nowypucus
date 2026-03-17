@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, Suspense, lazy } from "react";
+import React, { useEffect, useRef } from "react";
 import { Switch, Route, useLocation, Redirect } from "wouter";
 import { useTranslation } from "react-i18next";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -8,17 +8,15 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Layout from "@/components/Layout";
 
-// Zmiana pod kątem PageSpeed (Code Splitting)
-// Podstrony są teraz ładowane leniwie (tylko wtedy, gdy są potrzebne)
-// co drastycznie zmniejsza wagę początkowego pliku JavaScript.
-const Home = lazy(() => import("@/pages/Home"));
-const Oferta = lazy(() => import("@/pages/Oferta"));
-const OFirmie = lazy(() => import("@/pages/OFirmie"));
-const Realizacje = lazy(() => import("@/pages/Realizacje"));
-const Sprzet = lazy(() => import("@/pages/Sprzet"));
-const Contact = lazy(() => import("@/pages/Contact"));
-const Regulamin = lazy(() => import("@/pages/Regulamin"));
-const PolitykaPrywatnosci = lazy(() => import("@/pages/PolitykaPrywatnosci"));
+// Wracamy do bezpośredniego ładowania (stabilne, omijamy błędy brakujących chunków na serwerze)
+import Home from "@/pages/Home";
+import Oferta from "@/pages/Oferta";
+import OFirmie from "@/pages/OFirmie";
+import Realizacje from "@/pages/Realizacje";
+import Sprzet from "@/pages/Sprzet";
+import Contact from "@/pages/Contact";
+import Regulamin from "@/pages/Regulamin";
+import PolitykaPrywatnosci from "@/pages/PolitykaPrywatnosci";
 
 import {
   PAGE_KEYS,
@@ -40,19 +38,14 @@ export default function App() {
   const prevLocationPathRef = useRef(locationPath);
   const prevUiLangRef = useRef(currentUiLang);
 
-  // POPRAWKA: Przewijanie do góry przy nawigacji między stronami
   useEffect(() => {
-    // Sprawdzamy, czy język pozostał ten sam
     if (prevUiLangRef.current === currentUiLang) {
       const currentBase = locationPath.split("#")[0];
       const prevBase = prevLocationPathRef.current.split("#")[0];
-
-      // Jeśli zmieniła się sama podstrona (slug), a nie tylko kotwica (#)
       if (currentBase !== prevBase) {
         window.scrollTo(0, 0);
       }
     }
-    // Aktualizujemy ref ścieżki po sprawdzeniu (ważne dla kolejnych nawigacji)
     prevLocationPathRef.current = locationPath;
   }, [locationPath, currentUiLang]);
 
@@ -87,7 +80,6 @@ export default function App() {
         i18n.changeLanguage(detectedLangInUrl);
       }
     }
-    // Ten ref jest już aktualizowany w nowym efekcie powyżej, ale zostawiamy dla spójności
     prevLocationPathRef.current = locationPath;
   }, [locationPath, i18n, currentUiLang]);
 
@@ -227,12 +219,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Layout>
-          {/* Dodano Suspense do obsługi lazy loading components */}
-          <Suspense
-            fallback={<div className="w-full h-[85vh] bg-[#0f172a]"></div>}
-          >
-            <AppRouter />
-          </Suspense>
+          <AppRouter />
           <Toaster />
         </Layout>
       </TooltipProvider>
