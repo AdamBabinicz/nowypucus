@@ -40,8 +40,11 @@ const ServiceCard = ({
         <img
           src={image}
           alt={title}
-          className="w-full h-80 object-cover"
+          width="800"
+          height="600"
+          decoding="async"
           loading="lazy"
+          className="w-full h-80 object-cover"
         />
         <div className="p-6 flex-grow">
           <h3 className="font-heading text-xl font-semibold mb-2 text-card-foreground">

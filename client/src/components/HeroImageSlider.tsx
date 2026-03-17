@@ -37,7 +37,7 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
           )}
           // Sposób na obejście błędu React i TypeScript - przekazujemy atrybut bezpośrednio do DOM
           {...({ fetchpriority: currentIndex === 0 ? "high" : "low" } as any)}
-          decoding="sync"
+          decoding={currentIndex === 0 ? "sync" : "async"}
           width="1920"
           height="1080"
           initial={
@@ -47,7 +47,7 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="w-full h-full object-cover absolute inset-0"
-          loading="eager"
+          loading={currentIndex === 0 ? "eager" : "lazy"}
         />
       </AnimatePresence>
     </div>

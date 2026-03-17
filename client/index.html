@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -10,10 +12,20 @@
       type="image/avif"
       fetchpriority="high"
     />
+
+    <!-- OPTYMALIZACJA FCP: Preload lokalnej czcionki, aby przerwać łańcuch krytyczny -->
+    <link
+      rel="preload"
+      href="/fonts/MajorMonoDisplay-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- OPTYMALIZACJA SEO: Skomasowane wywołanie wszystkich fontów asynchronicznie (brak blokowania LCP i FCP) -->
+    <!-- OPTYMALIZACJA SEO: Skomasowane wywołanie wszystkich fontów asynchronicznie -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
@@ -26,7 +38,7 @@
       onload="this.media = 'all'"
     />
 
-    <!-- OPTYMALIZACJA SEO/PAGESPEED: Opóźnienie skryptów śledzących o 3.5s, aby odblokować wątek główny dla smartfonów -->
+    <!-- OPTYMALIZACJA SEO/PAGESPEED: Opóźnienie skryptów śledzących o 3.5s -->
     <script>
       setTimeout(function () {
         // --- 1. Skrypt GTAG ---
@@ -82,7 +94,7 @@
         window.fbq("init", "1288180923455820");
         window.fbq("track", "PageView");
 
-        // --- 4. Skrypt Microsoft Clarity (Przeniesiony z Home.tsx) ---
+        // --- 4. Skrypt Microsoft Clarity ---
         (function (c, l, a, r, i, t, y) {
           c[a] =
             c[a] ||
@@ -95,7 +107,7 @@
           y = l.getElementsByTagName(r)[0];
           y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "vus2nkz2ev");
-      }, 3500); // 3500 milisekund (3.5 sekundy) opóźnienia
+      }, 3500);
     </script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
