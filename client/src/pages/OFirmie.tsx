@@ -108,13 +108,13 @@ const OFirmie = () => {
                 {t("aboutPage.ourStoryTitle")}
               </h2>
               <div className="prose prose-lg dark:prose-invert max-w-none">
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                <p className="text-gray-800 dark:text-gray-300 mb-4">
                   {t("aboutPage.ourStoryPara1")}
                 </p>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                <p className="text-gray-800 dark:text-gray-300 mb-4">
                   {t("aboutPage.ourStoryPara2")}
                 </p>
-                <p className="text-gray-700 dark:text-gray-300">
+                <p className="text-gray-800 dark:text-gray-300">
                   <strong className="text-gray-900 dark:text-white">
                     {t("aboutPage.ourStoryPara3")}
                   </strong>
@@ -145,7 +145,7 @@ const OFirmie = () => {
             <h2 className="font-limelight text-3xl font-bold mb-6 text-gray-800 dark:text-white">
               {t("aboutPage.missionTitle")}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 text-lg">
+            <p className="text-gray-800 dark:text-gray-300 text-lg">
               {t("aboutPage.missionStatement")}
             </p>
           </div>
@@ -166,7 +166,7 @@ const OFirmie = () => {
               <h3 className="font-heading text-xl font-semibold mb-3 text-gray-800 dark:text-white">
                 {t("aboutPage.value1Title")}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-700 dark:text-gray-300">
                 {t("aboutPage.value1Desc")}
               </p>
             </motion.div>
@@ -180,7 +180,7 @@ const OFirmie = () => {
               <h3 className="font-heading text-xl font-semibold mb-3 text-gray-800 dark:text-white">
                 {t("aboutPage.value2Title")}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-700 dark:text-gray-300">
                 {t("aboutPage.value2Desc")}
               </p>
             </motion.div>
@@ -194,7 +194,7 @@ const OFirmie = () => {
               <h3 className="font-heading text-xl font-semibold mb-3 text-gray-800 dark:text-white">
                 {t("aboutPage.value3Title")}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-gray-700 dark:text-gray-300">
                 {t("aboutPage.value3Desc")}
               </p>
             </motion.div>
@@ -223,7 +223,7 @@ const OFirmie = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.advantage1Title")}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-700 dark:text-gray-300">
                     {t("aboutPage.advantage1Desc")}
                   </p>
                 </div>
@@ -244,7 +244,7 @@ const OFirmie = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.advantage2Title")}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-700 dark:text-gray-300">
                     {t("aboutPage.advantage2Desc")}
                   </p>
                 </div>
@@ -278,7 +278,7 @@ const OFirmie = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.advantage3Title")}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-700 dark:text-gray-300">
                     {t("aboutPage.advantage3Desc")}
                   </p>
                 </div>
@@ -293,27 +293,13 @@ const OFirmie = () => {
             >
               <div className="flex items-start mb-4">
                 <div className="bg-primary-100 dark:bg-primary-900 rounded-full p-3 mr-4">
-                  {/* <svg
-                    className="w-6 h-6 text-primary dark:text-primary-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg> */}
                   <BsPiggyBank className="w-6 h-6 text-primary dark:text-primary" />
                 </div>
                 <div>
                   <h3 className="font-heading text-xl font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.advantage4Title")}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
+                  <p className="text-gray-700 dark:text-gray-300">
                     {t("aboutPage.advantage4Desc")}
                   </p>
                 </div>
@@ -330,7 +316,7 @@ const OFirmie = () => {
               {t("aboutPage.certificationTitle")}
             </h2>
             <div className="bg-white dark:bg-slate-700 rounded-xl shadow-md p-6 md:p-8">
-              <p className="text-gray-700 dark:text-gray-300 mb-6 text-center">
+              <p className="text-gray-800 dark:text-gray-300 mb-6 text-center">
                 {t("aboutPage.certificationDesc")}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -338,7 +324,7 @@ const OFirmie = () => {
                   <h3 className="font-heading text-lg font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.cert1Title")}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">
                     {t("aboutPage.cert1Desc")}
                   </p>
                 </div>
@@ -346,13 +332,13 @@ const OFirmie = () => {
                   <h3 className="font-heading text-lg font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.cert2Title")}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">
                     {t("aboutPage.cert2Desc")}
                   </p>
                 </div>
               </div>
               <div className="mt-8 text-center">
-                <p className="text-primary dark:text-sky-400 font-semibold">
+                <p className="text-primary dark:text-sky-400 font-bold">
                   {t("aboutPage.certificationNote")}
                 </p>
               </div>

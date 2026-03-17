@@ -15,7 +15,8 @@
   --background-image: none;
   --foreground: 20 14.3% 4.1%;
   --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
+  /* Zmieniono z 44.7% na 30% dla lepszego kontrastu */
+  --muted-foreground: 25 5.3% 30%;
   --popover: 0 0% 100%;
   --popover-foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
@@ -70,7 +71,7 @@
   );
   --foreground: 210 20% 96%;
   --muted: 220 20% 22%;
-  --muted-foreground: 215 15% 80%;
+  --muted-foreground: 215 15% 85%; /* Zwiększono jasność tekstu w dark mode */
   --popover: 220 25% 15%;
   --popover-foreground: 210 20% 96%;
   --card: 220 25% 16%;
@@ -243,4 +244,31 @@
 }
 .main-content-with-offset {
   padding-top: var(--header-offset);
+}
+
+/* --- CookieScript Contrast Fix --- */
+#cookiescript_accept {
+  background-color: hsl(var(--primary)) !important;
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+#cookiescript_reject {
+  background-color: #374151 !important; /* Dark Gray */
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+#cookiescript_link {
+  color: hsl(var(--primary)) !important;
+  text-decoration: underline !important;
+  opacity: 1 !important;
+}
+
+#cookiescript_injected {
+  color: #1a1a1a !important; /* Wymuszenie czytelnego tekstu w oknie */
+}
+
+.dark #cookiescript_injected {
+  color: #ffffff !important;
 }
