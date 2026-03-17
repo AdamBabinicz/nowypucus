@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense, lazy } from "react";
 import { Switch, Route, useLocation, Redirect } from "wouter";
 import { useTranslation } from "react-i18next";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -7,14 +7,19 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Layout from "@/components/Layout";
-import Home from "@/pages/Home";
-import Oferta from "@/pages/Oferta";
-import OFirmie from "@/pages/OFirmie";
-import Realizacje from "@/pages/Realizacje";
-import Sprzet from "@/pages/Sprzet";
-import Contact from "@/pages/Contact";
-import Regulamin from "@/pages/Regulamin";
-import PolitykaPrywatnosci from "@/pages/PolitykaPrywatnosci";
+
+// Zmiana pod kątem PageSpeed (Code Splitting)
+// Podstrony są teraz ładowane leniwie (tylko wtedy, gdy są potrzebne)
+// co drastycznie zmniejsza wagę początkowego pliku JavaScript.
+const Home = lazy(() => import("@/pages/Home"));
+const Oferta = lazy(() => import("@/pages/Oferta"));
+const OFirmie = lazy(() => import("@/pages/OFirmie"));
+const Realizacje = lazy(() => import("@/pages/Realizacje"));
+const Sprzet = lazy(() => import("@/pages/Sprzet"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const Regulamin = lazy(() => import("@/pages/Regulamin"));
+const PolitykaPrywatnosci = lazy(() => import("@/pages/PolitykaPrywatnosci"));
+
 import {
   PAGE_KEYS,
   getLocalizedPath,
@@ -222,7 +227,12 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Layout>
-          <AppRouter />
+          {/* Dodano Suspense do obsługi lazy loading components */}
+          <Suspense
+            fallback={<div className="w-full h-[85vh] bg-[#0f172a]"></div>}
+          >
+            <AppRouter />
+          </Suspense>
           <Toaster />
         </Layout>
       </TooltipProvider>
