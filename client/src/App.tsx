@@ -247,6 +247,11 @@ function AppRouter() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#0f172a]"></div>}>
       <Switch>
+        {/* Przekierowanie index.html na stronę główną - naprawia błąd SEO noindex/404 */}
+        <Route path="/index.html">
+          <Redirect to="/" />
+        </Route>
+
         {supportedLngs.map((lang) => (
           <React.Fragment key={`lang-routes-${lang}`}>
             <Route
