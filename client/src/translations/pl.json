@@ -20,7 +20,7 @@
   "nav": {
     "home": "Start",
     "offer": "Oferta",
-    "about": "O Firmie",
+    "about": "O\u00A0Firmie",
     "portfolio": "Realizacje",
     "equipment": "Sprzęt",
     "contact": "Kontakt",
@@ -643,8 +643,8 @@
   "breadcrumbs": {
     "oferta": "Oferta",
     "services": "Services",
-    "o-firmie": "O Firmie",
-    "about-us": "About Us",
+    "o-firmie": "O\u00A0Firmie",
+    "about-us": "About\u00A0Us",
     "realizacje": "Realizacje",
     "portfolio": "Portfolio",
     "sprzet": "Sprzęt",
