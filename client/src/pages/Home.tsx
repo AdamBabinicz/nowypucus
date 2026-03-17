@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Link as WouterLink } from "wouter";
@@ -16,12 +16,16 @@ import { BsPiggyBank } from "react-icons/bs";
 import ServiceCard from "@/components/ServiceCard";
 import GallerySlider from "@/components/GallerySlider";
 import CallToAction from "@/components/CallToAction";
-import ContactForm from "@/components/ContactForm";
 import qrCode from "@assets/qr.avif";
 import ContentContainer from "@/components/ContentContainer";
 import HeroImageSlider from "@/components/HeroImageSlider";
-import PriceCalculator from "@/components/PriceCalculator";
 import { getLocalizedPath, PAGE_KEYS } from "@/config/slugs";
+
+// --- OPTYMALIZACJA: Leniwe ładowanie ciężkich komponentów ---
+const ContactForm = React.lazy(() => import("@/components/ContactForm"));
+const PriceCalculator = React.lazy(
+  () => import("@/components/PriceCalculator"),
+);
 
 const Home = () => {
   const { t, i18n } = useTranslation();
@@ -444,8 +448,6 @@ const Home = () => {
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
 
-        {/* Usunięty preload, który duplikował się z plikiem index.html */}
-
         <link
           rel="alternate"
           hrefLang={isPl ? "en" : "pl"}
@@ -767,15 +769,28 @@ const Home = () => {
               <h3 className="font-heading text-2xl font-semibold mb-6 text-foreground dark:text-foreground">
                 {t("contact.quickForm")}
               </h3>
-              <ContactForm />
+              <Suspense
+                fallback={
+                  <div className="h-64 flex items-center justify-center text-primary">
+                    Ładowanie formularza...
+                  </div>
+                }
+              >
+                <ContactForm />
+              </Suspense>
             </div>
           </div>
         </ContentContainer>
       </section>
-      <PriceCalculator
-        isOpen={isCalculatorOpen}
-        onClose={() => setIsCalculatorOpen(false)}
-      />
+
+      <Suspense fallback={null}>
+        {isCalculatorOpen && (
+          <PriceCalculator
+            isOpen={isCalculatorOpen}
+            onClose={() => setIsCalculatorOpen(false)}
+          />
+        )}
+      </Suspense>
     </>
   );
 };

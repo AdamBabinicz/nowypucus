@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense } from "react";
 import { Switch, Route, useLocation, Redirect } from "wouter";
 import { useTranslation } from "react-i18next";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -8,15 +8,31 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Layout from "@/components/Layout";
 
-// Wracamy do bezpośredniego ładowania (stabilne, omijamy błędy brakujących chunków na serwerze)
+// Stronę główną ładujemy bezpośrednio (żeby FCP/LCP było jak najszybsze na start)
 import Home from "@/pages/Home";
-import Oferta from "@/pages/Oferta";
-import OFirmie from "@/pages/OFirmie";
-import Realizacje from "@/pages/Realizacje";
-import Sprzet from "@/pages/Sprzet";
-import Contact from "@/pages/Contact";
-import Regulamin from "@/pages/Regulamin";
-import PolitykaPrywatnosci from "@/pages/PolitykaPrywatnosci";
+
+// --- OPTYMALIZACJA: Bezpieczny Code Splitting z obsługą błędu brakującego chunka ---
+const safeLazy = (importFunction: () => Promise<any>) =>
+  React.lazy(async () => {
+    try {
+      return await importFunction();
+    } catch (error) {
+      window.location.reload();
+      return {
+        default: () => <div className="min-h-screen bg-[#0f172a]"></div>,
+      };
+    }
+  });
+
+const Oferta = safeLazy(() => import("@/pages/Oferta"));
+const OFirmie = safeLazy(() => import("@/pages/OFirmie"));
+const Realizacje = safeLazy(() => import("@/pages/Realizacje"));
+const Sprzet = safeLazy(() => import("@/pages/Sprzet"));
+const Contact = safeLazy(() => import("@/pages/Contact"));
+const Regulamin = safeLazy(() => import("@/pages/Regulamin"));
+const PolitykaPrywatnosci = safeLazy(
+  () => import("@/pages/PolitykaPrywatnosci"),
+);
 
 import {
   PAGE_KEYS,
@@ -229,48 +245,50 @@ export default function App() {
 
 function AppRouter() {
   return (
-    <Switch>
-      {supportedLngs.map((lang) => (
-        <React.Fragment key={`lang-routes-${lang}`}>
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.HOME, lang)}
-            component={Home}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.OFFER, lang)}
-            component={Oferta}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.ABOUT, lang)}
-            component={OFirmie}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.PORTFOLIO, lang)}
-            component={Realizacje}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.EQUIPMENT, lang)}
-            component={Sprzet}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.CONTACT, lang)}
-            component={Contact}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.TERMS, lang)}
-            component={Regulamin}
-          />
-          <Route
-            path={getLocalizedPath(PAGE_KEYS.PRIVACY, lang)}
-            component={PolitykaPrywatnosci}
-          />
-          {lang !== defaultLang && (
-            <Route path={`/${lang}/:rest*`} component={NotFound} />
-          )}
-        </React.Fragment>
-      ))}
-      <Route path="/:rest*" component={NotFound} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<div className="min-h-screen bg-[#0f172a]"></div>}>
+      <Switch>
+        {supportedLngs.map((lang) => (
+          <React.Fragment key={`lang-routes-${lang}`}>
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.HOME, lang)}
+              component={Home}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.OFFER, lang)}
+              component={Oferta}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.ABOUT, lang)}
+              component={OFirmie}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.PORTFOLIO, lang)}
+              component={Realizacje}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.EQUIPMENT, lang)}
+              component={Sprzet}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.CONTACT, lang)}
+              component={Contact}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.TERMS, lang)}
+              component={Regulamin}
+            />
+            <Route
+              path={getLocalizedPath(PAGE_KEYS.PRIVACY, lang)}
+              component={PolitykaPrywatnosci}
+            />
+            {lang !== defaultLang && (
+              <Route path={`/${lang}/:rest*`} component={NotFound} />
+            )}
+          </React.Fragment>
+        ))}
+        <Route path="/:rest*" component={NotFound} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
