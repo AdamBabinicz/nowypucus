@@ -15,14 +15,44 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "attached_assets"),
     },
   },
+  // Odchudzamy kod usuwając console.log i debuggery w wersji produkcyjnej
+  esbuild: {
+    drop: ["console", "debugger"],
+  },
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
-    sourcemap: true,
+    // WYŁĄCZONE sourcemapy - nie są potrzebne na produkcji, a odchudzają folder i ukrywają Twój kod przed ciekawskimi
+    sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom"],
+        // ZAAWANSOWANE DZIELENIE KODU (Vendor Splitting)
+        manualChunks: (id) => {
+          // Jeśli kod pochodzi z folderu node_modules (zewnętrzne biblioteki)
+          if (id.includes("node_modules")) {
+            // 1. React i React DOM
+            if (id.includes("react/") || id.includes("react-dom/")) {
+              return "react-vendor";
+            }
+            // 2. Framer Motion (dość ciężka biblioteka do animacji)
+            if (id.includes("framer-motion")) {
+              return "framer-motion";
+            }
+            // 3. Ikony (pakujemy do osobnego pliku, żeby nie blokowały głównego wątku)
+            if (id.includes("lucide-react") || id.includes("react-icons")) {
+              return "icons-vendor";
+            }
+            // 4. Komponenty UI (Radix)
+            if (id.includes("@radix-ui")) {
+              return "radix-ui";
+            }
+            // 5. Formularze i walidacja
+            if (id.includes("react-hook-form") || id.includes("zod")) {
+              return "forms-vendor";
+            }
+            // 6. Reszta bibliotek ląduje w ogólnym pliku vendor
+            return "vendor";
+          }
         },
       },
     },
