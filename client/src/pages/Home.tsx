@@ -444,16 +444,6 @@ const Home = () => {
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
 
-        <script type="text/javascript">
-          {`
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vus2nkz2ev");
-  `}
-        </script>
-
         <link rel="preload" href={LCP_IMAGE} as="image" fetchPriority="high" />
         <link
           rel="alternate"
@@ -765,6 +755,8 @@ const Home = () => {
                   <img
                     src={qrCode}
                     alt={t("contactPage.qrAltToReview")}
+                    width="160"
+                    height="160"
                     className="w-40 h-40 cursor-pointer transition-opacity hover:opacity-80"
                     loading="lazy"
                   />
