@@ -42,32 +42,25 @@ const Home = () => {
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
+  // --- AKTUALIZACJA: Śledzenie konwersji połączenia telefonicznego ---
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
     const url = e.currentTarget.href;
 
-    let callbackFired = false;
+    // Jeśli w index.html zdefiniowano globalną funkcję gtag_report_conversion, używamy jej
+    if (typeof (window as any).gtag_report_conversion === "function") {
+      e.preventDefault();
+      (window as any).gtag_report_conversion(url);
+      return;
+    }
 
-    const executeCall = () => {
-      if (!callbackFired) {
-        callbackFired = true;
-        window.location.href = url;
-      }
-    };
-
-    setTimeout(executeCall, 500);
-
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "phone_click", {
-        event_category: "contact",
-        event_label: "phone_number",
-      });
+    // Fallback, jeśli skrypt w index.html jeszcze się nie załadował lub nie istnieje
+    if (typeof (window as any).gtag !== "undefined") {
       (window as any).gtag("event", "conversion", {
-        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
-        event_callback: executeCall,
+        send_to: "AW-11057616603/gfFRKCFJ3ioscENut15gp",
+        event_callback: () => {
+          window.location.href = url;
+        },
       });
-    } else {
-      executeCall();
     }
   };
 
@@ -772,7 +765,7 @@ const Home = () => {
               <Suspense
                 fallback={
                   <div className="h-64 flex items-center justify-center text-primary">
-                    Ładowanie formularza...
+                    {t("contact.sending")}
                   </div>
                 }
               >

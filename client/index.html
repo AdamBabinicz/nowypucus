@@ -4,6 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Google tag (gtag.js) - Google Ads -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-11057616603"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-11057616603");
+
+      // FUNKCJA DO RAPORTOWANIA KLIKNIĘĆ W TELEFON
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof url != "undefined") {
+            window.location = url;
+          }
+        };
+        gtag("event", "conversion", {
+          send_to: "AW-11057616603/gfFRKCFJ3ioscENut15gp",
+          event_callback: callback,
+        });
+        return false;
+      }
+    </script>
+
     <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia -->
     <link
       rel="preload"
@@ -13,7 +41,7 @@
       fetchpriority="high"
     />
 
-    <!-- OPTYMALIZACJA FCP: Preload lokalnej czcionki, aby przerwać łańcuch krytyczny -->
+    <!-- OPTYMALIZACJA FCP: Preload lokalnej czcionki -->
     <link
       rel="preload"
       href="/fonts/MajorMonoDisplay-Regular.woff2"
@@ -25,7 +53,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- OPTYMALIZACJA SEO: Skomasowane wywołanie wszystkich fontów asynchronicznie -->
+    <!-- OPTYMALIZACJA SEO: Czcionki asynchronicznie -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
@@ -38,24 +66,10 @@
       onload="this.media = 'all'"
     />
 
-    <!-- OPTYMALIZACJA SEO/PAGESPEED: Opóźnienie skryptów śledzących o 3.5s -->
+    <!-- OPTYMALIZACJA SEO/PAGESPEED: Pozostałe skrypty opóźnione o 3.5s -->
     <script>
       setTimeout(function () {
-        // --- 1. Skrypt GTAG ---
-        var gtagScript = document.createElement("script");
-        gtagScript.async = true;
-        gtagScript.src =
-          "https://www.googletagmanager.com/gtag/js?id=AW-11057616603";
-        document.head.appendChild(gtagScript);
-
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function () {
-          window.dataLayer.push(arguments);
-        };
-        window.gtag("js", new Date());
-        window.gtag("config", "AW-11057616603");
-
-        // --- 2. Skrypt GTM ---
+        // --- 1. Skrypt GTM ---
         (function (w, d, s, l, i) {
           w[l] = w[l] || [];
           w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -67,7 +81,7 @@
           f.parentNode.insertBefore(j, f);
         })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
 
-        // --- 3. Skrypt Facebook Pixel ---
+        // --- 2. Skrypt Facebook Pixel ---
         !(function (f, b, e, v, n, t, s) {
           if (f.fbq) return;
           n = f.fbq = function () {
@@ -94,7 +108,7 @@
         window.fbq("init", "1288180923455820");
         window.fbq("track", "PageView");
 
-        // --- 4. Skrypt Microsoft Clarity ---
+        // --- 3. Skrypt Microsoft Clarity ---
         (function (c, l, a, r, i, t, y) {
           c[a] =
             c[a] ||

@@ -26,15 +26,30 @@ const Contact = () => {
   const googleReviewLink =
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
 
+  // --- AKTUALIZACJA: Śledzenie konwersji połączenia telefonicznego ---
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const url = e.currentTarget.href;
+
+    // Jeśli w index.html zdefiniowano globalną funkcję gtag_report_conversion, używamy jej
+    if (typeof (window as any).gtag_report_conversion === "function") {
+      e.preventDefault();
+      (window as any).gtag_report_conversion(url);
+      return;
+    }
+
+    // Fallback, jeśli skrypt w index.html jeszcze się nie załadował lub nie istnieje
     if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "phone_click", {
-        event_category: "contact",
-        event_label: "phone_number",
-      });
+      e.preventDefault();
       (window as any).gtag("event", "conversion", {
-        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        send_to: "AW-11057616603/gfFRKCFJ3ioscENut15gp",
+        event_callback: () => {
+          window.location.href = url;
+        },
       });
+      // Zabezpieczenie na wypadek braku odpowiedzi od Google
+      setTimeout(() => {
+        window.location.href = url;
+      }, 500);
     }
   };
 
@@ -80,7 +95,7 @@ const Contact = () => {
         "text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300",
     },
     {
-      href: "https://www.youtube.com/channel/UCKRWZoyA4cWXHANrQmwZiyw",
+      href: "https://www.youtube.com/@SuperPucusRadom",
       icon: BsYoutube,
       ariaLabelKey: "footer.social.youtube",
       defaultAriaLabel: "YouTube",
@@ -128,7 +143,7 @@ const Contact = () => {
               "https://m.me/super.pucus",
               "https://twitter.com/Mariusz04417578",
               "https://pl.pinterest.com/praniedywanow03",
-              "TUTAJ_WKLEJ_LINK_DO_YOUTUBE",
+              "https://www.youtube.com/@SuperPucusRadom",
               "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6"
             ],
             "openingHoursSpecification": [

@@ -76,11 +76,20 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // --- AKTUALIZACJA: Śledzenie konwersji połączenia telefonicznego ---
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
     const url = e.currentTarget.href;
-    let callbackFired = false;
 
+    // Jeśli w index.html zdefiniowano globalną funkcję gtag_report_conversion, używamy jej
+    if (typeof (window as any).gtag_report_conversion === "function") {
+      e.preventDefault();
+      (window as any).gtag_report_conversion(url);
+      return;
+    }
+
+    // Fallback, jeśli skrypt w index.html jeszcze się nie załadował lub nie istnieje
+    e.preventDefault();
+    let callbackFired = false;
     const executeCall = () => {
       if (!callbackFired) {
         callbackFired = true;
@@ -91,12 +100,8 @@ const Navbar = () => {
     setTimeout(executeCall, 500);
 
     if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "phone_click", {
-        event_category: "contact",
-        event_label: "phone_number",
-      });
       (window as any).gtag("event", "conversion", {
-        send_to: "AW-11057616603/eSomCMHMt4McENut15gp",
+        send_to: "AW-11057616603/gfFRKCFJ3ioscENut15gp",
         event_callback: executeCall,
       });
     } else {
