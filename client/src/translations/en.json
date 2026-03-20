@@ -109,7 +109,13 @@
     "dryingDesc": "Professional mechanical drying service that significantly reduces drying time after cleaning.",
     "dryingFeature1": "Shortens drying time",
     "dryingFeature2": "Prevents moisture issues",
-    "dryingFeature3": "Faster readiness for use"
+    "dryingFeature3": "Faster readiness for use",
+    "carpetPriceTag": "from 25 PLN/m²",
+    "floorPriceTag": "from 14 PLN/m²",
+    "furniturePriceTag": "from 30 PLN (chair)",
+    "dryingPriceTag": "50 PLN / pc.",
+    "paverPriceTag": "from 7 PLN/m²",
+    "tilePriceTag": "from 12 PLN/m²"
   },
   "gallery": {
     "title": "Our",
@@ -249,7 +255,7 @@
     "carpetCleaning": "Carpet Cleaning",
     "orientalCarpet": "Oriental Carpet Cleaning",
     "stainRemoval": "Tough Stain Removal",
-    "from": "– from",
+    "from": "from",
     "toBasePrice": "to base price",
     "pricingNote": "* Prices may vary depending on the degree of soiling, type of material, and surface size. For an accurate quote, please contact us.",
     "price_25_pln_m2": "25 PLN/m²",

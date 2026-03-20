@@ -42,6 +42,7 @@ const Oferta = () => {
       id: PAGE_KEYS.HASH_CARPETS,
       title: t("services.carpetCleaning"),
       description: t("services.carpetCleaningDesc"),
+      priceTag: t("services.carpetPriceTag"),
       features: [
         { id: "c1", text: t("services.carpetFeature1") },
         { id: "c2", text: t("services.carpetFeature2") },
@@ -113,6 +114,7 @@ const Oferta = () => {
       id: PAGE_KEYS.HASH_FLOORING,
       title: t("services.floorCleaning"),
       description: t("services.floorCleaningDesc"),
+      priceTag: t("services.floorPriceTag"),
       features: [
         { id: "w1", text: t("services.floorFeature1") },
         { id: "w2", text: t("services.floorFeature2") },
@@ -182,6 +184,7 @@ const Oferta = () => {
       id: PAGE_KEYS.HASH_UPHOLSTERY,
       title: t("services.furnitureCleaning"),
       description: t("services.furnitureCleaningDesc"),
+      priceTag: t("services.furniturePriceTag"),
       features: [
         { id: "f1", text: t("services.furnitureFeature1") },
         { id: "f2", text: t("services.furnitureFeature2") },
@@ -309,6 +312,7 @@ const Oferta = () => {
       id: PAGE_KEYS.HASH_DRYING,
       title: t("services.drying"),
       description: t("services.dryingDesc"),
+      priceTag: t("services.dryingPriceTag"),
       features: [
         { id: "d1", text: t("services.dryingFeature1") },
         { id: "d2", text: t("services.dryingFeature2") },
@@ -358,6 +362,7 @@ const Oferta = () => {
       id: PAGE_KEYS.HASH_PAVER_CLEANING,
       title: t("services.paverCleaning"),
       description: t("services.paverCleaningDesc"),
+      priceTag: t("services.paverPriceTag"),
       features: [
         { id: "p1", text: t("services.paverFeature1") },
         { id: "p2", text: t("services.paverFeature2") },
@@ -423,6 +428,7 @@ const Oferta = () => {
       id: PAGE_KEYS.HASH_TILE_CLEANING,
       title: t("services.tileCleaning"),
       description: t("services.tileCleaningDesc"),
+      priceTag: t("services.tilePriceTag"),
       features: [
         { id: "t1", text: t("services.tileFeature1") },
         { id: "t2", text: t("services.tileFeature2") },

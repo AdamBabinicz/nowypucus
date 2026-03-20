@@ -14,6 +14,7 @@ interface ServiceCardProps {
   description: string;
   features: Feature[];
   image: string;
+  priceTag?: string;
   modalContent: {
     title: string;
     content: React.ReactNode;
@@ -26,6 +27,7 @@ const ServiceCard = ({
   description,
   features,
   image,
+  priceTag,
   modalContent,
 }: ServiceCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +38,7 @@ const ServiceCard = ({
 
   return (
     <>
-      <article className="bg-card dark:bg-card rounded-xl shadow-md overflow-hidden h-full flex flex-col">
+      <article className="bg-card dark:bg-card rounded-xl shadow-md overflow-hidden h-full flex flex-col border border-border">
         <img
           src={image}
           alt={title}
@@ -62,7 +64,21 @@ const ServiceCard = ({
             ))}
           </ul>
         </div>
-        <div className="px-6 pb-6 mt-auto">
+
+        {priceTag && (
+          <div className="px-6 pb-2">
+            <div className="p-3 bg-primary/10 dark:bg-primary/90 rounded-lg text-center border border-primary/20 dark:border-white/20">
+              <span className="text-sm uppercase tracking-widest text-muted-foreground dark:text-white/80 mr-2 font-semibold leading-none">
+                {t("modalContent.price")}:
+              </span>
+              <span className="text-xl font-bold text-primary dark:text-white leading-none">
+                {priceTag}
+              </span>
+            </div>
+          </div>
+        )}
+
+        <div className="px-6 pb-6 mt-auto pt-2">
           <button
             onClick={openModal}
             className="w-full inline-flex items-center justify-center font-semibold px-4 py-2 rounded-md transition-colors duration-300
