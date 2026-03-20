@@ -11,8 +11,10 @@ import {
   FiThumbsUp,
   FiPhone,
   FiMail,
+  FiLayers,
 } from "react-icons/fi";
 import { BsPiggyBank } from "react-icons/bs";
+import { MdChair, MdGridOn, MdOutlineLayers } from "react-icons/md";
 import ServiceCard from "@/components/ServiceCard";
 import GallerySlider from "@/components/GallerySlider";
 import CallToAction from "@/components/CallToAction";
@@ -42,18 +44,16 @@ const Home = () => {
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
-  // --- AKTUALIZACJA: Śledzenie konwersji połączenia telefonicznego ---
+  // --- Śledzenie konwersji połączenia telefonicznego ---
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const url = e.currentTarget.href;
 
-    // Jeśli w index.html zdefiniowano globalną funkcję gtag_report_conversion, używamy jej
     if (typeof (window as any).gtag_report_conversion === "function") {
       e.preventDefault();
       (window as any).gtag_report_conversion(url);
       return;
     }
 
-    // Fallback, jeśli skrypt w index.html jeszcze się nie załadował lub nie istnieje
     if (typeof (window as any).gtag !== "undefined") {
       (window as any).gtag("event", "conversion", {
         send_to: "AW-11057616603/gfFRKCFJ3ioscENut15gp",
@@ -93,11 +93,44 @@ const Home = () => {
     },
   };
 
+  // --- SZYBKI CENNIK W SEKCIJI HERO ---
+  const heroPrices = [
+    {
+      icon: (
+        <FiLayers className="w-5 h-5 md:w-6 md:h-6 text-[hsl(175,60%,65%)]" />
+      ),
+      label: t("services.carpetCleaning"),
+      price: t("services.carpetPriceTag"),
+    },
+    {
+      icon: (
+        <MdOutlineLayers className="w-5 h-5 md:w-6 md:h-6 text-[hsl(175,60%,65%)]" />
+      ),
+      label: t("services.floorCleaning"),
+      price: t("services.floorPriceTag"),
+    },
+    {
+      icon: (
+        <MdChair className="w-5 h-5 md:w-6 md:h-6 text-[hsl(175,60%,65%)]" />
+      ),
+      label: t("services.furnitureCleaning"),
+      price: t("services.furniturePriceTag"),
+    },
+    {
+      icon: (
+        <MdGridOn className="w-5 h-5 md:w-6 md:h-6 text-[hsl(175,60%,65%)]" />
+      ),
+      label: t("services.paverCleaning"),
+      price: t("services.paverPriceTag"),
+    },
+  ];
+
   const serviceCards = [
     {
       id: "dywany",
       title: t("services.carpetCleaning"),
       description: t("services.carpetCleaningDesc"),
+      priceTag: t("services.carpetPriceTag"),
       features: [
         { id: "c1", text: t("services.carpetFeature1") },
         { id: "c2", text: t("services.carpetFeature2") },
@@ -168,6 +201,7 @@ const Home = () => {
       id: "meble",
       title: t("services.furnitureCleaning"),
       description: t("services.furnitureCleaningDesc"),
+      priceTag: t("services.furniturePriceTag"),
       features: [
         { id: "f1", text: t("services.furnitureFeature1") },
         { id: "f2", text: t("services.furnitureFeature2") },
@@ -212,7 +246,7 @@ const Home = () => {
                     <td className="py-2">{t("modalContent.sofa2")}</td>
                     <td className="text-right py-2">
                       {t("modalContent.from")}{" "}
-                      {t("modalContent.price_sofa2_120_pln")}
+                      {t("modalContent.price_sofa2_100_pln")}
                     </td>
                   </tr>
                   <tr className="border-t border-border dark:border-border">
@@ -257,6 +291,7 @@ const Home = () => {
       id: "kostka",
       title: t("services.paverCleaning"),
       description: t("services.paverCleaningDesc"),
+      priceTag: t("services.paverPriceTag"),
       features: [
         { id: "p1", text: t("services.paverFeature1") },
         { id: "p2", text: t("services.paverFeature2") },
@@ -463,7 +498,7 @@ const Home = () => {
         <div className="relative z-20 w-full">
           <ContentContainer className="py-16 lg:py-24">
             <motion.div
-              className="max-w-3xl"
+              className="max-w-5xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -484,6 +519,32 @@ const Home = () => {
               <p className="text-xl md:text-2xl mb-8 text-left opacity-90 font-sans text-white">
                 {t("hero.subtitle")}
               </p>
+
+              {/* --- SZYBKI CENNIK W HERO (4 KOLUMNY) --- */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10">
+                {heroPrices.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    className="flex items-center space-x-3 bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-white/20 transition-all cursor-default group"
+                  >
+                    <div className="bg-[hsl(175,30%,15%)]/40 p-2 rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
+                      {item.icon}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[10px] md:text-xs uppercase tracking-wider opacity-70 text-white font-bold leading-none mb-1 truncate">
+                        {item.label}
+                      </p>
+                      <p className="text-sm md:text-base lg:text-lg font-bold text-white whitespace-nowrap leading-none">
+                        {item.price}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
