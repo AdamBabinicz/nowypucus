@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FiCheck } from "react-icons/fi";
 import Modal from "@/components/Modal";
@@ -35,6 +35,32 @@ const ServiceCard = ({
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  // --- MECHANIZM AUTO-OTWIERANIA MODALA ---
+  useEffect(() => {
+    const handleInitialHash = () => {
+      if (!window.location.hash) return;
+
+      // Usuwamy # i dekodujemy znaki specjalne
+      const currentHash = decodeURIComponent(window.location.hash.substring(1));
+
+      if (currentHash === id) {
+        // Mały timeout pozwala na stabilizację DOM i i18next
+        const timer = setTimeout(() => {
+          setIsModalOpen(true);
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 200);
+        return () => clearTimeout(timer);
+      }
+    };
+
+    handleInitialHash();
+    window.addEventListener("hashchange", handleInitialHash);
+    return () => window.removeEventListener("hashchange", handleInitialHash);
+  }, [id]);
 
   return (
     <>

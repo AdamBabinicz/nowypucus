@@ -21,7 +21,12 @@ import CallToAction from "@/components/CallToAction";
 import qrCode from "@assets/qr.avif";
 import ContentContainer from "@/components/ContentContainer";
 import HeroImageSlider from "@/components/HeroImageSlider";
-import { getLocalizedPath, PAGE_KEYS } from "@/config/slugs";
+import {
+  getLocalizedPath,
+  getLocalizedSlug,
+  PAGE_KEYS,
+  PageKey,
+} from "@/config/slugs";
 
 // --- OPTYMALIZACJA: Leniwe ładowanie ciężkich komponentów ---
 const ContactForm = React.lazy(() => import("@/components/ContactForm"));
@@ -93,7 +98,7 @@ const Home = () => {
     },
   };
 
-  // --- SZYBKI CENNIK W SEKCIJI HERO ---
+  // --- SZYBKI CENNIK W SEKCIJI HERO Z LINKOWANIEM ---
   const heroPrices = [
     {
       icon: (
@@ -101,6 +106,7 @@ const Home = () => {
       ),
       label: t("services.carpetCleaning"),
       price: t("services.carpetPriceTag"),
+      hash: PAGE_KEYS.HASH_CARPETS,
     },
     {
       icon: (
@@ -108,6 +114,7 @@ const Home = () => {
       ),
       label: t("services.floorCleaning"),
       price: t("services.floorPriceTag"),
+      hash: PAGE_KEYS.HASH_FLOORING,
     },
     {
       icon: (
@@ -115,6 +122,7 @@ const Home = () => {
       ),
       label: t("services.furnitureCleaning"),
       price: t("services.furniturePriceTag"),
+      hash: PAGE_KEYS.HASH_UPHOLSTERY,
     },
     {
       icon: (
@@ -122,12 +130,13 @@ const Home = () => {
       ),
       label: t("services.paverCleaning"),
       price: t("services.paverPriceTag"),
+      hash: PAGE_KEYS.HASH_PAVER_CLEANING,
     },
   ];
 
   const serviceCards = [
     {
-      id: "dywany",
+      id: PAGE_KEYS.HASH_CARPETS,
       title: t("services.carpetCleaning"),
       description: t("services.carpetCleaningDesc"),
       priceTag: t("services.carpetPriceTag"),
@@ -198,7 +207,7 @@ const Home = () => {
       },
     },
     {
-      id: "meble",
+      id: PAGE_KEYS.HASH_UPHOLSTERY,
       title: t("services.furnitureCleaning"),
       description: t("services.furnitureCleaningDesc"),
       priceTag: t("services.furniturePriceTag"),
@@ -288,7 +297,7 @@ const Home = () => {
       },
     },
     {
-      id: "kostka",
+      id: PAGE_KEYS.HASH_PAVER_CLEANING,
       title: t("services.paverCleaning"),
       description: t("services.paverCleaningDesc"),
       priceTag: t("services.paverPriceTag"),
@@ -520,28 +529,32 @@ const Home = () => {
                 {t("hero.subtitle")}
               </p>
 
-              {/* --- SZYBKI CENNIK W HERO (4 KOLUMNY) --- */}
+              {/* --- SZYBKI CENNIK W HERO Z DEEP LINKAMI --- */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10">
                 {heroPrices.map((item, index) => (
-                  <motion.div
+                  <WouterLink
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    className="flex items-center space-x-3 bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-white/20 transition-all cursor-default group"
+                    href={`${getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}#${getLocalizedSlug(item.hash as PageKey, currentLang)}`}
                   >
-                    <div className="bg-[hsl(175,30%,15%)]/40 p-2 rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
-                      {item.icon}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-[10px] md:text-xs uppercase tracking-wider opacity-70 text-white font-bold leading-none mb-1 truncate">
-                        {item.label}
-                      </p>
-                      <p className="text-sm md:text-base lg:text-lg font-bold text-white whitespace-nowrap leading-none">
-                        {item.price}
-                      </p>
-                    </div>
-                  </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-center h-full space-x-3 bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-white/30 hover:scale-[1.03] transition-all cursor-pointer group"
+                    >
+                      <div className="bg-[hsl(175,30%,15%)]/40 p-2 rounded-lg group-hover:bg-primary/40 transition-colors flex-shrink-0">
+                        {item.icon}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[10px] md:text-xs uppercase tracking-wider opacity-70 text-white font-bold leading-none mb-1 truncate">
+                          {item.label}
+                        </p>
+                        <p className="text-sm md:text-base lg:text-lg font-bold text-white whitespace-nowrap leading-none">
+                          {item.price}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </WouterLink>
                 ))}
               </div>
 
