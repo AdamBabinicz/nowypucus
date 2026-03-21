@@ -269,6 +269,54 @@ const Oferta = () => {
                       {t("modalContent.price_chair_30_pln")}
                     </td>
                   </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.pouf")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.poufPrice")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.sofaBed")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.sofaBedPrice")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.couch")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.couchPrice")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.cushions")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.cushionsPrice")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.mattress1")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.price_mattress1_120_pln")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.mattress2")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.price_mattress2_160_pln")}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -448,6 +496,20 @@ const Oferta = () => {
                       {t("modalContent.from")}
                       {"\u00A0"}
                       {t("modalContent.price_12_pln_m2")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.bathrooms")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.from")}
+                      {"\u00A0"}
+                      {t("modalContent.price_bathrooms_150_pln")}
+                    </td>
+                  </tr>
+                  <tr className="border-t border-border dark:border-border">
+                    <td className="py-2">{t("modalContent.groutCleaning")}</td>
+                    <td className="text-right py-2">
+                      {t("modalContent.info_groutcleaning_2_pln_m2")}
                     </td>
                   </tr>
                 </tbody>
