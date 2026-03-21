@@ -112,7 +112,7 @@
     "dryingFeature3": "Szybszy powrót do użytkowania",
     "carpetPriceTag": "od\u00A025\u00A0zł/m²",
     "floorPriceTag": "od\u00A014\u00A0zł/m²",
-    "furniturePriceTag": "od\u00A030\u00A0zł\u00A0(krzesło)",
+    "furniturePriceTag": "od\u00A015\u00A0zł\u00A0(krzesło)",
     "dryingPriceTag": "50\u00A0zł\u00A0/\u00A0szt.",
     "paverPriceTag": "od\u00A07\u00A0zł/m²",
     "tilePriceTag": "od\u00A012\u00A0zł/m²"
@@ -265,7 +265,7 @@
     "price_sofa3_150_pln": "150\u00A0zł",
     "price_corner_200_250_pln": "200 - 250\u00A0zł",
     "price_armchair_70_pln": "70\u00A0zł",
-    "price_chair_30_pln": "30\u00A0zł",
+    "price_chair_30_pln": "15\u00A0zł",
     "price_paver_10_pln_m2": "7\u00A0zł/m²",
     "info_moss_removal_3_pln_m2": "+3\u00A0zł/m²",
     "price_floor_14_pln_m2": "14\u00A0zł/m²",
