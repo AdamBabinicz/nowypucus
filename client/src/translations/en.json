@@ -172,7 +172,7 @@
     "close": "Close",
     "before": "Before",
     "after": "After",
-    "expandImage": "Expand image",
+    "expand image": "Expand image",
     "prevImage": "Previous image",
     "nextImage": "Next image",
     "goToSlide": "Go to slide {{number}}",
@@ -405,6 +405,13 @@
     "approachPoint3": "We invest in the latest technologies to meet the growing market demands",
     "approachImageAlt": "Professional cleaning equipment",
     "equipment": {
+      "ashbys_sensei_250": {
+        "name": "Ashbys Sensei 250 psi",
+        "description": "Professional British extractor with an integrated water heater. It combines compact dimensions with powerful spray pressure, ensuring maximum extraction efficiency for carpets and upholstery.",
+        "feature1": "250 psi spray pressure – deep soil rinsing",
+        "feature2": "Integrated water heater for extreme cleaning efficiency",
+        "feature3": "Compact and lightweight design (27 kg) for easy mobility"
+      },
       "karcher_puzzi_10_1": {
         "name": "Kärcher Puzzi 10/1",
         "description": "Professional extractor for cleaning carpets, rugs, and upholstery. Provides deep cleaning, effectively removing even the toughest dirt.",
@@ -481,6 +488,13 @@
         "feature1": "Powerful 13 HP engine and a brass pump with ceramic pistons for maximum durability.",
         "feature2": "Self-priming pump allowing water to be drawn from an external tank (e.g., IBC tote).",
         "feature3": "Large pneumatic wheels for easy transport on rough, uneven terrain."
+      },
+      "nilfisk_premium200": {
+        "name": "Nilfisk Premium 200 Pressure Washer",
+        "description": "Powerful pressure washer for cleaning paving stones, facades, and terraces under high pressure.",
+        "feature1": "Maximum pressure of 200 bar for effective dirt removal.",
+        "feature2": "Durable pump and induction motor.",
+        "feature3": "Wide range of accessories for various applications."
       },
       "dacia_transport": {
         "name": "Car Transport (Dacia)",
@@ -612,7 +626,7 @@
       "content": "The Administrator reserves the right to change the website's privacy policy, which may be caused by the development of internet technology, possible changes in the law regarding personal data protection, and the development of the website."
     },
     "lastUpdated": "Last updated",
-    "lastUpdatedDate": "05.16.2025"
+    "lastUpdatedDate": "16.05.2025"
   },
   "calculator": {
     "title": "Price Calculator",

@@ -37,6 +37,17 @@ const Sprzet = () => {
 
   const equipment = [
     {
+      id: "ashbys_sensei_250",
+      name: t("equipmentPage.equipment.ashbys_sensei_250.name"),
+      image: "/images/tools/ashbys.avif",
+      description: t("equipmentPage.equipment.ashbys_sensei_250.description"),
+      features: [
+        t("equipmentPage.equipment.ashbys_sensei_250.feature1"),
+        t("equipmentPage.equipment.ashbys_sensei_250.feature2"),
+        t("equipmentPage.equipment.ashbys_sensei_250.feature3"),
+      ],
+    },
+    {
       id: "karcher_puzzi_10_1",
       name: t("equipmentPage.equipment.karcher_puzzi_10_1.name"),
       image: "/images/tools/25.avif",
@@ -454,7 +465,7 @@ const Sprzet = () => {
               className="relative h-80 md:h-full min-h-[320px] bg-card dark:bg-card rounded-xl overflow-hidden"
             >
               <img
-                src="/images/tools/7.avif"
+                src="/images/tools/ashbys.avif"
                 alt={t(
                   "equipmentPage.approachImageAlt",
                   "Profesjonalny sprzęt do czyszczenia",
