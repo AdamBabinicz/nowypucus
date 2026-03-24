@@ -202,6 +202,8 @@ const Navbar = () => {
             <img
               src={currentLogo}
               alt={t("nav.logoAlt", "SUPER PUCUŚ Logo")}
+              width="28"
+              height="28"
               className="h-7 sm:h-8 w-auto"
               loading="lazy"
             />
