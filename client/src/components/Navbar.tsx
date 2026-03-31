@@ -12,8 +12,8 @@ import {
   PAGE_KEYS,
   PageKey,
 } from "@/config/slugs";
-import logoLightPath from "@assets/l.svg";
-import logoDarkPath from "@assets/l.svg";
+import logoLightPath from "@assets/sp.avif";
+import logoDarkPath from "@assets/sp.avif";
 
 const HEADER_OFFSET = 70;
 
