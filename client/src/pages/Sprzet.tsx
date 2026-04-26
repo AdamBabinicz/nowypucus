@@ -169,6 +169,17 @@ const Sprzet = () => {
       ],
     },
     {
+      id: "compensation_tank",
+      name: t("equipmentPage.equipment.compensation_tank.name"),
+      image: "/images/tools/tank.avif",
+      description: t("equipmentPage.equipment.compensation_tank.description"),
+      features: [
+        t("equipmentPage.equipment.compensation_tank.feature1"),
+        t("equipmentPage.equipment.compensation_tank.feature2"),
+        t("equipmentPage.equipment.compensation_tank.feature3"),
+      ],
+    },
+    {
       id: "nilfisk_premium200",
       name: t("equipmentPage.equipment.nilfisk_premium200.name"),
       image: "/images/tools/11.avif",

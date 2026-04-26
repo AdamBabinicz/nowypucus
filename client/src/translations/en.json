@@ -489,6 +489,13 @@
         "feature2": "Self-priming pump allowing water to be drawn from an external tank (e.g., IBC tote).",
         "feature3": "Large pneumatic wheels for easy transport on rough, uneven terrain."
       },
+      "compensation_tank": {
+        "name": "Portable 240L Compensation Tank",
+        "description": "An open buffer water tank with a capacity of 240 liters, mounted on wheels for full mobility. It serves as a key link in the supply system of the Lavor combustion pressure washer.",
+        "feature1": "240L capacity – pressure stabilization and water reserve",
+        "feature2": "Float valve to prevent overflowing",
+        "feature3": "Integrated pump supplying the washing system"
+      },
       "nilfisk_premium200": {
         "name": "Nilfisk Premium 200 Pressure Washer",
         "description": "Powerful pressure washer for cleaning paving stones, facades, and terraces under high pressure.",

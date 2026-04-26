@@ -240,7 +240,7 @@
     "jointFilling": "Wypełnianie fug",
     "tileCleaningServiceTitle": "Mycie płytek i posadzek",
     "tileDesc": "Nasze usługi czyszczenia płytek obejmują kompleksowe doczyszczanie powierzchni zarówno wewnątrz, jak i na zewnątrz budynków.",
-    "tileProcessTitle": "Czyszczenie płytek krok po kroku:",
+    "tileCleaningStepByStep": "Czyszczenie płytek krok po kroku:",
     "tileProcess1": "Usunięcie luźnych zabrudzeń",
     "tileProcess2": "Aplikacja specjalistycznych środków czyszczących",
     "tileProcess3": "Mechaniczne szorowanie powierzchni",
@@ -252,7 +252,7 @@
     "pricing": "Cennik:",
     "service": "Usługa",
     "price": "Cena",
-    "carpetCleaning": "Pranie dywanu",
+    "carpetCleaningTitle": "Pranie dywanu",
     "orientalCarpet": "Pranie dywanu orientalnego",
     "stainRemoval": "Usuwanie trudnych plam",
     "from": "od",
@@ -337,7 +337,7 @@
     "advantage1Title": "Doświadczenie i profesjonalizm",
     "advantage1Desc": "Dysponujemy wieloletnim doświadczeniem w branży czyszczącej, które pozwala nam skutecznie radzić sobie nawet z najbardziej wymagającymi zabrudzeniami.",
     "advantage2Title": "Mobilność i elastyczność",
-    "advantage2Desc": "Dojeżdżamy do Klienta z własnym sprzętem i środkami czyszczącymi. Dostosowujemy się do indywidualnych potrzeb i harmonogramu Klienta.",
+    "advantage2Desc": "Dojeżdżamy do Klienta z własnym sprzętem i środkami czyszczących. Dostosowujemy się do indywidualnych potrzeb i harmonogramu Klienta.",
     "advantage3Title": "Kompleksowa oferta",
     "advantage3Desc": "Oferujemy szeroką gamę usług czyszczących dla domów, mieszkań, biur i innych przestrzeni. Wszystko w jednym miejscu, bez konieczności szukania różnych wykonawców.",
     "advantage4Title": "Konkurencyjne ceny",
@@ -495,6 +495,13 @@
         "feature1": "Wydajny silnik 13 HP oraz mosiężna pompa z ceramicznymi tłokami dla maksymalnej trwałości.",
         "feature2": "Pompa samozasysająca umożliwiająca pobieranie wody z zewnętrznego zbiornika (np. typu mauser).",
         "feature3": "Duże pneumatyczne koła ułatwiające transport w trudnym, nierównym terenie."
+      },
+      "compensation_tank": {
+        "name": "Przenośny zbiornik kompensacyjny 240L",
+        "description": "Otwarty zbiornik buforowy na wodę o pojemności 240 litrów, zamontowany na kołach dla pełnej mobilności. Stanowi kluczowe ogniwo w układzie zasilania myjki spalinowej Lavor.",
+        "feature1": "Pojemność 240L – stabilizacja ciśnienia i zapas wody",
+        "feature2": "Zawór pływakowy zapobiegający przepełnieniu",
+        "feature3": "Zintegrowana pompa zasilająca układ myjący"
       },
       "dacia_transport": {
         "name": "Transport samochodowy (Dacia)",
