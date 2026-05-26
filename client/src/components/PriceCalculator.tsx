@@ -19,7 +19,7 @@ const PriceCalculator = ({ isOpen, onClose }: PriceCalculatorProps) => {
 
   const CARPET_PRICE_PER_SQM = 25;
   const LINING_PRICE_PER_SQM = 14;
-  const TRANSPORT_COST = 20;
+  const TRANSPORT_COST = 25;
   const MINIMUM_ORDER_VALUE = 100;
 
   useEffect(() => {
