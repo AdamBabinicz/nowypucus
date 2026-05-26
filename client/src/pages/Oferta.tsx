@@ -366,7 +366,7 @@ const Oferta = () => {
                     <td className="text-right py-2">
                       {"50"}
                       {"\u00A0"}
-                      {"PLN"}
+                      {isPl ? "zł" : "PLN"}
                     </td>
                   </tr>
                 </tbody>
@@ -466,7 +466,7 @@ const Oferta = () => {
               {t("modalContent.tileDesc")}
             </p>
             <h4 className="font-heading text-xl font-semibold text-foreground dark:text-foreground mt-6 mb-2">
-              {t("modalContent.tileProcessTitle")}
+              {t("modalContent.tileCleaningStepByStep")}
             </h4>
             <ol className="list-decimal pl-5 space-y-2 text-foreground/80 dark:text-muted-foreground">
               <li>{t("modalContent.tileProcess1")}</li>
@@ -491,7 +491,9 @@ const Oferta = () => {
                 </thead>
                 <tbody>
                   <tr className="border-t border-border dark:border-border">
-                    <td className="py-2">{t("services.tileCleaning")}</td>
+                    <td className="py-2">
+                      {t("modalContent.tileCleaningServiceTitle")}
+                    </td>
                     <td className="text-right py-2">
                       {t("modalContent.from")}
                       {"\u00A0"}
