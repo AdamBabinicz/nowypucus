@@ -27,7 +27,7 @@ interface BreadcrumbListSchema {
 }
 
 export const SchemaOrg = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [locationPath] = useLocation();
 
   const baseUrl = "https://pranie-dywanow.j.pl";
@@ -85,24 +85,47 @@ export const SchemaOrg = () => {
     "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6",
   ];
 
+  // Wzbogacony i w pełni zgodny z Google LocalBusiness Schema
   const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": baseUrl,
-    name: t("schema.serviceName"),
-    description: t("schema.serviceDescription"),
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: t("schema.streetAddress"),
-      addressLocality: t("schema.locality"),
-      postalCode: t("schema.postalCode"),
-      addressCountry: t("schema.country"),
-    },
+    "@type": ["LocalBusiness", "DryCleaningOrLaundry"],
+    "@id": `${baseUrl}/#localbusiness`,
+    name: t(
+      "schema.serviceName",
+      "SUPER PUCUŚ - Pranie Dywanów i Tapicerki Radom",
+    ),
+    description: t(
+      "schema.serviceDescription",
+      "Profesjonalne pranie dywanów, tapicerki meblowej oraz czyszczenie kostki brukowej z dojazdem do klienta.",
+    ),
+    url: baseUrl,
     telephone: "+48531890827",
     email: "mariuszek1989poczta@wp.pl",
-    url: baseUrl,
     image: `${baseUrl}/images/logo-og.avif`,
+    logo: `${baseUrl}/images/logo-og.avif`,
     priceRange: "$$",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: t("schema.streetAddress", "Radom"),
+      addressLocality: t("schema.locality", "Radom"),
+      postalCode: t("schema.postalCode", "26-600"),
+      addressCountry: t("schema.country", "PL"),
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 51.4027,
+      longitude: 21.1471,
+    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Radom",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "województwo mazowieckie",
+      },
+    ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
@@ -123,13 +146,13 @@ export const SchemaOrg = () => {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: t("schema.websiteName"),
+    name: t("schema.websiteName", "SUPER PUCUŚ Radom"),
     url: baseUrl,
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: t("schema.searchActionTarget"),
+        urlTemplate: `${baseUrl}/?s={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -148,7 +171,7 @@ export const SchemaOrg = () => {
       {
         "@type": "ListItem",
         position: 1,
-        name: t("breadcrumbs.home"),
+        name: t("breadcrumbs.home", "Strona Główna"),
         item: `${baseUrl}${currentLangHomePath.split("#")[0]}`,
       },
     ];
