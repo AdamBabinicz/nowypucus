@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-readiness.org/schema/v1/ai-catalog.json",
+  "version": "1.0.0",
+  "name": "SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej, mycie kostki brukowej Radom",
+  "description": "Profesjonalne pranie dywanów, wykładzin, tapicerki meblowej oraz czyszczenie ciśnieniowe kostki brukowej i posadzek w Radomiu i okolicach.",
+  "url": "https://pranie-dywanow.j.pl",
+  "provider": {
+    "name": "SUPER PUCUŚ",
+    "url": "https://pranie-dywanow.j.pl",
+    "telephone": "+48531890827"
+  },
+  "capabilities": [
+    {
+      "name": "Pranie dywanów i wykładzin",
+      "description": "Głębokie czyszczenie i pranie ekstrakcyjne dywanów oraz wykładzin dla domu i biura.",
+      "url": "https://pranie-dywanow.j.pl/oferta"
+    },
+    {
+      "name": "Pranie tapicerki meblowej",
+      "description": "Czyszczenie kanap, narożników, foteli, krzeseł i materacy.",
+      "url": "https://pranie-dywanow.j.pl/oferta"
+    },
+    {
+      "name": "Mycie kostki brukowej i posadzek",
+      "description": "Czyszczenie ciśnieniowe podjazdów, tarasów, kostki brukowej oraz posadzek.",
+      "url": "https://pranie-dywanow.j.pl/oferta"
+    }
+  ]
+}
