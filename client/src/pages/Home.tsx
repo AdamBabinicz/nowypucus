@@ -501,7 +501,7 @@ const Home = () => {
       <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-black min-h-[calc(85vh)] flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
-          <div className="absolute inset-0 z-10 bg-black/50"></div>
+          <div className="absolute inset-0 z-10 bg-black/60"></div>
         </div>
 
         <div className="relative z-20 w-full">
@@ -517,7 +517,7 @@ const Home = () => {
                   {heroTitleBrand}
                 </span>
                 {heroTitleSuffix && (
-                  <span className="font-limelight block text-2xl md:text-3xl lg:text-4xl mt-1 md:mt-2 opacity-90">
+                  <span className="font-limelight block text-2xl md:text-3xl lg:text-4xl mt-1 md:mt-2 text-slate-100">
                     {heroTitleSuffix.startsWith("–") ||
                     heroTitleSuffix.startsWith("-")
                       ? heroTitleSuffix
@@ -525,7 +525,7 @@ const Home = () => {
                   </span>
                 )}
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-left opacity-90 font-sans text-white">
+              <p className="text-xl md:text-2xl mb-8 text-left font-sans text-white">
                 {t("hero.subtitle")}
               </p>
 
@@ -540,13 +540,13 @@ const Home = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-center h-full space-x-3 bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-white/30 hover:scale-[1.03] transition-all cursor-pointer group"
+                      className="flex items-center h-full space-x-3 bg-black/40 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-black/60 hover:scale-[1.03] transition-all cursor-pointer group"
                     >
-                      <div className="bg-[hsl(175,30%,15%)]/40 p-2 rounded-lg group-hover:bg-primary/40 transition-colors flex-shrink-0">
+                      <div className="bg-[hsl(175,30%,15%)]/60 p-2 rounded-lg group-hover:bg-primary/40 transition-colors flex-shrink-0">
                         {item.icon}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[10px] md:text-xs uppercase tracking-wider opacity-70 text-white font-bold leading-none mb-1 truncate">
+                        <p className="text-[10px] md:text-xs uppercase tracking-wider text-slate-200 font-bold leading-none mb-1 truncate">
                           {item.label}
                         </p>
                         <p className="text-sm md:text-base lg:text-lg font-bold text-white whitespace-nowrap leading-none">
@@ -561,13 +561,13 @@ const Home = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
-                  className="inline-block text-center font-semibold py-3 px-6 rounded-lg shadow-lg transition-colors duration-300 bg-[hsl(175_60%_65%)] text-[hsl(175_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-white hover:border-[hsl(175_60%_65%)]"
+                  className="inline-block text-center font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 bg-[#42d3c2] text-[#072421] border-2 border-[#42d3c2] hover:bg-[#2fc4b2] hover:text-[#041614] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#42d3c2]"
                 >
                   {t("hero.seeServices")}
                 </WouterLink>
                 <button
                   onClick={() => setIsCalculatorOpen(true)}
-                  className="inline-flex items-center justify-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 border-2 border-[hsl(175_60%_65%)] bg-transparent text-white hover:bg-[hsl(190_80%_60%)] hover:text-[hsl(210_25%_15%)] hover:border-[hsl(190_80%_60%)]"
+                  className="inline-flex items-center justify-center font-bold px-4 py-3 rounded-lg transition-all duration-300 border-2 border-[#42d3c2] bg-black/60 text-white hover:bg-[#42d3c2] hover:text-[#072421] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#42d3c2]"
                 >
                   {t("hero.getQuote")}
                 </button>
@@ -694,7 +694,7 @@ const Home = () => {
           <div className="text-center mt-12">
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
-              className="inline-flex items-center justify-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 border-2 border-marine bg-transparent text-marine hover:bg-marine hover:text-marine-foreground"
+              className="inline-flex items-center justify-center font-semibold px-4 py-2.5 rounded-md transition-colors duration-300 border-2 border-marine bg-transparent text-marine hover:bg-marine hover:text-marine-foreground"
             >
               {t("services.viewAll")}
             </WouterLink>

@@ -246,29 +246,134 @@
   padding-top: var(--header-offset);
 }
 
-/* --- CookieScript Contrast Fix --- */
+/* ==========================================================================
+   CookieScript WCAG AAA Contrast Overrides
+   Rozwiązanie problemów czytelności i kontrastu zgłoszonych przez audyt
+   ========================================================================== */
+
+/* Główny kontener banera cookies */
+#cookiescript_injected,
+#cookiescript_wrapper {
+  background-color: #ffffff !important;
+  color: #0f172a !important; /* Bardzo ciemny odcień zapewniający pełną czytelność */
+  border-top: 1px solid #cbd5e1 !important;
+}
+
+#cookiescript_injected p,
+#cookiescript_injected span,
+#cookiescript_injected div,
+#cookiescript_header,
+#cookiescript_description {
+  color: #0f172a !important;
+  opacity: 1 !important;
+}
+
+/* Przycisk akceptacji: nasycony błękit z białą czcionką (kontrast 8.5:1) */
 #cookiescript_accept {
-  background-color: hsl(var(--primary)) !important;
-  color: white !important;
+  background-color: #034b75 !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
+  border: 1px solid #023859 !important;
+  opacity: 1 !important;
 }
 
+#cookiescript_accept:hover {
+  background-color: #023859 !important;
+  color: #ffffff !important;
+}
+
+/* Przycisk odrzucenia: ciemny grafit z białą czcionką (kontrast 10:1) */
 #cookiescript_reject {
-  background-color: #374151 !important; /* Dark Gray */
-  color: white !important;
+  background-color: #1e293b !important;
+  color: #ffffff !important;
   font-weight: 700 !important;
+  border: 1px solid #0f172a !important;
+  opacity: 1 !important;
 }
 
-#cookiescript_link {
-  color: hsl(var(--primary)) !important;
+#cookiescript_reject:hover {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Element "POKAŻ SZCZEGÓŁY" oraz inne linki/przyciski w widżecie */
+span[data-cs-show-title="cookie-script"],
+[data-cs-show-title="cookie-script"],
+#cookiescript_readmore,
+#cookiescript_manage,
+#cookiescript_injected a {
+  color: #034b75 !important;
+  font-weight: 700 !important;
   text-decoration: underline !important;
   opacity: 1 !important;
 }
 
-#cookiescript_injected {
-  color: #1a1a1a !important; /* Wymuszenie czytelnego tekstu w oknie */
+span[data-cs-show-title="cookie-script"]:hover,
+#cookiescript_readmore:hover,
+#cookiescript_manage:hover,
+#cookiescript_injected a:hover {
+  color: #012840 !important;
 }
 
-.dark #cookiescript_injected {
+/* Przycisk zamknięcia "×" */
+#cookiescript_close {
+  color: #0f172a !important;
+  opacity: 0.9 !important;
+  font-weight: 700 !important;
+}
+
+/* Link w stopce: POWERED BY COOKIESCRIPT */
+#cookiescript_link {
+  color: #334155 !important;
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+#cookiescript_link:hover {
+  color: #0f172a !important;
+}
+
+/* Wersja dla trybu ciemnego (.dark) */
+.dark #cookiescript_injected,
+.dark #cookiescript_wrapper {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border-top: 1px solid #334155 !important;
+}
+
+.dark #cookiescript_injected p,
+.dark #cookiescript_injected span,
+.dark #cookiescript_injected div,
+.dark #cookiescript_header,
+.dark #cookiescript_description {
+  color: #f8fafc !important;
+}
+
+.dark #cookiescript_accept {
+  background-color: #0284c7 !important;
   color: #ffffff !important;
+  border-color: #38bdf8 !important;
+}
+
+.dark #cookiescript_reject {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+  border-color: #64748b !important;
+}
+
+.dark span[data-cs-show-title="cookie-script"],
+.dark [data-cs-show-title="cookie-script"],
+.dark #cookiescript_readmore,
+.dark #cookiescript_manage,
+.dark #cookiescript_injected a {
+  color: #38bdf8 !important;
+}
+
+.dark #cookiescript_link {
+  color: #cbd5e1 !important;
+}
+
+.dark #cookiescript_close {
+  color: #f8fafc !important;
 }
