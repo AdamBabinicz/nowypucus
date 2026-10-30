@@ -12,8 +12,7 @@ import {
   PAGE_KEYS,
   PageKey,
 } from "@/config/slugs";
-import logoLightPath from "@assets/sp.avif";
-import logoDarkPath from "@assets/sp.avif";
+import logoPath from "@assets/sp.avif";
 
 const HEADER_OFFSET = 70;
 
@@ -25,24 +24,6 @@ const Navbar = () => {
     [key: string]: boolean;
   }>({});
   const [currentPath, navigate] = useLocation();
-  const [currentLogo, setCurrentLogo] = useState(logoLightPath);
-
-  useEffect(() => {
-    const updateLogoBasedOnTheme = () => {
-      if (document.documentElement.classList.contains("dark")) {
-        setCurrentLogo(logoDarkPath);
-      } else {
-        setCurrentLogo(logoLightPath);
-      }
-    };
-    updateLogoBasedOnTheme();
-    const observer = new MutationObserver(updateLogoBasedOnTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
-  }, []);
 
   const toggleDropdown = (section?: string) => {
     const keyToToggle = section || "portfolio";
@@ -76,18 +57,16 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // --- AKTUALIZACJA: Śledzenie konwersji połączenia telefonicznego ---
+  // Śledzenie konwersji połączenia telefonicznego
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const url = e.currentTarget.href;
 
-    // Jeśli w index.html zdefiniowano globalną funkcję gtag_report_conversion, używamy jej
     if (typeof (window as any).gtag_report_conversion === "function") {
       e.preventDefault();
       (window as any).gtag_report_conversion(url);
       return;
     }
 
-    // Fallback, jeśli skrypt w index.html jeszcze się nie załadował lub nie istnieje
     e.preventDefault();
     let callbackFired = false;
     const executeCall = () => {
@@ -192,7 +171,7 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 shadow-md">
-      <nav className="container mx-auto px-4 h-17.5 flex items-center justify-between">
+      <nav className="container mx-auto px-4 h-[70px] flex items-center justify-between">
         <div className="flex items-center">
           <WouterLink
             href={getLocalizedPath(PAGE_KEYS.HOME, currentLang)}
@@ -200,12 +179,13 @@ const Navbar = () => {
             onClick={() => handleLocalizedLinkClick(PAGE_KEYS.HOME)}
           >
             <img
-              src={currentLogo}
+              src={logoPath}
               alt={t("nav.logoAlt", "SUPER PUCUŚ Logo")}
-              width="28"
-              height="28"
-              className="h-7 sm:h-8 w-auto"
-              loading="lazy"
+              width="32"
+              height="32"
+              className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
+              loading="eager"
+              decoding="async"
             />
             <span className="ml-2 text-lg font-major-mono font-semibold text-primary dark:text-sky-400">
               SUPER PUCUŚ

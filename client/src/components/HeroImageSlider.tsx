@@ -9,6 +9,16 @@ interface HeroImageSliderProps {
 const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadSecondaryImages, setLoadSecondaryImages] = useState(false);
+
+  useEffect(() => {
+    // Opóźniamy ładowanie pozostałych slajdów (oszczędzamy 200 KB na starcie)
+    const lazyTimer = setTimeout(() => {
+      setLoadSecondaryImages(true);
+    }, 3500);
+
+    return () => clearTimeout(lazyTimer);
+  }, []);
 
   useEffect(() => {
     if (!images || images.length <= 1) return;
@@ -25,8 +35,13 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
   return (
     <div className="relative w-full h-full bg-slate-900 overflow-hidden">
       {images.map((src, index) => {
-        const isCurrent = index === currentIndex;
         const isFirst = index === 0;
+        const isCurrent = index === currentIndex;
+
+        // Jeśli to nie pierwszy slajd i nie minęło jeszcze 3.5s, nie renderujemy go w DOM
+        if (!isFirst && !loadSecondaryImages) {
+          return null;
+        }
 
         return (
           <img
