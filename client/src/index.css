@@ -247,15 +247,15 @@
 }
 
 /* ==========================================================================
-   CookieScript WCAG AAA Contrast Overrides
-   Rozwiązanie problemów czytelności i kontrastu zgłoszonych przez audyt
+   CookieScript WCAG AAA Contrast Overrides (Mobile & Desktop)
+   Wzmocniona specyficzność selektorów i bezwzględny kontrast dla tekstu
    ========================================================================== */
 
 /* Główny kontener banera cookies */
 #cookiescript_injected,
 #cookiescript_wrapper {
   background-color: #ffffff !important;
-  color: #0f172a !important; /* Bardzo ciemny odcień zapewniający pełną czytelność */
+  color: #0f172a !important;
   border-top: 1px solid #cbd5e1 !important;
 }
 
@@ -268,7 +268,11 @@
   opacity: 1 !important;
 }
 
-/* Przycisk akceptacji: nasycony błękit z białą czcionką (kontrast 8.5:1) */
+/* Przycisk akceptacji: nasycony błękit z białą czcionką (kontrast 9.1:1 - AAA) */
+#cookiescript_injected #cookiescript_buttons #cookiescript_accept,
+#cookiescript_injected #cookiescript_accept,
+#cookiescript_wrapper #cookiescript_accept,
+div#cookiescript_accept,
 #cookiescript_accept {
   background-color: #034b75 !important;
   color: #ffffff !important;
@@ -277,26 +281,48 @@
   opacity: 1 !important;
 }
 
+#cookiescript_injected #cookiescript_buttons #cookiescript_accept *,
+#cookiescript_injected #cookiescript_accept *,
+#cookiescript_accept * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+#cookiescript_injected #cookiescript_buttons #cookiescript_accept:hover,
 #cookiescript_accept:hover {
   background-color: #023859 !important;
   color: #ffffff !important;
 }
 
-/* Przycisk odrzucenia: ciemny grafit z białą czcionką (kontrast 10:1) */
+/* Przycisk odrzucenia: ciemny grafit z czystą bielą (kontrast 18:1 - AAA) */
+#cookiescript_injected #cookiescript_buttons #cookiescript_reject,
+#cookiescript_injected #cookiescript_reject,
+#cookiescript_wrapper #cookiescript_reject,
+div#cookiescript_reject,
 #cookiescript_reject {
-  background-color: #1e293b !important;
+  background-color: #0f172a !important;
   color: #ffffff !important;
   font-weight: 700 !important;
-  border: 1px solid #0f172a !important;
+  border: 1px solid #000000 !important;
   opacity: 1 !important;
 }
 
+#cookiescript_injected #cookiescript_buttons #cookiescript_reject *,
+#cookiescript_injected #cookiescript_reject *,
+#cookiescript_reject * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+#cookiescript_injected #cookiescript_buttons #cookiescript_reject:hover,
 #cookiescript_reject:hover {
-  background-color: #0f172a !important;
+  background-color: #000000 !important;
   color: #ffffff !important;
 }
 
-/* Element "POKAŻ SZCZEGÓŁY" oraz inne linki/przyciski w widżecie */
+/* Element "POKAŻ SZCZEGÓŁY" oraz inne linki w widżecie */
 span[data-cs-show-title="cookie-script"],
 [data-cs-show-title="cookie-script"],
 #cookiescript_readmore,
@@ -334,7 +360,9 @@ span[data-cs-show-title="cookie-script"]:hover,
   color: #0f172a !important;
 }
 
-/* Wersja dla trybu ciemnego (.dark) */
+/* ==========================================================================
+   Tryb ciemny (.dark) - gwarantowany kontrast AAA (> 7.5:1)
+   ========================================================================== */
 .dark #cookiescript_injected,
 .dark #cookiescript_wrapper {
   background-color: #0f172a !important;
@@ -350,16 +378,32 @@ span[data-cs-show-title="cookie-script"]:hover,
   color: #f8fafc !important;
 }
 
+.dark #cookiescript_injected #cookiescript_buttons #cookiescript_accept,
+.dark #cookiescript_injected #cookiescript_accept,
 .dark #cookiescript_accept {
-  background-color: #0284c7 !important;
+  background-color: #075985 !important; /* Głęboki błękit o kontraście 7.7:1 z bielą (norma AAA) */
   color: #ffffff !important;
   border-color: #38bdf8 !important;
 }
 
-.dark #cookiescript_reject {
-  background-color: #334155 !important;
+.dark #cookiescript_injected #cookiescript_buttons #cookiescript_accept *,
+.dark #cookiescript_accept * {
   color: #ffffff !important;
-  border-color: #64748b !important;
+  font-weight: 700 !important;
+}
+
+.dark #cookiescript_injected #cookiescript_buttons #cookiescript_reject,
+.dark #cookiescript_injected #cookiescript_reject,
+.dark #cookiescript_reject {
+  background-color: #020617 !important; /* Niemal czerń (kontrast 20:1 z bielą) */
+  color: #ffffff !important;
+  border-color: #475569 !important;
+}
+
+.dark #cookiescript_injected #cookiescript_buttons #cookiescript_reject *,
+.dark #cookiescript_reject * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
 }
 
 .dark span[data-cs-show-title="cookie-script"],
