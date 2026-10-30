@@ -4,11 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google tag (gtag.js) - Google Ads -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=AW-11057616603"
-    ></script>
+    <!-- Google tag (gtag.js) - Definicja natychmiastowa (rejestracja konwersji działa od razu) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -32,7 +28,7 @@
       }
     </script>
 
-    <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia -->
+    <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia dywanu -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -52,6 +48,15 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://ad.doubleclick.net" />
+
+    <!-- ARD / Wykrywalność dla agentów AI -->
+    <link
+      rel="ai-catalog"
+      href="/.well-known/ai-catalog.json"
+      type="application/json"
+    />
+    <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
     <!-- OPTYMALIZACJA SEO: Czcionki asynchronicznie -->
     <link
@@ -66,10 +71,16 @@
       onload="this.media = 'all'"
     />
 
-    <!-- OPTYMALIZACJA SEO/PAGESPEED: Pozostałe skrypty opóźnione o 3.5s -->
+    <!-- OPTYMALIZACJA PAGESPEED: Zewnętrzne skrypty analityczne opóźnione o 3.5s -->
     <script>
       setTimeout(function () {
-        // --- 1. Skrypt GTM ---
+        // --- 1. Google Ads gtag.js (odroczone ładowanie pliku 149 KB) ---
+        var gads = document.createElement("script");
+        gads.async = true;
+        gads.src = "https://www.googletagmanager.com/gtag/js?id=AW-11057616603";
+        document.head.appendChild(gads);
+
+        // --- 2. Skrypt GTM ---
         (function (w, d, s, l, i) {
           w[l] = w[l] || [];
           w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -81,7 +92,7 @@
           f.parentNode.insertBefore(j, f);
         })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
 
-        // --- 2. Skrypt Facebook Pixel ---
+        // --- 3. Skrypt Facebook Pixel ---
         !(function (f, b, e, v, n, t, s) {
           if (f.fbq) return;
           n = f.fbq = function () {
@@ -108,7 +119,7 @@
         window.fbq("init", "1288180923455820");
         window.fbq("track", "PageView");
 
-        // --- 3. Skrypt Microsoft Clarity ---
+        // --- 4. Skrypt Microsoft Clarity ---
         (function (c, l, a, r, i, t, y) {
           c[a] =
             c[a] ||
@@ -198,6 +209,15 @@
         width: 100%;
         height: 85vh;
         background: #0f172a;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        inset: 0;
       }
     </style>
   </head>
@@ -217,9 +237,22 @@
         alt="facebook"
       />
     </noscript>
+
+    <!-- Kontener z natychmiastowym renderowaniem zdjęcia LCP w kodzie HTML -->
     <div id="root">
-      <div class="hero-placeholder"></div>
+      <div class="hero-placeholder">
+        <img
+          src="/images/dywany/88.avif"
+          alt="SUPER PUCUŚ - Pranie dywanów i tapicerki"
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          decoding="sync"
+          loading="eager"
+        />
+      </div>
     </div>
+
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
