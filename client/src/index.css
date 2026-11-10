@@ -34,6 +34,40 @@
   min-height: 85svh;
 }
 
+/* ------------------------------------------------------------------
+   FIX PSI (audyt 10.11.2026, CLS 0,14): fallbacki metryk dla fontów
+   Google (Inter, Montserrat, Limelight). Przy `display=swap` tekst jest
+   najpierw renderowany fontem systemowym – jeśli jego metryki różnią
+   się od docelowych, następuje przetasowanie układu (elementy 0,080
+   i 0,058 w audycie). Fallback z dopasowanymi metrykami = brak skoku.
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107.64%;
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Montserrat Fallback";
+  src: local("Arial");
+  size-adjust: 110%;
+  ascent-override: 87%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Limelight Fallback";
+  src: local("Georgia");
+  size-adjust: 106%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -160,6 +194,8 @@
   }
   body {
     @apply font-sans antialiased text-foreground min-h-screen;
+    /* FIX CLS: fallback z zarezerwowanymi metrykami przed fontem docelowym */
+    font-family: "Inter Fallback", "Inter", ui-sans-serif, system-ui, sans-serif;
     background-color: hsl(var(--background));
     background-image: var(--background-image);
     background-repeat: no-repeat;

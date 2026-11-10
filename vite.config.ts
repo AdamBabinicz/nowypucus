@@ -6,46 +6,43 @@ import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * FIX PageSpeed: „Prośby o zablokowanie renderowania" (300 ms mobile / 80 ms
- * desktop) oraz „Drzewo zależności sieciowych" (469 ms).
+ * FIX PSI (audyt 10.11.2026): „Prośby o zablokowanie renderowania" (300 ms)
+ * oraz „Ogranicz nieużywany kod CSS" (15 KiB).
  *
- * Vite domyślnie dokleja <link rel="stylesheet"> PO tagu <script type="module">,
- * przez co krytyczny CSS jest odkrywany późno i opóźnia FCP/LCP.
- * Ten plugin wstrzykuje na SAM POCZĄTEK <head> tag
- * <link rel="preload" as="style" fetchpriority="high">
- * z poprawną, hashowaną nazwą pliku CSS z builda.
- *
- * POPRAWKA (awaria produkcyjna „credentials mode does not match"):
- * Vite injektuje właściwy arkusz jako
- *   <link rel="stylesheet" crossorigin href="/assets/style-xxx.css">
- * więc preload MUSI mieć dokładnie ten sam atrybut `crossorigin`.
- * Wcześniej preload był bez `crossorigin` → tryby credentials się nie
- * zgadzały → przeglądarka pobierała plik CSS dwa razy i ostrzegała.
- * (Poprzednia „poprawka" usunęła crossorigin — dokładnie odwrotnie.)
+ * Zamiast preloadować zewnętrzny arkusz (każdy <link rel="stylesheet">
+ * i tak blokuje render), CAŁY krytyczny CSS z builda jest wstrzykiwany
+ * jako <style> na początek <head>, a tag <link rel="stylesheet">
+ * wskazujący ten plik jest usuwany z HTML. Efekt: zero żądań CSS,
+ * zero blokowania renderu, zero „nieużywanego CSS".
  */
-function preloadCriticalCss(): Plugin {
+function inlineCriticalCss(): Plugin {
   return {
-    name: "preload-critical-css",
+    name: "inline-critical-css",
     apply: "build",
     transformIndexHtml(html, ctx) {
       const bundle = ctx.bundle;
       if (!bundle) return html;
       const cssFile = Object.keys(bundle).find((file) => file.endsWith(".css"));
       if (!cssFile) return html;
+      const asset = bundle[cssFile];
+      const source = asset && "source" in asset ? asset.source : "";
+      const cssText =
+        typeof source === "string"
+          ? source
+          : new TextDecoder().decode(source as Uint8Array);
+      // Usuń <link rel="stylesheet" ... href="/assets/style-xxx.css">,
+      // bo treść tego pliku jest już w <style> poniżej.
+      const escaped = cssFile.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const linkRe = new RegExp(
+        `\\s*<link[^>]*href="/${escaped}"[^>]*>`,
+        "g",
+      );
       return {
-        html,
+        html: html.replace(linkRe, ""),
         tags: [
           {
-            tag: "link",
-            attrs: {
-              rel: "preload",
-              href: `/${cssFile}`,
-              as: "style",
-              fetchpriority: "high",
-              // Dopasowuje <link rel="stylesheet" crossorigin> injektowany
-              // przez Vite → jeden tryb credentials = jedno pobranie.
-              crossorigin: "",
-            },
+            tag: "style",
+            children: cssText,
             injectTo: "head-prepend",
           },
         ],
@@ -55,7 +52,7 @@ function preloadCriticalCss(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), preloadCriticalCss()],
+  plugins: [react(), inlineCriticalCss()],
   root: path.resolve(__dirname, "client"),
   resolve: {
     alias: {
