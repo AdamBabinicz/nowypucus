@@ -6,9 +6,11 @@ import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * FIX PSI: Eliminacja żądań blokujących renderowanie (Render-blocking resources).
- * Cały krytyczny CSS z builda jest wstrzykiwany jako <style> w <head>,
- * a zewnętrzny tag <link rel="stylesheet"> jest usuwany z wynikowego HTML.
+ * FIX PSI & W3C HTML Validator:
+ * 1. Cały krytyczny CSS z builda jest wstrzykiwany jako <style> na końcu <head>
+ *    (injectTo: "head"). Dzięki temu <meta charset="UTF-8"> ZAWSZE znajduje się
+ *    w pierwszych 1024 bajtach dokumentu (zgodność ze specyfikacją HTML5).
+ * 2. Zewnętrzny tag <link rel="stylesheet"> jest usuwany, eliminując blokowanie renderu.
  */
 function inlineCriticalCss(): Plugin {
   return {
@@ -40,7 +42,7 @@ function inlineCriticalCss(): Plugin {
           {
             tag: "style",
             children: cssText,
-            injectTo: "head-prepend",
+            injectTo: "head", // "head" zamiast "head-prepend" - chroni pierwsze 1024 bajty dla <meta charset>
           },
         ],
       };
@@ -78,7 +80,6 @@ export default defineConfig({
          * działa niezawodnie na maszynach lokalnych z systemem Windows.
          */
         manualChunks(id) {
-          // Normalizacja separatorów ścieżek dla systemów Windows i Unix
           const normalizedId = id.replace(/\\/g, "/");
           if (!normalizedId.includes("node_modules")) return;
 
