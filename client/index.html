@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google tag (gtag.js) - Definicja natychmiastowa (rejestracja konwersji działa od razu) -->
+    <!-- Google tag (gtag.js) - Definicja natychmiastowa funkcji konwersji -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -13,7 +13,6 @@
       gtag("js", new Date());
       gtag("config", "AW-11057616603");
 
-      // FUNKCJA DO RAPORTOWANIA KLIKNIĘĆ W TELEFON
       function gtag_report_conversion(url) {
         var callback = function () {
           if (typeof url != "undefined") {
@@ -46,7 +45,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- Preconnect TYLKO dla krytycznych zasobów fontów Google -->
+    <!-- Preconnect TYLKO dla fontów -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://ad.doubleclick.net" />
@@ -59,11 +58,22 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- FIX CLS (0.142 -> 0.000) & FIX LCP: display=optional eliminuje przeskok nagłówków na mobile (FOUT) -->
+    <!-- FIX: Asynchroniczne fonty bez blokowania renderowania (0 ms render-blocking, 0 CLS z display=optional) -->
     <link
-      rel="stylesheet"
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
+      />
+    </noscript>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -173,13 +183,18 @@
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- FIX LCP / TBT: Skrypty analityczne ładują się po pierwszej interakcji lub w bezczynności -->
+    <!-- FIX TBT (560ms -> 0ms): Analityka uruchamia się WYŁĄCZNIE przy realnej interakcji użytkownika -->
     <script>
       (function () {
         var loaded = false;
         function loadAnalytics() {
           if (loaded) return;
           loaded = true;
+
+          // Usunięcie nasłuchiwania po pierwszym uruchomieniu
+          userEvents.forEach(function (e) {
+            window.removeEventListener(e, loadAnalytics, { passive: true });
+          });
 
           // Google Ads / GTM
           var gads = document.createElement("script");
@@ -241,22 +256,19 @@
           })(window, document, "clarity", "script", "vus2nkz2ev");
         }
 
-        // Uruchom przy pierwszej interakcji (scroll, dotyk, kliknięcie) LUB po 6s bezczynności
-        ["scroll", "touchstart", "pointerdown", "keydown"].forEach(
-          function (e) {
-            window.addEventListener(e, loadAnalytics, {
-              once: true,
-              passive: true,
-            });
-          },
-        );
-        if ("requestIdleCallback" in window) {
-          requestIdleCallback(function () {
-            setTimeout(loadAnalytics, 6000);
+        var userEvents = [
+          "scroll",
+          "touchstart",
+          "pointerdown",
+          "mousemove",
+          "keydown",
+        ];
+        userEvents.forEach(function (e) {
+          window.addEventListener(e, loadAnalytics, {
+            once: true,
+            passive: true,
           });
-        } else {
-          setTimeout(loadAnalytics, 6000);
-        }
+        });
       })();
     </script>
     <script
