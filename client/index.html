@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) natychmiastowa definicja funkcji konwersji -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -27,7 +27,7 @@
       }
     </script>
 
-    <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia dywanu -->
+    <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia dywanu (LCP) -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -45,14 +45,9 @@
       crossorigin="anonymous"
     />
 
+    <!-- Preconnect TYLKO dla krytycznych zasobów fontów -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- FIX PageSpeed „Kandydaci do rezerwowania połączenia w trybie preconnect":
-         domeny 3. stron ładowanych po 4 s – nawiązanie połączenia z wyprzedzeniem -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://connect.facebook.net" />
-    <link rel="preconnect" href="https://www.clarity.ms" />
     <link rel="dns-prefetch" href="https://ad.doubleclick.net" />
 
     <!-- ARD / Wykrywalność dla agentów AI -->
@@ -63,78 +58,12 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- OPTYMALIZACJA SEO: Czcionki asynchronicznie -->
+    <!-- FIX CLS (0.142 -> 0): Stabilne ładowanie fontów z display=swap bez sztucznego print->all -->
+    <!-- Usunięto zduplikowane Major Mono Display (jest ładowane lokalnie w .woff2) -->
     <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
-      as="style"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
       rel="stylesheet"
-      media="print"
-      onload="this.media = 'all'"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
     />
-
-    <!-- Skrypty analityczne opóźnione do 4s -->
-    <script>
-      setTimeout(function () {
-        var gads = document.createElement("script");
-        gads.async = true;
-        gads.src = "https://www.googletagmanager.com/gtag/js?id=AW-11057616603";
-        document.head.appendChild(gads);
-
-        (function (w, d, s, l, i) {
-          w[l] = w[l] || [];
-          w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-          var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s),
-            dl = l != "dataLayer" ? "&l=" + l : "";
-          j.async = true;
-          j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-          f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
-
-        !(function (f, b, e, v, n, t, s) {
-          if (f.fbq) return;
-          n = f.fbq = function () {
-            n.callMethod
-              ? n.callMethod.apply(n, arguments)
-              : n.queue.push(arguments);
-          };
-          if (!f._fbq) f._fbq = n;
-          n.push = n;
-          n.loaded = !0;
-          n.version = "2.0";
-          n.queue = [];
-          t = b.createElement(e);
-          t.async = !0;
-          t.src = v;
-          s = b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t, s);
-        })(
-          window,
-          document,
-          "script",
-          "https://connect.facebook.net/en_US/fbevents.js",
-        );
-        window.fbq("init", "1288180923455820");
-        window.fbq("track", "PageView");
-
-        (function (c, l, a, r, i, t, y) {
-          c[a] =
-            c[a] ||
-            function () {
-              (c[a].q = c[a].q || []).push(arguments);
-            };
-          t = l.createElement(r);
-          t.async = 1;
-          t.src = "https://www.clarity.ms/tag/" + i;
-          y = l.getElementsByTagName(r)[0];
-          y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "vus2nkz2ev");
-      }, 4000);
-    </script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -243,6 +172,99 @@
 
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
-  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
-</body>
+
+    <!-- FIX LCP / TBT: Skrypty analityczne ładują się po pierwszej interakcji lub w bezczynności -->
+    <script>
+      (function () {
+        var loaded = false;
+        function loadAnalytics() {
+          if (loaded) return;
+          loaded = true;
+
+          // Google Ads / GTM
+          var gads = document.createElement("script");
+          gads.async = true;
+          gads.src =
+            "https://www.googletagmanager.com/gtag/js?id=AW-11057616603";
+          document.head.appendChild(gads);
+
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != "dataLayer" ? "&l=" + l : "";
+            j.async = true;
+            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            f.parentNode.insertBefore(j, f);
+          })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
+
+          // Facebook Pixel
+          !(function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+              n.callMethod
+                ? n.callMethod.apply(n, arguments)
+                : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = "2.0";
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s);
+          })(
+            window,
+            document,
+            "script",
+            "https://connect.facebook.net/en_US/fbevents.js",
+          );
+          window.fbq("init", "1288180923455820");
+          window.fbq("track", "PageView");
+
+          // Microsoft Clarity
+          (function (c, l, a, r, i, t, y) {
+            c[a] =
+              c[a] ||
+              function () {
+                (c[a].q = c[a].q || []).push(arguments);
+              };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+          })(window, document, "clarity", "script", "vus2nkz2ev");
+        }
+
+        // Uruchom przy pierwszej interakcji (scroll, dotyk, kliknięcie) LUB po 6s bezczynności
+        ["scroll", "touchstart", "pointerdown", "keydown"].forEach(
+          function (e) {
+            window.addEventListener(e, loadAnalytics, {
+              once: true,
+              passive: true,
+            });
+          },
+        );
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(function () {
+            setTimeout(loadAnalytics, 6000);
+          });
+        } else {
+          setTimeout(loadAnalytics, 6000);
+        }
+      })();
+    </script>
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+      integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw=="
+      data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}'
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
