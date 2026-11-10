@@ -6,16 +6,16 @@ interface HeroImageSliderProps {
   interval?: number;
 }
 
-const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
+const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadSecondaryImages, setLoadSecondaryImages] = useState(false);
 
   useEffect(() => {
-    // Opóźniamy ładowanie pozostałych slajdów (oszczędzamy 200 KB na starcie)
+    // Opóźniamy ładowanie pozostałych slajdów, aby nie obciążały LCP
     const lazyTimer = setTimeout(() => {
       setLoadSecondaryImages(true);
-    }, 3500);
+    }, 4500);
 
     return () => clearTimeout(lazyTimer);
   }, []);
@@ -38,7 +38,6 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
         const isFirst = index === 0;
         const isCurrent = index === currentIndex;
 
-        // Jeśli to nie pierwszy slajd i nie minęło jeszcze 3.5s, nie renderujemy go w DOM
         if (!isFirst && !loadSecondaryImages) {
           return null;
         }
@@ -58,10 +57,14 @@ const HeroImageSlider = ({ images, interval = 5000 }: HeroImageSliderProps) => {
             {...(isFirst
               ? ({ fetchpriority: "high" } as any)
               : ({ fetchpriority: "low" } as any))}
-            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              isCurrent
-                ? "opacity-100 z-10"
-                : "opacity-0 z-0 pointer-events-none"
+            className={`w-full h-full object-cover absolute inset-0 ${
+              isFirst
+                ? isCurrent
+                  ? "opacity-100 z-10"
+                  : "opacity-0 z-0 transition-opacity duration-1000 ease-in-out pointer-events-none"
+                : isCurrent
+                  ? "opacity-100 z-10 transition-opacity duration-1000 ease-in-out"
+                  : "opacity-0 z-0 pointer-events-none"
             }`}
           />
         );
