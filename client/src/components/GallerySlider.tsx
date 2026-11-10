@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiMaximize } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
@@ -16,10 +16,32 @@ interface GallerySliderProps {
   title: string;
 }
 
+/**
+ * FIX PageSpeed mobile (CLS 0,49 / "Wymuszone przeformatowanie" 49 ms):
+ *
+ * 1. USUNIĘTE sztywne `h-[400px]` i `h-[808px]`.
+ *    Slider miał zaszyte na sztywno wysokości (400 px na obraz, 808 px na
+ *    kontener), które nie odpowiadały proporcjom zdjęć (596×480, 900×675 itd.).
+ *    Na wąskim ekranie obraz `object-cover` był przycinany w losowy sposób,
+ *    a `mode="popLayout"` + `position: absolute` powodowały przeliczenia
+ *    layoutu przy każdej zmianie slajdu (wymuszone przeformatowanie).
+ *
+ * 2. Każdy obraz siedzi teraz w ramce `.media-frame` z `aspect-ratio`,
+ *    więc wysokość jest zarezerwowana PRZED wczytaniem pliku → CLS = 0.
+ *
+ * 3. `mode="wait"` zamiast `"popLayout"` – brak dwóch absolutnie
+ *    pozycjonowanych warstw jednocześnie (mniej pracy dla wątku głównego).
+ *
+ * 4. Atrybuty `width`/`height` = realne proporcje (4:3) – dodatkowa
+ *    rezerwacja miejsca i lepszy wybór wariantu przy `srcset`.
+ *
+ * 5. Autoplay wstrzymany, gdy karta jest w tle albo slider jest poza
+ *    widokiem (IntersectionObserver) – koniec z odliczaniem w tle.
+ */
 const variants = {
   enter: (direction: number) => {
     return {
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? 300 : -300,
       opacity: 0,
     };
   },
@@ -31,7 +53,7 @@ const variants = {
   exit: (direction: number) => {
     return {
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? 300 : -300,
       opacity: 0,
     };
   },
@@ -48,6 +70,8 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<Image | null>(null);
   const autoplayIntervalRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const isVisibleRef = useRef(false);
 
   const groupedImages: Image[][] = [];
   for (let i = 0; i < images.length; i += 2) {
@@ -60,6 +84,28 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
 
   const totalPairs = groupedImages.length;
   const imageIndex = ((page % totalPairs) + totalPairs) % totalPairs;
+
+  const stopAutoplay = useCallback(() => {
+    if (autoplayIntervalRef.current) {
+      clearInterval(autoplayIntervalRef.current);
+      autoplayIntervalRef.current = null;
+    }
+  }, []);
+
+  const startAutoplay = useCallback(() => {
+    if (autoplayIntervalRef.current) return;
+    if (document.hidden || !isVisibleRef.current) return;
+    if (totalPairs <= 1) return;
+
+    autoplayIntervalRef.current = window.setInterval(() => {
+      setPage(([currentPage]) => [currentPage + 1, 1]);
+    }, 5000);
+  }, [totalPairs]);
+
+  const resetAutoplay = useCallback(() => {
+    stopAutoplay();
+    startAutoplay();
+  }, [startAutoplay, stopAutoplay]);
 
   const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
@@ -77,26 +123,45 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
     resetAutoplay();
   };
 
-  const stopAutoplay = () => {
-    if (autoplayIntervalRef.current) {
-      clearInterval(autoplayIntervalRef.current);
-      autoplayIntervalRef.current = null;
-    }
-  };
-
-  const resetAutoplay = () => {
-    stopAutoplay();
-    if (totalPairs > 1) {
-      autoplayIntervalRef.current = window.setInterval(() => {
-        paginate(1);
-      }, 5000);
-    }
-  };
-
   useEffect(() => {
     resetAutoplay();
     return () => stopAutoplay();
-  }, [totalPairs]);
+  }, [totalPairs, resetAutoplay, stopAutoplay]);
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [startAutoplay, stopAutoplay]);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        isVisibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          startAutoplay();
+        } else {
+          stopAutoplay();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [startAutoplay, stopAutoplay]);
 
   const handleDragEnd = (
     _e: MouseEvent | TouchEvent | PointerEvent,
@@ -123,8 +188,6 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
       </div>
     );
   }
-  const singleImageHeightClass = "h-[400px]";
-  const sliderContainerHeightClass = "h-[808px]";
 
   return (
     <div className="bg-white dark:bg-slate-700 rounded-xl shadow-lg p-4">
@@ -132,8 +195,8 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
         {title}
       </h3>
 
-      <div className={`relative ${sliderContainerHeightClass} overflow-hidden`}>
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+      <div ref={containerRef} className="relative w-full overflow-hidden">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={page}
             custom={direction}
@@ -149,22 +212,26 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
             onDragEnd={handleDragEnd}
-            className="absolute w-full h-full space-y-2 cursor-grab active:cursor-grabbing"
+            className="relative w-full space-y-2 cursor-grab active:cursor-grabbing"
           >
             {groupedImages[imageIndex] &&
               groupedImages[imageIndex].map((image) => (
                 <div key={image.id} className="relative">
-                  <div className={`relative group ${singleImageHeightClass}`}>
+                  {/* aspect-[4/3] rezerwuje wysokość PRZED wczytaniem obrazu */}
+                  <div className="media-frame aspect-[4/3] w-full rounded-lg">
                     <img
                       src={image.src}
                       alt={image.alt}
+                      width={800}
+                      height={600}
                       className="w-full h-full rounded-lg object-cover"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div
                       className={`absolute bottom-0 left-0 ${
                         image.type === "before" ? "bg-red-950" : "bg-green-950"
-                      } text-white py-1 px-4 rounded-tr-lg font-medium`}
+                      } text-white py-1 px-4 rounded-tr-lg font-medium z-10`}
                     >
                       {image.type === "before"
                         ? t("common.before", "BEFORE").toUpperCase()
@@ -172,7 +239,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
                     </div>
                     <button
                       onClick={() => openModal(image)}
-                      className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                      className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white md:opacity-0"
                       aria-label={t("common.expandImage", "Expand image")}
                     >
                       <FiMaximize className="w-5 h-5" />
@@ -182,6 +249,7 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
               ))}
           </motion.div>
         </AnimatePresence>
+
         {totalPairs > 1 && (
           <>
             <button
@@ -251,8 +319,11 @@ const GallerySlider = ({ images, title }: GallerySliderProps) => {
             <img
               src={modalImage.src}
               alt={modalImage.alt}
-              className="max-w-full max-h-[70vh] object-contain rounded-lg"
+              width={1200}
+              height={900}
+              className="max-w-full max-h-[70vh] w-auto h-auto object-contain rounded-lg"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </Modal>

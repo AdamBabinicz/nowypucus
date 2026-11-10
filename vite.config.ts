@@ -6,15 +6,19 @@ import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * FIX PageSpeed: „Próby zablokowania renderowania" (+280/80 ms) oraz
- * „Drzewo zależności sieciowych" (łańcuch HTML -> JS -> CSS, do 248 ms).
+ * FIX PageSpeed: „Prośby o zablokowanie renderowania" (300 ms mobile / 80 ms
+ * desktop) oraz „Drzewo zależności sieciowych" (469 ms).
  *
  * Vite domyślnie dokleja <link rel="stylesheet"> PO tagu <script type="module">,
- * przez co krytyczny CSS bywa odkrywany późno i opóźnia FCP/LCP.
+ * przez co krytyczny CSS jest odkrywany późno i opóźnia FCP/LCP.
  * Ten plugin wstrzykuje na SAM POCZĄTEK <head> tag
- * <link rel="preload" as="style" crossorigin fetchpriority="high"> z poprawną, hashowaną
- * nazwą pliku CSS z builda, dzięki czemu CSS startuje równolegle z JS,
- * a nie po nim.
+ * <link rel="preload" as="style" fetchpriority="high">
+ * z poprawną, hashowaną nazwą pliku CSS z builda.
+ *
+ * POPRAWKA: usunięto atrybut `crossorigin` z preloadu.
+ * Preload z `crossorigin` wykonuje żądanie w trybie CORS, a właściwy
+ * <link rel="stylesheet"> (same-origin) już nie – tryby się nie zgadzają,
+ * więc przeglądarka pobierała TEN SAM plik CSS dwa razy.
  */
 function preloadCriticalCss(): Plugin {
   return {
@@ -34,7 +38,6 @@ function preloadCriticalCss(): Plugin {
               rel: "preload",
               href: `/${cssFile}`,
               as: "style",
-              crossorigin: "",
               fetchpriority: "high",
             },
             injectTo: "head-prepend",
@@ -62,17 +65,39 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
-    // Zostawiamy false, aby kod na produkcji był lżejszy i bezpieczniejszy
     sourcemap: false,
-    // FIX PageSpeed: jeden wspólny plik CSS gwarantuje, że plugin
-    // preload-critical-css zawsze znajdzie dokładnie jeden plik do preloadu
-    // (i że żaden styl nie dołączy dopiero po JS-ie)
+    // Jeden wspólny plik CSS – plugin preload-critical-css zawsze znajdzie
+    // dokładnie jeden plik do preloadu i żaden styl nie dołączy po JS-ie.
     cssCodeSplit: false,
+    // Nowoczesny target = krótszy, szybszy kod (mniej transpilacji).
+    target: "es2020",
+    reportCompressedSize: false,
+    cssMinify: "esbuild",
     rollupOptions: {
       output: {
-        // Wracamy do Twojego w 100% stabilnego ustawienia!
-        manualChunks: {
-          react: ["react", "react-dom"],
+        /**
+         * FIX „Ogranicz nieużywany JavaScript" (50,2 KiB z 147,4 KiB) oraz
+         * „Unikaj dużych zadań w wątku głównym": dzielimy vendor na osobne,
+         * długo cache'owane chunki zamiast jednego monolitu.
+         */
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+
+          if (
+            id.includes("/react-dom/") ||
+            id.includes("/react/") ||
+            id.includes("/scheduler/")
+          ) {
+            return "react";
+          }
+          if (id.includes("framer-motion")) return "motion";
+          if (id.includes("i18next") || id.includes("react-i18next")) {
+            return "i18n";
+          }
+          if (id.includes("@radix-ui")) return "radix";
+          if (id.includes("react-icons")) return "icons";
+          if (id.includes("recharts") || id.includes("/d3-")) return "charts";
+          if (id.includes("@tanstack")) return "query";
         },
       },
     },
