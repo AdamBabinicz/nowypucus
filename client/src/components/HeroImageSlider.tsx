@@ -7,25 +7,11 @@ interface HeroImageSliderProps {
 }
 
 /**
- * FIX PageSpeed mobile (LCP 12,5 s, FCP 6,0 s, CLS 0,49):
- *
- * 1. USUNIĘTE `opacity-0` z pierwszego slajdu.
- *    Wcześniej pierwszy obraz miał klasę `opacity-0 transition-opacity
- *    duration-1000`, więc przeglądarka uznawała go za element LCP dopiero
- *    w momencie, gdy JS nadał mu widoczność. Na mobile (Moto G Power,
- *    4× spowolnienie CPU) dawało to LCP 12,5 s mimo `fetchpriority="high"`.
- *    Pierwszy slajd jest teraz widoczny od pierwszego renderu – bez opacity.
- *
- * 2. `decoding="async"` zamiast `sync`.
- *    `sync` blokował dekodowanie 800×450 na wątku głównym tuż przed
- *    namalowaniem pierwszej klatki (FCP 6,0 s).
- *
- * 3. Realne wymiary 800×450 (tyle ma plik) + `object-cover`.
- *    Wcześniej `width="1920" height="1080"` nie odpowiadało plikowi
- *    800×450 → przeglądarka rezerwowała złe proporcje (składowa CLS).
- *
- * 4. Timer startuje po `requestAnimationFrame` i jest wstrzymywany przez
- *    IntersectionObserver + visibilitychange (mniej pracy wątku głównego).
+ * Zoptymalizowany HeroImageSlider (LCP & CLS):
+ * 1. aspect-[16/9] sm:aspect-auto zapobiega skokowi wysokości (CLS) przed zamontowaniem obrazu.
+ * 2. Pierwszy slajd renderowany bez animacji wejściowej (opacity-100 natychmiast) -> natychmiastowy LCP.
+ * 3. fetchPriority="high" w standardzie React 19 dla priorytetowego pobrania pierwszego slajdu.
+ * 4. Pozostałe slajdy odroczone (lazy) o 4,5s, aby zwolnić łącze i CPU dla LCP oraz FCP.
  */
 const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
@@ -35,7 +21,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isVisibleRef = useRef(true);
 
-  // Pozostałe slajdy ładujemy dopiero po ustabilizowaniu LCP.
+  // Pozostałe slajdy ładujemy dopiero po ustabilizowaniu LCP
   useEffect(() => {
     const lazyTimer = window.setTimeout(() => {
       setLoadSecondaryImages(true);
@@ -61,7 +47,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
     }
   }, []);
 
-  // Start dopiero po pierwszej ramce – pierwszy obraz nie konkuruje z timerem.
+  // Start po pierwszej ramce animacji
   useEffect(() => {
     const raf = requestAnimationFrame(() => {
       startTimer();
@@ -73,7 +59,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
     };
   }, [startTimer, stopTimer]);
 
-  // Pauza, gdy karta jest w tle.
+  // Wstrzymanie timera, gdy karta jest nieaktywna
   useEffect(() => {
     const handleVisibility = () => {
       if (document.hidden) {
@@ -88,7 +74,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
     };
   }, [startTimer, stopTimer]);
 
-  // Pauza, gdy hero wyjechał z widoku (oszczędza CPU i baterię na mobile).
+  // Pauza, gdy sekcja Hero nie znajduje się w oknie widoku
   useEffect(() => {
     const node = containerRef.current;
     if (!node || typeof IntersectionObserver === "undefined") return;
@@ -115,7 +101,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full bg-slate-900 overflow-hidden"
+      className="relative w-full h-full bg-slate-900 overflow-hidden aspect-[16/9] sm:aspect-auto"
     >
       {images.map((src, index) => {
         const isFirst = index === 0;
@@ -125,12 +111,12 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
           return null;
         }
 
-        // Pierwszy slajd: ZERO opacity-0, ZERO transition – widoczny od razu.
-        // Kolejne slajdy: przejście opacity jest bezpieczne, bo nie są LCP.
+        // Pierwszy slajd: widoczny od razu bez opacity transition, by nie opóźniać LCP.
+        // Zanikanie slajdu przy zmianie następuje płynnie.
         const visibilityClass = isFirst
           ? isCurrent
             ? "opacity-100 z-10"
-            : "opacity-0 z-0 pointer-events-none"
+            : "opacity-0 z-0 transition-opacity duration-700 ease-in-out pointer-events-none"
           : isCurrent
             ? "opacity-100 z-10 transition-opacity duration-700 ease-in-out"
             : "opacity-0 z-0 transition-opacity duration-700 ease-in-out pointer-events-none";
@@ -147,9 +133,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
             height={450}
             decoding="async"
             loading={isFirst ? "eager" : "lazy"}
-            {...(isFirst
-              ? ({ fetchpriority: "high" } as any)
-              : ({ fetchpriority: "low" } as any))}
+            fetchPriority={isFirst ? "high" : "low"}
             className={`w-full h-full object-cover absolute inset-0 ${visibilityClass}`}
           />
         );

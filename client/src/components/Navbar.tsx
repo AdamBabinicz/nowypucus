@@ -12,9 +12,10 @@ import {
   PAGE_KEYS,
   PageKey,
 } from "@/config/slugs";
+
 // FIX PSI („Obrazy o odpowiednich wymiarach"): logo było plikiem 356×356
 // (20,2 KiB, na produkcji 40,4 KiB) wyświetlanym jako 28–32 px.
-// Teraz: dedykowane warianty 96 px i 192 px z /public/images.
+// Dedykowane warianty 96 px i 192 px z /public/images.
 const LOGO_SRCSET = "/images/logo-96.avif 96w, /images/logo-192.avif 192w";
 const logoPath = "/images/logo-96.avif";
 
@@ -146,13 +147,14 @@ const Navbar = () => {
     }
   };
 
+  // Zwiększony kontrast: text-gray-800 i dark:text-gray-100 dla spełnienia WCAG AA
   const navLinkClasses = (pageKey: PageKey) => {
     const localizedTarget = getLocalizedPath(pageKey, currentLang);
     const isActive = currentPath.split("#")[0] === localizedTarget;
     return `font-medium ${
       isActive
         ? "text-primary dark:text-primary-400"
-        : "text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-400"
+        : "text-gray-800 hover:text-primary dark:text-gray-100 dark:hover:text-primary-400"
     } transition-colors`;
   };
 
@@ -162,7 +164,7 @@ const Navbar = () => {
     return `block py-2.5 font-medium ${
       isActive
         ? "text-primary dark:text-primary-400"
-        : "text-gray-700 dark:text-gray-200"
+        : "text-gray-800 dark:text-gray-100"
     }`;
   };
 
@@ -192,7 +194,7 @@ const Navbar = () => {
               className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
               loading="eager"
               decoding="async"
-              {...{ fetchpriority: "high" }}
+              fetchPriority="high"
             />
             <span className="ml-2 text-lg font-major-mono font-semibold text-primary dark:text-sky-400">
               SUPER PUCUŚ
@@ -230,7 +232,10 @@ const Navbar = () => {
             </li>
             <li className="relative">
               <button
+                type="button"
                 onClick={() => toggleDropdown("portfolio")}
+                aria-haspopup="true"
+                aria-expanded={Boolean(isDropdownOpen["portfolio"])}
                 className={`${navLinkClasses(
                   PAGE_KEYS.PORTFOLIO,
                 )} flex items-center`}
@@ -244,6 +249,7 @@ const Navbar = () => {
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -276,7 +282,7 @@ const Navbar = () => {
                             link.hashKey,
                           );
                         }}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-slate-700"
+                        className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-slate-700"
                       >
                         {t(link.labelKey)}
                       </a>
@@ -308,7 +314,7 @@ const Navbar = () => {
                 href="https://dywany-pranie.blogspot.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-gray-700 hover:text-primary dark:text-gray-200 dark:hover:text-primary-400 transition-colors"
+                className="font-medium text-gray-800 hover:text-primary dark:text-gray-100 dark:hover:text-primary-400 transition-colors"
               >
                 {t("nav.blog")}
               </a>
@@ -320,7 +326,7 @@ const Navbar = () => {
               onClick={trackPhoneClick}
               className="flex items-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
             >
-              <FiPhone className="w-5 h-5 mr-2" />
+              <FiPhone className="w-5 h-5 mr-2" aria-hidden="true" />
               <span className="whitespace-nowrap">
                 {t("nav.callNow")} +48 531 890 827
               </span>
@@ -331,10 +337,10 @@ const Navbar = () => {
               href="https://m.me/super.pucus"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
+              className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
               aria-label={t("nav.connectMessenger", "Connect on Messenger")}
             >
-              <BsMessenger className="w-6 h-6" />
+              <BsMessenger className="w-6 h-6" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -342,8 +348,11 @@ const Navbar = () => {
           <LanguageSelector />
           <ThemeToggle />
           <button
+            type="button"
             onClick={toggleMenu}
-            className="text-foreground dark:text-gray-200 focus:outline-none"
+            aria-controls="mobile-navigation-menu"
+            aria-expanded={isOpen}
+            className="text-gray-900 dark:text-gray-100 focus:outline-none p-1"
             aria-label={
               isOpen
                 ? t("nav.closeMenu", "Close menu")
@@ -351,9 +360,9 @@ const Navbar = () => {
             }
           >
             {isOpen ? (
-              <FiX className="w-6 h-6" />
+              <FiX className="w-6 h-6" aria-hidden="true" />
             ) : (
-              <FiMenu className="w-6 h-6" />
+              <FiMenu className="w-6 h-6" aria-hidden="true" />
             )}
           </button>
         </div>
@@ -361,6 +370,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-navigation-menu"
             variants={{
               hidden: { opacity: 0, height: 0 },
               visible: { opacity: 1, height: "auto" },
@@ -401,7 +411,10 @@ const Navbar = () => {
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => toggleDropdown("portfolio")}
+                  aria-haspopup="true"
+                  aria-expanded={Boolean(isDropdownOpen["portfolio"])}
                   className={`flex justify-between items-center w-full py-2.5 font-medium ${mobileNavLinkClasses(
                     PAGE_KEYS.PORTFOLIO,
                   )}`}
@@ -415,6 +428,7 @@ const Navbar = () => {
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -446,7 +460,7 @@ const Navbar = () => {
                               link.hashKey,
                             );
                           }}
-                          className="block py-1.5 text-gray-600 dark:text-gray-300"
+                          className="block py-1.5 text-gray-800 hover:text-primary dark:text-gray-100 dark:hover:text-primary-400"
                         >
                           {t(link.labelKey)}
                         </a>
@@ -482,7 +496,7 @@ const Navbar = () => {
                     setIsOpen(false);
                     setIsDropdownOpen({});
                   }}
-                  className="block py-2.5 font-medium text-gray-700 dark:text-gray-200"
+                  className="block py-2.5 font-medium text-gray-800 dark:text-gray-100"
                 >
                   {t("nav.blog")}
                 </a>
@@ -496,7 +510,7 @@ const Navbar = () => {
                     trackPhoneClick(e);
                   }}
                 >
-                  <FiPhone className="w-5 h-5 mr-2" />
+                  <FiPhone className="w-5 h-5 mr-2" aria-hidden="true" />
                   <span>{t("nav.callNow")} +48 531 890 827</span>
                 </a>
               </li>
@@ -505,14 +519,14 @@ const Navbar = () => {
                   href="https://m.me/super.pucus"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
+                  className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
                   aria-label={t("nav.connectMessenger", "Connect on Messenger")}
                   onClick={() => {
                     setIsOpen(false);
                     setIsDropdownOpen({});
                   }}
                 >
-                  <BsMessenger className="w-5 h-5 mr-2" />{" "}
+                  <BsMessenger className="w-6 h-6 mr-2" aria-hidden="true" />
                   {t("nav.messenger", "Messenger")}
                 </a>
               </li>

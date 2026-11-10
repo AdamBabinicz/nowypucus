@@ -44,18 +44,16 @@ const Footer = () => {
     }
   }
 
-  // --- AKTUALIZACJA: Śledzenie konwersji połączenia telefonicznego ---
+  // Śledzenie konwersji połączenia telefonicznego
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const url = e.currentTarget.href;
 
-    // Jeśli w index.html zdefiniowano globalną funkcję gtag_report_conversion, używamy jej
     if (typeof (window as any).gtag_report_conversion === "function") {
       e.preventDefault();
       (window as any).gtag_report_conversion(url);
       return;
     }
 
-    // Fallback, jeśli skrypt w index.html jeszcze się nie załadował lub nie istnieje
     e.preventDefault();
     let callbackFired = false;
     const executeCall = () => {
@@ -182,15 +180,19 @@ const Footer = () => {
     },
   ];
 
+  // Bezpieczne klasy dla linków na ciemnym tle stopki (kontrast > 7:1, spełnia WCAG AAA)
+  const footerLinkClasses =
+    "text-slate-100 hover:text-sky-300 dark:text-gray-100 dark:hover:text-sky-300 transition-colors";
+
   return (
-    <footer className="bg-primary-800 dark:bg-slate-800 text-foreground dark:text-white pt-12 pb-6">
+    <footer className="bg-primary-900 dark:bg-slate-900 text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <h2 className="font-major-mono text-xl font-semibold mb-4 text-primary dark:text-sky-400">
+            <h2 className="font-major-mono text-xl font-semibold mb-4 text-sky-400 dark:text-sky-400">
               SUPER PUCUŚ
             </h2>
-            <p className="mb-4 text-foreground dark:text-gray-100">
+            <p className="mb-4 text-slate-100 dark:text-gray-200">
               {t("footer.companyDescription")}
             </p>
             <div className="flex flex-wrap gap-4">
@@ -211,17 +213,17 @@ const Footer = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                    className="text-slate-100 hover:text-sky-300 dark:text-gray-100 dark:hover:text-sky-300 transition-colors p-1"
                     aria-label={translatedAriaLabel}
                   >
-                    <IconComponent className="w-6 h-6" />
+                    <IconComponent className="w-6 h-6" aria-hidden="true" />
                   </a>
                 );
               })}
             </div>
           </div>
           <nav aria-label={t("footer.quickLinks", "Szybkie linki")}>
-            <h2 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+            <h2 className="font-heading text-xl font-semibold mb-4 text-white">
               {t("footer.quickLinks")}
             </h2>
             <ul className="space-y-2">
@@ -229,7 +231,7 @@ const Footer = () => {
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.HOME, currentLang)}
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.HOME)}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.home")}
                 </WouterLink>
@@ -238,7 +240,7 @@ const Footer = () => {
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.OFFER)}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.offer")}
                 </WouterLink>
@@ -247,7 +249,7 @@ const Footer = () => {
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.ABOUT, currentLang)}
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.ABOUT)}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.about")}
                 </WouterLink>
@@ -256,7 +258,7 @@ const Footer = () => {
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.PORTFOLIO, currentLang)}
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.PORTFOLIO)}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.portfolio")}
                 </WouterLink>
@@ -265,7 +267,7 @@ const Footer = () => {
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.EQUIPMENT, currentLang)}
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.EQUIPMENT)}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.equipment")}
                 </WouterLink>
@@ -274,7 +276,7 @@ const Footer = () => {
                 <WouterLink
                   href={getLocalizedPath(PAGE_KEYS.CONTACT, currentLang)}
                   onClick={() => handleLocalizedLinkClick(PAGE_KEYS.CONTACT)}
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.contact")}
                 </WouterLink>
@@ -284,7 +286,7 @@ const Footer = () => {
                   href="https://dywany-pranie.blogspot.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                  className={footerLinkClasses}
                 >
                   {t("nav.blog")}
                 </a>
@@ -292,7 +294,7 @@ const Footer = () => {
             </ul>
           </nav>
           <nav aria-label={t("footer.services", "Usługi")}>
-            <h2 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+            <h2 className="font-heading text-xl font-semibold mb-4 text-white">
               {t("footer.services")}
             </h2>
             <ul className="space-y-2">
@@ -307,7 +309,7 @@ const Footer = () => {
                       e.preventDefault();
                       handleLocalizedLinkClick(PAGE_KEYS.OFFER, link.hashKey);
                     }}
-                    className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                    className={footerLinkClasses}
                   >
                     {t(link.labelKey)}
                   </a>
@@ -316,51 +318,51 @@ const Footer = () => {
             </ul>
           </nav>
           <div>
-            <h2 className="font-heading text-xl font-semibold mb-4 text-foreground dark:text-white">
+            <h2 className="font-heading text-xl font-semibold mb-4 text-white">
               {t("footer.contact")}
             </h2>
             <address className="not-italic">
               <ul className="space-y-2">
                 <li className="flex items-center">
                   <FiPhone
-                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    className="w-5 h-5 mr-2 text-sky-400 flex-shrink-0"
                     aria-hidden="true"
                   />
                   <a
                     href="tel:+48531890827"
                     onClick={trackPhoneClick}
-                    className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                    className={footerLinkClasses}
                   >
                     +48 531 890 827
                   </a>
                 </li>
                 <li className="flex items-center">
                   <FiMail
-                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    className="w-5 h-5 mr-2 text-sky-400 flex-shrink-0"
                     aria-hidden="true"
                   />
                   <a
                     href="mailto:mariuszek1989poczta@wp.pl"
-                    className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors"
+                    className={footerLinkClasses}
                   >
                     mariuszek1989poczta@wp.pl
                   </a>
                 </li>
                 <li className="flex items-center">
                   <FiMapPin
-                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    className="w-5 h-5 mr-2 text-sky-400 flex-shrink-0"
                     aria-hidden="true"
                   />
-                  <span className="text-foreground dark:text-gray-100">
+                  <span className="text-slate-100 dark:text-gray-100">
                     {t("footer.area")}
                   </span>
                 </li>
                 <li className="flex items-center">
                   <FiClock
-                    className="w-5 h-5 mr-2 text-primary-400 flex-shrink-0"
+                    className="w-5 h-5 mr-2 text-sky-400 flex-shrink-0"
                     aria-hidden="true"
                   />
-                  <span className="text-foreground dark:text-gray-100">
+                  <span className="text-slate-100 dark:text-gray-100">
                     {t("footer.hours")}
                   </span>
                 </li>
@@ -368,8 +370,8 @@ const Footer = () => {
             </address>
           </div>
         </div>
-        <div className="border-t border-gray-600 pt-6 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-foreground dark:text-gray-200 text-center text-sm mb-4 sm:mb-0">
+        <div className="border-t border-slate-700 pt-6 flex flex-col sm:flex-row justify-between items-center">
+          <p className="text-slate-200 dark:text-gray-300 text-center text-sm mb-4 sm:mb-0">
             &copy; {yearDisplay}, SUPER PUCUŚ -{" "}
             {t("footer.companyType", "Pralnia dywanów")}{" "}
             {t("footer.rights", "Radom.")}
@@ -378,14 +380,14 @@ const Footer = () => {
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.TERMS, currentLang)}
               onClick={() => handleLocalizedLinkClick(PAGE_KEYS.TERMS)}
-              className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors text-sm"
+              className="text-slate-200 hover:text-sky-300 dark:text-gray-200 dark:hover:text-sky-300 transition-colors text-sm"
             >
               {t("footer.terms")}
             </WouterLink>
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.PRIVACY, currentLang)}
               onClick={() => handleLocalizedLinkClick(PAGE_KEYS.PRIVACY)}
-              className="text-foreground dark:text-gray-100 hover:text-gray-500 hover:dark:text-gray-300 transition-colors text-sm"
+              className="text-slate-200 hover:text-sky-300 dark:text-gray-200 dark:hover:text-sky-300 transition-colors text-sm"
             >
               {t("footer.privacy")}
             </WouterLink>

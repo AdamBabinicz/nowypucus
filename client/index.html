@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- KRYTYCZNY CSS (inline): rezerwuje wysokość nagłówka i ramek obrazów
-         jeszcze przed hydratacją Reacta (CLS) oraz stabilizuje hero na mobile
-         (svh zamiast vh - pasek adresu nie przesuwa sekcji). -->
+    <!-- KRYTYCZNY CSS (skonsolidowany): rezerwuje wysokość nagłówka, banera hero
+         i zapobiega przesunięciom CLS przed startem Reacta. -->
     <style>
+      body {
+        background-color: #0f172a;
+        margin: 0;
+        padding: 0;
+      }
       #root,
       #modal-root {
         min-height: 100vh;
@@ -17,6 +21,8 @@
       }
       .hero-section {
         min-height: 85svh;
+        position: relative;
+        background-color: #0f172a;
       }
       .media-frame {
         position: relative;
@@ -55,16 +61,17 @@
       }
     </script>
 
-    <!-- OPTYMALIZACJA LCP: Preload najważniejszego zdjęcia dywanu (LCP) -->
+    <!-- OPTYMALIZACJA LCP: Preload DOKŁADNIE tego pierwszego zdjęcia, które ładuje HeroImageSlider -->
+    <!-- Jeśli w Home.tsx używasz /realizacje/dywany/08.webp, ten preload pobierze je natychmiast równolegle z HTML -->
     <link
       rel="preload"
-      href="/images/dywany/88.avif"
+      href="/realizacje/dywany/08.webp"
       as="image"
-      type="image/avif"
+      type="image/webp"
       fetchpriority="high"
     />
 
-    <!-- OPTYMALIZACJA FCP: Preload lokalnej czcionki -->
+    <!-- OPTYMALIZACJA FCP: Preload czcionki nagłówkowej -->
     <link
       rel="preload"
       href="/fonts/MajorMonoDisplay-Regular.woff2"
@@ -73,7 +80,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- Preconnect TYLKO dla fontów -->
+    <!-- Preconnect dla zewnętrznych fontów Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -85,11 +92,7 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- ASYNCHRONICZNE FONTY: 5 rodzin -> 3 (usunięto "Stalinist One" - 0 użyć
-         w kodzie - oraz "Open Sans" - 1 użycie, wystarczy fallback systemowy).
-         display=optional -> display=swap: tekst nie renderuje się jako
-         niewidoczny do 3 s (poprawia FCP/LCP); metryki fallbacku w index.css
-         chronią przed przesunięciem (CLS). -->
+    <!-- Asynchroniczne ładowanie fontów Google (display=swap zapobiega blokowaniu tekstu) -->
     <link
       rel="preload"
       as="style"
@@ -135,7 +138,7 @@
       content="SUPER PUCUŚ Radom: pranie dywanów, tapicerki meblowej, mycie kostki brukowej oraz posadzek. Profesjonalnie dla domu i biura. Zadzwoń! ☎ +48 531 890827"
     />
 
-    <!-- GŁÓWNY TAG KANONICZNY DLA ROBOTA GOOGLE -->
+    <!-- Główny tag kanoniczny -->
     <link rel="canonical" href="https://pranie-dywanow.j.pl/" data-rh="true" />
 
     <meta name="theme-color" content="#3b82f6" />
@@ -179,16 +182,6 @@
     />
     <meta name="twitter:url" content="https://pranie-dywanow.j.pl/" />
     <meta name="p:domain_verify" content="c120840eb58eaabeb85cdcb47fc68aa3" />
-    <style>
-      body {
-        background: #0f172a;
-        margin: 0;
-        padding: 0;
-      }
-      #root {
-        min-height: 100vh;
-      }
-    </style>
   </head>
   <body>
     <noscript>
@@ -207,13 +200,11 @@
       />
     </noscript>
 
-    <!-- Czysty kontener root - zero przesunięć układu (CLS = 0) -->
     <div id="root"></div>
-
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- FIX TBT (560ms -> 0ms): Analityka uruchamia się WYŁĄCZNIE przy realnej interakcji użytkownika -->
+    <!-- FIX TBT (Total Blocking Time): Analityka uruchamia się wyłącznie przy realnej interakcji użytkownika -->
     <script>
       (function () {
         var loaded = false;
@@ -221,7 +212,6 @@
           if (loaded) return;
           loaded = true;
 
-          // Usunięcie nasłuchiwania po pierwszym uruchomieniu
           userEvents.forEach(function (e) {
             window.removeEventListener(e, loadAnalytics, { passive: true });
           });

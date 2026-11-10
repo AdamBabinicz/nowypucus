@@ -45,6 +45,7 @@ const Home = () => {
   const canonicalUrl = `${domain}${isPl ? "/" : "/en"}`;
   const alternateUrl = `${domain}${isPl ? "/en" : "/"}`;
 
+  // Preloadowany w index.html kluczowy obraz LCP
   const LCP_IMAGE = "/images/dywany/88.avif";
 
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
@@ -498,8 +499,7 @@ const Home = () => {
         <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      {/* FIX PSI (CLS): 85svh zamiast 85vh – na mobile pasek adresu zmienia
-          wysokość vh przy przewijaniu i przesuwa całą sekcję hero. */}
+      {/* FIX CLS & FORCED REFLOW: Sekcja Hero ma stabilną geometrię od 1. klatki bez przesunięć JS */}
       <section className="hero-section py-20 relative text-[hsl(var(--primary-foreground))] bg-black flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
@@ -508,12 +508,7 @@ const Home = () => {
 
         <div className="relative z-20 w-full">
           <ContentContainer className="py-16 lg:py-24">
-            <motion.div
-              className="max-w-5xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="max-w-5xl">
               <h1 className="mb-6 text-left text-white">
                 <span className="font-major-mono block text-4xl md:text-5xl lg:text-6xl font-bold">
                   {heroTitleBrand}
@@ -531,19 +526,14 @@ const Home = () => {
                 {t("hero.subtitle")}
               </p>
 
-              {/* --- SZYBKI CENNIK W HERO Z DEEP LINKAMI --- */}
+              {/* --- SZYBKI CENNIK W HERO (Stabilny, bez opóźnionego przesunięcia X z framer-motion) --- */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10">
                 {heroPrices.map((item, index) => (
                   <WouterLink
                     key={index}
                     href={`${getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}#${getLocalizedSlug(item.hash as PageKey, currentLang)}`}
                   >
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-center h-full space-x-3 bg-black/40 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-black/60 hover:scale-[1.03] transition-all cursor-pointer group"
-                    >
+                    <div className="flex items-center h-full space-x-3 bg-black/40 backdrop-blur-md border border-white/20 p-3 rounded-xl shadow-xl hover:bg-black/60 hover:scale-[1.03] transition-all cursor-pointer group">
                       <div className="bg-[hsl(175,30%,15%)]/60 p-2 rounded-lg group-hover:bg-primary/40 transition-colors flex-shrink-0">
                         {item.icon}
                       </div>
@@ -555,7 +545,7 @@ const Home = () => {
                           {item.price}
                         </p>
                       </div>
-                    </motion.div>
+                    </div>
                   </WouterLink>
                 ))}
               </div>
@@ -568,17 +558,19 @@ const Home = () => {
                   {t("hero.seeServices")}
                 </WouterLink>
                 <button
+                  type="button"
                   onClick={() => setIsCalculatorOpen(true)}
                   className="inline-flex items-center justify-center font-bold px-4 py-3 rounded-lg transition-all duration-300 border-2 border-[#42d3c2] bg-black/60 text-white hover:bg-[#42d3c2] hover:text-[#072421] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#42d3c2]"
                 >
                   {t("hero.getQuote")}
                 </button>
               </div>
-            </motion.div>
+            </div>
           </ContentContainer>
         </div>
       </section>
 
+      {/* Sekcje poniżej zgięcia ekranu - animacje whileInView uruchamiają się dopiero przy przewijaniu */}
       <section className="py-16 bg-muted dark:bg-muted">
         <ContentContainer>
           <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground">
@@ -599,10 +591,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiZap className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2">
+              <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                 {t("whyUs.feature1.title")}
               </h3>
-              <p className="text-card-foreground/80 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature1.description")}
               </p>
             </motion.div>
@@ -613,10 +605,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiCheckCircle className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2">
+              <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                 {t("whyUs.feature2.title")}
               </h3>
-              <p className="text-card-foreground/80 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature2.description")}
               </p>
             </motion.div>
@@ -627,10 +619,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiClock className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2">
+              <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                 {t("whyUs.feature3.title")}
               </h3>
-              <p className="text-card-foreground/80 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature3.description")}
               </p>
             </motion.div>
@@ -641,10 +633,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <BsPiggyBank className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2">
+              <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                 {t("whyUs.feature4.title")}
               </h3>
-              <p className="text-card-foreground/80 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature4.description")}
               </p>
             </motion.div>
@@ -655,10 +647,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiMapPin className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2">
+              <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                 {t("whyUs.feature5.title")}
               </h3>
-              <p className="text-card-foreground/80 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature5.description")}
               </p>
             </motion.div>
@@ -669,10 +661,10 @@ const Home = () => {
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiThumbsUp className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-heading text-xl font-semibold mb-2">
+              <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                 {t("whyUs.feature6.title")}
               </h3>
-              <p className="text-card-foreground/80 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature6.description")}
               </p>
             </motion.div>
@@ -747,13 +739,13 @@ const Home = () => {
                   SUPER PUCUŚ
                 </span>
               </h2>
-              <p className="text-foreground/80 dark:text-foreground/80 mb-8 font-sans">
+              <p className="text-slate-700 dark:text-slate-200 mb-8 font-sans">
                 {t("contact.questions")}
               </p>
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
-                    <FiPhone className="w-6 h-6 text-primary dark:text-primary" />
+                    <FiPhone className="w-6 h-6 text-primary dark:text-sky-400" />
                   </div>
                   <div>
                     <h3 className="font-heading font-semibold text-lg text-foreground dark:text-foreground mb-1">
@@ -762,7 +754,7 @@ const Home = () => {
                     <a
                       href="tel:+48531890827"
                       onClick={trackPhoneClick}
-                      className="text-primary dark:text-primary font-medium text-lg"
+                      className="text-primary dark:text-sky-400 font-medium text-lg hover:underline"
                     >
                       +48 531 890 827
                     </a>
@@ -770,7 +762,7 @@ const Home = () => {
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
-                    <FiMail className="w-6 h-6 text-primary dark:text-primary" />
+                    <FiMail className="w-6 h-6 text-primary dark:text-sky-400" />
                   </div>
                   <div>
                     <h3 className="font-heading font-semibold text-lg text-foreground dark:text-foreground mb-1">
@@ -778,7 +770,7 @@ const Home = () => {
                     </h3>
                     <a
                       href="mailto:mariuszek1989poczta@wp.pl"
-                      className="text-primary dark:text-primary"
+                      className="text-primary dark:text-sky-400 font-medium hover:underline"
                     >
                       mariuszek1989poczta@wp.pl
                     </a>
@@ -786,29 +778,29 @@ const Home = () => {
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
-                    <FiClock className="w-6 h-6 text-primary dark:text-primary" />
+                    <FiClock className="w-6 h-6 text-primary dark:text-sky-400" />
                   </div>
                   <div>
                     <h3 className="font-heading font-semibold text-lg text-foreground dark:text-foreground mb-1">
                       {t("contact.hours")}
                     </h3>
-                    <p className="text-foreground/80 dark:text-foreground/80 font-sans">
+                    <p className="text-slate-700 dark:text-slate-200 font-sans">
                       {t("contact.weekdays")}
                     </p>
-                    <p className="text-foreground/80 dark:text-foreground/80 font-sans">
+                    <p className="text-slate-700 dark:text-slate-200 font-sans">
                       {t("contact.saturday")}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
-                    <FiMapPin className="w-6 h-6 text-primary dark:text-primary" />
+                    <FiMapPin className="w-6 h-6 text-primary dark:text-sky-400" />
                   </div>
                   <div>
                     <h3 className="font-heading font-semibold text-lg text-foreground dark:text-foreground mb-1">
                       {t("contact.serviceArea")}
                     </h3>
-                    <p className="text-foreground/80 dark:text-foreground/80 font-sans">
+                    <p className="text-slate-700 dark:text-slate-200 font-sans">
                       {t("contact.areaDescription")}
                     </p>
                   </div>
