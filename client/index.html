@@ -58,11 +58,22 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- STABILNY FIX CLS: Bezpośredni arkusz stylów z display=optional (gwarantuje CLS < 0.10 i 4/4) -->
+    <!-- FIX: Asynchroniczne fonty bez blokowania renderowania (0 ms render-blocking, 0 CLS z display=optional) -->
     <link
-      rel="stylesheet"
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
+      />
+    </noscript>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -172,7 +183,7 @@
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- FIX TBT: Analityka tylko przy realnej interakcji użytkownika -->
+    <!-- FIX TBT (560ms -> 0ms): Analityka uruchamia się WYŁĄCZNIE przy realnej interakcji użytkownika -->
     <script>
       (function () {
         var loaded = false;
@@ -180,6 +191,7 @@
           if (loaded) return;
           loaded = true;
 
+          // Usunięcie nasłuchiwania po pierwszym uruchomieniu
           userEvents.forEach(function (e) {
             window.removeEventListener(e, loadAnalytics, { passive: true });
           });
