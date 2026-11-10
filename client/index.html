@@ -47,6 +47,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- FIX PageSpeed „Kandydaci do rezerwowania połączenia w trybie preconnect":
+         domeny 3. stron ładowanych po 4 s – nawiązanie połączenia z wyprzedzeniem -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="preconnect" href="https://www.clarity.ms" />
     <link rel="dns-prefetch" href="https://ad.doubleclick.net" />
 
     <!-- ARD / Wykrywalność dla agentów AI -->
@@ -237,5 +243,6 @@
 
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
 </html>
