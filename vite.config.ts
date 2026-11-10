@@ -12,7 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * Vite domyślnie dokleja <link rel="stylesheet"> PO tagu <script type="module">,
  * przez co krytyczny CSS bywa odkrywany późno i opóźnia FCP/LCP.
  * Ten plugin wstrzykuje na SAM POCZĄTEK <head> tag
- * <link rel="preload" as="style" fetchpriority="high"> z poprawną, hashowaną
+ * <link rel="preload" as="style" crossorigin fetchpriority="high"> z poprawną, hashowaną
  * nazwą pliku CSS z builda, dzięki czemu CSS startuje równolegle z JS,
  * a nie po nim.
  */
@@ -23,9 +23,7 @@ function preloadCriticalCss(): Plugin {
     transformIndexHtml(html, ctx) {
       const bundle = ctx.bundle;
       if (!bundle) return html;
-      const cssFile = Object.keys(bundle).find((file) =>
-        file.endsWith(".css"),
-      );
+      const cssFile = Object.keys(bundle).find((file) => file.endsWith(".css"));
       if (!cssFile) return html;
       return {
         html,
@@ -36,6 +34,7 @@ function preloadCriticalCss(): Plugin {
               rel: "preload",
               href: `/${cssFile}`,
               as: "style",
+              crossorigin: "",
               fetchpriority: "high",
             },
             injectTo: "head-prepend",
