@@ -165,7 +165,7 @@
       content="SUPER PUCUŚ Radom: pranie dywanów, tapicerki meblowej, mycie kostki brukowej oraz posadzek. Profesjonalnie dla domu i biura. Zadzwoń! ☎ +48 531 890827"
     />
 
-    <!-- GŁÓWNY TAG KANONICZNY DLA ROBOTA GOOGLE (WSPÓŁPRACUJĄCY Z REACT HELMET) -->
+    <!-- GŁÓWNY TAG KANONICZNY DLA ROBOTA GOOGLE -->
     <link rel="canonical" href="https://pranie-dywanow.j.pl/" data-rh="true" />
 
     <meta name="theme-color" content="#3b82f6" />
@@ -184,7 +184,6 @@
       property="og:image"
       content="https://pranie-dywanow.j.pl/images/dywany/88.avif"
     />
-    <!-- WYMIARY OPEN GRAPH (NAPRAWIA BŁĄD 'og:image size not declared') -->
     <meta property="og:image:width" content="1920" />
     <meta property="og:image:height" content="1080" />
     <meta property="og:image:type" content="image/avif" />
@@ -219,16 +218,9 @@
       #root {
         min-height: 100vh;
       }
-      /* Bufor na pasek menu (HEADER_OFFSET = 70px) zapobiega skokowi CLS */
-      .nav-placeholder {
-        height: 70px;
-        width: 100%;
-        background: #0f172a;
-      }
       .hero-placeholder {
         width: 100%;
-        height: calc(85vh - 70px);
-        min-height: 500px;
+        height: 85vh;
         background: #0f172a;
         position: relative;
         overflow: hidden;
@@ -259,9 +251,8 @@
       />
     </noscript>
 
-    <!-- Kontener z natychmiastowym renderowaniem zdjęcia LCP w kodzie HTML bez przesunięcia CLS -->
+    <!-- Oryginalny placeholder zdjęcia LCP -->
     <div id="root">
-      <div class="nav-placeholder"></div>
       <div class="hero-placeholder">
         <img
           src="/images/dywany/88.avif"
