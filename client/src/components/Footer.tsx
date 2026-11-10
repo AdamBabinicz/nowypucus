@@ -180,19 +180,19 @@ const Footer = () => {
     },
   ];
 
-  // Bezpieczne klasy dla linków na ciemnym tle stopki (kontrast > 7:1, spełnia WCAG AAA)
+  // Gwarantowany wysoki kontrast względem ciemnego tła #0f172a (współczynnik > 14:1)
   const footerLinkClasses =
     "text-slate-100 hover:text-sky-300 dark:text-gray-100 dark:hover:text-sky-300 transition-colors";
 
   return (
-    <footer className="bg-primary-900 dark:bg-slate-900 text-white pt-12 pb-6">
+    <footer className="bg-[#0f172a] text-white pt-12 pb-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <h2 className="font-major-mono text-xl font-semibold mb-4 text-sky-400 dark:text-sky-400">
+            <h2 className="font-major-mono text-xl font-semibold mb-4 text-sky-400">
               SUPER PUCUŚ
             </h2>
-            <p className="mb-4 text-slate-100 dark:text-gray-200">
+            <p className="mb-4 text-slate-200">
               {t("footer.companyDescription")}
             </p>
             <div className="flex flex-wrap gap-4">
@@ -213,7 +213,7 @@ const Footer = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-100 hover:text-sky-300 dark:text-gray-100 dark:hover:text-sky-300 transition-colors p-1"
+                    className="text-slate-200 hover:text-sky-300 transition-colors p-1"
                     aria-label={translatedAriaLabel}
                   >
                     <IconComponent className="w-6 h-6" aria-hidden="true" />
@@ -353,25 +353,21 @@ const Footer = () => {
                     className="w-5 h-5 mr-2 text-sky-400 flex-shrink-0"
                     aria-hidden="true"
                   />
-                  <span className="text-slate-100 dark:text-gray-100">
-                    {t("footer.area")}
-                  </span>
+                  <span className="text-slate-200">{t("footer.area")}</span>
                 </li>
                 <li className="flex items-center">
                   <FiClock
                     className="w-5 h-5 mr-2 text-sky-400 flex-shrink-0"
                     aria-hidden="true"
                   />
-                  <span className="text-slate-100 dark:text-gray-100">
-                    {t("footer.hours")}
-                  </span>
+                  <span className="text-slate-200">{t("footer.hours")}</span>
                 </li>
               </ul>
             </address>
           </div>
         </div>
         <div className="border-t border-slate-700 pt-6 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-slate-200 dark:text-gray-300 text-center text-sm mb-4 sm:mb-0">
+          <p className="text-slate-300 text-center text-sm mb-4 sm:mb-0">
             &copy; {yearDisplay}, SUPER PUCUŚ -{" "}
             {t("footer.companyType", "Pralnia dywanów")}{" "}
             {t("footer.rights", "Radom.")}
@@ -380,14 +376,14 @@ const Footer = () => {
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.TERMS, currentLang)}
               onClick={() => handleLocalizedLinkClick(PAGE_KEYS.TERMS)}
-              className="text-slate-200 hover:text-sky-300 dark:text-gray-200 dark:hover:text-sky-300 transition-colors text-sm"
+              className="text-slate-200 hover:text-sky-300 transition-colors text-sm"
             >
               {t("footer.terms")}
             </WouterLink>
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.PRIVACY, currentLang)}
               onClick={() => handleLocalizedLinkClick(PAGE_KEYS.PRIVACY)}
-              className="text-slate-200 hover:text-sky-300 dark:text-gray-200 dark:hover:text-sky-300 transition-colors text-sm"
+              className="text-slate-200 hover:text-sky-300 transition-colors text-sm"
             >
               {t("footer.privacy")}
             </WouterLink>

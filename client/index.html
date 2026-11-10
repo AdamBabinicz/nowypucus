@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- KRYTYCZNY CSS (skonsolidowany): rezerwuje wysokość nagłówka, banera hero
-         i zapobiega przesunięciom CLS przed startem Reacta. -->
     <style>
       body {
         background-color: #0f172a;
@@ -61,17 +59,15 @@
       }
     </script>
 
-    <!-- OPTYMALIZACJA LCP: Preload DOKŁADNIE tego pierwszego zdjęcia, które ładuje HeroImageSlider -->
-    <!-- Jeśli w Home.tsx używasz /realizacje/dywany/08.webp, ten preload pobierze je natychmiast równolegle z HTML -->
+    <!-- NATYCHMIASTOWY PRELOAD LCP BEZ BLOKOWANIA TYPEM -->
     <link
       rel="preload"
-      href="/realizacje/dywany/08.webp"
+      href="/images/dywany/88.avif"
       as="image"
-      type="image/webp"
       fetchpriority="high"
     />
 
-    <!-- OPTYMALIZACJA FCP: Preload czcionki nagłówkowej -->
+    <!-- Preload czcionki nagłówkowej z CORS -->
     <link
       rel="preload"
       href="/fonts/MajorMonoDisplay-Regular.woff2"
@@ -80,11 +76,9 @@
       crossorigin="anonymous"
     />
 
-    <!-- Preconnect dla zewnętrznych fontów Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- ARD / Wykrywalność dla agentów AI -->
     <link
       rel="ai-catalog"
       href="/.well-known/ai-catalog.json"
@@ -92,15 +86,12 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Asynchroniczne ładowanie fontów Google (display=swap zapobiega blokowaniu tekstu) -->
+    <!-- Google Fonts z display=swap -->
     <link
-      rel="preload"
-      as="style"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
-      onload="
-        this.onload = null;
-        this.rel = 'stylesheet';
-      "
+      media="print"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
@@ -138,9 +129,7 @@
       content="SUPER PUCUŚ Radom: pranie dywanów, tapicerki meblowej, mycie kostki brukowej oraz posadzek. Profesjonalnie dla domu i biura. Zadzwoń! ☎ +48 531 890827"
     />
 
-    <!-- Główny tag kanoniczny -->
     <link rel="canonical" href="https://pranie-dywanow.j.pl/" data-rh="true" />
-
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
     <meta
@@ -164,7 +153,6 @@
       property="og:image:alt"
       content="SUPER PUCUŚ - Profesjonalne pranie dywanów i tapicerki Radom"
     />
-
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:site_name" content="SUPER PUCUŚ" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -200,11 +188,51 @@
       />
     </noscript>
 
-    <div id="root"></div>
+    <!-- SZKIELET LCP WPROST W KODZIE POCZĄTKOWYM HTML:
+         Dzięki temu przeglądarka wyświetla obraz LCP w ułamku sekundy,
+         zanim jeszcze React rozpocznie parsowanie skryptów JS. -->
+    <div id="root">
+      <div
+        class="hero-section"
+        style="
+          min-height: 85svh;
+          position: relative;
+          background-color: #0f172a;
+          overflow: hidden;
+        "
+      >
+        <div style="position: absolute; inset: 0">
+          <img
+            src="/images/dywany/88.avif"
+            alt="SUPER PUCUŚ - Pranie dywanów"
+            width="800"
+            height="450"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              position: absolute;
+              inset: 0;
+            "
+          />
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background-color: rgba(0, 0, 0, 0.6);
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- FIX TBT (Total Blocking Time): Analityka uruchamia się wyłącznie przy realnej interakcji użytkownika -->
+    <!-- Analityka opóźniona do pierwszej interakcji -->
     <script>
       (function () {
         var loaded = false;
@@ -216,7 +244,6 @@
             window.removeEventListener(e, loadAnalytics, { passive: true });
           });
 
-          // Google Ads / GTM
           var gads = document.createElement("script");
           gads.async = true;
           gads.src =
@@ -234,7 +261,6 @@
             f.parentNode.insertBefore(j, f);
           })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
 
-          // Facebook Pixel
           !(function (f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function () {
@@ -261,7 +287,6 @@
           window.fbq("init", "1288180923455820");
           window.fbq("track", "PageView");
 
-          // Microsoft Clarity
           (function (c, l, a, r, i, t, y) {
             c[a] =
               c[a] ||
