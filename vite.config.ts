@@ -15,10 +15,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * <link rel="preload" as="style" fetchpriority="high">
  * z poprawną, hashowaną nazwą pliku CSS z builda.
  *
- * POPRAWKA: usunięto atrybut `crossorigin` z preloadu.
- * Preload z `crossorigin` wykonuje żądanie w trybie CORS, a właściwy
- * <link rel="stylesheet"> (same-origin) już nie – tryby się nie zgadzają,
- * więc przeglądarka pobierała TEN SAM plik CSS dwa razy.
+ * POPRAWKA (awaria produkcyjna „credentials mode does not match"):
+ * Vite injektuje właściwy arkusz jako
+ *   <link rel="stylesheet" crossorigin href="/assets/style-xxx.css">
+ * więc preload MUSI mieć dokładnie ten sam atrybut `crossorigin`.
+ * Wcześniej preload był bez `crossorigin` → tryby credentials się nie
+ * zgadzały → przeglądarka pobierała plik CSS dwa razy i ostrzegała.
+ * (Poprzednia „poprawka" usunęła crossorigin — dokładnie odwrotnie.)
  */
 function preloadCriticalCss(): Plugin {
   return {
@@ -39,6 +42,9 @@ function preloadCriticalCss(): Plugin {
               href: `/${cssFile}`,
               as: "style",
               fetchpriority: "high",
+              // Dopasowuje <link rel="stylesheet" crossorigin> injektowany
+              // przez Vite → jeden tryb credentials = jedno pobranie.
+              crossorigin: "",
             },
             injectTo: "head-prepend",
           },
@@ -79,21 +85,33 @@ export default defineConfig({
          * FIX „Ogranicz nieużywany JavaScript" (50,2 KiB z 147,4 KiB) oraz
          * „Unikaj dużych zadań w wątku głównym": dzielimy vendor na osobne,
          * długo cache'owane chunki zamiast jednego monolitu.
+         *
+         * FIX AWARII PRODUKCYJNEJ (biała strona, „Cannot read properties of
+         * undefined (reading 'createContext')"):
+         * react-i18next / i18next MUSZĄ być w TYM SAMYM chunku co react /
+         * react-dom. Wcześniej „i18n" był osobnym chunkiem, do którego chunk
+         * „react" importował helper interop ESM → cykl importów
+         * react ⇄ i18n → nieokreślona kolejność inicjalizacji modułów →
+         * React = undefined w momencie wywołania createContext.
+         * Reguła: nic, co importuje react (bezpośrednio lub przez łańcuch),
+         * nie może trafić do innego chunku niż react.
          */
         manualChunks(id) {
           if (!id.includes("node_modules")) return;
 
+          // CAŁY ekosystem React + i18n w JEDNYM chunku (zależą od siebie).
           if (
             id.includes("/react-dom/") ||
             id.includes("/react/") ||
-            id.includes("/scheduler/")
+            id.includes("/scheduler/") ||
+            id.includes("/use-sync-external-store/") ||
+            id.includes("i18next") || // i18next, react-i18next, i18next-*
+            id.includes("/-i18next/") ||
+            id.includes("react-i18next")
           ) {
             return "react";
           }
           if (id.includes("framer-motion")) return "motion";
-          if (id.includes("i18next") || id.includes("react-i18next")) {
-            return "i18n";
-          }
           if (id.includes("@radix-ui")) return "radix";
           if (id.includes("react-icons")) return "icons";
           if (id.includes("recharts") || id.includes("/d3-")) return "charts";
