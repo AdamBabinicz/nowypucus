@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, useMemo, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Link as WouterLink } from "wouter";
@@ -69,12 +69,16 @@ const Home = () => {
     }
   };
 
-  const heroSliderImages = [
-    LCP_IMAGE,
-    "/images/dywany/96.avif",
-    "/images/kostka/24.avif",
-    "/images/meble/64.avif",
-  ];
+  // FIX: useMemo zapobiega restartowaniu timera slidera przy każdym renderze
+  const heroSliderImages = useMemo(
+    () => [
+      LCP_IMAGE,
+      "/images/dywany/96.avif",
+      "/images/kostka/24.avif",
+      "/images/meble/64.avif",
+    ],
+    [],
+  );
 
   const containerVariants = {
     hidden: { opacity: 0 },
