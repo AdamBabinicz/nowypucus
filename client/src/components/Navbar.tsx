@@ -13,10 +13,8 @@ import {
   PageKey,
 } from "@/config/slugs";
 
-// FIX PSI („Obrazy o odpowiednich wymiarach"): logo było plikiem 356×356
-// Dedykowane warianty 96 px i 192 px z /public/images.
-const LOGO_SRCSET = "/images/logo-96.avif 96w, /images/logo-192.avif 192w";
-const logoPath = "/images/logo-96.avif";
+// Prawidłowa ścieżka do Twojego oryginalnego logo
+const logoPath = "/images/sp.avif";
 
 const HEADER_OFFSET = 70;
 
@@ -146,7 +144,6 @@ const Navbar = () => {
     }
   };
 
-  // Zwiększony kontrast: text-gray-800 i dark:text-gray-100 dla spełnienia WCAG AA
   const navLinkClasses = (pageKey: PageKey) => {
     const localizedTarget = getLocalizedPath(pageKey, currentLang);
     const isActive = currentPath.split("#")[0] === localizedTarget;
@@ -185,8 +182,6 @@ const Navbar = () => {
           >
             <img
               src={logoPath}
-              srcSet={LOGO_SRCSET}
-              sizes="32px"
               alt={t("nav.logoAlt", "SUPER PUCUŚ Logo")}
               width="32"
               height="32"
