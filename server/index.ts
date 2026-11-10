@@ -7,7 +7,7 @@ const app = express();
 // Obsługa nagłówków reverse-proxy (np. Nginx, Cloudflare) dla poprawnego wykrywania protokołu HTTPS
 app.set("trust proxy", true);
 
-// Middleware przekierowań kanonicznych (HTTPS, brak 'www' oraz poprawne ścieżki językowe)
+// Middleware przekierowań kanonicznych (brak 'www', bezpieczne ścieżki językowe)
 app.use((req: Request, res: Response, next: NextFunction) => {
   const host = req.headers.host || "";
 
@@ -16,17 +16,21 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     return next();
   }
 
-  const proto = req.headers["x-forwarded-proto"] || req.protocol;
   const isWww = host.startsWith("www.");
-  const isHttp = proto === "http";
+  const isExplicitHttp = req.headers["x-forwarded-proto"] === "http";
 
-  // 1. Jeśli wejście nastąpiło przez 'www' lub nieszyfrowany protokół 'http'
-  if (isWww || isHttp) {
+  // 1. Przekierowanie z 'www' na domenę główną (kod 301)
+  if (isWww) {
     const cleanHost = host.replace(/^www\./i, "");
     return res.redirect(301, `https://${cleanHost}${req.originalUrl}`);
   }
 
-  // 2. Przekierowanie starych/uciętych ścieżek angielskich (zabezpiecza raport w Google Search Console)
+  // 2. Wymuszenie HTTPS tylko wtedy, gdy proxy jawnie zgłasza wejście przez http://
+  if (isExplicitHttp) {
+    return res.redirect(301, `https://${host}${req.originalUrl}`);
+  }
+
+  // 3. Przekierowanie starych/uciętych ścieżek angielskich (zabezpiecza raport w Google Search Console)
   const normalizedPath = req.path.replace(/\/+$/, ""); // usuwa ewentualny slash z końca
   if (normalizedPath === "/services") {
     return res.redirect(301, "https://pranie-dywanow.j.pl/en/services");

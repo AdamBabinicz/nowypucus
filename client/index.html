@@ -130,7 +130,7 @@
           t.async = 1;
           t.src = "https://www.clarity.ms/tag/" + i;
           y = l.getElementsByTagName(r)[0];
-          y.parentNode.insertBefore(t, y);
+          y.parentNode.insertBefore(t, s);
         })(window, document, "clarity", "script", "vus2nkz2ev");
       }, 3500);
     </script>
@@ -184,6 +184,15 @@
       property="og:image"
       content="https://pranie-dywanow.j.pl/images/dywany/88.avif"
     />
+    <!-- WYMIARY OPEN GRAPH (NAPRAWIA BŁĄD 'og:image size not declared') -->
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:type" content="image/avif" />
+    <meta
+      property="og:image:alt"
+      content="SUPER PUCUŚ - Profesjonalne pranie dywanów i tapicerki Radom"
+    />
+
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:site_name" content="SUPER PUCUŚ" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -210,9 +219,16 @@
       #root {
         min-height: 100vh;
       }
+      /* Bufor na pasek menu (HEADER_OFFSET = 70px) zapobiega skokowi CLS */
+      .nav-placeholder {
+        height: 70px;
+        width: 100%;
+        background: #0f172a;
+      }
       .hero-placeholder {
         width: 100%;
-        height: 85vh;
+        height: calc(85vh - 70px);
+        min-height: 500px;
         background: #0f172a;
         position: relative;
         overflow: hidden;
@@ -243,8 +259,9 @@
       />
     </noscript>
 
-    <!-- Kontener z natychmiastowym renderowaniem zdjęcia LCP w kodzie HTML -->
+    <!-- Kontener z natychmiastowym renderowaniem zdjęcia LCP w kodzie HTML bez przesunięcia CLS -->
     <div id="root">
+      <div class="nav-placeholder"></div>
       <div class="hero-placeholder">
         <img
           src="/images/dywany/88.avif"
