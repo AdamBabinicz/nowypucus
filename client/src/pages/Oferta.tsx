@@ -4,7 +4,12 @@ import { motion } from "framer-motion";
 import ServiceCard from "@/components/ServiceCard";
 import CallToAction from "@/components/CallToAction";
 import ContentContainer from "@/components/ContentContainer";
-import { getLocalizedSlug, PAGE_KEYS, PageKey } from "@/config/slugs";
+import {
+  getLocalizedSlug,
+  getLocalizedPath,
+  PAGE_KEYS,
+  PageKey,
+} from "@/config/slugs";
 
 const Oferta = () => {
   const { t, i18n } = useTranslation();
@@ -12,8 +17,11 @@ const Oferta = () => {
 
   const domain = "https://pranie-dywanow.j.pl";
   const isPl = currentLang === "pl";
-  const canonicalUrl = `${domain}${isPl ? "/oferta" : "/services"}`;
-  const alternateUrl = `${domain}${isPl ? "/services" : "/oferta"}`;
+
+  // Dynamiczne, w 100% poprawne adresy URL z przedrostkiem językowym
+  const plUrl = `${domain}${getLocalizedPath(PAGE_KEYS.OFFER, "pl")}`;
+  const enUrl = `${domain}${getLocalizedPath(PAGE_KEYS.OFFER, "en")}`;
+  const canonicalUrl = isPl ? plUrl : enUrl;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -537,18 +545,15 @@ const Oferta = () => {
           content={t("meta.servicesDescription")}
         />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalUrl} />
+
+        {/* PRAWIDŁOWY TAG KANONICZNY DLA AKTUALNEGO JĘZYKA */}
         <link rel="canonical" href={canonicalUrl} />
-        <link
-          rel="alternate"
-          hrefLang={isPl ? "en" : "pl"}
-          href={alternateUrl}
-        />
-        <link
-          rel="alternate"
-          hrefLang={isPl ? "pl" : "en"}
-          href={canonicalUrl}
-        />
-        <link rel="alternate" hrefLang="x-default" href={`${domain}/oferta`} />
+
+        {/* PRAWIDŁOWE TAGI MIĘDZYNARODOWE HREFLANG */}
+        <link rel="alternate" hrefLang="pl" href={plUrl} />
+        <link rel="alternate" hrefLang="en" href={enUrl} />
+        <link rel="alternate" hrefLang="x-default" href={plUrl} />
       </Helmet>
 
       <section

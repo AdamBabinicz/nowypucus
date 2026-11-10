@@ -3,6 +3,41 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+// Obsługa nagłówków reverse-proxy (np. Nginx, Cloudflare) dla poprawnego wykrywania protokołu HTTPS
+app.set("trust proxy", true);
+
+// Middleware przekierowań kanonicznych (HTTPS, brak 'www' oraz poprawne ścieżki językowe)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const host = req.headers.host || "";
+
+  // Nie przekierowuj podczas pracy lokalnej na maszynie deweloperskiej
+  if (host.includes("localhost") || host.includes("127.0.0.1")) {
+    return next();
+  }
+
+  const proto = req.headers["x-forwarded-proto"] || req.protocol;
+  const isWww = host.startsWith("www.");
+  const isHttp = proto === "http";
+
+  // 1. Jeśli wejście nastąpiło przez 'www' lub nieszyfrowany protokół 'http'
+  if (isWww || isHttp) {
+    const cleanHost = host.replace(/^www\./i, "");
+    return res.redirect(301, `https://${cleanHost}${req.originalUrl}`);
+  }
+
+  // 2. Przekierowanie starych/uciętych ścieżek angielskich (zabezpiecza raport w Google Search Console)
+  const normalizedPath = req.path.replace(/\/+$/, ""); // usuwa ewentualny slash z końca
+  if (normalizedPath === "/services") {
+    return res.redirect(301, "https://pranie-dywanow.j.pl/en/services");
+  }
+  if (normalizedPath === "/equipment") {
+    return res.redirect(301, "https://pranie-dywanow.j.pl/en/equipment");
+  }
+
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

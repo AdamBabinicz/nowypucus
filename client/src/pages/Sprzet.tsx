@@ -3,15 +3,19 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import CallToAction from "@/components/CallToAction";
 import ContentContainer from "@/components/ContentContainer";
+import { getLocalizedPath, PAGE_KEYS } from "@/config/slugs";
 
 const Sprzet = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language.split("-")[0];
 
   const domain = "https://pranie-dywanow.j.pl";
-  const pathPl = "/sprzet";
-  const pathEn = "/equipment";
-  const canonicalUrl = `${domain}${currentLang === "pl" ? pathPl : pathEn}`;
+  const isPl = currentLang === "pl";
+
+  // Dynamiczne, w 100% poprawne adresy URL z przedrostkiem językowym /en/
+  const plUrl = `${domain}${getLocalizedPath(PAGE_KEYS.EQUIPMENT, "pl")}`; // https://pranie-dywanow.j.pl/sprzet
+  const enUrl = `${domain}${getLocalizedPath(PAGE_KEYS.EQUIPMENT, "en")}`; // https://pranie-dywanow.j.pl/en/equipment
+  const canonicalUrl = isPl ? plUrl : enUrl;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -240,14 +244,16 @@ const Sprzet = () => {
           property="og:description"
           content={t("meta.equipmentDescription")}
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalUrl} />
+
+        {/* PRAWIDŁOWY TAG KANONICZNY DLA AKTUALNEGO JĘZYKA */}
         <link rel="canonical" href={canonicalUrl} />
-        <link rel="alternate" hrefLang="pl" href={`${domain}${pathPl}`} />
-        <link rel="alternate" hrefLang="en" href={`${domain}${pathEn}`} />
-        <link
-          rel="alternate"
-          hrefLang="x-default"
-          href={`${domain}${pathPl}`}
-        />
+
+        {/* PRAWIDŁOWE TAGI MIĘDZYNARODOWE HREFLANG */}
+        <link rel="alternate" hrefLang="pl" href={plUrl} />
+        <link rel="alternate" hrefLang="en" href={enUrl} />
+        <link rel="alternate" hrefLang="x-default" href={plUrl} />
       </Helmet>
 
       <section className="bg-gradient-to-r from-primary-700 to-primary-800 pt-32 pb-12 md:pt-40 md:pb-20">
