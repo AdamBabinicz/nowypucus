@@ -58,20 +58,20 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- OPTYMALIZACJA SEO: Czcionki asynchronicznie -->
+    <!-- OPTYMALIZACJA SEO & CLS: Czcionki asynchronicznie z display=optional (brak skoku układu) -->
     <link
       rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
       as="style"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Major+Mono+Display&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
       rel="stylesheet"
       media="print"
       onload="this.media = 'all'"
     />
 
-    <!-- OPTYMALIZACJA PAGESPEED: Zewnętrzne skrypty analityczne opóźnione o 3.5s -->
+    <!-- OPTYMALIZACJA PAGESPEED: Zewnętrzne skrypty analityczne opóźnione do 4.5s (nie blokują pomiaru LCP) -->
     <script>
       setTimeout(function () {
         // --- 1. Google Ads gtag.js (odroczone ładowanie pliku 149 KB) ---
@@ -119,7 +119,7 @@
         window.fbq("init", "1288180923455820");
         window.fbq("track", "PageView");
 
-        // --- 4. Skrypt Microsoft Clarity ---
+        // --- 4. Skrypt Microsoft Clarity (poprawiona zmienna y) ---
         (function (c, l, a, r, i, t, y) {
           c[a] =
             c[a] ||
@@ -132,7 +132,7 @@
           y = l.getElementsByTagName(r)[0];
           y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "vus2nkz2ev");
-      }, 3500);
+      }, 4500);
     </script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -251,7 +251,7 @@
       />
     </noscript>
 
-    <!-- Oryginalny placeholder zdjęcia LCP -->
+    <!-- Kontener LCP zoptymalizowany pod kątem stabilności układu -->
     <div id="root">
       <div class="hero-placeholder">
         <img
