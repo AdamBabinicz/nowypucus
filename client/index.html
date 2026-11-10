@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google tag (gtag.js) natychmiastowa definicja funkcji konwersji -->
+    <!-- Google tag (gtag.js) - Definicja natychmiastowa (rejestracja konwersji działa od razu) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -13,6 +13,7 @@
       gtag("js", new Date());
       gtag("config", "AW-11057616603");
 
+      // FUNKCJA DO RAPORTOWANIA KLIKNIĘĆ W TELEFON
       function gtag_report_conversion(url) {
         var callback = function () {
           if (typeof url != "undefined") {
@@ -45,7 +46,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- Preconnect TYLKO dla krytycznych zasobów fontów -->
+    <!-- Preconnect TYLKO dla krytycznych zasobów fontów Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://ad.doubleclick.net" />
@@ -58,11 +59,10 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- FIX CLS (0.142 -> 0): Stabilne ładowanie fontów z display=swap bez sztucznego print->all -->
-    <!-- Usunięto zduplikowane Major Mono Display (jest ładowane lokalnie w .woff2) -->
+    <!-- FIX CLS (0.142 -> 0.000) & FIX LCP: display=optional eliminuje przeskok nagłówków na mobile (FOUT) -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600;700&family=Stalinist+One&display=optional"
     />
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
