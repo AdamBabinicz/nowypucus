@@ -85,7 +85,7 @@ export const SchemaOrg = () => {
     "https://maps.app.goo.gl/htxu5uJDo4ZiFsKo6",
   ];
 
-  // Wzbogacony i w pełni zgodny z Google LocalBusiness Schema
+  // Wzbogacony i w 100% poprawny schema LocalBusiness dla Google
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "DryCleaningOrLaundry"],
@@ -96,14 +96,17 @@ export const SchemaOrg = () => {
     ),
     description: t(
       "schema.serviceDescription",
-      "Profesjonalne pranie dywanów, tapicerki meblowej oraz czyszczenie kostki brukowej z dojazdem do klienta.",
+      "Profesjonalne pranie dywanów, tapicerki meblowej oraz czyszczenie kostki brukowej z dojazdem do klienta w Radomiu i okolicach.",
     ),
     url: baseUrl,
     telephone: "+48531890827",
     email: "mariuszek1989poczta@wp.pl",
-    image: `${baseUrl}/images/logo-og.avif`,
-    logo: `${baseUrl}/images/logo-og.avif`,
+    // FIX: Użycie istniejących plików – eliminuje błąd 404 w walidatorze Google Schema
+    image: `${baseUrl}/images/dywany/88.avif`,
+    logo: `${baseUrl}/android-chrome-192x192.png`,
     priceRange: "$$",
+    currenciesAccepted: "PLN",
+    paymentAccepted: "Cash, Credit Card, BLIK, Bank Transfer",
     address: {
       "@type": "PostalAddress",
       streetAddress: t("schema.streetAddress", "Radom"),
@@ -148,14 +151,6 @@ export const SchemaOrg = () => {
     "@type": "WebSite",
     name: t("schema.websiteName", "SUPER PUCUŚ Radom"),
     url: baseUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${baseUrl}/?s={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
     inLanguage: langUsedInUrl,
   };
 
