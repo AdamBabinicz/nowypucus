@@ -10,7 +10,7 @@ interface HeroImageSliderProps {
  * Zoptymalizowany HeroImageSlider (LCP & CLS):
  * 1. aspect-[16/9] sm:aspect-auto zapobiega skokowi wysokości (CLS) przed zamontowaniem obrazu.
  * 2. Pierwszy slajd renderowany bez animacji wejściowej (opacity-100 natychmiast) -> natychmiastowy LCP.
- * 3. fetchPriority="high" w standardzie React 19 dla priorytetowego pobrania pierwszego slajdu.
+ * 3. Bezpieczne fetchpriority dla React 18 bez ostrzeżeń w konsoli.
  * 4. Pozostałe slajdy odroczone (lazy) o 4,5s, aby zwolnić łącze i CPU dla LCP oraz FCP.
  */
 const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
@@ -133,7 +133,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
             height={450}
             decoding="async"
             loading={isFirst ? "eager" : "lazy"}
-            fetchPriority={isFirst ? "high" : "low"}
+            {...{ fetchpriority: isFirst ? "high" : "low" }}
             className={`w-full h-full object-cover absolute inset-0 ${visibilityClass}`}
           />
         );

@@ -14,7 +14,6 @@ import {
 } from "@/config/slugs";
 
 // FIX PSI („Obrazy o odpowiednich wymiarach"): logo było plikiem 356×356
-// (20,2 KiB, na produkcji 40,4 KiB) wyświetlanym jako 28–32 px.
 // Dedykowane warianty 96 px i 192 px z /public/images.
 const LOGO_SRCSET = "/images/logo-96.avif 96w, /images/logo-192.avif 192w";
 const logoPath = "/images/logo-96.avif";
@@ -194,7 +193,7 @@ const Navbar = () => {
               className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
               loading="eager"
               decoding="async"
-              fetchPriority="high"
+              {...{ fetchpriority: "high" }}
             />
             <span className="ml-2 text-lg font-major-mono font-semibold text-primary dark:text-sky-400">
               SUPER PUCUŚ
