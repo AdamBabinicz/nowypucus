@@ -498,7 +498,9 @@ const Home = () => {
         <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      <section className="py-20 relative text-[hsl(var(--primary-foreground))] bg-black min-h-[calc(85vh)] flex items-center">
+      {/* FIX PSI (CLS): 85svh zamiast 85vh – na mobile pasek adresu zmienia
+          wysokość vh przy przewijaniu i przesuwa całą sekcję hero. */}
+      <section className="hero-section py-20 relative text-[hsl(var(--primary-foreground))] bg-black flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
           <div className="absolute inset-0 z-10 bg-black/60"></div>

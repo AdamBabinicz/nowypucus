@@ -12,7 +12,11 @@ import {
   PAGE_KEYS,
   PageKey,
 } from "@/config/slugs";
-import logoPath from "@assets/sp.avif";
+// FIX PSI („Obrazy o odpowiednich wymiarach"): logo było plikiem 356×356
+// (20,2 KiB, na produkcji 40,4 KiB) wyświetlanym jako 28–32 px.
+// Teraz: dedykowane warianty 96 px i 192 px z /public/images.
+const LOGO_SRCSET = "/images/logo-96.avif 96w, /images/logo-192.avif 192w";
+const logoPath = "/images/logo-96.avif";
 
 const HEADER_OFFSET = 70;
 
@@ -180,12 +184,15 @@ const Navbar = () => {
           >
             <img
               src={logoPath}
+              srcSet={LOGO_SRCSET}
+              sizes="32px"
               alt={t("nav.logoAlt", "SUPER PUCUŚ Logo")}
               width="32"
               height="32"
               className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
               loading="eager"
               decoding="async"
+              {...{ fetchpriority: "high" }}
             />
             <span className="ml-2 text-lg font-major-mono font-semibold text-primary dark:text-sky-400">
               SUPER PUCUŚ

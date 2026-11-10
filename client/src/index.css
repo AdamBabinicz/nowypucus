@@ -4,6 +4,34 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  /* Rezerwacja metryk = brak przesunięcia tekstu przy podmianie fontu (CLS) */
+  size-adjust: 105%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* ------------------------------------------------------------------
+   FIX PSI (CLS 0,49): rezerwacja miejsca dla multimediów.
+   Każda ramka obrazu ma z góry znaną wysokość, więc wczytanie zdjęcia
+   NIE przesuwa treści pod nią.
+   ------------------------------------------------------------------ */
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  background-color: #0f172a;
+}
+
+.media-frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-section {
+  min-height: 85svh;
 }
 
 @tailwind base;
@@ -135,7 +163,9 @@
     background-color: hsl(var(--background));
     background-image: var(--background-image);
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* FIX PSI mobile: `fixed` wymusza przemalowanie całego tła przy każdym
+       przewinięciu (drogo na GPU telefonu). `scroll` = brak kosztu. */
+    background-attachment: scroll;
     overflow-x: hidden;
   }
 
