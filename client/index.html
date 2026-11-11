@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 1. Błyskawiczny preconnect do serwerów czcionek na samym szczycie head -->
+    <!-- 1. Błyskawiczny preconnect do serwerów czcionek -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="preconnect"
@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- 2. Preload kluczowego obrazu LCP z najwyższym priorytetem -->
+    <!-- 2. Preload kluczowego obrazu LCP z najwyższym priorytetem sieciowym -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -21,20 +21,15 @@
       fetchpriority="high"
     />
 
-    <!-- 3. Preload czcionki nagłówkowej z CORS -->
-    <link
-      rel="preload"
-      href="/fonts/MajorMonoDisplay-Regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-
+    <!-- 3. Krytyczny CSS zapobiegający białym rozbłyskom i skokom układu -->
     <style>
       body {
         background-color: #0f172a;
         margin: 0;
         padding: 0;
+        color: #f8fafc;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
       #root {
         min-height: 100vh;
@@ -50,35 +45,9 @@
         margin: 0 !important;
         padding: 0 !important;
       }
-      main {
-        padding-top: 70px;
-      }
-      /* Stabilna wysokość Hero na mobile */
-      .hero-section {
-        min-height: 780px;
-        position: relative;
-        background-color: #0f172a;
-      }
-      @media (min-width: 640px) {
-        .hero-section {
-          min-height: 85svh;
-        }
-      }
-      .media-frame {
-        position: relative;
-        overflow: hidden;
-        background-color: #0f172a;
-      }
-      .media-frame > img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
     </style>
 
-    <!-- Google tag (gtag.js) - lekki kod pomocniczy konwersji -->
+    <!-- Google tag (gtag.js) - lekki kod pomocniczy konwersji Google Ads -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -107,7 +76,7 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts asynchronicznie z display=optional (gwarancja natychmiastowego FCP 1.6s bez przesunięć fontów) -->
+    <!-- Google Fonts asynchronicznie z display=optional (brak blokowania FCP i przesunięć tekstu) -->
     <link
       rel="preload"
       as="style"
@@ -124,6 +93,7 @@
       />
     </noscript>
 
+    <!-- Ikony i manifest PWA -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -144,6 +114,7 @@
     />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- SEO & Metadata -->
     <title>
       SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej, mycie kostki brukowej
       Radom
@@ -155,6 +126,8 @@
     <link rel="canonical" href="https://pranie-dywanow.j.pl/" data-rh="true" />
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
+
+    <!-- Open Graph -->
     <meta
       property="og:title"
       content="SUPER PUCUŚ - Pranie dywanów, tapicerki meblowej, mycie kostki brukowej Radom"
@@ -178,6 +151,8 @@
     />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:site_name" content="SUPER PUCUŚ" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -195,84 +170,35 @@
     <meta name="p:domain_verify" content="c120840eb58eaabeb85cdcb47fc68aa3" />
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
     <noscript>
       <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-KSSZ23X6"
         height="0"
         width="0"
+        style="display: none; visibility: hidden"
       ></iframe>
     </noscript>
+
+    <!-- Facebook Pixel (noscript) -->
     <noscript>
       <img
         height="1"
         width="1"
+        style="display: none"
         src="https://www.facebook.com/tr?id=1288180923455820&ev=PageView&noscript=1"
         alt="facebook"
       />
     </noscript>
 
-    <!--
-      Pre-rendering krytyczny dopasowany w 100% do geometrii Reacta:
-      1. Fixed header 70px (#0f172a - bez białego rozbłysku)
-      2. Main z padding-top: 70px
-      3. Sekcja Hero z obrazem LCP i synchronicznym dekodowaniem
-      Gwarantuje: natychmiastowe FCP (1.6s) i brak skoku layoutu!
-    -->
-    <div id="root">
-      <header
-        style="
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 70px;
-          z-index: 50;
-          background-color: #0f172a;
-        "
-      ></header>
-      <main style="padding-top: 70px">
-        <section
-          class="hero-section"
-          style="
-            position: relative;
-            overflow: hidden;
-            background-color: #0f172a;
-          "
-        >
-          <div style="position: absolute; inset: 0; z-index: 0">
-            <img
-              src="/images/dywany/88.avif"
-              alt="SUPER PUCUŚ - Pranie dywanów"
-              width="800"
-              height="450"
-              fetchpriority="high"
-              loading="eager"
-              decoding="sync"
-              style="
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                position: absolute;
-                inset: 0;
-              "
-            />
-            <div
-              style="
-                position: absolute;
-                inset: 0;
-                background-color: rgba(0, 0, 0, 0.6);
-                z-index: 10;
-              "
-            ></div>
-          </div>
-        </section>
-      </main>
-    </div>
-
+    <!-- Czysty punkt montowania Reacta: brak podwójnego renderu i zero przesunięć układu (CLS: 0) -->
+    <div id="root"></div>
     <div id="modal-root"></div>
+
+    <!-- Skrypt aplikacji SPA -->
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Analityka opóźniona do pierwszej realnej interakcji użytkownika -->
+    <!-- Analityka ładowana asynchronicznie po pierwszej realnej interakcji użytkownika -->
     <script>
       (function () {
         var loaded = false;
