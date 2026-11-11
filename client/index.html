@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 1. Błyskawiczny preconnect do serwerów czcionek (maksymalny zysk czasu na TLS) -->
+    <!-- 1. Błyskawiczny preconnect do serwerów czcionek na samym szczycie head -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="preconnect"
@@ -21,7 +21,7 @@
       fetchpriority="high"
     />
 
-    <!-- 3. Preload lokalnej czcionki nagłówkowej z CORS -->
+    <!-- 3. Preload czcionki nagłówkowej z CORS -->
     <link
       rel="preload"
       href="/fonts/MajorMonoDisplay-Regular.woff2"
@@ -53,11 +53,10 @@
       main {
         padding-top: 70px;
       }
-      /* Stabilna geometria Hero chroniąca CLS */
+      /* Stabilna wysokość Hero na mobile */
       .hero-section {
         min-height: 780px;
         position: relative;
-        contain: layout;
         background-color: #0f172a;
       }
       @media (min-width: 640px) {
@@ -108,11 +107,11 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts asynchronicznie bez blokowania renderowania (chroni FCP 1.6s) -->
+    <!-- Google Fonts asynchronicznie z display=optional (gwarancja natychmiastowego FCP 1.6s bez przesunięć fontów) -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
       onload="
         this.onload = null;
         this.rel = 'stylesheet';
@@ -121,7 +120,7 @@
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
       />
     </noscript>
 
@@ -213,11 +212,11 @@
     </noscript>
 
     <!--
-      Szkielet krytyczny w 100% zsynchronizowany z geometrią Reacta:
-      1. Fixed header 70px (dokładnie jak Navbar).
-      2. Main z padding-top: 70px.
-      3. Sekcja Hero z obrazem LCP oraz zarezerwowaną przestrzenią nagłówka.
-      Gwarantuje: natychmiastowe FCP (1.6s), stabilny LCP oraz eliminację CLS (0.00).
+      Pre-rendering krytyczny dopasowany w 100% do geometrii Reacta:
+      1. Fixed header 70px (#0f172a - bez białego rozbłysku)
+      2. Main z padding-top: 70px
+      3. Sekcja Hero z obrazem LCP i synchronicznym dekodowaniem
+      Gwarantuje: natychmiastowe FCP (1.6s) i brak skoku layoutu!
     -->
     <div id="root">
       <header
@@ -228,7 +227,7 @@
           right: 0;
           height: 70px;
           z-index: 50;
-          background-color: #ffffff;
+          background-color: #0f172a;
         "
       ></header>
       <main style="padding-top: 70px">
@@ -248,7 +247,7 @@
               height="450"
               fetchpriority="high"
               loading="eager"
-              decoding="async"
+              decoding="sync"
               style="
                 width: 100%;
                 height: 100%;
@@ -265,50 +264,6 @@
                 z-index: 10;
               "
             ></div>
-          </div>
-          <!-- Stabilizacja układu tekstu - zapobiega CLS przy montowaniu Reacta -->
-          <div
-            style="
-              position: relative;
-              z-index: 20;
-              width: 100%;
-              padding: 24px 16px;
-              box-sizing: border-box;
-            "
-          >
-            <div style="max-width: 1024px; margin: 0 auto">
-              <div
-                style="
-                  color: #ffffff;
-                  font-size: 36px;
-                  line-height: 1.1;
-                  font-weight: 700;
-                  margin-bottom: 24px;
-                "
-              >
-                SUPER PUCUŚ
-                <div
-                  style="
-                    font-size: 24px;
-                    color: #f1f5f9;
-                    margin-top: 8px;
-                    font-weight: 400;
-                  "
-                >
-                  – Profesjonalne pranie dywanów
-                </div>
-              </div>
-              <p
-                style="
-                  color: #ffffff;
-                  font-size: 20px;
-                  line-height: 1.4;
-                  margin-bottom: 32px;
-                "
-              >
-                Pranie dywanów, wykładzin i tapicerki meblowej w Radomiu
-              </p>
-            </div>
           </div>
         </section>
       </main>

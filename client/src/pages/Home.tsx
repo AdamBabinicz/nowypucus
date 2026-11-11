@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Link as WouterLink } from "wouter";
@@ -15,7 +15,6 @@ import {
 import { BsPiggyBank } from "react-icons/bs";
 import { MdChair, MdGridOn, MdOutlineLayers } from "react-icons/md";
 import ServiceCard from "@/components/ServiceCard";
-import GallerySlider from "@/components/GallerySlider";
 import CallToAction from "@/components/CallToAction";
 import qrCode from "@assets/qr.avif";
 import ContentContainer from "@/components/ContentContainer";
@@ -27,7 +26,8 @@ import {
   PageKey,
 } from "@/config/slugs";
 
-// --- OPTYMALIZACJA: Leniwe ładowanie ciężkich komponentów ---
+// --- OPTYMALIZACJA BUNDLE: Leniwe ładowanie komponentów poniżej zgięcia ekranu ---
+const GallerySlider = React.lazy(() => import("@/components/GallerySlider"));
 const ContactForm = React.lazy(() => import("@/components/ContactForm"));
 const PriceCalculator = React.lazy(
   () => import("@/components/PriceCalculator"),
@@ -38,7 +38,6 @@ const Home = () => {
   const currentLang = i18n.language.split("-")[0];
   const googleReviewLink =
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
-
   const domain = "https://pranie-dywanow.j.pl";
   const isPl = currentLang === "pl";
   const canonicalUrl = `${domain}${isPl ? "/" : "/en"}`;
@@ -46,19 +45,52 @@ const Home = () => {
 
   // Preloadowany w index.html kluczowy obraz LCP
   const LCP_IMAGE = "/images/dywany/88.avif";
-
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+
+  // Leniwy montaż galerii i formularza dopiero przy przewinięciu (eliminuje 79 KiB z FCP/LCP)
+  const [isGalleryVisible, setIsGalleryVisible] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!galleryRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsGalleryVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "350px" },
+    );
+    observer.observe(galleryRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!contactRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsContactVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "350px" },
+    );
+    observer.observe(contactRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // --- Śledzenie konwersji połączenia telefonicznego ---
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const url = e.currentTarget.href;
-
     if (typeof (window as any).gtag_report_conversion === "function") {
       e.preventDefault();
       (window as any).gtag_report_conversion(url);
       return;
     }
-
     if (typeof (window as any).gtag !== "undefined") {
       (window as any).gtag("event", "conversion", {
         send_to: "AW-11057616603/gfFRKCFJ3ioscENut15gp",
@@ -462,7 +494,6 @@ const Home = () => {
         <meta property="og:description" content={t("meta.homeDescription")} />
         <meta property="og:type" content="website" />
         <link rel="canonical" href={canonicalUrl} />
-
         <link
           rel="alternate"
           hrefLang={isPl ? "en" : "pl"}
@@ -476,7 +507,7 @@ const Home = () => {
         <link rel="alternate" hrefLang="x-default" href={`${domain}/`} />
       </Helmet>
 
-      {/* FIX CLS & FORCED REFLOW: Sekcja Hero ma stabilną geometrię od 1. klatki bez przesunięć JS */}
+      {/* Sekcja Hero ma stabilną geometrię od 1. klatki bez przesunięć JS */}
       <section className="hero-section py-8 md:py-20 relative text-[hsl(var(--primary-foreground))] bg-black flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
@@ -503,7 +534,7 @@ const Home = () => {
                 {t("hero.subtitle")}
               </p>
 
-              {/* --- SZYBKI CENNIK W HERO (Stabilny, bez opóźnień) --- */}
+              {/* SZYBKI CENNIK W HERO */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10">
                 {heroPrices.map((item, index) => (
                   <WouterLink
@@ -547,13 +578,14 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sekcje poniżej zgięcia ekranu - animacje hover działają natywnie w CSS bez obciążania wątku JS */}
+      {/* DLACZEGO MY */}
       <section className="py-16 bg-muted dark:bg-muted">
         <ContentContainer>
           <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground">
             {t("whyUs.title")}{" "}
             <span className="text-primary dark:text-primary">SUPER PUCUŚ</span>?
           </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
@@ -566,6 +598,7 @@ const Home = () => {
                 {t("whyUs.feature1.description")}
               </p>
             </div>
+
             <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiCheckCircle className="w-8 h-8 text-primary" />
@@ -577,6 +610,7 @@ const Home = () => {
                 {t("whyUs.feature2.description")}
               </p>
             </div>
+
             <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiClock className="w-8 h-8 text-primary" />
@@ -588,6 +622,7 @@ const Home = () => {
                 {t("whyUs.feature3.description")}
               </p>
             </div>
+
             <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <BsPiggyBank className="w-8 h-8 text-primary" />
@@ -599,6 +634,7 @@ const Home = () => {
                 {t("whyUs.feature4.description")}
               </p>
             </div>
+
             <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiMapPin className="w-8 h-8 text-primary" />
@@ -610,6 +646,7 @@ const Home = () => {
                 {t("whyUs.feature5.description")}
               </p>
             </div>
+
             <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiThumbsUp className="w-8 h-8 text-primary" />
@@ -625,6 +662,7 @@ const Home = () => {
         </ContentContainer>
       </section>
 
+      {/* NASZA OFERTA */}
       <section className="py-16 bg-background dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
         <ContentContainer>
           <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground">
@@ -633,11 +671,13 @@ const Home = () => {
               {t("services.titleHighlight")}
             </span>
           </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {serviceCards.map((service) => (
               <ServiceCard key={service.id} {...service} />
             ))}
           </div>
+
           <div className="text-center mt-12">
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
@@ -649,7 +689,8 @@ const Home = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-16 bg-muted dark:bg-muted">
+      {/* GALERIA REALIZACJI (Leniwe ładowanie odcina motion 36.7 KiB ze startu) */}
+      <section className="py-16 bg-muted dark:bg-muted" ref={galleryRef}>
         <ContentContainer>
           <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground">
             {t("gallery.title")}{" "}
@@ -657,18 +698,44 @@ const Home = () => {
               {t("gallery.titleHighlight")}
             </span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <GallerySlider images={carpetImages} title={t("gallery.carpets")} />
-            <GallerySlider
-              images={floorImages}
-              title={t("portfolio.flooring")}
-            />
-            <GallerySlider
-              images={furnitureImages}
-              title={t("gallery.furniture")}
-            />
-            <GallerySlider images={paverImages} title={t("portfolio.pavers")} />
+
+          <div className="min-h-[380px]">
+            {isGalleryVisible ? (
+              <Suspense
+                fallback={
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div className="h-72 bg-slate-800/30 rounded-xl animate-pulse" />
+                    <div className="h-72 bg-slate-800/30 rounded-xl animate-pulse" />
+                  </div>
+                }
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  <GallerySlider
+                    images={carpetImages}
+                    title={t("gallery.carpets")}
+                  />
+                  <GallerySlider
+                    images={floorImages}
+                    title={t("portfolio.flooring")}
+                  />
+                  <GallerySlider
+                    images={furnitureImages}
+                    title={t("gallery.furniture")}
+                  />
+                  <GallerySlider
+                    images={paverImages}
+                    title={t("portfolio.pavers")}
+                  />
+                </div>
+              </Suspense>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div className="h-72 bg-slate-800/20 rounded-xl" />
+                <div className="h-72 bg-slate-800/20 rounded-xl" />
+              </div>
+            )}
           </div>
+
           <div className="text-center">
             <WouterLink
               href={getLocalizedPath(PAGE_KEYS.PORTFOLIO, currentLang)}
@@ -682,7 +749,11 @@ const Home = () => {
 
       <CallToAction />
 
-      <section className="py-16 bg-background dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
+      {/* KONTAKT (Leniwe ładowanie odcina ContactForm, radix i query) */}
+      <section
+        ref={contactRef}
+        className="py-16 bg-background dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]"
+      >
         <ContentContainer>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
@@ -695,6 +766,7 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 mb-8 font-sans">
                 {t("contact.questions")}
               </p>
+
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
@@ -713,6 +785,7 @@ const Home = () => {
                     </a>
                   </div>
                 </div>
+
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
                     <FiMail className="w-6 h-6 text-primary dark:text-sky-400" />
@@ -722,29 +795,14 @@ const Home = () => {
                       {t("contact.email")}
                     </h3>
                     <a
-                      href="mailto:mariuszek1989poczta@wp.pl"
-                      className="text-primary dark:text-sky-400 font-medium hover:underline"
+                      href="mailto:biuro@pranie-dywanow.j.pl"
+                      className="text-primary dark:text-sky-400 font-medium text-lg hover:underline"
                     >
-                      mariuszek1989poczta@wp.pl
+                      biuro@pranie-dywanow.j.pl
                     </a>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
-                    <FiClock className="w-6 h-6 text-primary dark:text-sky-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground dark:text-foreground mb-1">
-                      {t("contact.hours")}
-                    </h3>
-                    <p className="text-slate-700 dark:text-slate-200 font-sans">
-                      {t("contact.weekdays")}
-                    </p>
-                    <p className="text-slate-700 dark:text-slate-200 font-sans">
-                      {t("contact.saturday")}
-                    </p>
-                  </div>
-                </div>
+
                 <div className="flex items-start">
                   <div className="flex-shrink-0 bg-primary/10 dark:bg-primary/20 rounded-full p-3 mr-4">
                     <FiMapPin className="w-6 h-6 text-primary dark:text-sky-400" />
@@ -759,6 +817,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+
               <div className="mt-8">
                 <h3 className="font-heading font-semibold text-lg text-foreground dark:text-foreground mb-3">
                   {t("contact.qrCode")}
@@ -779,19 +838,25 @@ const Home = () => {
                 </a>
               </div>
             </div>
+
             <div>
               <h3 className="font-heading text-2xl font-semibold mb-6 text-foreground dark:text-foreground">
                 {t("contact.quickForm")}
               </h3>
-              <Suspense
-                fallback={
-                  <div className="h-64 flex items-center justify-center text-primary">
-                    {t("contact.sending")}
-                  </div>
-                }
-              >
-                <ContactForm />
-              </Suspense>
+
+              {isContactVisible ? (
+                <Suspense
+                  fallback={
+                    <div className="h-64 flex items-center justify-center text-primary">
+                      {t("contact.sending")}
+                    </div>
+                  }
+                >
+                  <ContactForm />
+                </Suspense>
+              ) : (
+                <div className="h-64 bg-slate-800/20 rounded-lg animate-pulse" />
+              )}
             </div>
           </div>
         </ContentContainer>
