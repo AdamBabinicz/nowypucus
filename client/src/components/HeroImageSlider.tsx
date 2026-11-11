@@ -8,10 +8,10 @@ interface HeroImageSliderProps {
 
 /**
  * Zoptymalizowany HeroImageSlider (LCP & CLS):
- * 1. aspect-[16/9] sm:aspect-auto zapobiega skokowi wysokości (CLS) przed zamontowaniem obrazu.
- * 2. Pierwszy slajd renderowany bez animacji wejściowej (opacity-100 natychmiast) -> natychmiastowy LCP.
- * 3. Bezpieczne fetchpriority dla React 18 bez ostrzeżeń w konsoli.
- * 4. Pozostałe slajdy odroczone (lazy) o 4,5s, aby zwolnić łącze i CPU dla LCP oraz FCP.
+ * 1. Usunięto aspect-[16/9] - slider wypełnia dokładnie 100% wysokości i szerokości sekcji Hero.
+ * 2. Pierwszy slajd (LCP) ma NA SZTYWNO opacity-100 i ZEROWĄ animację (brak transition-opacity).
+ * 3. Kolejne slajdy (1, 2, 3...) nakładają się na wierzch (z-20) z płynnym fadem.
+ * 4. Pozostałe slajdy odroczone o 4,5s, aby zwolnić łącze dla natychmiastowego LCP.
  */
 const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
@@ -26,7 +26,6 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
     const lazyTimer = window.setTimeout(() => {
       setLoadSecondaryImages(true);
     }, 4500);
-
     return () => window.clearTimeout(lazyTimer);
   }, []);
 
@@ -34,7 +33,6 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
     if (!images || images.length <= 1) return;
     if (intervalRef.current !== null) return;
     if (document.hidden || !isVisibleRef.current) return;
-
     intervalRef.current = window.setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, interval);
@@ -52,7 +50,6 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
     const raf = requestAnimationFrame(() => {
       startTimer();
     });
-
     return () => {
       cancelAnimationFrame(raf);
       stopTimer();
@@ -78,7 +75,6 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   useEffect(() => {
     const node = containerRef.current;
     if (!node || typeof IntersectionObserver === "undefined") return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -91,7 +87,6 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
       },
       { threshold: 0 },
     );
-
     observer.observe(node);
     return () => observer.disconnect();
   }, [startTimer, stopTimer]);
@@ -101,7 +96,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full bg-slate-900 overflow-hidden aspect-[16/9] sm:aspect-auto"
+      className="relative w-full h-full bg-slate-900 overflow-hidden"
     >
       {images.map((src, index) => {
         const isFirst = index === 0;
@@ -111,15 +106,16 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
           return null;
         }
 
-        // Pierwszy slajd: widoczny od razu bez opacity transition, by nie opóźniać LCP.
-        // Zanikanie slajdu przy zmianie następuje płynnie.
+        // ZASADA 0 MS DLA LCP:
+        // Slajd 0 ma ZAWSZE opacity-100 i NIGDY transition-opacity.
+        // Kolejne slajdy nakładają się na niego na warstwie z-20 z animacją fade.
         const visibilityClass = isFirst
-          ? isCurrent
-            ? "opacity-100 z-10"
-            : "opacity-0 z-0 transition-opacity duration-700 ease-in-out pointer-events-none"
-          : isCurrent
-            ? "opacity-100 z-10 transition-opacity duration-700 ease-in-out"
-            : "opacity-0 z-0 transition-opacity duration-700 ease-in-out pointer-events-none";
+          ? `opacity-100 ${isCurrent ? "z-10" : "z-0"}`
+          : `transition-opacity duration-700 ease-in-out ${
+              isCurrent
+                ? "opacity-100 z-20"
+                : "opacity-0 z-0 pointer-events-none"
+            }`;
 
         return (
           <img
@@ -131,7 +127,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
             )}
             width={800}
             height={450}
-            decoding="async"
+            decoding={isFirst ? "sync" : "async"}
             loading={isFirst ? "eager" : "lazy"}
             {...{ fetchpriority: isFirst ? "high" : "low" }}
             className={`w-full h-full object-cover absolute inset-0 ${visibilityClass}`}

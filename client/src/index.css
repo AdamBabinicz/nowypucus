@@ -3,8 +3,9 @@
   src: url("/fonts/MajorMonoDisplay-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
-  /* Rezerwacja metryk = brak przesunięcia tekstu przy podmianie fontu (CLS) */
+  /* Zmiana na optional - brak opóźnionego przesunięcia tekstu (CLS) */
+  font-display: optional;
+  /* Rezerwacja metryk = brak przesunięcia tekstu przy podmianie fontu */
   size-adjust: 105%;
   ascent-override: 90%;
   descent-override: 22%;
@@ -21,7 +22,6 @@
   overflow: hidden;
   background-color: #0f172a;
 }
-
 .media-frame > img {
   position: absolute;
   inset: 0;
@@ -30,16 +30,22 @@
   object-fit: cover;
 }
 
+/* Sztywna rezerwacja wysokości na mobile (min. 780px zapobiega skokowi layoutu) */
 .hero-section {
-  min-height: 85svh;
+  min-height: 780px;
+  position: relative;
+  contain: layout;
+}
+
+@media (min-width: 640px) {
+  .hero-section {
+    min-height: 85svh;
+  }
 }
 
 /* ------------------------------------------------------------------
-   FIX PSI (audyt 10.11.2026, CLS 0,14): fallbacki metryk dla fontów
-   Google (Inter, Montserrat, Limelight). Przy `display=swap` tekst jest
-   najpierw renderowany fontem systemowym – jeśli jego metryki różnią
-   się od docelowych, następuje przetasowanie układu (elementy 0,080
-   i 0,058 w audycie). Fallback z dopasowanymi metrykami = brak skoku.
+   FIX PSI: fallbacki metryk dla fontów Google (Inter, Montserrat, Limelight).
+   Fallback z dopasowanymi metrykami = brak skoku.
    ------------------------------------------------------------------ */
 @font-face {
   font-family: "Inter Fallback";
@@ -49,7 +55,6 @@
   descent-override: 22.48%;
   line-gap-override: 0%;
 }
-
 @font-face {
   font-family: "Montserrat Fallback";
   src: local("Arial");
@@ -58,7 +63,6 @@
   descent-override: 22%;
   line-gap-override: 0%;
 }
-
 @font-face {
   font-family: "Limelight Fallback";
   src: local("Georgia");
@@ -66,6 +70,10 @@
   ascent-override: 95%;
   descent-override: 25%;
   line-gap-override: 0%;
+}
+
+.font-limelight {
+  font-family: "Limelight", "Limelight Fallback", Georgia, cursive !important;
 }
 
 @tailwind base;
@@ -85,10 +93,8 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-
   --primary: 207 90% 30%;
   --primary-foreground: 211 100% 99%;
-
   --secondary: 60 4.8% 95.9%;
   --secondary-foreground: 24 9.8% 10%;
   --accent: 0 80% 50%;
@@ -102,58 +108,46 @@
   --marine-foreground: 0 0% 98%;
   --ring: 207 90% 40%;
   --radius: 0.5rem;
-
   --chart-1: 220 80% 60%;
   --chart-2: 160 80% 60%;
   --chart-3: 40 80% 60%;
   --chart-4: 280 80% 60%;
   --chart-5: 0 80% 60%;
-
   --sidebar-background: 220 15% 95%;
-  --sidebar-foreground: 220 15% 20%;
+  --sidebar-foreground: 220 20% 20%;
   --sidebar-primary: 207 90% 30%;
   --sidebar-primary-foreground: 211 100% 99%;
-  --sidebar-accent: 0 84.2% 60.2%;
-  --sidebar-accent-foreground: 60 9.1% 97.8%;
+  --sidebar-accent: 190 70% 45%;
+  --sidebar-accent-foreground: 210 20% 98%;
   --sidebar-border: 220 15% 85%;
-  --sidebar-ring: 207 90% 45%;
-
-  --cta-primary-background-light: 220 60% 95%;
-  --cta-primary-foreground-light: 220 25% 25%;
-  --cta-secondary-background-light: 40 80% 95%;
-  --cta-secondary-foreground-light: 40 50% 25%;
+  --sidebar-ring: 207 90% 40%;
+  --cta-primary-background-light: 220 30% 90%;
+  --cta-primary-foreground-light: 210 40% 10%;
+  --cta-secondary-background-light: 0 60% 80%;
+  --cta-secondary-foreground-light: 0 40% 10%;
+  --header-offset: 70px;
 }
 
 .dark {
-  --background: 220 25% 18%;
-  --background-image: linear-gradient(
-    to bottom,
-    hsl(220, 25%, 12%),
-    hsl(220, 25%, 8%)
-  );
-  --foreground: 210 20% 96%;
-  --muted: 220 20% 22%;
-  --muted-foreground: 215 15% 85%; /* Zwiększono jasność tekstu w dark mode */
-  --popover: 220 25% 15%;
-  --popover-foreground: 210 20% 96%;
-  --card: 220 25% 16%;
-  --card-foreground: 210 20% 94%;
-  --border: 220 20% 25%;
-  --input: 220 25% 15%;
-
-  --primary: 205 85% 38%;
-  --gradient-primary-h: 205;
-  --gradient-primary-s: 85%;
-  --gradient-primary-l: 38%;
-  --gradient-primary-l-darkened: calc(var(--gradient-primary-l) * 0.4);
-
-  --primary-foreground: 210 30% 97%;
-  --secondary: 220 15% 28%;
-  --secondary-foreground: 210 20% 90%;
-  --accent: 190 80% 60%;
-  --accent-foreground: 210 25% 15%;
-  --destructive: 0 80% 60%;
-  --destructive-foreground: 0 0% 98%;
+  --background: 222 47% 11%;
+  --background-image: none;
+  --foreground: 210 40% 98%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20.2% 75.1%;
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 40% 98%;
+  --card: 222 47% 11%;
+  --card-foreground: 210 40% 98%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --primary: 205 85% 45%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 190 90% 50%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
   --marine-h: 175;
   --marine-s: 60%;
   --marine-l-dark: 65%;
@@ -162,13 +156,11 @@
   --marine-l-lightmode-darkened: 12%;
   --marine-foreground: var(--marine-h) 30% 15%;
   --ring: 205 85% 50%;
-
   --chart-1: 220 70% 70%;
   --chart-2: 160 70% 70%;
   --chart-3: 40 70% 70%;
   --chart-4: 280 70% 70%;
   --chart-5: 0 70% 70%;
-
   --sidebar-background: 220 20% 18%;
   --sidebar-foreground: 210 20% 90%;
   --sidebar-primary: 205 85% 38%;
@@ -177,7 +169,6 @@
   --sidebar-accent-foreground: 210 25% 15%;
   --sidebar-border: 220 20% 28%;
   --sidebar-ring: 205 85% 55%;
-
   --cta-primary-background-dark: 220 30% 15%;
   --cta-primary-foreground-dark: 210 40% 90%;
   --cta-secondary-background-dark: 0 60% 20%;
@@ -195,16 +186,15 @@
   body {
     @apply font-sans antialiased text-foreground min-h-screen;
     /* FIX CLS: fallback z zarezerwowanymi metrykami przed fontem docelowym */
-    font-family: "Inter Fallback", "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family:
+      "Inter Fallback", "Inter", ui-sans-serif, system-ui, sans-serif;
     background-color: hsl(var(--background));
     background-image: var(--background-image);
     background-repeat: no-repeat;
-    /* FIX PSI mobile: `fixed` wymusza przemalowanie całego tła przy każdym
-       przewinięciu (drogo na GPU telefonu). `scroll` = brak kosztu. */
+    /* FIX PSI mobile: fixed wymusza przemalowanie całego tła przy każdym przewinięciu. scroll = brak kosztu. */
     background-attachment: scroll;
     overflow-x: hidden;
   }
-
   .container {
     @apply px-4 md:px-8 lg:px-40 mx-auto;
     max-width: 100%;
@@ -217,11 +207,9 @@
       padding-right: 10rem;
     }
   }
-
   .full-width .container {
     max-width: none;
   }
-
   h1,
   h2,
   h3,
@@ -230,11 +218,9 @@
   h6 {
     @apply font-heading;
   }
-
   .font-body {
     font-family: "Open Sans", sans-serif;
   }
-
   .font-heading {
     font-family: "Montserrat", sans-serif;
   }
@@ -245,44 +231,35 @@
   width: 100%;
   position: relative;
 }
-
 .slider {
   display: flex;
   transition: transform 0.5s ease;
 }
-
 .slide {
   min-width: 100%;
   transition: opacity 0.5s ease;
 }
-
 .before-after-container {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
-
 .before-label {
   @apply absolute bottom-0 left-0 text-white py-1 px-4 rounded-tr-lg font-medium bg-red-900;
 }
-
 .after-label {
   @apply absolute bottom-0 left-0 text-white py-1 px-4 rounded-tr-lg font-medium bg-green-900;
 }
-
 .modal-overlay {
   @apply fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4;
 }
-
 .modal-content {
   @apply bg-white dark:bg-slate-800 w-full max-w-2xl rounded-xl shadow-2xl relative overflow-hidden max-h-[90vh] flex flex-col;
 }
-
 .fade-in {
   opacity: 0;
   animation: fadeIn 0.3s ease forwards;
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -291,13 +268,11 @@
     opacity: 1;
   }
 }
-
 .slide-up {
   transform: translateY(20px);
   opacity: 0;
   animation: slideUp 0.5s ease forwards;
 }
-
 @keyframes slideUp {
   from {
     transform: translateY(20px);
@@ -308,23 +283,20 @@
     opacity: 1;
   }
 }
+
 .main-content-with-offset {
   padding-top: var(--header-offset);
 }
 
 /* ==========================================================================
    CookieScript WCAG AAA Contrast Overrides (Mobile & Desktop)
-   Wzmocniona specyficzność selektorów i bezwzględny kontrast dla tekstu
    ========================================================================== */
-
-/* Główny kontener banera cookies */
 #cookiescript_injected,
 #cookiescript_wrapper {
   background-color: #ffffff !important;
   color: #0f172a !important;
   border-top: 1px solid #cbd5e1 !important;
 }
-
 #cookiescript_injected p,
 #cookiescript_injected span,
 #cookiescript_injected div,
@@ -333,8 +305,6 @@
   color: #0f172a !important;
   opacity: 1 !important;
 }
-
-/* Przycisk akceptacji: nasycony błękit z białą czcionką (kontrast 9.1:1 - AAA) */
 #cookiescript_injected #cookiescript_buttons #cookiescript_accept,
 #cookiescript_injected #cookiescript_accept,
 #cookiescript_wrapper #cookiescript_accept,
@@ -346,7 +316,6 @@ div#cookiescript_accept,
   border: 1px solid #023859 !important;
   opacity: 1 !important;
 }
-
 #cookiescript_injected #cookiescript_buttons #cookiescript_accept *,
 #cookiescript_injected #cookiescript_accept *,
 #cookiescript_accept * {
@@ -354,14 +323,11 @@ div#cookiescript_accept,
   font-weight: 700 !important;
   opacity: 1 !important;
 }
-
 #cookiescript_injected #cookiescript_buttons #cookiescript_accept:hover,
 #cookiescript_accept:hover {
   background-color: #023859 !important;
   color: #ffffff !important;
 }
-
-/* Przycisk odrzucenia: ciemny grafit z czystą bielą (kontrast 18:1 - AAA) */
 #cookiescript_injected #cookiescript_buttons #cookiescript_reject,
 #cookiescript_injected #cookiescript_reject,
 #cookiescript_wrapper #cookiescript_reject,
@@ -373,7 +339,6 @@ div#cookiescript_reject,
   border: 1px solid #000000 !important;
   opacity: 1 !important;
 }
-
 #cookiescript_injected #cookiescript_buttons #cookiescript_reject *,
 #cookiescript_injected #cookiescript_reject *,
 #cookiescript_reject * {
@@ -381,14 +346,11 @@ div#cookiescript_reject,
   font-weight: 700 !important;
   opacity: 1 !important;
 }
-
 #cookiescript_injected #cookiescript_buttons #cookiescript_reject:hover,
 #cookiescript_reject:hover {
   background-color: #000000 !important;
   color: #ffffff !important;
 }
-
-/* Element "POKAŻ SZCZEGÓŁY" oraz inne linki w widżecie */
 span[data-cs-show-title="cookie-script"],
 [data-cs-show-title="cookie-script"],
 #cookiescript_readmore,
@@ -399,43 +361,33 @@ span[data-cs-show-title="cookie-script"],
   text-decoration: underline !important;
   opacity: 1 !important;
 }
-
 span[data-cs-show-title="cookie-script"]:hover,
 #cookiescript_readmore:hover,
 #cookiescript_manage:hover,
 #cookiescript_injected a:hover {
   color: #012840 !important;
 }
-
-/* Przycisk zamknięcia "×" */
 #cookiescript_close {
   color: #0f172a !important;
   opacity: 0.9 !important;
   font-weight: 700 !important;
 }
-
-/* Link w stopce: POWERED BY COOKIESCRIPT */
 #cookiescript_link {
   color: #334155 !important;
   text-decoration: underline !important;
   font-weight: 600 !important;
   opacity: 1 !important;
 }
-
 #cookiescript_link:hover {
   color: #0f172a !important;
 }
 
-/* ==========================================================================
-   Tryb ciemny (.dark) - gwarantowany kontrast AAA (> 7.5:1)
-   ========================================================================== */
 .dark #cookiescript_injected,
 .dark #cookiescript_wrapper {
   background-color: #0f172a !important;
   color: #f8fafc !important;
   border-top: 1px solid #334155 !important;
 }
-
 .dark #cookiescript_injected p,
 .dark #cookiescript_injected span,
 .dark #cookiescript_injected div,
@@ -443,35 +395,30 @@ span[data-cs-show-title="cookie-script"]:hover,
 .dark #cookiescript_description {
   color: #f8fafc !important;
 }
-
 .dark #cookiescript_injected #cookiescript_buttons #cookiescript_accept,
 .dark #cookiescript_injected #cookiescript_accept,
 .dark #cookiescript_accept {
-  background-color: #075985 !important; /* Głęboki błękit o kontraście 7.7:1 z bielą (norma AAA) */
+  background-color: #075985 !important;
   color: #ffffff !important;
   border-color: #38bdf8 !important;
 }
-
 .dark #cookiescript_injected #cookiescript_buttons #cookiescript_accept *,
 .dark #cookiescript_accept * {
   color: #ffffff !important;
   font-weight: 700 !important;
 }
-
 .dark #cookiescript_injected #cookiescript_buttons #cookiescript_reject,
 .dark #cookiescript_injected #cookiescript_reject,
 .dark #cookiescript_reject {
-  background-color: #020617 !important; /* Niemal czerń (kontrast 20:1 z bielą) */
+  background-color: #020617 !important;
   color: #ffffff !important;
   border-color: #475569 !important;
 }
-
 .dark #cookiescript_injected #cookiescript_buttons #cookiescript_reject *,
 .dark #cookiescript_reject * {
   color: #ffffff !important;
   font-weight: 700 !important;
 }
-
 .dark span[data-cs-show-title="cookie-script"],
 .dark [data-cs-show-title="cookie-script"],
 .dark #cookiescript_readmore,
@@ -479,11 +426,9 @@ span[data-cs-show-title="cookie-script"]:hover,
 .dark #cookiescript_injected a {
   color: #38bdf8 !important;
 }
-
 .dark #cookiescript_link {
   color: #cbd5e1 !important;
 }
-
 .dark #cookiescript_close {
   color: #f8fafc !important;
 }

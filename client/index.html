@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <style>
       body {
         background-color: #0f172a;
@@ -29,11 +28,24 @@
       main {
         padding-top: 70px;
       }
+
+      /*
+       * ZABLOKOWANIE WYSOKOŚCI HERO NA MOBILE DLA ZERO CLS:
+       * Na ekranach do 640px zawartość hero (teksty + 4 kafelki w pionie) ma min. 780px.
+       * Rezerwacja stałej bazy eliminuje skok po załadowaniu Reacta.
+       */
       .hero-section {
-        min-height: 85svh;
+        min-height: 780px;
         position: relative;
         background-color: #0f172a;
+        contain: layout;
       }
+      @media (min-width: 640px) {
+        .hero-section {
+          min-height: 85svh;
+        }
+      }
+
       .media-frame {
         position: relative;
         overflow: hidden;
@@ -56,7 +68,6 @@
       }
       gtag("js", new Date());
       gtag("config", "AW-11057616603");
-
       function gtag_report_conversion(url) {
         var callback = function () {
           if (typeof url != "undefined") {
@@ -71,11 +82,12 @@
       }
     </script>
 
-    <!-- Preload LCP -->
+    <!-- Preload LCP z określeniem typu -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
       as="image"
+      type="image/avif"
       fetchpriority="high"
     />
 
@@ -90,7 +102,6 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
       rel="ai-catalog"
       href="/.well-known/ai-catalog.json"
@@ -98,17 +109,17 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts z display=swap -->
+    <!-- Google Fonts z display=optional (brak skoku czcionek = zerowy CLS) -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
       media="print"
       onload="this.media = 'all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
       />
     </noscript>
 
@@ -140,7 +151,6 @@
       name="description"
       content="SUPER PUCUŚ Radom: pranie dywanów, tapicerki meblowej, mycie kostki brukowej oraz posadzek. Profesjonalnie dla domu i biura. Zadzwoń! ☎ +48 531 890827"
     />
-
     <link rel="canonical" href="https://pranie-dywanow.j.pl/" data-rh="true" />
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-title" content="Super Pucuś" />
@@ -199,7 +209,6 @@
         alt="facebook"
       />
     </noscript>
-
     <div id="root"></div>
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
@@ -211,17 +220,14 @@
         function loadAnalytics() {
           if (loaded) return;
           loaded = true;
-
           userEvents.forEach(function (e) {
             window.removeEventListener(e, loadAnalytics, { passive: true });
           });
-
           var gads = document.createElement("script");
           gads.async = true;
           gads.src =
             "https://www.googletagmanager.com/gtag/js?id=AW-11057616603";
           document.head.appendChild(gads);
-
           (function (w, d, s, l, i) {
             w[l] = w[l] || [];
             w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -232,7 +238,6 @@
             j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
             f.parentNode.insertBefore(j, f);
           })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
-
           !(function (f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function () {
@@ -258,7 +263,6 @@
           );
           window.fbq("init", "1288180923455820");
           window.fbq("track", "PageView");
-
           (function (c, l, a, r, i, t, y) {
             c[a] =
               c[a] ||
@@ -272,7 +276,6 @@
             y.parentNode.insertBefore(t, y);
           })(window, document, "clarity", "script", "vus2nkz2ev");
         }
-
         var userEvents = [
           "scroll",
           "touchstart",
