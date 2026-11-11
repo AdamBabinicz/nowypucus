@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- 2. Preload kluczowego obrazu LCP z najwyższym priorytetem sieciowym -->
+    <!-- 2. Preload kluczowego obrazu LCP z najwyższym priorytetem -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -21,7 +21,7 @@
       fetchpriority="high"
     />
 
-    <!-- 3. Krytyczny CSS zapobiegający białym rozbłyskom i skokom układu -->
+    <!-- 3. Krytyczny CSS: stabilizacja geometrii nagłówków H1 i brak białych rozbłysków -->
     <style>
       body {
         background-color: #0f172a;
@@ -44,6 +44,15 @@
         min-height: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
+      }
+      /* Stabilizacja linii nagłówka H1 - zapobiega przesunięciu układu (CLS) podczas wczytywania fontów */
+      h1 {
+        line-height: 1.15 !important;
+        margin-top: 0;
+      }
+      .hero-section {
+        position: relative;
+        contain: layout;
       }
     </style>
 
@@ -76,11 +85,11 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts asynchronicznie z display=optional (brak blokowania FCP i przesunięć tekstu) -->
+    <!-- Odchudzona paczka Google Fonts (wyłącznie warianty potrzebne na start) -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=swap"
       onload="
         this.onload = null;
         this.rel = 'stylesheet';
@@ -89,7 +98,7 @@
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=swap"
       />
     </noscript>
 
@@ -191,14 +200,14 @@
       />
     </noscript>
 
-    <!-- Czysty punkt montowania Reacta: brak podwójnego renderu i zero przesunięć układu (CLS: 0) -->
+    <!-- Punkt montowania aplikacji -->
     <div id="root"></div>
     <div id="modal-root"></div>
 
     <!-- Skrypt aplikacji SPA -->
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Analityka ładowana asynchronicznie po pierwszej realnej interakcji użytkownika -->
+    <!-- Odroczona analityka - uruchamiana po pierwszej interakcji -->
     <script>
       (function () {
         var loaded = false;

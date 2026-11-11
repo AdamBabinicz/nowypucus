@@ -33,18 +33,19 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const mq = window.matchMedia("(min-width: 768px)");
     let timeout: number | null = null;
 
     const check = () => {
       if (mq.matches && images && images.length > 1) {
-        // Na desktopie czekamy 6s przed aktywacją kolejnych zdjęć i rotacji
+        // Na desktopie czekamy 6s przed aktywacją rotatora
         timeout = window.setTimeout(() => {
           setIsLoaded(true);
           startTimer();
         }, 6000);
       } else {
-        // Na mobile ładujemy tylko 1 kluczowe zdjęcie (LCP), bez obciążania sieci
+        // Na mobile ładujemy wyłącznie 1 kluczowe zdjęcie bez obciążania pamięci
         setIsLoaded(false);
         stopTimer();
       }
@@ -58,6 +59,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
     };
 
     mq.addEventListener("change", onChange);
+
     return () => {
       if (timeout) window.clearTimeout(timeout);
       mq.removeEventListener("change", onChange);
@@ -71,7 +73,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
 
   return (
     <div className="relative w-full h-full bg-slate-900 overflow-hidden">
-      {/* 1. Kluczowy obraz LCP - renderowany od razu z priorytetem high */}
+      {/* 1. Statyczny obraz bazowy (LCP) - czysty, natychmiastowy render bez opóźnień animacji */}
       <img
         src={firstImage}
         alt={t(
@@ -82,13 +84,11 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
         height={450}
         loading="eager"
         decoding="sync"
-        {...{ fetchpriority: "high" }}
-        className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
-          currentIndex === 0 ? "opacity-100 z-10" : "opacity-0 z-0"
-        }`}
+        fetchPriority="high"
+        className="w-full h-full object-cover absolute inset-0 z-0"
       />
 
-      {/* 2. Kolejne slajdy (tylko na desktopie, montowane dopiero po 6 sekundach) */}
+      {/* 2. Kolejne slajdy montowane tylko na desktopie po 6 sekundach */}
       {isLoaded &&
         images.slice(1).map((src, index) => {
           const isActive = index + 1 === currentIndex;
@@ -104,7 +104,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
               height={450}
               loading="lazy"
               decoding="async"
-              {...{ fetchpriority: "low" }}
+              fetchPriority="low"
               className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 isActive
                   ? "opacity-100 z-10"
