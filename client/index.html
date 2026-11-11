@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- 2. Krytyczny CSS: stabilizacja geometrii nagłówków H1 i zerowy CLS -->
+    <!-- 2. Krytyczny CSS: stabilizacja geometrii nagłówków i zerowy CLS -->
     <style>
       body {
         background-color: #0f172a;
@@ -37,20 +37,22 @@
         margin: 0 !important;
         padding: 0 !important;
       }
-      /* Blokada skoków nagłówka H1 (CLS = 0) */
+      /* Blokada skoków nagłówka H1 oraz podtytułu Limelight (CLS = 0.00) */
       h1 {
         line-height: 1.15 !important;
         margin-top: 0;
       }
+      .font-major-mono,
       h1 span.font-major-mono {
         display: block;
         min-height: 2.5rem;
         line-height: 1.15;
       }
-      h1 span.font-limelight {
+      .font-limelight,
+      span.font-limelight {
         display: block;
         min-height: 3.5rem;
-        line-height: 1.25;
+        line-height: 1.25 !important;
       }
       .hero-section {
         position: relative;
@@ -87,17 +89,15 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts ładowane asynchronicznie bez blokowania renderu -->
+    <!-- Google Fonts z display=optional - brak jakiegokolwiek przesunięcia tekstu (CLS = 0) -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=swap"
-      media="print"
-      onload="this.media = 'all'"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=optional"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=optional"
       />
     </noscript>
 
