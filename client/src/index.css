@@ -84,18 +84,35 @@
    ------------------------------------------------------------------ */
 h1 {
   line-height: 1.15 !important;
+  contain: layout;
 }
 
 h1 span.font-major-mono {
   display: block;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   line-height: 1.15;
 }
 
+/* Na telefonie 3 linie (~5.75rem), na większych ekranach 1-2 linie */
 h1 span.font-limelight {
   display: block;
-  min-height: 3.5rem;
+  min-height: 5.75rem;
   line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  h1 span.font-limelight {
+    min-height: 3.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  h1 span.font-major-mono {
+    min-height: 3.5rem;
+  }
+  h1 span.font-limelight {
+    min-height: 3rem;
+  }
 }
 
 @tailwind base;
