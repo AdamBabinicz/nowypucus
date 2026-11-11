@@ -39,7 +39,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
 
     const check = () => {
       if (mq.matches && images && images.length > 1) {
-        // Na desktopie czekamy 6s przed aktywacją rotatora
+        // Na desktopie aktywujemy rotator po 6 sekundach
         timeout = window.setTimeout(() => {
           setIsLoaded(true);
           startTimer();
@@ -73,7 +73,11 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
 
   return (
     <div className="relative w-full h-full bg-slate-900 overflow-hidden">
-      {/* 1. Statyczny obraz bazowy (LCP) - zapis bezpieczny dla React 18 eliminujący warning */}
+      {/* 1. Statyczny obraz bazowy (LCP):
+             - decoding="async" (eliminuje 660ms blokady renderowania na CPU telefonu)
+             - {...{ fetchpriority: "high" }} (kompatybilne z React 18, wysoki priorytet)
+             - loading="eager" (natychmiastowe ładowanie)
+      */}
       <img
         src={firstImage}
         alt={t(
@@ -83,7 +87,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
         width={800}
         height={450}
         loading="eager"
-        decoding="sync"
+        decoding="async"
         {...{ fetchpriority: "high" }}
         className="w-full h-full object-cover absolute inset-0 z-0"
       />
