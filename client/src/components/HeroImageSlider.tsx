@@ -73,7 +73,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
 
   return (
     <div className="relative w-full h-full bg-slate-900 overflow-hidden">
-      {/* 1. Statyczny obraz bazowy (LCP) - czysty, natychmiastowy render bez opóźnień animacji */}
+      {/* 1. Statyczny obraz bazowy (LCP) - zapis bezpieczny dla React 18 eliminujący warning */}
       <img
         src={firstImage}
         alt={t(
@@ -84,7 +84,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
         height={450}
         loading="eager"
         decoding="sync"
-        fetchPriority="high"
+        {...{ fetchpriority: "high" }}
         className="w-full h-full object-cover absolute inset-0 z-0"
       />
 
@@ -104,7 +104,7 @@ export const HeroImageSlider: React.FC<HeroImageSliderProps> = ({
               height={450}
               loading="lazy"
               decoding="async"
-              fetchPriority="low"
+              {...{ fetchpriority: "low" }}
               className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 isActive
                   ? "opacity-100 z-10"
