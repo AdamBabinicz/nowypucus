@@ -1,9 +1,9 @@
 @font-face {
   font-family: "Major Mono Display Self";
   src: url("/fonts/MajorMonoDisplay-Regular.woff2") format("woff2");
-  font-weight: normal;
+  font-weight: 100 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
   size-adjust: 105%;
   ascent-override: 90%;
   descent-override: 22%;
