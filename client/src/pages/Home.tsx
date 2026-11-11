@@ -2,7 +2,6 @@ import React, { useState, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { Link as WouterLink } from "wouter";
-import { motion } from "framer-motion";
 import {
   FiZap,
   FiCheckCircle,
@@ -76,28 +75,6 @@ const Home = () => {
     "/images/kostka/24.avif",
     "/images/meble/64.avif",
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-      },
-    },
-  };
 
   // --- SZYBKI CENNIK W SEKCIJI HERO Z LINKOWANIEM ---
   const heroPrices = [
@@ -500,14 +477,14 @@ const Home = () => {
       </Helmet>
 
       {/* FIX CLS & FORCED REFLOW: Sekcja Hero ma stabilną geometrię od 1. klatki bez przesunięć JS */}
-      <section className="hero-section py-20 relative text-[hsl(var(--primary-foreground))] bg-black flex items-center">
+      <section className="hero-section py-8 md:py-20 relative text-[hsl(var(--primary-foreground))] bg-black flex items-center">
         <div className="absolute inset-0 z-0">
           <HeroImageSlider images={heroSliderImages} />
           <div className="absolute inset-0 z-10 bg-black/60"></div>
         </div>
 
         <div className="relative z-20 w-full">
-          <ContentContainer className="py-16 lg:py-24">
+          <ContentContainer className="py-6 md:py-16 lg:py-24">
             <div className="max-w-5xl">
               <h1 className="mb-6 text-left text-white">
                 <span className="font-major-mono block text-4xl md:text-5xl lg:text-6xl font-bold">
@@ -526,7 +503,7 @@ const Home = () => {
                 {t("hero.subtitle")}
               </p>
 
-              {/* --- SZYBKI CENNIK W HERO (Stabilny, bez opóźnionego przesunięcia X z framer-motion) --- */}
+              {/* --- SZYBKI CENNIK W HERO (Stabilny, bez opóźnień) --- */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10">
                 {heroPrices.map((item, index) => (
                   <WouterLink
@@ -570,24 +547,15 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sekcje poniżej zgięcia ekranu - animacje whileInView uruchamiają się dopiero przy przewijaniu */}
+      {/* Sekcje poniżej zgięcia ekranu - animacje hover działają natywnie w CSS bez obciążania wątku JS */}
       <section className="py-16 bg-muted dark:bg-muted">
         <ContentContainer>
           <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-foreground dark:text-foreground">
             {t("whyUs.title")}{" "}
             <span className="text-primary dark:text-primary">SUPER PUCUŚ</span>?
           </h2>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            <motion.div
-              className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
-              variants={itemVariants}
-            >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiZap className="w-8 h-8 text-primary" />
               </div>
@@ -597,11 +565,8 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature1.description")}
               </p>
-            </motion.div>
-            <motion.div
-              className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
-              variants={itemVariants}
-            >
+            </div>
+            <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiCheckCircle className="w-8 h-8 text-primary" />
               </div>
@@ -611,11 +576,8 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature2.description")}
               </p>
-            </motion.div>
-            <motion.div
-              className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
-              variants={itemVariants}
-            >
+            </div>
+            <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiClock className="w-8 h-8 text-primary" />
               </div>
@@ -625,11 +587,8 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature3.description")}
               </p>
-            </motion.div>
-            <motion.div
-              className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
-              variants={itemVariants}
-            >
+            </div>
+            <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <BsPiggyBank className="w-8 h-8 text-primary" />
               </div>
@@ -639,11 +598,8 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature4.description")}
               </p>
-            </motion.div>
-            <motion.div
-              className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
-              variants={itemVariants}
-            >
+            </div>
+            <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiMapPin className="w-8 h-8 text-primary" />
               </div>
@@ -653,11 +609,8 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature5.description")}
               </p>
-            </motion.div>
-            <motion.div
-              className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300"
-              variants={itemVariants}
-            >
+            </div>
+            <div className="bg-card dark:bg-card rounded-xl shadow-md p-6 transform hover:scale-105 transition-transform duration-300">
               <div className="rounded-full bg-primary/10 dark:bg-primary/20 w-14 h-14 flex items-center justify-center mb-4">
                 <FiThumbsUp className="w-8 h-8 text-primary" />
               </div>
@@ -667,8 +620,8 @@ const Home = () => {
               <p className="text-slate-700 dark:text-slate-200 font-sans">
                 {t("whyUs.feature6.description")}
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </ContentContainer>
       </section>
 
