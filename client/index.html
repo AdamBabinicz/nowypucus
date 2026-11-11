@@ -9,11 +9,9 @@
         margin: 0;
         padding: 0;
       }
-      /* TYLKO #root ma min-height: 100vh, aby stopka nie wisiała w powietrzu */
       #root {
         min-height: 100vh;
       }
-      /* #modal-root nie zajmuje ŻADNEGO miejsca, gdy jest pusty (likwiduje margines na dole) */
       #modal-root {
         position: relative;
         z-index: 9999;
@@ -29,16 +27,11 @@
         padding-top: 70px;
       }
 
-      /*
-       * ZABLOKOWANIE WYSOKOŚCI HERO NA MOBILE DLA ZERO CLS:
-       * Na ekranach do 640px zawartość hero (teksty + 4 kafelki w pionie) ma min. 780px.
-       * Rezerwacja stałej bazy eliminuje skok po załadowaniu Reacta.
-       */
+      /* Stabilna wysokość Hero na mobile */
       .hero-section {
         min-height: 780px;
         position: relative;
         background-color: #0f172a;
-        contain: layout;
       }
       @media (min-width: 640px) {
         .hero-section {
@@ -60,7 +53,7 @@
       }
     </style>
 
-    <!-- Google tag (gtag.js) - Definicja natychmiastowa funkcji konwersji -->
+    <!-- Google tag (gtag.js) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -82,7 +75,7 @@
       }
     </script>
 
-    <!-- Preload LCP z określeniem typu -->
+    <!-- Preload obrazu LCP z najwyższym priorytetem -->
     <link
       rel="preload"
       href="/images/dywany/88.avif"
@@ -109,19 +102,14 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts z display=optional (brak skoku czcionek = zerowy CLS) -->
+    <!--
+      Google Fonts: CZYSTY rel="stylesheet" z display=optional.
+      Usunięcie 'media=print' likwiduje skok layoutu H1 (CLS).
+    -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
-      media="print"
-      onload="this.media = 'all'"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
-      />
-    </noscript>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -209,7 +197,47 @@
         alt="facebook"
       />
     </noscript>
-    <div id="root"></div>
+
+    <!--
+      KLUCZ DO NATYCHMIASTOWEGO LCP (~1,2 s):
+      Wewnątrz #root umieszczamy statyczny obraz sekcji Hero z czystego HTML.
+      Przeglądarka renderuje go natychmiast przy FCP, nie czekając na bundle JS!
+      Gdy React się załaduje, bezproblemowo podmieni ten szkielet.
+    -->
+    <div id="root">
+      <section
+        class="hero-section"
+        style="position: relative; overflow: hidden; background-color: #0f172a"
+      >
+        <div style="position: absolute; inset: 0; z-index: 0">
+          <img
+            src="/images/dywany/88.avif"
+            alt="SUPER PUCUŚ - Pranie dywanów"
+            width="800"
+            height="450"
+            fetchpriority="high"
+            loading="eager"
+            decoding="sync"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              position: absolute;
+              inset: 0;
+            "
+          />
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background-color: rgba(0, 0, 0, 0.6);
+              z-index: 10;
+            "
+          ></div>
+        </div>
+      </section>
+    </div>
+
     <div id="modal-root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
