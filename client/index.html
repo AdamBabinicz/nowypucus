@@ -95,22 +95,11 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Google Fonts z display=optional - gwarancja braku opóźnionego LCP w 5. sekundzie i CLS = 0 -->
+    <!-- Google Fonts rejestrowane od razu w headzie bez opóźnionego JS triggera LCP w 5. sekundzie -->
     <link
-      rel="preload"
-      as="style"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=optional"
-      onload="
-        this.onload = null;
-        this.rel = 'stylesheet';
-      "
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=optional"
-      />
-    </noscript>
 
     <!-- Ikony i manifest PWA -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -239,7 +228,7 @@
               j = d.createElement(s),
               dl = l != "dataLayer" ? "&l=" + l : "";
             j.async = true;
-            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+            j.src = "https://www.googletagmanager.com/gtag/js?id=" + i + dl;
             f.parentNode.insertBefore(j, f);
           })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
           !(function (f, b, e, v, n, t, s) {
