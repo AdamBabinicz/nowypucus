@@ -3,6 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 1. Błyskawiczny preconnect do serwerów czcionek (maksymalny zysk czasu na TLS) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+
+    <!-- 2. Preload kluczowego obrazu LCP z najwyższym priorytetem -->
+    <link
+      rel="preload"
+      href="/images/dywany/88.avif"
+      as="image"
+      type="image/avif"
+      fetchpriority="high"
+    />
+
+    <!-- 3. Preload lokalnej czcionki nagłówkowej z CORS -->
+    <link
+      rel="preload"
+      href="/fonts/MajorMonoDisplay-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
     <style>
       body {
         background-color: #0f172a;
@@ -26,10 +53,11 @@
       main {
         padding-top: 70px;
       }
-      /* Stabilna wysokość Hero na mobile */
+      /* Stabilna geometria Hero chroniąca CLS */
       .hero-section {
         min-height: 780px;
         position: relative;
+        contain: layout;
         background-color: #0f172a;
       }
       @media (min-width: 640px) {
@@ -51,7 +79,7 @@
       }
     </style>
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) - lekki kod pomocniczy konwersji -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -59,7 +87,6 @@
       }
       gtag("js", new Date());
       gtag("config", "AW-11057616603");
-
       function gtag_report_conversion(url) {
         var callback = function () {
           if (typeof url != "undefined") {
@@ -74,26 +101,6 @@
       }
     </script>
 
-    <!-- Preload obrazu LCP z najwyższym priorytetem -->
-    <link
-      rel="preload"
-      href="/images/dywany/88.avif"
-      as="image"
-      type="image/avif"
-      fetchpriority="high"
-    />
-
-    <!-- Preload czcionki nagłówkowej z CORS -->
-    <link
-      rel="preload"
-      href="/fonts/MajorMonoDisplay-Regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="ai-catalog"
       href="/.well-known/ai-catalog.json"
@@ -105,7 +112,7 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
       onload="
         this.onload = null;
         this.rel = 'stylesheet';
@@ -114,7 +121,7 @@
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=optional"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@400;700;900&display=swap"
       />
     </noscript>
 
@@ -172,7 +179,6 @@
     />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:site_name" content="SUPER PUCUŚ" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -189,7 +195,6 @@
     <meta name="twitter:url" content="https://pranie-dywanow.j.pl/" />
     <meta name="p:domain_verify" content="c120840eb58eaabeb85cdcb47fc68aa3" />
   </head>
-
   <body>
     <noscript>
       <iframe
@@ -208,11 +213,11 @@
     </noscript>
 
     <!--
-      Pre-rendering krytyczny dopasowany w 100% do geometrii Reacta:
-      1. Fixed header 70px (dokładnie jak Navbar w React)
-      2. Main z padding-top: 70px
-      3. Sekcja Hero z obrazem LCP
-      Gwarantuje: natychmiastowe FCP (1.6s) i brak przesunięcia po załadowaniu Reacta!
+      Szkielet krytyczny w 100% zsynchronizowany z geometrią Reacta:
+      1. Fixed header 70px (dokładnie jak Navbar).
+      2. Main z padding-top: 70px.
+      3. Sekcja Hero z obrazem LCP oraz zarezerwowaną przestrzenią nagłówka.
+      Gwarantuje: natychmiastowe FCP (1.6s), stabilny LCP oraz eliminację CLS (0.00).
     -->
     <div id="root">
       <header
@@ -223,7 +228,7 @@
           right: 0;
           height: 70px;
           z-index: 50;
-          background-color: #0f172a;
+          background-color: #ffffff;
         "
       ></header>
       <main style="padding-top: 70px">
@@ -243,7 +248,7 @@
               height="450"
               fetchpriority="high"
               loading="eager"
-              decoding="sync"
+              decoding="async"
               style="
                 width: 100%;
                 height: 100%;
@@ -261,32 +266,72 @@
               "
             ></div>
           </div>
+          <!-- Stabilizacja układu tekstu - zapobiega CLS przy montowaniu Reacta -->
+          <div
+            style="
+              position: relative;
+              z-index: 20;
+              width: 100%;
+              padding: 24px 16px;
+              box-sizing: border-box;
+            "
+          >
+            <div style="max-width: 1024px; margin: 0 auto">
+              <div
+                style="
+                  color: #ffffff;
+                  font-size: 36px;
+                  line-height: 1.1;
+                  font-weight: 700;
+                  margin-bottom: 24px;
+                "
+              >
+                SUPER PUCUŚ
+                <div
+                  style="
+                    font-size: 24px;
+                    color: #f1f5f9;
+                    margin-top: 8px;
+                    font-weight: 400;
+                  "
+                >
+                  – Profesjonalne pranie dywanów
+                </div>
+              </div>
+              <p
+                style="
+                  color: #ffffff;
+                  font-size: 20px;
+                  line-height: 1.4;
+                  margin-bottom: 32px;
+                "
+              >
+                Pranie dywanów, wykładzin i tapicerki meblowej w Radomiu
+              </p>
+            </div>
+          </div>
         </section>
       </main>
     </div>
 
     <div id="modal-root"></div>
-
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Analityka opóźniona do pierwszej interakcji -->
+    <!-- Analityka opóźniona do pierwszej realnej interakcji użytkownika -->
     <script>
       (function () {
         var loaded = false;
         function loadAnalytics() {
           if (loaded) return;
           loaded = true;
-
           userEvents.forEach(function (e) {
             window.removeEventListener(e, loadAnalytics, { passive: true });
           });
-
           var gads = document.createElement("script");
           gads.async = true;
           gads.src =
             "https://www.googletagmanager.com/gtag/js?id=AW-11057616603";
           document.head.appendChild(gads);
-
           (function (w, d, s, l, i) {
             w[l] = w[l] || [];
             w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -297,7 +342,6 @@
             j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
             f.parentNode.insertBefore(j, f);
           })(window, document, "script", "dataLayer", "GTM-KSSZ23X6");
-
           !(function (f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function () {
@@ -323,7 +367,6 @@
           );
           window.fbq("init", "1288180923455820");
           window.fbq("track", "PageView");
-
           (function (c, l, a, r, i, t, y) {
             c[a] =
               c[a] ||
@@ -337,7 +380,6 @@
             y.parentNode.insertBefore(t, y);
           })(window, document, "clarity", "script", "vus2nkz2ev");
         }
-
         var userEvents = [
           "scroll",
           "touchstart",

@@ -7,32 +7,19 @@ interface HeroImageSliderProps {
 }
 
 /**
- * Zoptymalizowany komponent Hero dla mobile i desktop:
- * - MOBILE (< 768px): Wyłącznie pojedyncze, statyczne zdjęcie LCP. Zero timerów, zero re-renderów.
- * - DESKTOP (>= 768px): Dyskretna rotacja slajdów z bezpiecznym opóźnieniem.
- * - decoding="sync" dla natychmiastowego malowania LCP bez czekania na zwolnienie wątku JS.
+ * Super-zoptymalizowany komponent Hero dla mobile i desktop:
+ * 1. ZERO odpytywania geometrii (innerWidth) podczas renderu – eliminuje wymuszony reflow.
+ * 2. Pierwszy obraz (LCP) jest ZAWSZE statyczny, natychmiastowy i nigdy nie jest odmontowywany.
+ * 3. Kolejne slajdy (na desktopie) montują się dopiero po 6 sekundach od załadowania,
+ *    dzięki czemu nie kradną ani 1 KB transferu krytycznemu obrazowi LCP na starcie.
+ * 4. Na mobile (< 768px): 100% statyczny obraz, 0 timerów, 0 re-renderów.
  */
 const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Synchroniczne określenie ekranu od 1. klatki (eliminuje opóźnienie montowania)
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768;
-    }
-    return true;
-  });
+  const [isDesktopActive, setIsDesktopActive] = useState(false);
 
   const intervalRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const stopTimer = useCallback(() => {
     if (intervalRef.current !== null) {
@@ -42,92 +29,110 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   }, []);
 
   const startTimer = useCallback(() => {
-    // Na telefonie slider jest BEZWZGLĘDNIE wyłączony - chroni to LCP i baterię
-    if (isMobile || !images || images.length <= 1) return;
+    if (!images || images.length <= 1) return;
     if (intervalRef.current !== null) return;
     if (document.hidden) return;
 
     intervalRef.current = window.setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
     }, interval);
-  }, [images, interval, isMobile]);
+  }, [images, interval]);
 
   useEffect(() => {
-    if (!isMobile) {
-      // Na desktopie startujemy timer dopiero po 5 sekundach
-      const delay = window.setTimeout(() => {
-        startTimer();
-      }, 5000);
-      return () => {
-        window.clearTimeout(delay);
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    // Aktywacja rotacji slajdów WYŁĄCZNIE na dużych ekranach i dopiero po 6s od startu strony
+    let delayTimer: number | null = null;
+
+    const evaluateSlider = () => {
+      if (mediaQuery.matches && images && images.length > 1) {
+        delayTimer = window.setTimeout(() => {
+          setIsDesktopActive(true);
+          startTimer();
+        }, 6000);
+      } else {
+        setIsDesktopActive(false);
         stopTimer();
-      };
-    } else {
+      }
+    };
+
+    evaluateSlider();
+
+    const handleChange = () => {
+      if (delayTimer) window.clearTimeout(delayTimer);
+      evaluateSlider();
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      if (delayTimer) window.clearTimeout(delayTimer);
+      mediaQuery.removeEventListener("change", handleChange);
       stopTimer();
-    }
-  }, [isMobile, startTimer, stopTimer]);
+    };
+  }, [images, startTimer, stopTimer]);
 
   if (!images || images.length === 0) return null;
+
   const firstImage = images[0];
 
-  // -------------------------------------------------------------
-  // WERSJA MOBILNA: 100% statyczny obraz.
-  // decoding="sync" zmusza przeglądarkę do natychmiastowego zdekodowania
-  // pikseli zdjęcia LCP bez czekania na wykonanie JavaScriptu.
-  // -------------------------------------------------------------
-  if (isMobile) {
-    return (
-      <div className="relative w-full h-full bg-slate-900 overflow-hidden">
-        <img
-          src={firstImage}
-          alt={t(
-            "hero_slide_alt",
-            "Zdjęcie przedstawiające realizację prania dywanów",
-          )}
-          width={800}
-          height={450}
-          {...{ fetchpriority: "high" }}
-          loading="eager"
-          decoding="sync"
-          className="w-full h-full object-cover absolute inset-0 opacity-100 z-10"
-        />
-      </div>
-    );
-  }
-
-  // -------------------------------------------------------------
-  // WERSJA DESKTOP: Elegancki slider dla dużych ekranów
-  // -------------------------------------------------------------
   return (
     <div className="relative w-full h-full bg-slate-900 overflow-hidden">
-      {images.map((src, index) => {
-        const isFirst = index === 0;
-        const isCurrent = index === currentIndex;
-        const visibilityClass = isFirst
-          ? `opacity-100 ${isCurrent ? "z-10" : "z-0"}`
-          : `transition-opacity duration-700 ease-in-out ${
-              isCurrent
-                ? "opacity-100 z-20"
-                : "opacity-0 z-0 pointer-events-none"
-            }`;
+      {/*
+        GŁÓWNY OBRAZ LCP:
+        Zawsze renderowany od 1. klatki, ma stałą geometrię, zoptymalizowane dekodowanie
+        i najwyższy priorytet pobierania. Nigdy nie znika ani nie przeładowuje się.
+      */}
+      <img
+        src={firstImage}
+        alt={t(
+          "hero_slide_alt",
+          "Zdjęcie przedstawiające realizację prania dywanów",
+        )}
+        width={800}
+        height={450}
+        loading="eager"
+        decoding="async"
+        fetchPriority="high"
+        className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          currentIndex === 0 ? "opacity-100 z-10" : "opacity-0 z-0"
+        }`}
+      />
 
-        return (
-          <img
-            key={src}
-            src={src}
-            alt={t(
-              "hero_slide_alt",
-              "Zdjęcie przedstawiające realizację prania dywanów",
-            )}
-            width={800}
-            height={450}
-            loading={isFirst ? "eager" : "lazy"}
-            {...{ fetchpriority: isFirst ? "high" : "low" }}
-            decoding={isFirst ? "sync" : "async"}
-            className={`w-full h-full object-cover absolute inset-0 ${visibilityClass}`}
-          />
-        );
-      })}
+      {/*
+        POZOSTAŁE SLAJDY:
+        Montowane w DOM TYLKO wtedy, gdy minęło 6 sekund na desktopie.
+        Dzięki temu na urządzeniach mobilnych i w krytycznym oknie ładowania (0-5s)
+        przeglądarka NIE pobiera ani jednego zbędnego bajtu!
+      */}
+      {isDesktopActive &&
+        images.slice(1).map((src, index) => {
+          const slideIndex = index + 1;
+          const isCurrent = slideIndex === currentIndex;
+
+          return (
+            <img
+              key={src}
+              src={src}
+              alt={t(
+                "hero_slide_alt",
+                "Zdjęcie przedstawiające realizację prania dywanów",
+              )}
+              width={800}
+              height={450}
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                isCurrent
+                  ? "opacity-100 z-10"
+                  : "opacity-0 z-0 pointer-events-none"
+              }`}
+            />
+          );
+        })}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link as WouterLink, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX, FiPhone } from "react-icons/fi";
 import { BsMessenger } from "react-icons/bs";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -13,9 +12,8 @@ import {
   PageKey,
 } from "@/config/slugs";
 
-// Prawidłowa ścieżka do Twojego oryginalnego logo
+// Prawidłowa ścieżka do oryginalnego logo
 const logoPath = "/images/sp.avif";
-
 const HEADER_OFFSET = 70;
 
 const Navbar = () => {
@@ -62,7 +60,6 @@ const Navbar = () => {
   // Śledzenie konwersji połączenia telefonicznego
   const trackPhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const url = e.currentTarget.href;
-
     if (typeof (window as any).gtag_report_conversion === "function") {
       e.preventDefault();
       (window as any).gtag_report_conversion(url);
@@ -77,7 +74,6 @@ const Navbar = () => {
         window.location.href = url;
       }
     };
-
     setTimeout(executeCall, 500);
 
     if (typeof window !== "undefined" && (window as any).gtag) {
@@ -138,6 +134,7 @@ const Navbar = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       }
+
       if (navigate && currentPath !== targetPath) {
         navigate(targetPath, { replace: true });
       }
@@ -195,6 +192,8 @@ const Navbar = () => {
             </span>
           </WouterLink>
         </div>
+
+        {/* Nawigacja desktopowa */}
         <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
           <ul className="flex space-x-4 xl:space-x-5">
             <li>
@@ -224,6 +223,8 @@ const Navbar = () => {
                 {t("nav.about")}
               </WouterLink>
             </li>
+
+            {/* Dropdown Realizacje (Desktop) */}
             <li className="relative">
               <button
                 type="button"
@@ -236,7 +237,7 @@ const Navbar = () => {
               >
                 {t("nav.portfolio")}
                 <svg
-                  className={`w-4 h-4 ml-1 transform transition-transform ${
+                  className={`w-4 h-4 ml-1 transform transition-transform duration-200 ${
                     isDropdownOpen["portfolio"] ? "rotate-180" : ""
                   }`}
                   fill="none"
@@ -253,38 +254,37 @@ const Navbar = () => {
                   ></path>
                 </svg>
               </button>
-              <AnimatePresence>
-                {isDropdownOpen["portfolio"] && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-xl py-1 z-20 ring-1 ring-black ring-opacity-5"
+
+              {/* Płynny dropdown CSS bez framer-motion */}
+              <div
+                className={`absolute left-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg py-1 z-50 transition-all duration-200 origin-top ${
+                  isDropdownOpen["portfolio"]
+                    ? "opacity-100 scale-100 pointer-events-auto"
+                    : "opacity-0 scale-95 pointer-events-none"
+                }`}
+              >
+                {portfolioDropdownLinks.map((link) => (
+                  <a
+                    key={link.hashKey}
+                    href={`${getLocalizedPath(
+                      PAGE_KEYS.PORTFOLIO,
+                      currentLang,
+                    )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLocalizedLinkClick(
+                        PAGE_KEYS.PORTFOLIO,
+                        link.hashKey,
+                      );
+                    }}
+                    className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700"
                   >
-                    {portfolioDropdownLinks.map((link) => (
-                      <a
-                        key={link.hashKey}
-                        href={`${getLocalizedPath(
-                          PAGE_KEYS.PORTFOLIO,
-                          currentLang,
-                        )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleLocalizedLinkClick(
-                            PAGE_KEYS.PORTFOLIO,
-                            link.hashKey,
-                          );
-                        }}
-                        className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-slate-700"
-                      >
-                        {t(link.labelKey)}
-                      </a>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {t(link.labelKey)}
+                  </a>
+                ))}
+              </div>
             </li>
+
             <li>
               <WouterLink
                 href={getLocalizedPath(PAGE_KEYS.EQUIPMENT, currentLang)}
@@ -314,19 +314,18 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
+
           <div className="flex items-center space-x-3">
-            <a
-              href="tel:+48531890827"
-              onClick={trackPhoneClick}
-              className="flex items-center font-semibold px-3 py-2 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
-            >
-              <FiPhone className="w-5 h-5 mr-2" aria-hidden="true" />
-              <span className="whitespace-nowrap">
-                {t("nav.callNow")} +48 531 890 827
-              </span>
-            </a>
             <LanguageSelector />
             <ThemeToggle />
+            <a
+              href="tel:+48531890827"
+              className="inline-flex items-center font-semibold px-4 py-2 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
+              onClick={trackPhoneClick}
+            >
+              <FiPhone className="w-4 h-4 mr-1.5" aria-hidden="true" />
+              <span>{t("nav.callNow")} +48 531 890 827</span>
+            </a>
             <a
               href="https://m.me/super.pucus"
               target="_blank"
@@ -338,6 +337,8 @@ const Navbar = () => {
             </a>
           </div>
         </div>
+
+        {/* Przyciski mobile */}
         <div className="lg:hidden flex items-center space-x-3">
           <LanguageSelector />
           <ThemeToggle />
@@ -361,173 +362,166 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            id="mobile-navigation-menu"
-            variants={{
-              hidden: { opacity: 0, height: 0 },
-              visible: { opacity: 1, height: "auto" },
-            }}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white dark:bg-slate-900 absolute w-full shadow-lg pb-4 top-[calc(4.375rem-1px)]"
-          >
-            <ul className="space-y-1 px-4">
-              <li>
-                <WouterLink
-                  href={getLocalizedPath(PAGE_KEYS.HOME, currentLang)}
-                  onClick={() => handleLocalizedLinkClick(PAGE_KEYS.HOME)}
-                  className={mobileNavLinkClasses(PAGE_KEYS.HOME)}
-                >
-                  {t("nav.home")}
-                </WouterLink>
-              </li>
-              <li>
-                <WouterLink
-                  href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
-                  onClick={() => handleLocalizedLinkClick(PAGE_KEYS.OFFER)}
-                  className={mobileNavLinkClasses(PAGE_KEYS.OFFER)}
-                >
-                  {t("nav.offer")}
-                </WouterLink>
-              </li>
-              <li>
-                <WouterLink
-                  href={getLocalizedPath(PAGE_KEYS.ABOUT, currentLang)}
-                  onClick={() => handleLocalizedLinkClick(PAGE_KEYS.ABOUT)}
-                  className={mobileNavLinkClasses(PAGE_KEYS.ABOUT)}
-                >
-                  {t("nav.about")}
-                </WouterLink>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => toggleDropdown("portfolio")}
-                  aria-haspopup="true"
-                  aria-expanded={Boolean(isDropdownOpen["portfolio"])}
-                  className={`flex justify-between items-center w-full py-2.5 font-medium ${mobileNavLinkClasses(
+
+      {/* Menu mobilne – w 100% natywne przejście CSS bez biblioteki motion */}
+      <div
+        id="mobile-navigation-menu"
+        className={`lg:hidden bg-white dark:bg-slate-900 absolute w-full shadow-lg pb-4 top-[calc(4.375rem-1px)] transition-all duration-300 origin-top overflow-hidden ${
+          isOpen
+            ? "max-h-[90vh] opacity-100 pointer-events-auto"
+            : "max-h-0 opacity-0 pointer-events-none"
+        }`}
+      >
+        <ul className="space-y-1 px-4">
+          <li>
+            <WouterLink
+              href={getLocalizedPath(PAGE_KEYS.HOME, currentLang)}
+              onClick={() => handleLocalizedLinkClick(PAGE_KEYS.HOME)}
+              className={mobileNavLinkClasses(PAGE_KEYS.HOME)}
+            >
+              {t("nav.home")}
+            </WouterLink>
+          </li>
+          <li>
+            <WouterLink
+              href={getLocalizedPath(PAGE_KEYS.OFFER, currentLang)}
+              onClick={() => handleLocalizedLinkClick(PAGE_KEYS.OFFER)}
+              className={mobileNavLinkClasses(PAGE_KEYS.OFFER)}
+            >
+              {t("nav.offer")}
+            </WouterLink>
+          </li>
+          <li>
+            <WouterLink
+              href={getLocalizedPath(PAGE_KEYS.ABOUT, currentLang)}
+              onClick={() => handleLocalizedLinkClick(PAGE_KEYS.ABOUT)}
+              className={mobileNavLinkClasses(PAGE_KEYS.ABOUT)}
+            >
+              {t("nav.about")}
+            </WouterLink>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              onClick={() => toggleDropdown("portfolio")}
+              aria-haspopup="true"
+              aria-expanded={Boolean(isDropdownOpen["portfolio"])}
+              className={`flex justify-between items-center w-full py-2.5 font-medium ${mobileNavLinkClasses(
+                PAGE_KEYS.PORTFOLIO,
+              )}`}
+            >
+              {t("nav.portfolio")}
+              <svg
+                className={`w-4 h-4 transition-transform duration-200 ${
+                  isDropdownOpen["portfolio"] ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+
+            {/* Sub-dropdown na mobile w CSS */}
+            <div
+              className={`pl-4 mt-1 space-y-1 transition-all duration-200 overflow-hidden ${
+                isDropdownOpen["portfolio"]
+                  ? "max-h-48 opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
+            >
+              {portfolioDropdownLinks.map((link) => (
+                <a
+                  key={link.hashKey}
+                  href={`${getLocalizedPath(
                     PAGE_KEYS.PORTFOLIO,
-                  )}`}
-                >
-                  {t("nav.portfolio")}
-                  <svg
-                    className={`w-4 h-4 transition-transform ${
-                      isDropdownOpen["portfolio"] ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </button>
-                <AnimatePresence>
-                  {isDropdownOpen["portfolio"] && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="pl-4 mt-1 space-y-1"
-                    >
-                      {portfolioDropdownLinks.map((link) => (
-                        <a
-                          key={link.hashKey}
-                          href={`${getLocalizedPath(
-                            PAGE_KEYS.PORTFOLIO,
-                            currentLang,
-                          )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleLocalizedLinkClick(
-                              PAGE_KEYS.PORTFOLIO,
-                              link.hashKey,
-                            );
-                          }}
-                          className="block py-1.5 text-gray-800 hover:text-primary dark:text-gray-100 dark:hover:text-primary-400"
-                        >
-                          {t(link.labelKey)}
-                        </a>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </li>
-              <li>
-                <WouterLink
-                  href={getLocalizedPath(PAGE_KEYS.EQUIPMENT, currentLang)}
-                  onClick={() => handleLocalizedLinkClick(PAGE_KEYS.EQUIPMENT)}
-                  className={mobileNavLinkClasses(PAGE_KEYS.EQUIPMENT)}
-                >
-                  {t("nav.equipment")}
-                </WouterLink>
-              </li>
-              <li>
-                <WouterLink
-                  href={getLocalizedPath(PAGE_KEYS.CONTACT, currentLang)}
-                  onClick={() => handleLocalizedLinkClick(PAGE_KEYS.CONTACT)}
-                  className={mobileNavLinkClasses(PAGE_KEYS.CONTACT)}
-                >
-                  {t("nav.contact")}
-                </WouterLink>
-              </li>
-              <li>
-                <a
-                  href="https://dywany-pranie.blogspot.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => {
-                    setIsOpen(false);
-                    setIsDropdownOpen({});
-                  }}
-                  className="block py-2.5 font-medium text-gray-800 dark:text-gray-100"
-                >
-                  {t("nav.blog")}
-                </a>
-              </li>
-              <li className="pt-3 border-t border-gray-200 dark:border-gray-700">
-                <a
-                  href="tel:+48531890827"
-                  className="flex items-center font-semibold py-2.5 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
+                    currentLang,
+                  )}#${getLocalizedSlug(link.hashKey, currentLang)}`}
                   onClick={(e) => {
-                    setIsOpen(false);
-                    trackPhoneClick(e);
+                    e.preventDefault();
+                    handleLocalizedLinkClick(PAGE_KEYS.PORTFOLIO, link.hashKey);
                   }}
+                  className="block py-1.5 text-gray-800 hover:text-primary dark:text-gray-100 dark:hover:text-primary-400"
                 >
-                  <FiPhone className="w-5 h-5 mr-2" aria-hidden="true" />
-                  <span>{t("nav.callNow")} +48 531 890 827</span>
+                  {t(link.labelKey)}
                 </a>
-              </li>
-              <li className="py-2 flex items-center">
-                <a
-                  href="https://m.me/super.pucus"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
-                  aria-label={t("nav.connectMessenger", "Connect on Messenger")}
-                  onClick={() => {
-                    setIsOpen(false);
-                    setIsDropdownOpen({});
-                  }}
-                >
-                  <BsMessenger className="w-6 h-6 mr-2" aria-hidden="true" />
-                  {t("nav.messenger", "Messenger")}
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              ))}
+            </div>
+          </li>
+
+          <li>
+            <WouterLink
+              href={getLocalizedPath(PAGE_KEYS.EQUIPMENT, currentLang)}
+              onClick={() => handleLocalizedLinkClick(PAGE_KEYS.EQUIPMENT)}
+              className={mobileNavLinkClasses(PAGE_KEYS.EQUIPMENT)}
+            >
+              {t("nav.equipment")}
+            </WouterLink>
+          </li>
+          <li>
+            <WouterLink
+              href={getLocalizedPath(PAGE_KEYS.CONTACT, currentLang)}
+              onClick={() => handleLocalizedLinkClick(PAGE_KEYS.CONTACT)}
+              className={mobileNavLinkClasses(PAGE_KEYS.CONTACT)}
+            >
+              {t("nav.contact")}
+            </WouterLink>
+          </li>
+          <li>
+            <a
+              href="https://dywany-pranie.blogspot.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setIsOpen(false);
+                setIsDropdownOpen({});
+              }}
+              className="block py-2.5 font-medium text-gray-800 dark:text-gray-100"
+            >
+              {t("nav.blog")}
+            </a>
+          </li>
+
+          <li className="pt-3 border-t border-gray-200 dark:border-gray-700">
+            <a
+              href="tel:+48531890827"
+              className="flex items-center font-semibold py-2.5 rounded-md transition-colors duration-300 bg-[hsl(var(--marine-h)_var(--marine-s)_65%)] text-[hsl(var(--marine-h)_30%_15%)] border-2 border-transparent hover:bg-transparent hover:text-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] hover:border-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l))] dark:hover:text-[hsl(var(--foreground))] dark:hover:border-[hsl(var(--foreground))]"
+              onClick={(e) => {
+                setIsOpen(false);
+                trackPhoneClick(e);
+              }}
+            >
+              <FiPhone className="w-5 h-5 mr-2" aria-hidden="true" />
+              <span>{t("nav.callNow")} +48 531 890 827</span>
+            </a>
+          </li>
+          <li className="py-2 flex items-center">
+            <a
+              href="https://m.me/super.pucus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200 flex items-center p-1 rounded-md hover:bg-gray-100 dark:hover:bg-slate-700"
+              aria-label={t("nav.connectMessenger", "Connect on Messenger")}
+              onClick={() => {
+                setIsOpen(false);
+                setIsDropdownOpen({});
+              }}
+            >
+              <BsMessenger className="w-6 h-6 mr-2" aria-hidden="true" />
+              {t("nav.messenger", "Messenger")}
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 };
