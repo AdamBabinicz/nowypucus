@@ -18,11 +18,9 @@ import ContentContainer from "@/components/ContentContainer";
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
-
   const domain = "https://pranie-dywanow.j.pl";
   const currentPath = i18n.language === "pl" ? "/kontakt" : "/contact";
   const canonicalUrl = `${domain}${currentPath}`;
-
   const googleReviewLink =
     "https://search.google.com/local/writereview?placeid=ChIJ_9Tq7MReGEcRwnvtzQGkWL0";
 
@@ -46,6 +44,7 @@ const Contact = () => {
           window.location.href = url;
         },
       });
+
       // Zabezpieczenie na wypadek braku odpowiedzi od Google
       setTimeout(() => {
         window.location.href = url;
@@ -126,6 +125,7 @@ const Contact = () => {
         <link rel="alternate" hrefLang="pl" href={`${domain}/kontakt`} />
         <link rel="alternate" hrefLang="en" href={`${domain}/contact`} />
         <link rel="alternate" hrefLang="x-default" href={`${domain}/kontakt`} />
+
         <script type="application/ld+json">{`
           {
             "@context": "https://schema.org",
@@ -182,7 +182,8 @@ const Contact = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-16 bg-white dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))]">
+      {/* Sekcja: Formularz i dane kontaktowe (naprawione: dark:bg-slate-900) */}
+      <section className="py-16 bg-white dark:bg-slate-900">
         <ContentContainer>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
@@ -200,6 +201,7 @@ const Contact = () => {
                 <p className="text-gray-600 dark:text-gray-300 mb-8">
                   {t("contact.questions")}
                 </p>
+
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 rounded-full p-3 mr-4">
@@ -218,6 +220,7 @@ const Contact = () => {
                       </a>
                     </div>
                   </div>
+
                   <div className="flex items-start">
                     <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 rounded-full p-3 mr-4">
                       <FiMail className="w-6 h-6 text-primary dark:text-primary-400" />
@@ -234,6 +237,7 @@ const Contact = () => {
                       </a>
                     </div>
                   </div>
+
                   <div className="flex items-start">
                     <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 rounded-full p-3 mr-4">
                       <FiClock className="w-6 h-6 text-primary dark:text-primary-400" />
@@ -250,6 +254,7 @@ const Contact = () => {
                       </p>
                     </div>
                   </div>
+
                   <div className="flex items-start">
                     <div className="flex-shrink-0 bg-primary-100 dark:bg-primary-900 rounded-full p-3 mr-4">
                       <FiMapPin className="w-6 h-6 text-primary dark:text-primary-400" />
@@ -264,6 +269,7 @@ const Contact = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="mt-8">
                   <h3 className="font-heading font-semibold text-lg text-foreground dark:text-white mb-3">
                     {t("contact.qrCode")}
@@ -304,6 +310,7 @@ const Contact = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="mt-8">
                   <h3 className="font-heading font-semibold text-lg text-foreground dark:text-white mb-3">
                     {t("contactPage.socialMediaTitle")}
@@ -332,6 +339,7 @@ const Contact = () => {
                 </div>
               </motion.div>
             </div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -358,6 +366,7 @@ const Contact = () => {
               {t("contactPage.locationDesc")}
             </p>
           </div>
+
           <div className="bg-white dark:bg-slate-700 rounded-xl shadow-md">
             <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
               <iframe
@@ -383,6 +392,7 @@ const Contact = () => {
             <h2 className="font-limelight text-3xl font-bold text-center mb-10 text-foreground dark:text-white">
               {t("contactPage.faqTitle")}
             </h2>
+
             <div className="space-y-6">
               <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
                 <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-white">
@@ -392,6 +402,7 @@ const Contact = () => {
                   {t("contactPage.faq1Answer")}
                 </p>
               </div>
+
               <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
                 <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-white">
                   {t("contactPage.faq2Question")}
@@ -400,6 +411,7 @@ const Contact = () => {
                   {t("contactPage.faq2Answer")}
                 </p>
               </div>
+
               <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
                 <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-white">
                   {t("contactPage.faq3Question")}
@@ -408,6 +420,7 @@ const Contact = () => {
                   {t("contactPage.faq3Answer")}
                 </p>
               </div>
+
               <div className="bg-gray-50 dark:bg-slate-800 rounded-lg p-6">
                 <h3 className="font-heading text-xl font-semibold mb-2 text-foreground dark:text-white">
                   {t("contactPage.faq4Question")}

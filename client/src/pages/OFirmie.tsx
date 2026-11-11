@@ -14,7 +14,6 @@ import ContentContainer from "@/components/ContentContainer";
 
 const OFirmie = () => {
   const { t, i18n } = useTranslation();
-
   const domain = "https://pranie-dywanow.j.pl";
   const isPl = i18n.language === "pl";
   const canonicalUrl = `${domain}${isPl ? "/o-firmie" : "/about"}`;
@@ -95,7 +94,8 @@ const OFirmie = () => {
         </ContentContainer>
       </section>
 
-      <section className="py-16 bg-white dark:bg-gradient-to-r dark:from-[hsl(var(--gradient-primary-h)_var(--gradient-primary-s)_var(--gradient-primary-l-darkened))] dark:to-[hsl(var(--marine-h)_var(--marine-s)_var(--marine-l-lightmode-darkened))] overflow-hidden">
+      {/* Sekcja: Nasza historia (naprawione: dark:bg-slate-900) */}
+      <section className="py-16 bg-white dark:bg-slate-900 overflow-hidden">
         <ContentContainer>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -121,6 +121,7 @@ const OFirmie = () => {
                 </p>
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -149,6 +150,7 @@ const OFirmie = () => {
               {t("aboutPage.missionStatement")}
             </p>
           </div>
+
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12"
             variants={containerVariants}
@@ -170,6 +172,7 @@ const OFirmie = () => {
                 {t("aboutPage.value1Desc")}
               </p>
             </motion.div>
+
             <motion.div
               className="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-md text-center"
               variants={itemVariants}
@@ -184,6 +187,7 @@ const OFirmie = () => {
                 {t("aboutPage.value2Desc")}
               </p>
             </motion.div>
+
             <motion.div
               className="bg-white dark:bg-slate-700 p-6 rounded-xl shadow-md text-center"
               variants={itemVariants}
@@ -207,6 +211,7 @@ const OFirmie = () => {
           <h2 className="font-limelight text-3xl font-bold text-center mb-12 text-gray-800 dark:text-white">
             {t("aboutPage.whyChooseUsTitle")}
           </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -229,6 +234,7 @@ const OFirmie = () => {
                 </div>
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -250,6 +256,7 @@ const OFirmie = () => {
                 </div>
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -284,6 +291,7 @@ const OFirmie = () => {
                 </div>
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -315,10 +323,12 @@ const OFirmie = () => {
             <h2 className="font-limelight text-3xl font-bold text-center mb-10 text-gray-800 dark:text-white">
               {t("aboutPage.certificationTitle")}
             </h2>
+
             <div className="bg-white dark:bg-slate-700 rounded-xl shadow-md p-6 md:p-8">
               <p className="text-gray-800 dark:text-gray-300 mb-6 text-center">
                 {t("aboutPage.certificationDesc")}
               </p>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 text-center">
                   <h3 className="font-heading text-lg font-semibold mb-2 text-gray-800 dark:text-white">
@@ -328,6 +338,7 @@ const OFirmie = () => {
                     {t("aboutPage.cert1Desc")}
                   </p>
                 </div>
+
                 <div className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 text-center">
                   <h3 className="font-heading text-lg font-semibold mb-2 text-gray-800 dark:text-white">
                     {t("aboutPage.cert2Title")}
@@ -337,6 +348,7 @@ const OFirmie = () => {
                   </p>
                 </div>
               </div>
+
               <div className="mt-8 text-center">
                 <p className="text-primary dark:text-sky-400 font-bold">
                   {t("aboutPage.certificationNote")}

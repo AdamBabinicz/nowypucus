@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { BsStars } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 
@@ -9,15 +8,11 @@ const ScrollToTopButton = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.pageYOffset > 300);
     };
 
-    window.addEventListener("scroll", toggleVisibility);
-
+    // passive: true zapobiega blokowaniu płynności przewijania na telefonie
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
@@ -29,22 +24,18 @@ const ScrollToTopButton = () => {
   };
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-primary dark:bg-primary-700 text-white rounded-full p-3 shadow-lg hover:bg-primary-700 dark:hover:bg-primary-800 transition-colors z-50"
-          aria-label={t("common.scroll_to_top", "Przewiń do góry")}
-        >
-          <BsStars className="w-6 h-6" />
-        </motion.button>
-      )}
-    </AnimatePresence>
+    <button
+      type="button"
+      onClick={scrollToTop}
+      className={`fixed bottom-8 right-8 bg-primary dark:bg-primary-700 text-white rounded-full p-3 shadow-lg hover:bg-primary-700 dark:hover:bg-primary-800 hover:scale-110 active:scale-90 transition-all duration-300 z-50 ${
+        isVisible
+          ? "opacity-100 scale-100 pointer-events-auto"
+          : "opacity-0 scale-75 pointer-events-none"
+      }`}
+      aria-label={t("common.scroll_to_top", "Przewiń do góry")}
+    >
+      <BsStars className="w-6 h-6" />
+    </button>
   );
 };
 
