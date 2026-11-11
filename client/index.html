@@ -12,16 +12,7 @@
       crossorigin="anonymous"
     />
 
-    <!-- 2. Preload kluczowego obrazu LCP z najwyższym priorytetem sieciowym -->
-    <link
-      rel="preload"
-      href="/images/dywany/88.avif"
-      as="image"
-      type="image/avif"
-      fetchpriority="high"
-    />
-
-    <!-- 3. Krytyczny CSS: stabilizacja geometrii nagłówków H1, tła i zerowy CLS -->
+    <!-- 2. Krytyczny CSS: stabilizacja geometrii nagłówków H1 i zerowy CLS -->
     <style>
       body {
         background-color: #0f172a;
@@ -34,24 +25,6 @@
       }
       #root {
         min-height: 100vh;
-        position: relative;
-        z-index: 1;
-      }
-      /* Statyczny kontener obrazu LCP: wykrywany natychmiast przez parser HTML przed uruchomieniem Reacta */
-      #hero-lcp-frame {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 520px;
-        z-index: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      #hero-lcp-frame img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
       }
       #modal-root {
         position: relative;
@@ -82,7 +55,6 @@
       .hero-section {
         position: relative;
         contain: layout;
-        background-color: transparent !important;
       }
     </style>
 
@@ -226,19 +198,6 @@
         alt="facebook"
       />
     </noscript>
-
-    <!-- Błyskawiczny obraz LCP (dostępny dla silnika przeglądarki od 1. milisekundy, poza zasięgiem czyszczenia Reacta) -->
-    <div id="hero-lcp-frame" aria-hidden="true">
-      <img
-        src="/images/dywany/88.avif"
-        alt="SUPER PUCUŚ - Pranie dywanów"
-        width="800"
-        height="450"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
-    </div>
 
     <!-- Punkt montowania aplikacji -->
     <div id="root"></div>
