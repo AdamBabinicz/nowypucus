@@ -45,10 +45,20 @@
         margin: 0 !important;
         padding: 0 !important;
       }
-      /* Stabilizacja linii nagłówka H1 - zapobiega przesunięciu układu (CLS) podczas wczytywania fontów */
+      /* Blokada skoków nagłówka H1 (CLS = 0) */
       h1 {
         line-height: 1.15 !important;
         margin-top: 0;
+      }
+      h1 span.font-major-mono {
+        display: block;
+        min-height: 2.5rem;
+        line-height: 1.15;
+      }
+      h1 span.font-limelight {
+        display: block;
+        min-height: 3.5rem;
+        line-height: 1.25;
       }
       .hero-section {
         position: relative;
@@ -85,11 +95,11 @@
     />
     <link rel="ard" href="/.well-known/ard.json" type="application/json" />
 
-    <!-- Odchudzona paczka Google Fonts (wyłącznie warianty potrzebne na start) -->
+    <!-- Google Fonts z display=optional - gwarancja braku opóźnionego LCP w 5. sekundzie i CLS = 0 -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=optional"
       onload="
         this.onload = null;
         this.rel = 'stylesheet';
@@ -98,7 +108,7 @@
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Limelight&family=Montserrat:wght@700&display=optional"
       />
     </noscript>
 
