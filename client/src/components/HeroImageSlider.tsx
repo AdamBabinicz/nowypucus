@@ -10,20 +10,26 @@ interface HeroImageSliderProps {
  * Zoptymalizowany komponent Hero dla mobile i desktop:
  * - MOBILE (< 768px): Wyłącznie pojedyncze, statyczne zdjęcie LCP. Zero timerów, zero re-renderów.
  * - DESKTOP (>= 768px): Dyskretna rotacja slajdów z bezpiecznym opóźnieniem.
- * - Bezpieczny fetchpriority dla React 18 (brak ostrzeżeń w konsoli).
+ * - decoding="sync" dla natychmiastowego malowania LCP bez czekania na zwolnienie wątku JS.
  */
 const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(true);
+
+  // Synchroniczne określenie ekranu od 1. klatki (eliminuje opóźnienie montowania)
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return true;
+  });
+
   const intervalRef = useRef<number | null>(null);
 
-  // Sprawdzamy, czy urządzenie to telefon (domyślnie true dla bezpieczeństwa mobile-first)
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
@@ -62,12 +68,12 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
   }, [isMobile, startTimer, stopTimer]);
 
   if (!images || images.length === 0) return null;
-
   const firstImage = images[0];
 
   // -------------------------------------------------------------
-  // WERSJA MOBILNA: 100% statyczny obraz. ZERO JS, ZERO MUTACJI DOM!
-  // To daje natychmiastowy, zielony wynik LCP w teście Mobile.
+  // WERSJA MOBILNA: 100% statyczny obraz.
+  // decoding="sync" zmusza przeglądarkę do natychmiastowego zdekodowania
+  // pikseli zdjęcia LCP bez czekania na wykonanie JavaScriptu.
   // -------------------------------------------------------------
   if (isMobile) {
     return (
@@ -82,7 +88,7 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
           height={450}
           {...{ fetchpriority: "high" }}
           loading="eager"
-          decoding="async"
+          decoding="sync"
           className="w-full h-full object-cover absolute inset-0 opacity-100 z-10"
         />
       </div>
@@ -97,7 +103,6 @@ const HeroImageSlider = ({ images, interval = 8000 }: HeroImageSliderProps) => {
       {images.map((src, index) => {
         const isFirst = index === 0;
         const isCurrent = index === currentIndex;
-
         const visibilityClass = isFirst
           ? `opacity-100 ${isCurrent ? "z-10" : "z-0"}`
           : `transition-opacity duration-700 ease-in-out ${
