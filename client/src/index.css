@@ -70,6 +70,10 @@
   line-gap-override: 0%;
 }
 
+.font-major-mono {
+  font-family: "Major Mono Display Self", monospace !important;
+}
+
 .font-limelight {
   font-family:
     "Limelight", "Limelight Fallback", Georgia, serif, cursive !important;
@@ -238,20 +242,6 @@ h1 span.font-limelight {
   }
   .font-heading {
     font-family: "Montserrat", sans-serif;
-  }
-
-  /* Eliminacja sierotek i optymalne łamanie wierszy tekstu */
-  p,
-  span,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  li,
-  a {
-    text-wrap: pretty;
   }
 }
 
