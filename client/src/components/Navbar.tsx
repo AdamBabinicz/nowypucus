@@ -13,7 +13,7 @@ import {
 } from "@/config/slugs";
 
 // Prawidłowa ścieżka do oryginalnego logo
-const logoPath = "/images/sp.png";
+const logoPath = "/images/sp.webp";
 const HEADER_OFFSET = 70;
 
 const Navbar = () => {
